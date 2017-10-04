@@ -9,7 +9,7 @@
     var AutoHide = false;
     var selectSim = function( param ){
         var options = {
-            element: '.select',//必须为类名
+            element: '.select',//必须为class类名
             reset: true,//重置value为select第一个选项
             changeCallback:false,//function(checkedValue,checkedText){},
             callbackFun:false//function
