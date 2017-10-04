@@ -49,7 +49,7 @@ let getEntryList = (path) => {
 }
 getEntryList( __dirname + '/DEV/js/modules/' );
 
-entryList['CMD'] = './DEV/CMD.js';
+entryList['CMD'] = './DEV/js/CMD.js';
 
 
 module.exports = {

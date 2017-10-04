@@ -317,7 +317,7 @@ input[type="text"],input[type="button"],input[type="submit"],input[type="tel"]{-
 input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-user-modify:read-write-plaintext-only;}
 body{font:14px/20px "Microsoft YaHei","Hiragino Sans GB","stheitisclight","sans-serif";word-wrap:break-word;-webkit-overflow-scrolling:touch;
 /*overflow-x:hidden;*/
-background: #f8f7f7 !important;
+background: #f8f7f7;
 overflow-y: hidden;
   box-sizing: border-box;
   min-width: 980px;
@@ -388,7 +388,7 @@ h1,h2,h3,h4,h5,h6{
 }
 
 
-  .right_content{
+  .main_box{
     height: calc(100% - 120px);
     width: calc(100% - 190px);
     min-width: 790px;

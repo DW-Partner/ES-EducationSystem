@@ -1,7 +1,8 @@
 (function(context) {
 
+//粗糙版本，待完善
 
-	require('./css/CMD.css');
+	require('../css/CMD.css');
 	// const $$ = context.$ = require('./jquery.min.js');
 	context.$ = require('jquery');
 
@@ -9,15 +10,31 @@
 
 	//公共销毁方法
 	$.distory = ()=>{};
+	$.mainBox = $('#main_box');
+
+	//load css文件方法
+	$.loadCss = (urls)=>{
+		if( typeof urls === 'string' ){
+			let link=document.createElement('link');
+		 	link.setAttribute('rel','stylesheet');
+		 	link.setAttribute('type','text/css');
+		 	link.setAttribute('href',urls);
+		 	link.setAttribute('class','main_css');
+	 		document.getElementById('main_box').appendChild(link);
+		}else{
+			for( let i=0;i<urls.length; i++ ){
+				let link=document.createElement('link');
+			 	link.setAttribute('rel','stylesheet');
+			 	link.setAttribute('type','text/css');
+			 	link.setAttribute('href',urls[i]);
+			 	link.setAttribute('class','main_css');
+		 		document.getElementById('main_box').appendChild(link);
+			}
+		}
+	}
 
 
-
-	$('body').css({
-		background: '#ccc'
-	})
-
-
-
+	//阻止浏览器默认事件
 	let stopDefault = (e) => {
 		if (e && e.preventDefault) {
 			e.preventDefault();
@@ -25,7 +42,6 @@
 		} else {
 			window.event.returnValue = false;
 		}
-
 	}
 
 	//ajax请求html页面公共方法
