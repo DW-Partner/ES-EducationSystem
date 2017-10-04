@@ -1,15 +1,12 @@
-(function(context) {
-
-//粗糙版本，待完善
-
 	require('../css/CMD.css');
-	// const $$ = context.$ = require('./jquery.min.js');
-	context.$ = require('jquery');
-
-	//import dialogFull from './dialogFull.js';
+	// const $$ = window.$ = require('./jquery.min.js');
+	window.$ = require('jquery');
+	//import jsonPage from './comp/jsonPage.js';//公共分页插件
+	//import dialogFull from './comp/dialogFull.js';//公共弹框插件
 
 	//公共销毁方法
 	$.distory = ()=>{};
+	//main容器
 	$.mainBox = $('#main_box');
 
 	//load css文件方法
@@ -60,7 +57,6 @@
 
 				$.distory();
 
-
 			},
 			error: ()=>{
 
@@ -82,26 +78,16 @@
 					return;
 				}
 
-
 				$.distory();
-
 
 			},
 			error: ()=>{
 
 			}
 		})
-
 	}
-
-
 
 	$(document).on('click', '#left_nav a', (e)=>{
 		stopDefault(e);
 		const url = $(this).attr('href');
-
-
-	})
-
-
-})(window)
+	});
