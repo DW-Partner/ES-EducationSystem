@@ -11,7 +11,7 @@
 
 	//load css文件方法
 	$.loadCss = (urls)=>{
-		let urls = typeof urls === 'string' ? [urls] : urls;
+		//let urls = typeof urls === 'string' ? [urls] : urls;
 		for( let i=0;i<urls.length; i++ ){
 			let link=document.createElement('link');
 		 	link.setAttribute('rel','stylesheet');

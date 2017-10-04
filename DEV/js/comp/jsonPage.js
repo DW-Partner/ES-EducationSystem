@@ -185,7 +185,6 @@
         $( options.pageBox ).off('click', pageElement).on('click', pageElement, function(){
             var pageNum = $( this ).attr( 'data-page' );
             options.run( +pageNum );
-            //window.location.hash = 'pageon=' + pageNum;
         });
         //事件绑定end
     };

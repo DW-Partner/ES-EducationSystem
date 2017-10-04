@@ -49,7 +49,7 @@ let getEntryList = (path) => {
 }
 getEntryList( __dirname + '/DEV/js/modules/' );
 
-entryList['CMD'] = './DEV/CMD.js';
+entryList['CMD'] = './DEV/js/CMD.js';
 
 
 module.exports = {
@@ -69,12 +69,12 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
+                test: /\.cass$/,
                 use: extractCSS.extract([ 'css-loader', 'postcss-loader' ])
             },
             {
-                test: /\.scss$/i,
-                use: extractCSS.extract([ 'css-loader', 'sass-loader' ])
+                test: /\.(scss|css)$/i,
+                use: extractCSS.extract([ 'css-loader', 'postcss-loader', 'sass-loader' ])
             },
     　　　　{
     　　　　　　test: /\.(png|jpg|gif)$/,
