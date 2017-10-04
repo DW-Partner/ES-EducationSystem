@@ -54,7 +54,7 @@ entryList['CMD'] = './DEV/CMD.js';
 
 module.exports = {
     entry: entryList,
-
+//    extensions: ['', '.js', '.json', '.css', 'scss', '.less'],
     output: {
         path: __dirname + "/build",//打包后的文件存放的地方
         filename: "js/[name].js"//打包后输出文件的文件名
@@ -76,16 +76,17 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.css$/,
+                test: /\.cass$/,
                 use: extractCSS.extract([ 'css-loader', 'postcss-loader' ])
             },
             {
-                test: /\.scss$/i,
-                use: extractCSS.extract([ 'css-loader', 'sass-loader' ])
+                test: /\.(scss|css)$/i,
+                use: extractCSS.extract([ 'css-loader', 'postcss-loader', 'sass-loader' ])
             },
     　　　　{
     　　　　　　test: /\.(png|jpg|gif)$/,
 　　　　　　    use: 'url-loader?limit=8192&name=images/[name]_[hash:8].[ext]'
+                    //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
     　　　　}
         ]
     },

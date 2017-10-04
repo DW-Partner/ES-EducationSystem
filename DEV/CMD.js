@@ -1,10 +1,11 @@
 (function(context) {
 
 
+	require('./css/CMD.css');
 	// const $$ = context.$ = require('./jquery.min.js');
 	context.$ = require('jquery');
 
-	import dialogFull from './dialogFull.js';
+	//import dialogFull from './dialogFull.js';
 
 	//公共销毁方法
 	$.distory = ()=>{};
