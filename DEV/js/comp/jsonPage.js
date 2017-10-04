@@ -23,10 +23,6 @@
             totalKey: ['data','total'],//下行结构
             pageBar: true,//是否启用分页
             showTotal: true,//是否显示总条数
-            selectPageSize: true,//是否启用下拉选择每页数量
-            selectPageSizeList: [10,20,30,50],
-            jump: true,//是否执行跳转分页
-            hashPage: true,
             eachDataHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
             eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
             noData: false,//Function : function( $listBox, $pageBox ){}
@@ -94,7 +90,6 @@
                     }
                     //构建分页start
                     var totalHtml = '<strong>共<em>' + total + '</em>条数据</strong>',
-                        selectHtml = '',
                         pageLength = Math.ceil( +total / pageSize ),
                         prevHtml = '',
                         startHtml = '',
@@ -102,8 +97,7 @@
                         pageHtml = '',
                         ellipsisRight = '',
                         endHtml = '',
-                        nextHtml = '',
-                        jumpHtml = '';
+                        nextHtml = '';
                     var prevVar = '<a href="javascript:;" data-page="' + (num-1) + '" class="prev"></a>',
                         startVar = '<a href="javascript:;" data-page="1">1</a>',
                         ellipsisVar = '<span>…</span>',
@@ -160,35 +154,8 @@
                     totalHtml = options.showTotal ? totalHtml : '';
                     $( options.pageBox ).addClass( 'sui-page' );
                     //构建分页end
-                    //下拉分页start
-                    if( options.selectPageSize ){
-                        var li = '';
-                        for( var i in options.selectPageSizeList ){
-                            li = '<li data-pagesize="' + options.selectPageSizeList[ i ] + '">' + options.selectPageSizeList[ i ] + '</li>' + li;
-                        }
-                        selectHtml = '<div class="selectPageSize">\
-                            <span>每页</span>\
-                            <div class="slect" select-ajax="pageSize">\
-                                <span class="pageSize">' + pageSize + '</span>\
-                                <ul class="options">'
-                                +li+
-                                '</ul>\
-                            </div>\
-                            <span>条</span>\
-                        </div>';
-                    };
-                    //下拉分页end
-                    //跳转分页start
-                    if( options.jump ){
-                        jumpHtml = '<div class="jump">\
-                            <span>跳转到</span>\
-                            <input type="text" value="" class="pageNumText" data-pagelength="' + pageLength + '" />\
-                            <span>页</span>\
-                            <a href="javascript:;" class="goPage">go</a>\
-                            </div>';
-                    }
-                    //跳转分页end
-                    pageHtml = totalHtml + selectHtml + '<div class="pageNumList">' + prevHtml + startHtml + ellipsisLeft + pageHtml + ellipsisRight + endHtml + nextHtml + '</div>' + jumpHtml;
+
+                    pageHtml = totalHtml + '<div class="pageNumList">' + prevHtml + startHtml + ellipsisLeft + pageHtml + ellipsisRight + endHtml + nextHtml + '</div>';
                     $( options.pageBox ).html( pageHtml );
                     options.successRunAfter( msg, num, pageSize, $( options.listBox ), $( options.pageBox ) );//回调函数：数据、当前页、页面容量
                 },
@@ -209,85 +176,17 @@
                 }
             });
         }
-        var goPageNum = options.hashPage ? +window.location.hash.split( '#pageon=' )[ 1 ] : 1; 
-        options.run( goPageNum || 1 );
+        options.run( 1 );
         if( !options.pageBar ){
             return false;
         }
         //事件绑定start
-        var pageElement = '[data-page]',
-            selectElement = '[select-ajax=pageSize]',
-            selectPageSizeElement = '[data-pagesize]';
+        var pageElement = '[data-page]';
         $( options.pageBox ).off('click', pageElement).on('click', pageElement, function(){
             var pageNum = $( this ).attr( 'data-page' );
             options.run( +pageNum );
             //window.location.hash = 'pageon=' + pageNum;
-        }).off('click', selectElement).on('click', selectElement, function( event ){
-            var event = event ? event : window.event;
-            var dom = {
-                runDom: $( this ),
-                showDom: $( this ).find( 'ul' )
-            };
-            if( dom.showDom.css('display') == 'none' ){
-                $( '[pageshowstatus = true]' ).click();
-                dom.showDom.slideDown( function(){
-                    dom.runDom.attr( 'pageshowstatus', 'true' );
-                }).attr( 'selsctautoHide', 'mark' );
-            }else{
-                dom.showDom.slideUp( function(){
-                    dom.runDom.attr( 'pageshowstatus', 'false' );
-                }).attr( 'selsctautoHide', 'mark' );
-            }
-            if (event.stopPropagation){ 
-                event.stopPropagation(); 
-            }else {
-                event.cancelBubble = true;
-            }
-        }).off('click', selectPageSizeElement).on('click', selectPageSizeElement, function(){
-            var pageSize = + $( this ).attr( 'data-pagesize' );
-            options.run( 1, pageSize );
-            //window.location.hash = 'pageon=1';
-        }).off('blur', '.pageNumText').on('blur', '.pageNumText', function(){
-            var pageNum = parseInt( $( this ).val() ),
-                pageLength = +$( this ).data( 'pagelength' );
-            if( !pageNum || pageNum < 1 ){
-                $( this ).val( '' );
-                return;
-            }else if( pageNum > pageLength ){
-                pageNum = pageLength
-            }
-            $( this ).val( pageNum );
-            options.run( pageNum );
-        }).off('keydown', '.pageNumText').on('keydown', '.pageNumText', function(event){
-            var event = event ? event : window.event;
-            if ( event.keyCode == 13) {
-                $( this ).blur();
-            }
         });
-        // .on('click', '.goPage', function(){
-        //     var input = $( this ).siblings( 'input' ),
-        //         pageNum = parseInt( input.val() ),
-        //         pageLength = +input.data( 'pagelength' );
-        //     if( !pageNum || pageNum < 1 ){
-        //         input.val( '' );
-        //         return;
-        //     }else if( pageNum > pageLength ){
-        //         pageNum = pageLength
-        //     }
-        //     input.val( pageNum );
-        //     options.run( pageNum );
-        // });
         //事件绑定end
     };
-    // $('body').on('click', function(){ 
-    //     $( '[pageshowstatus = true]' ).click();
-    // }).on('click', '[selsctautoHide]', function(event){
-    //     var event = event ? event : window.event;
-    //     if (event.stopPropagation){
-    //         event.stopPropagation(); 
-    //     }
-    //     else {
-    //         event.cancelBubble = true; 
-    //     }
-    // });
     export default jsonPage;

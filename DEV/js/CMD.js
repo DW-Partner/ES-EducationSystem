@@ -11,22 +11,14 @@
 
 	//load css文件方法
 	$.loadCss = (urls)=>{
-		if( typeof urls === 'string' ){
+		let urls = typeof urls === 'string' ? [urls] : urls;
+		for( let i=0;i<urls.length; i++ ){
 			let link=document.createElement('link');
 		 	link.setAttribute('rel','stylesheet');
 		 	link.setAttribute('type','text/css');
-		 	link.setAttribute('href',urls);
+		 	link.setAttribute('href',urls[i]);
 		 	link.setAttribute('class','main_css');
 	 		document.getElementById('main_box').appendChild(link);
-		}else{
-			for( let i=0;i<urls.length; i++ ){
-				let link=document.createElement('link');
-			 	link.setAttribute('rel','stylesheet');
-			 	link.setAttribute('type','text/css');
-			 	link.setAttribute('href',urls[i]);
-			 	link.setAttribute('class','main_css');
-		 		document.getElementById('main_box').appendChild(link);
-			}
 		}
 	}
 
@@ -35,7 +27,6 @@
 	let stopDefault = (e) => {
 		if (e && e.preventDefault) {
 			e.preventDefault();
-
 		} else {
 			window.event.returnValue = false;
 		}

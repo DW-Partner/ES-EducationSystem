@@ -7,6 +7,6 @@
 
 	//distory方法，挂载与$上
 	$.distory = ()=>{
-		$.mainBox.off();
+		$.mainBox.off();//可以不设置，在CMD文件中有统一off调用
 		console.log('distory!')
 	}
