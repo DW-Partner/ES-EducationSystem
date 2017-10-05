@@ -9,9 +9,9 @@
 
 const $exec=require('child_process').exec;
 
-//启动webpack动态监听
+//启动webpack-dev-server
 var startWebpackDev=()=>{
-        console.log('启动webpack-dev-server');
+        console.log('启动webpack-dev-server...');
         let command=$exec('webpack-dev-server',{
             encoding: 'utf8',
             timeout: 0,
@@ -24,10 +24,10 @@ var startWebpackDev=()=>{
         });
         command.stdout.on('data',(d)=>{
             if(d.indexOf('Time:')>-1){
-                process.stdout.write(new Date+':编译完成，\n');
+                process.stdout.write(new Date+':成功刷新，\n');
             }else if(d.indexOf('maxBuffer exceeded')>-1){
                 command.kill();
-                startWebpack();
+                startWebpackDev();
             }else{
             }           
         });
@@ -63,3 +63,7 @@ var startWebpack=()=>{
 };
 
 startWebpack();
+
+
+
+

@@ -8,6 +8,14 @@ const extractCSS = new ExtractTextPlugin('/css/[name].css');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const beautify_html = require('js-beautify').html;
+
+
+const dev_path = './DEV/';//develop目录路径，暂时只支持监听子集层
+const build_path = './build/';//distribution目录路径
+const static_path = './static/';//distribution目录路径
+
+
 let pluginsList = [];
 let htmlPluginsList = (path) => {
     let files = fs.readdirSync(path);
@@ -23,7 +31,7 @@ let htmlPluginsList = (path) => {
                     //template: './DEV/' + item,
                     template: 'html-withimg-loader!' + './DEV/' + item,
                     filename: './' + item,
-                    inject: true,
+                    inject: 'head',
                     chunks: ['CMD', pageJs]//'modules/'+item.match(/(.[^\.]+)\.html/)[1]
                 })
             console.log(item);
@@ -54,6 +62,51 @@ let getEntryList = (path) => {
 getEntryList( __dirname + '/DEV/js/modules/' );
 
 entryList['CMD'] = './DEV/js/CMD.js';
+
+
+let run_beautify_html = (filePath)=>{
+    console.log('run_beautify_html');
+    fs.readFile(filePath, 'utf8', function (err, data) {
+        if (err) {
+            //throw err;
+        }
+        fs.writeFile(filePath.replace(build_path,static_path), beautify_html(data, { indent_size: 4 }), (err) => {
+            if (err) {
+                return console.log(err);
+            }
+        });
+    });
+}
+
+
+//启动时，自动打包sass文件至dist目录
+let fn_beautify_html = (path) => {
+    let files = fs.readdirSync(path);
+    files.forEach((item, index) => {
+        const stat = fs.statSync(path + item);
+        if (!stat.isDirectory()) {
+            run_beautify_html(path + item);
+        }
+    })
+}
+fn_beautify_html( build_path );
+
+
+//监听build文件夹
+// let fsWatcher = fs.watch('./build/', (event, filename) => {
+//     console.log(event);
+// });
+// fsWatcher.on('change', (event, filename) => {
+//     console.log(event);
+//     if (event === 'rename') {
+//         if (fs.existsSync('./build/' + filename)) {
+//             run_beautify_html( './build/' + filename );
+//         }
+//     } else {
+//         run_beautify_html( './build/' + filename );
+//     }
+// });
+
 
 
 module.exports = {

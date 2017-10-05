@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "jquery": "^3.2.1",
+    "js-beautify": "^1.7.3",
     "webpack": "^3.6.0"
   },
   "devDependencies": {
@@ -30,7 +31,7 @@
     "start": "node start",
     "server": "node server",
     "devserver": "webpack-dev-server --open",
-    "update": "webpack",
+    "webpack": "webpack",
     "build": "webpack --config webpack.config.build.js -p"
   },
   "author": "wei",
