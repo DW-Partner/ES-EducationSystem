@@ -32,7 +32,8 @@
     "server": "node server",
     "devserver": "webpack-dev-server --open",
     "webpack": "webpack",
-    "build": "webpack --config webpack.config.build.js -p"
+    "build": "webpack --config webpack.config.build.js -p",
+    "beautify": "node beautify"
   },
   "author": "wei",
   "license": "ISC"

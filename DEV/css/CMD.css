@@ -344,9 +344,20 @@ h1,h2,h3,h4,h5,h6{
   color: #393C40;
   line-height: 80px;
   font-size: 14px;
-  padding: 0 40px;
+  padding: 0 32px;
   img,p{
     float: left;
+  }
+  img{
+    height: 39px;
+    margin: 20px 20px 0 0;
+  }
+  p{
+    height: 14px;
+    line-height: 14px;
+    border-left: 1px solid #3580d9;
+    margin-top: 33px;
+    padding-left: 20px;
   }
   .user{
     float: right;
