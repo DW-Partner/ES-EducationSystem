@@ -15,11 +15,16 @@ let htmlPluginsList = (path) => {
         //let stat = fs.statSync(path + item);
         let arr = []; //定义一个对象存放文件的路径和名字
         if( (/(\.html)$/).test(item) ){
+
+            //'modules/'+item.match(/(.[^\.]+)\.html/)[1]
+            let pageJs = item.match(/(.[^\.]+)\.html/).length ? 'modules/' + item.match(/(.[^\.]+)\.html/)[1] : '';
+            //console.log('9899'+pageJs);
             let htmlItem = new HtmlWebpackPlugin({
-                    template: './DEV/' + item,
+                    //template: './DEV/' + item,
+                    template: 'html-withimg-loader!' + './DEV/' + item,
                     filename: './' + item,
                     inject: true,
-                    chunks: ['CMD', 'modules/'+item.match(/(.[^\.]+)\.html/)[1]]
+                    chunks: ['CMD', pageJs]//'modules/'+item.match(/(.[^\.]+)\.html/)[1]
                 })
             console.log(item);
             pluginsList.push(htmlItem);
@@ -87,11 +92,15 @@ module.exports = {
                 test: /\.(scss|css)$/i,
                 use: extractCSS.extract([ 'css-loader', 'postcss-loader', 'sass-loader' ])
             },
-    　　　　{
+    　　　　 {
     　　　　　　test: /\.(png|jpg|gif)$/,
 　　　　　　    use: 'url-loader?limit=8192&name=images/[name]_[hash:8].[ext]'
                     //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
-    　　　　}
+    　　　　 },
+            {
+    　　　　　　test: /\.Bhtml$/,
+    　　　　　　use: 'html-withimg-loader'
+　　　　　　  }
         ]
     },
     externals:{
