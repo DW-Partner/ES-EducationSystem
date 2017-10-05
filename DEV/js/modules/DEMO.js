@@ -1,5 +1,4 @@
 	require('./demo.css');//引入css文件
-
 	$('#right_content p').text('DEMO');
 	$.mainBox.on('click', 'p', ()=>{
 		alert(5678);

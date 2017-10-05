@@ -1,0 +1,1 @@
+require('./j-teacherInfo.css');

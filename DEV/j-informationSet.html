@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>DEMO</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no">
+</head>
+
+<body>
+	<div class="top_box">
+		<p>这里是机构名称<span class="times" id="times">2017年8月17日</span></p>
+		<span class="user">宇文靖<a href="JavaScript:;">退出</a>
+					</span>
+	</div>
+
+	<div class="left_nav" id="left_nav">
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">校区</a></li>
+			<li class="on"><a href="#">课程资源</a></li>
+			<li><a href="#">教学教研</a></li>
+			<li><a href="#">教职员工</a></li>
+			<li><a href="#">账号设置</a></li>
+			<li><a href="#">系统资源</a></li>
+		</ul>
+	</div>
+
+	<div class="main_box" id="main_box">
+		<div class="main">
+			<div class="set_content">
+				<div class="set_top">
+					<div class="passwordBox">
+						<h5>机构密码管理</h5>
+						<p>
+							<span>输入原密码</span>
+							<input type="text" />
+						</p>
+						<p>
+							<span>输入新密码</span>
+							<input type="text" />
+						</p>
+						<p>
+							<span>确认新密码</span>
+							<input type="text" />
+						</p>
+						<button class="on">提交</button>
+					</div>
+					<div class="loginCode">
+						<h5>微信登录二维码</h5>
+						<div class="codeImg">
+							<img src="./images/code_img.png" alt="">
+							<span>此二维码30分钟内有效</span>
+						</div>
+						<button class="on">重新生成二维码</button>
+					</div>
+				</div>
+				<div class="set_bottom">
+					<h5>校区登录管理</h5>
+					<ul>
+						<li>
+							<span>望京校区1</span>
+							<button class="on">生成登录二维码</button>
+							<button>冻结校区登录</button>
+						</li>
+						<li>
+							<span>望京校区2</span>
+							<button class="on">生成登录二维码</button>
+							<button>冻结校区登录</button>
+						</li>
+						<li>
+							<span>望京校区3</span>
+							<button class="on">生成登录二维码</button>
+							<button>冻结校区登录</button>
+						</li>
+						<li>
+							<span>望京校区4</span>
+							<button class="on">生成登录二维码</button>
+							<button>冻结校区登录</button>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="./js/modules/j-informationSet.js"></script>
+</html>

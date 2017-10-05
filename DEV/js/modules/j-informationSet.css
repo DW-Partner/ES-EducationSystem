@@ -1,0 +1,130 @@
+input{
+	border: 1px solid #E0E3E8;
+	box-shadow: none;
+	border-radius: 4px;
+}
+button{
+	border-radius: 4px;
+	background-color: #C6C9CE;
+	border: 1px solid #C6C9CE;
+	box-shadow: none;
+	color: #FFF;
+	font-size: 14px;
+	line-height: 14px;
+	min-width: 138px;
+	height: 36px;
+	padding: 11px 0;
+	font-weight: 100;
+	&:focus{
+		outline: none;
+	}
+	&.on{
+		background-color: #4580D3;
+		border-color: #4580D3;
+		cursor: pointer;
+		&:hover{
+			background-color: #1690F3;
+		}
+	}
+}
+h5{
+	color: #707379;
+	font-size: 16px;
+	line-height: 16px;
+	font-weight: 100;
+}
+body{
+	box-sizing: border-box;
+	.main_box .main{
+		background-color: #F8F7F7;
+	}
+}
+
+.set_content{
+	.set_top{
+		margin-bottom: 20px;
+		background-color: #FFF;
+
+		.passwordBox{
+			padding: 44px 0 44px 32px;
+			display: inline-block;
+			width: 50%;
+			border-right: 1px solid #EAEAEA;
+			vertical-align: top;
+			p{
+				padding-top: 30px;
+				span{
+					color: #707379;
+					font-size: 14px;
+					line-height: 14px;
+					width: 80px;
+					height: 36px;
+					line-height: 36px;
+					display: inline-block;
+				}
+				input{
+					color: #212224;
+					font-size: 14px;
+					line-height: 18px;
+					padding: 8px;
+					border-radius: 4px;
+					width: 60%;
+				}
+			}
+			button{
+				margin-top: 40px;
+			}
+		}
+		.loginCode{
+			display: inline-block;
+			width: 38%;
+			padding: 44px 0 44px 32px;
+			h5{
+				margin-bottom: 26px;
+			}
+			.codeImg{
+				img{
+					width: 177px;
+					height: 177px;
+				}
+				span{
+					width: 177px;
+					display: block;
+					font-size: 14px;
+					line-height: 14px;
+					color: #AAAEB2;
+					text-align: center;
+					letter-spacing: 2px;
+				}
+			}
+			button{
+				margin-top: 16px;
+				width: 180px;
+			}
+		}
+	}
+	.set_bottom{
+		padding: 44px 0 44px 32px;
+		background-color: #FFF;
+		h5{
+			margin-bottom: 27px;
+		}
+		li{
+			margin-bottom: 20px;
+			span{
+				font-size: 14px;
+				line-height: 14px;
+				color: #707379;
+				display: inline-block;
+				padding: 11px;
+				width: 140px;
+				
+			}
+			button{
+				width: 190px;
+				margin-right: 40px;
+			}
+		}
+
+	}
+}
