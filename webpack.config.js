@@ -18,7 +18,8 @@ let htmlPluginsList = (path) => {
             let htmlItem = new HtmlWebpackPlugin({
                     template: './DEV/' + item,
                     filename: './' + item,
-                    inject: false
+                    inject: true,
+                    chunks: ['CMD', 'modules/'+item.match(/(.[^\.]+)\.html/)[1]]
                 })
             console.log(item);
             pluginsList.push(htmlItem);
@@ -42,8 +43,6 @@ let getEntryList = (path) => {
             entryList[ 'modules/' + item ]
             let key = path.split(__dirname+'/DEV/js/')[1] + item.split('.js')[0]
             entryList[ key ] = path + item;
-
-
         }
     })
 }
