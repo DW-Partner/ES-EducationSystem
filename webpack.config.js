@@ -31,7 +31,7 @@ let htmlPluginsList = (path) => {
                     //template: './DEV/' + item,
                     template: 'html-withimg-loader!' + './DEV/' + item,
                     filename: './' + item,
-                    inject: 'head',
+                    inject: 'body',
                     chunks: ['CMD', pageJs]//'modules/'+item.match(/(.[^\.]+)\.html/)[1]
                 })
             console.log(item);
