@@ -1,1 +1,0 @@
-require('./j-teacherList.css');
