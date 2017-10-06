@@ -1,0 +1,1 @@
+require('./zone-informationSet.css');
