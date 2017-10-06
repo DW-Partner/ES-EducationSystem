@@ -23,6 +23,50 @@
 	}
 
 
+    //时间转化start
+    let changeFormat = (_format)=>{
+        let format = _format ? _format : 'YYYY-MM-DD hh:mm:ss';
+        const t = new Date();
+        let tf = function(i) {
+            return (i < 10 ? '0' : '') + i
+        };
+        let week = {
+        	"1": "星期一",
+        	"2": "星期二",
+        	"3": "星期三",
+        	"4": "星期四",
+        	"5": "星期五",
+        	"6": "星期六",
+        	"0": "星期日",
+        }
+        return format.replace(/YYYY|MM|DD|hh|mm|ss/g, function(a) {
+            switch (a) {
+                case 'YYYY':
+                    return tf(t.getFullYear());
+                    break;
+                case 'MM':
+                    return tf(t.getMonth() + 1);
+                    break;
+                case 'DD':
+                    return tf(t.getDate());
+                    break;
+                case 'hh':
+                    return tf(t.getHours());
+                    break;
+                case 'mm':
+                    return tf(t.getMinutes());
+                    break;
+                case 'ss':
+                    return tf(t.getSeconds());
+                    break;
+            }
+        }) + ' ' + week[ t.getDay() ]
+    };
+    //时间转化end
+    $('#times').text( changeFormat('YYYY年MM月DD日') );
+    
+
+
 	//阻止浏览器默认事件
 	let stopDefault = (e) => {
 		if (e && e.preventDefault) {
@@ -81,4 +125,5 @@
 	$(document).on('click', '#left_nav a', (e)=>{
 		stopDefault(e);
 		const url = $(this).attr('href');
+		ajaxGetHtml( url );
 	});
