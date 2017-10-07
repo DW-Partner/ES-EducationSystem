@@ -499,7 +499,7 @@ select::-ms-expand {
   }
 
   /*密码登录*/
-  .passwordLogin{
+  .passwordLogin, .passwordReset, .verificationCode{
     padding: 30px;
     .loginType{
       position: absolute;
@@ -539,6 +539,29 @@ select::-ms-expand {
 
 
 
+/*重置密码*/
+.passwordReset{
+
+}
+
+/*验证码*/
+.verificationCode{
+  .text_btn{
+    input[type=text]{
+      width: 200px;
+    }
+    a{
+      width: 90px;
+      margin-left: 7px;
+      font-size: 14px;
+    }
+    .disabled{
+      background: #c6c9cf;
+    }
+  }
+}
+
+
 /*登录状态*/
   .loginStatus_success, .loginStatus_error{
       margin: 100px auto 0 auto;
@@ -561,8 +584,6 @@ select::-ms-expand {
   .loginStatus_error{
     background-position: center -120px;
   }
-
-
 }
 
 
