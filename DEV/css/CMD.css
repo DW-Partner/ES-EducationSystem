@@ -562,6 +562,11 @@ select::-ms-expand {
       height: 90px;
 
     }
+    &.tips{
+      padding: 5px 0;
+      color: #AAAEB3;
+      font-size: 12px;
+    }
   }
 }
 
