@@ -543,7 +543,7 @@ select::-ms-expand {
     em{
       width: auto;
     }
-    input[type=text],input[type=password], textarea{
+    input[type=text],input[type=date],input[type=password], textarea{
       color: #212224;
       font-size: 14px;
       line-height: 18px;
@@ -551,7 +551,7 @@ select::-ms-expand {
       border-radius: 4px;
       width: 366px;
     }
-    input[type=text].short{
+    input[type=text].short, input[type=date]{
       width: 200px;
       margin-right: 20px;
     }
