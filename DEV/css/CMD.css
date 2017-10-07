@@ -318,6 +318,7 @@ input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-user-modify:re
 body{font:14px/20px "Microsoft YaHei","Hiragino Sans GB","stheitisclight","sans-serif";word-wrap:break-word;-webkit-overflow-scrolling:touch;
 /*overflow-x:hidden;*/
 background: #f8f7f7;
+color: #393c40;
 overflow-y: hidden;
   box-sizing: border-box;
   min-width: 980px;
@@ -332,6 +333,262 @@ h1,h2,h3,h4,h5,h6{
 	margin: 0;
 }
 /*初始化样式end*/
+.none{
+  display: none;
+}
+
+
+input{
+ border: 1px solid #E0E3E8;
+ box-shadow: none;
+ border-radius: 4px;
+}
+button, input[type=button], .btn{
+  border-radius: 4px;
+  background-color: #3580d9;
+  box-shadow: none;
+  color: #fff;
+  font-size: 14px;
+  line-height: 14px;
+  width: 150px;
+  height: 36px;
+  padding: 11px 0;
+  font-weight: 100;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  &:focus{
+    outline: none;
+  }
+  &.on{
+    background-color: #4580D3;
+  }
+  &:hover{
+    background-color: #2b73c8;
+  }
+  &:active{
+    background-color: #2163b1;
+  }
+}
+select {
+ /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+ border: solid 1px #CED0D9;
+ /*很关键：将默认的select选择框样式清除*/
+ appearance: none;
+ -moz-appearance: none;
+ -webkit-appearance: none;
+ /*在选择框的最右侧中间显示小箭头图片*/
+ background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+ background-position: 117px center;
+ background-color: #F3F5F8;
+ /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+ padding-right: 24px;
+
+ font-size: 14px;
+ color: #3A3C40;
+ padding-top: 7px;
+ padding-bottom: 7px;
+ padding-left: 15px;
+ width: 140px;
+ border-radius: 4px;
+}
+/*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+select::-ms-expand {
+ display: none;
+}
+
+
+
+
+/*公共表单样式*/
+.form{
+  li{
+    padding: 15px 0;
+    span{
+      color: #707379;
+      font-size: 14px;
+      line-height: 14px;
+      width: 80px;
+      height: 36px;
+      line-height: 36px;
+      display: inline-block;
+    }
+    input{
+      color: #212224;
+      font-size: 14px;
+      line-height: 18px;
+      padding: 8px;
+      border-radius: 4px;
+      width: 60%;
+    }
+  }
+  button{
+    margin-top: 40px;
+  }
+}
+.loginCode{
+  display: inline-block;
+  width: 38%;
+  padding: 44px 0 44px 32px;
+  h5{
+    margin-bottom: 26px;
+  }
+  .codeImg{
+    img{
+      width: 177px;
+      height: 177px;
+    }
+    span{
+      width: 177px;
+      display: block;
+      font-size: 14px;
+      line-height: 14px;
+      color: #AAAEB2;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+  }
+  button{
+    margin-top: 16px;
+    width: 180px;
+  }
+}
+
+
+
+
+
+
+/*登录界面主体部分*/
+.layout_center{
+  min-height: 500px;
+  position: relative;
+  .content_box{
+    width: 362px;
+    height: 385px;
+    box-shadow: 0px 0px 1px 4px #f6f5f5;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+  /*二维码登录*/
+  .qrcodeLogin{
+    line-height: 18px;
+    font-size: 14px;
+    img{
+      display: block;
+      width: 180px;
+      height: 180px;
+      margin: 90px auto 10px;
+    }
+    p{
+      padding: 0 32px;
+    }
+    .loginType{
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 83px;
+      height: 36px;
+      background-image: url(../images/ico_loginType.png);
+      background-size: 83px 76px;
+      background-position: 0 0; 
+    }
+  }
+
+  /*密码登录*/
+  .passwordLogin{
+    padding: 30px;
+    .loginType{
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 83px;
+      height: 36px;
+      background-image: url(../images/ico_loginType.png);
+      background-size: 83px 76px;
+      background-position: 0 -40px; 
+    }
+    h5{
+      font-size: 16px;
+      line-height: 18px;
+      padding-bottom: 4px;
+    }
+    p{
+      color: #F14949;
+      line-height: 14px;
+      padding-bottom: 6px;
+    }
+    li{
+      padding: 10px 0;
+      input[type=text],input[type=password]{
+        padding: 16px 8px;
+        width: 100%;
+      }
+    }
+    .btn{
+      width: 100%;
+      height: 50px;
+      padding: 18px 0;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+
+
+
+/*登录状态*/
+  .loginStatus_success, .loginStatus_error{
+      margin: 100px auto 0 auto;
+      padding-top: 120px;
+      background-image: url(../images/ico_loginStatus.png);
+      background-size: 120px 240px;
+      background-position: center 0;
+      background-repeat: no-repeat;
+      p{
+        padding: 25px 32px;
+        text-align: center;
+        background: #fff;
+      }
+      .btn{
+        display: block;
+        margin: 0 auto;
+
+      }
+  }
+  .loginStatus_error{
+    background-position: center -120px;
+  }
+
+
+}
+
+
+
+/*登录界面底部部分*/
+.layout_footer{
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  font-size: 14px;
+  color: #6F737A;
+  border-top: 1px solid #eaeaea;
+  background: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .top_box{
@@ -341,7 +598,6 @@ h1,h2,h3,h4,h5,h6{
   box-shadow: 0px 0px 2px 1px #eeeded;
   position: relative;
   z-index: 1;
-  color: #393C40;
   line-height: 80px;
   font-size: 14px;
   padding: 0 32px;
@@ -371,6 +627,7 @@ h1,h2,h3,h4,h5,h6{
   }
 }
 
+
 .left_nav{
   width: 190px;
   height: calc(100% - 80px);
@@ -399,22 +656,22 @@ h1,h2,h3,h4,h5,h6{
 }
 
 
-  .main_box{
-    height: calc(100% - 120px);
-    width: calc(100% - 190px);
-    min-width: 790px;
-    position: absolute;
-    left: 190px;
-    top: 80px;
-    padding: 0 20px;
-    margin: 20px 0;
-    overflow-y: auto;
-    .main{
-        box-shadow: 0px 0px 1px 4px #f6f5f5;
-        min-height: 360px;
-        background: #fff;
-    }
+.main_box{
+  height: calc(100% - 120px);
+  width: calc(100% - 190px);
+  min-width: 790px;
+  position: absolute;
+  left: 190px;
+  top: 80px;
+  padding: 0 20px;
+  margin: 20px 0;
+  overflow-y: auto;
+  .main{
+      box-shadow: 0px 0px 1px 4px #f6f5f5;
+      min-height: 360px;
+      background: #fff;
   }
+}
 
 
 /*.main{
