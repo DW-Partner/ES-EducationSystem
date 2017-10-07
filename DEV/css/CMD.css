@@ -402,13 +402,9 @@ select {
  background-position: 117px center;
  background-color: #F3F5F8;
  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
- padding-right: 24px;
-
  font-size: 14px;
- color: #3A3C40;
- padding-top: 7px;
- padding-bottom: 7px;
- padding-left: 15px;
+ color: #6F737A;
+ padding: 5px 24px 5px 15px;
  width: 140px;
  border-radius: 4px;
 }
@@ -531,8 +527,8 @@ select::-ms-expand {
   }
   li{
     padding: 15px 0;
-    span{
-      color: #707379;
+    span, em{
+      color: #6F737A;
       font-size: 14px;
       line-height: 14px;
       width: 100px;
@@ -540,6 +536,9 @@ select::-ms-expand {
       line-height: 36px;
       display: inline-block;
       vertical-align: top;
+    }
+    em{
+      width: auto;
     }
     input[type=text],input[type=password], textarea{
       color: #212224;
