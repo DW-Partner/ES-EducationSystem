@@ -531,11 +531,14 @@ select::-ms-expand {
       color: #6F737A;
       font-size: 14px;
       line-height: 14px;
-      width: 100px;
+      width: 72px;
       height: 36px;
       line-height: 36px;
       display: inline-block;
       vertical-align: top;
+    }
+    .wide{
+      width: 100px;
     }
     em{
       width: auto;
@@ -547,6 +550,13 @@ select::-ms-expand {
       padding: 8px;
       border-radius: 4px;
       width: 366px;
+    }
+    input[type=text].short{
+      width: 200px;
+      margin-right: 20px;
+    }
+    input[type=text].long{
+      width: 510px;
     }
     textarea{
       height: 90px;
