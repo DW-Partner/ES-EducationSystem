@@ -343,7 +343,7 @@ input, textarea{
  box-shadow: none;
  border-radius: 4px;
 }
-button, input[type=button], .btn, .btn_grey{
+button, input[type=button], .btn, .btn_dis, .btn_grey{
   border-radius: 4px;
   background-color: #3580d9;
   box-shadow: none;
@@ -373,12 +373,16 @@ button, input[type=button], .btn, .btn_grey{
     background-color: #2163b1;
   }
 }
-.btn, .btn_grey{
+.btn, .btn_dis, .btn_grey{
     i {
         font-size: 20px;
         color: #FFF;
         margin-right: 6px;
       }
+}
+.btn_dis{
+  color: #fff;
+  background: #C6C9CF;
 }
 .btn_grey{
   width: 110px;

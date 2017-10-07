@@ -1,4 +1,4 @@
-	require('./school_flowEntry.css');//引入css文件
+	require('./school_advisoryRegistration_qrcode.css');//引入css文件
 	$.mainBox.on('click', 'p', ()=>{
 		//alert(5678);
 	})
