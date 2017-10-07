@@ -375,7 +375,7 @@ button, input[type=button], .btn, .btn_dis, .btn_grey{
 }
 .btn, .btn_dis, .btn_grey{
     i {
-        font-size: 20px;
+        font-size: 16px;
         color: #FFF;
         margin-right: 6px;
       }
