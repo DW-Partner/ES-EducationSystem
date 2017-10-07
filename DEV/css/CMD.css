@@ -343,7 +343,7 @@ input{
  box-shadow: none;
  border-radius: 4px;
 }
-button, input[type=button], .btn{
+button, input[type=button], .btn, .btn_grey{
   border-radius: 4px;
   background-color: #3580d9;
   box-shadow: none;
@@ -361,14 +361,30 @@ button, input[type=button], .btn{
     outline: none;
   }
   &.on{
+    color: #fff;
     background-color: #4580D3;
   }
   &:hover{
+    color: #fff;
     background-color: #2b73c8;
   }
   &:active{
+    color: #fff;
     background-color: #2163b1;
   }
+}
+.btn, .btn_grey{
+    i {
+        font-size: 20px;
+        color: #FFF;
+        margin-right: 6px;
+      }
+}
+.btn_grey{
+  width: 110px;
+  border: 1px solid #ced0da; 
+  background: #f4f6f9;
+  color: #393C40;
 }
 select {
  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
@@ -398,6 +414,111 @@ select::-ms-expand {
 }
 
 
+/*公共列表*/
+.flex_2{
+  flex: 2 !important;
+}
+.flex_3{
+  flex: 3 !important;
+}
+.flex_4{
+  flex: 4 !important;
+}
+.pub_list{
+  .head{
+    height: 50px;
+    line-height: 50px;
+    display: flex;
+    background-color: #fcfcfc;
+    span{
+      flex: 1;
+      text-align: center;
+    }
+
+  }
+  .body{
+    background-color: #fff;
+    font-size: 16px;
+    li{
+      min-height: 90px;
+      padding: 30px 0;
+      line-height: 30px;
+      border-top: 1px solid #eaeaea;
+      display: flex;
+      .item{
+        flex: 1;
+        p{
+          width: 100%;
+          display: table;
+          padding: 5px;
+          text-align: center;
+        }
+        span{
+          display: table-cell;
+          vertical-align: middle;
+          word-break: break-all;
+        }
+      }
+      &:hover{
+        background-color: #eaeaea;
+      };
+    }
+
+  }
+  .page{
+    position: relative;
+    top: 63px;
+    margin-top: -36px;
+    text-align: right;
+    line-height: 36px;
+    p{
+      background: #fff;
+      display: inline-block;
+      box-shadow: 0px 0px 1px 4px #f6f5f5;
+      border-radius: 4px;
+    }
+    a{
+      display: inline-block;
+      padding: 0 7px;
+      margin: 0 3px;
+      color: #CED0DA;
+      &:hover,&.on{
+        color: #393C40;
+      }
+/*      &:first-child{
+        border-radius: 4px 0 0 4px;
+      }
+      &:last-child{
+        border-radius: 0 4px 4px 0;
+      }*/
+    }
+    .prev, .next{
+      width: 0;
+      height: 0;
+      padding: 0 4px;
+      border: 6px solid #fff;
+      overflow: hidden;
+
+    }
+    .prev{
+      margin: 0 5px 0 0;
+      border-right: 6px solid #CED0DA;
+      &:hover{
+        border-right: 6px solid #393C40;
+      }
+    }
+    .next{
+      margin: 0 0 0 5px;
+      border-left: 6px solid #CED0DA;
+      &:hover{
+        border-left: 6px solid #393C40;
+      }
+    }
+
+  }
+
+}
+
 
 
 /*公共表单样式*/
@@ -413,7 +534,7 @@ select::-ms-expand {
       line-height: 36px;
       display: inline-block;
     }
-    input{
+    input[type=text],input[type=password]{
       color: #212224;
       font-size: 14px;
       line-height: 18px;
@@ -426,33 +547,7 @@ select::-ms-expand {
     margin-top: 40px;
   }
 }
-.loginCode{
-  display: inline-block;
-  width: 38%;
-  padding: 44px 0 44px 32px;
-  h5{
-    margin-bottom: 26px;
-  }
-  .codeImg{
-    img{
-      width: 177px;
-      height: 177px;
-    }
-    span{
-      width: 177px;
-      display: block;
-      font-size: 14px;
-      line-height: 14px;
-      color: #AAAEB2;
-      text-align: center;
-      letter-spacing: 2px;
-    }
-  }
-  button{
-    margin-top: 16px;
-    width: 180px;
-  }
-}
+
 
 
 

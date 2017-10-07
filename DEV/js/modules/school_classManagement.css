@@ -1,0 +1,12 @@
+.top_info{
+	height: 116px;
+	padding: 40px 20px;
+	span{
+		padding-right: 30px;
+	}
+	.btn{
+		width: 120px;
+		float: right;
+	}
+}
+
