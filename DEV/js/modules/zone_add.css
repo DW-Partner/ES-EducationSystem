@@ -1,0 +1,78 @@
+input{
+	border: 1px solid #E0E3E8;
+	box-shadow: none;
+	border-radius: 4px;
+}
+button{
+	border-radius: 4px;
+	background-color: #C6C9CE;
+	border: 1px solid #C6C9CE;
+	box-shadow: none;
+	color: #FFF;
+	font-size: 14px;
+	line-height: 14px;
+	min-width: 138px;
+	height: 36px;
+	padding: 11px 0;
+	font-weight: 100;
+	&:focus{
+		outline: none;
+	}
+	&.on{
+		background-color: #4580D3;
+		border-color: #4580D3;
+		cursor: pointer;
+		&:hover{
+			background-color: #1690F3;
+		}
+	}
+}
+
+.content{
+	.formBox{
+		padding: 34px 48px;
+		li{
+			margin-bottom: 30px;
+			span{
+				color: #707379;
+				font-size: 14px;
+				line-height: 14px;
+				padding: 11px 0;
+				display: inline-block;
+				width: 60px;
+				margin-right: 4px;
+			}
+			input[type="text"]{
+				font-size: 14px;
+				color: #212224;
+				padding: 8.5px 4px;
+				border-radius: 4px;
+				width: 480px;
+			}
+			input[type="date"]{
+				font-size: 14px;
+				color: #212224;
+				padding: 8.5px 4px;
+				border-radius: 4px;
+				width: 200px;
+			}
+			.raioBox1, .raioBox2{
+				margin-right: 60px;
+				display: inline-block;
+				width: auto;
+				label{
+					font-size: 14px;
+					color: #212224;
+					margin-right: 18px;
+					input[type="radio"]{
+						margin-right: 8px;
+					}
+				}
+			}
+		}
+	}
+	button{
+		margin-left: 48px;
+		margin-bottom: 90px;
+	}
+}

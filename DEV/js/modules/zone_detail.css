@@ -1,0 +1,152 @@
+
+button{
+	border-radius: 4px;
+	background-color: #C6C9CE;
+	border: 1px solid #C6C9CE;
+	box-shadow: none;
+	color: #FFF;
+	font-size: 14px;
+	line-height: 14px;
+	min-width: 138px;
+	height: 36px;
+	padding: 11px 0;
+	font-weight: 100;
+	&:focus{
+		outline: none;
+	}
+	&.on{
+		background-color: #4580D3;
+		border-color: #4580D3;
+		cursor: pointer;
+		&:hover{
+			background-color: #1690F3;
+		}
+	}
+}
+/*全局清除浮动样式*/
+.fix{display:inline-block;}
+.fix{display:block;}
+.fix:after{content:""; display:block; height:0px;clear:both; visibility:hidden;}
+
+.content{
+	background-color: #F8F7F7;
+
+	.header{
+		background-color: #FFF;
+		.info{
+			padding-top: 36px;
+			padding-left: 35px;
+			p{
+				display: inline-block;
+				width: auto;
+				margin-right: 60px;
+				margin-bottom: 30px;
+				&:last-child{
+					margin-bottom: 0;
+				}
+				span{
+					color: #707379;
+					font-size: 16px;
+					line-height: 16px;
+				}
+				em{
+					color: #0F1011;
+					font-size: 16px;
+					line-height: 16px;
+				}
+			}
+		}
+		.content_middle{
+			padding: 26px 35px;
+			.data{
+				background-color: #4580D3;
+				border-radius: 4px;
+				padding: 18px 32px 24px 32px;
+				display: inline-block;
+				width: 243px;
+				border: none;
+				margin-right: 34px;
+				&.data1{
+					
+				}
+				&.data2{
+					background-color: #5A96E6;
+				}
+				&.data3{
+					background-color: #F5B051;
+				}
+				&.data4{
+					background-color: #F7BF6D;
+				}
+				span{
+					font-size: 16px;
+					line-height: 16px;
+					color: #FFF;
+				}
+				p{
+					font-size: 36px;
+					line-height: 36px;
+					color: #FFF;
+					margin-top: 10px;
+				}
+			}
+		}
+		button{
+			float: right;
+			margin-right: 30px;
+			margin-bottom: 35px;
+		}
+	}
+	.zoneList{
+		background-color: #FFF;
+		margin-top: 20px;
+		h3{
+			color: #3A3C40;
+			font-size: 18px;
+			line-height: 18px;
+			padding: 30px 0 30px 30px;
+		}
+		.listBox{
+			background-color: #FFF;
+			.title{
+				background-color: #FCFCFC;
+				color: #AAAEB2;
+				border-top: 1px solid #EAEAEA;
+				border-bottom: 1px solid #EAEAEA;
+				span{
+					display: inline-block;
+					font-size: 14px;
+					line-height: 14px;
+					padding: 14px 0;
+					padding-left: 30px;
+					vertical-align: middle;
+					width: 15%;
+					&:nth-child(2){
+						width: 12%;
+					}
+					&:nth-child(4){
+						width: 25%;
+					}
+				}
+			}
+			.list{
+				color: #3A3C40;
+				font-size: 16px;
+				border-bottom: 1px solid #EAEAEA;
+				span{
+					display: inline-block;
+					padding: 34px 0;
+					padding-left: 30px;
+					vertical-align: middle;
+					width: 15%;
+					&:nth-child(2){
+						width: 12%;
+					}
+					&:nth-child(4){
+						width: 25%;
+					}
+				}
+			}
+		}
+	}
+}

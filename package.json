@@ -4,6 +4,7 @@
   "description": "test",
   "main": "main.js",
   "dependencies": {
+    "echarts": "^3.7.2",
     "jquery": "^3.2.1",
     "js-beautify": "^1.7.3",
     "webpack": "^3.6.0"
