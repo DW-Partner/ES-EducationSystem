@@ -1,0 +1,18 @@
+.pub_form{
+	li{
+		padding: 5px 0;
+	}
+	
+}
+.classList{
+	line-height: 30px;
+	border: 1px solid #ddd;
+	width: 50%;
+	padding: 10px;
+	p{
+		margin-bottom: 5px;
+	}
+	label{
+		cursor: pointer;
+	}
+}
