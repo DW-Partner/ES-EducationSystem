@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>DEMO</title>
+	<title>机构-课程资源-编辑添加</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="format-detection" content="telephone=no">
 </head>
@@ -29,10 +29,82 @@
 
 	<div class="main_box" id="main_box">
 		<div class="main">
+
+
+		<div class="pub_form">
+			<ul>
+				<li>
+					<span>课程分类名</span>
+					<input type="text" class="short" placeholder="请输入">
+					<span>有效课时数</span>
+					<input type="text" class="shortest" placeholder="请输入">
+					<span>课时时长</span>
+					<input type="text" class="shortest" placeholder="请输入">分钟
+				</li>
+				<li>
+					<span>收费方式</span>
+					<select>
+						<option>按课时</option>
+					</select>
+				</li>
+				<li>
+					<span>课程对象</span>
+					<input type="text" placeholder="请输入">
+				</li>
+				<li>
+					<span class="wide">课程多维目标</span>
+					<input type="text" class="long" placeholder="请输入">
+				</li>
+
+
+				<li>
+					<span class="wide">课程总体介绍</span>
+					<textarea class="long">
+					</textarea>
+				</li>
+			</ul>
+			<a href="JavaScript:;" class="btn">添加课时</a>
+			<a href="JavaScript:;" class="btn_dis">删除课时</a>
+		</div>
+			<div class="pub_list">
+				<div class="head">
+					<span>课时序号</span>
+					<span>课程主题</span>
+					<span>当前状态</span>
+					<span>教学大纲</span>
+				</div>
+				<ul class="body">
+					<li>
+						<div class="item"><p><span>18726351414</span></p></div>
+						<div class="item"><p><span>幼儿的教育方式与引导的故事</span></p></div>
+						<div class="item"><p><span>推荐</span></p></div>
+						<div class="item"><p><span>教学大纲</span></p></div>
+					</li>
+					<li>
+						<div class="item"><p><span>18726351414</span></p></div>
+						<div class="item"><p><span>幼儿的教育方式与引导的故事</span></p></div>
+						<div class="item"><p><span>推荐</span></p></div>
+						<div class="item"><p><span>教学大纲</span></p></div>
+					</li>
+					<li>
+						<div class="item"><p><span>18726351414</span></p></div>
+						<div class="item"><p><span>幼儿的教育方式与引导的故事</span></p></div>
+						<div class="item"><p><span>推荐</span></p></div>
+						<div class="item"><p><span>教学大纲</span></p></div>
+					</li>
+				</ul>
+				<div class="page">
+					<p>
+						<a href="JavaScript:;" class="prev">0</a><a href="JavaScript:;" class="on">1</a><a href="JavaScript:;">2</a><a href="JavaScript:;">3</a><a href="JavaScript:;">4</a><a href="JavaScript:;" class="next">0</a>
+					</p>
+				</div>
+			</div>
+
+<!-- 
 			<div class="content">
 				<div class="editBox">
 					<p>
-						<span>课程分类名</span>
+						<span></span>
 						<input type="text" />
 					</p>
 					<p>
@@ -56,7 +128,7 @@
 						<input type="text" />
 					</p>
 					<p>
-						<span class="six">课程多维目标</span>
+						<span class="six"></span>
 						<input class="big" type="text" />
 					</p>
 					<br />
@@ -69,21 +141,19 @@
 					<button class="on" id="addClass">添加课时</button>
 					<button id="addClass">删除课时</button>
 				</div>
-				<ul class="listBox">
+ -->
+
+<!-- 				<ul class="listBox">
 					<li class="title">
-						<span>课时序号</span>
-						<span>课程主题</span>
-						<span>当前状态</span>
-						<span>教学大纲</span>
 					</li>
 					<li class="list">
 						<span>单击选中，双击修改</span>
-						<span>课程主题是幼儿的教育方式与引导的故事</span>
+						<span>幼儿的教育方式与引导的故事</span>
 						<span>推荐</span>
 						<span>这里是教学大纲，这里是教学大纲～</span>
 					</li>
 				</ul>
-				<button class="on submitButton" id="save">保存</button>
+				<button class="on submitButton" id="save">保存</button> -->
 			</div>
 		</div>
 	</div>

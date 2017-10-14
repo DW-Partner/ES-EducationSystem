@@ -1,4 +1,4 @@
-button{
+/*button{
 	border-radius: 4px;
 	background-color: #C6C9CE;
 	border: 1px solid #C6C9CE;
@@ -22,30 +22,38 @@ button{
 		}
 	}
 }
-.content{
-	.header{
-		padding: 25px 30px;
-		h3{
-			color: #3A3C40;
-			font-size: 18px;
-			line-height: 18px;
-			padding: 9px 0;
-			display: inline-block;
-			width: auto;
-		}
-		button{
-			float: right;
-			line-height: 10px;
-			i{
-				font-size: 22px;
-				margin-right: 8px;
-				font-weight: 400;
-				line-height: 7px;
-				vertical-align: top;
 
-			}
+
+
+
+
+
+.header{
+	padding: 25px 30px;
+	h3{
+		color: #3A3C40;
+		font-size: 18px;
+		line-height: 18px;
+		padding: 9px 0;
+		display: inline-block;
+		width: auto;
+	}
+	button{
+		float: right;
+		line-height: 10px;
+		i{
+			font-size: 22px;
+			margin-right: 8px;
+			font-weight: 400;
+			line-height: 7px;
+			vertical-align: top;
+
 		}
 	}
+}
+
+
+.content{
 	.listBox{
 		background-color: #FFF;
 		box-sizing: border-box;
@@ -83,4 +91,4 @@ button{
 			}
 		}
 	}
-}
+}*/

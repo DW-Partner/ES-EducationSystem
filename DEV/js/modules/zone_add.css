@@ -1,4 +1,19 @@
-input{
+.raioBox1, .raioBox2{
+	margin-right: 60px;
+	display: inline-block;
+	width: auto;
+	line-height: 36px;
+	label{
+		font-size: 14px;
+		color: #212224;
+		margin-right: 18px;
+		input[type="radio"]{
+			margin-right: 8px;
+		}
+	}
+}
+
+/*input{
 	border: 1px solid #E0E3E8;
 	box-shadow: none;
 	border-radius: 4px;
@@ -75,4 +90,4 @@ button{
 		margin-left: 48px;
 		margin-bottom: 90px;
 	}
-}
+}*/

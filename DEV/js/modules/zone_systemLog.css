@@ -1,4 +1,10 @@
-.logBox{
+.pub_list{
+	.body{
+		font-size: 14px;
+	}
+}
+
+/*.logBox{
 	h3{
 		color: #3A3C40;
 		font-size: 18px;
@@ -47,4 +53,4 @@
 			}
 		}
 	}
-}
+}*/

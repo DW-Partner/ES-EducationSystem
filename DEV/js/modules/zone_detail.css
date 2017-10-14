@@ -63,9 +63,9 @@ button{
 				border-radius: 4px;
 				padding: 18px 32px 24px 32px;
 				display: inline-block;
-				width: 243px;
+				width: 23%;
 				border: none;
-				margin-right: 34px;
+				margin-right: 1%;
 				&.data1{
 					
 				}
@@ -97,7 +97,7 @@ button{
 			margin-bottom: 35px;
 		}
 	}
-	.zoneList{
+	/*.zoneList{
 		background-color: #FFF;
 		margin-top: 20px;
 		h3{
@@ -148,5 +148,5 @@ button{
 				}
 			}
 		}
-	}
+	}*/
 }

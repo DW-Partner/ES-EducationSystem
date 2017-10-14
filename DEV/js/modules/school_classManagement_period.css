@@ -1,0 +1,35 @@
+.banner{
+	display: block;
+	width: 100%;
+}
+.period_edit{
+	padding: 0 45px 40px;
+	overflow: auto;
+	h5{
+		color: #AAAEB3;
+		font-size: 14px;
+		line-height: 70px;
+		font-weight: normal;
+	}
+	.pub_form{
+		width: 480px;
+		padding: 0;
+		float: left;
+		ul{
+			padding-bottom: 50px;
+		}
+		select{
+			width: 90px;
+		}
+	}
+	.info{
+		margin-top: 20px;
+		padding-left: 20px;
+		color: #6F737A;
+		border-left: 1px solid #eaeaea;
+		float: left;
+		line-height: 48px;
+	}
+
+	
+}

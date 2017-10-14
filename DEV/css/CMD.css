@@ -393,6 +393,26 @@ button, input[type=button], .btn, .btn_dis, .btn_grey{
   background: #f4f6f9;
   color: #393C40;
 }
+.page_head{
+  height: 80px;
+  padding: 22px 30px;
+  line-height: 36px;
+  h3{
+    float: left;
+    color: #3A3C40;
+    font-size: 18px;
+  }
+  .run, .btn, .btn_grey{
+    float: right;
+  }
+}
+.page_title{
+    height: 80px;
+    padding: 22px 30px;
+    color: #3A3C40;
+    font-size: 18px;
+    line-height: 36px;
+}
 select {
  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
  border: solid 1px #CED0D9;
@@ -401,9 +421,7 @@ select {
  -moz-appearance: none;
  -webkit-appearance: none;
  /*在选择框的最右侧中间显示小箭头图片*/
- background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
- background-position: 117px center;
- background-color: #F3F5F8;
+ background: #F3F5F8 url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll 90% center;
  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
  font-size: 14px;
  color: #6F737A;
@@ -524,7 +542,7 @@ select::-ms-expand {
 
 
 .pub_form{
-  padding: 20px;
+  padding: 20px 30px;
   ul{
     padding-bottom: 10px;
   }
@@ -546,7 +564,7 @@ select::-ms-expand {
     em{
       width: auto;
     }
-    input[type=text],input[type=date],input[type=password], textarea{
+    input[type=text],input[type=date],input[type=password], textarea {
       color: #212224;
       font-size: 14px;
       line-height: 18px;
@@ -554,12 +572,19 @@ select::-ms-expand {
       border-radius: 4px;
       width: 366px;
     }
-    input[type=text].short, input[type=date]{
+    input[type=text].short, input[type=text].shortest, input[type=date], .short{
       width: 200px;
-      margin-right: 20px;
+      margin-right: 50px;
     }
-    input[type=text].long{
-      width: 510px;
+    input[type=text].shortest, .shortest{
+      width: 60px;
+    }
+    input[type=text].long, .long{
+      width: 640px;
+    }
+    input[type=date].normal, .normal{
+      width: 366px;
+      margin-right: 50px;
     }
     textarea{
       height: 90px;
@@ -615,7 +640,7 @@ select::-ms-expand {
 
 /*登录界面主体部分*/
 .layout_center{
-  min-height: 500px;
+  min-height: 553px;
   position: relative;
   .content_box{
     width: 362px;
