@@ -2,12 +2,33 @@
 	// const $$ = window.$ = require('./jquery.min.js');
 	window.$ = require('jquery');
 	//import jsonPage from './comp/jsonPage.js';//公共分页插件
-	//import dialogFull from './comp/dialogFull.js';//公共弹框插件
+	import dialogFull from './comp/dialogFull.js';//公共弹框插件
+
+	import form from './comp/form.js';
 
 	//公共销毁方法
 	$.distory = ()=>{};
 	//main容器
 	$.mainBox = $('#main_box');
+
+
+	//公共表单插件
+	$.form = {
+		get: (opts)=>{
+			opts = opts ? opts : {};
+			opts.handle = opts.handle ? opts.handle : (opt)=>{
+                opt.that.addClass('error');
+				dialogFull.Tips({
+					text: opt.text,
+					status: false
+				});
+			}
+			return form.get(opts)
+		},
+		submit: (opts)=>{
+			form.submit(opts)
+		}
+	};
 
 	//load css文件方法
 	$.loadCss = (urls)=>{

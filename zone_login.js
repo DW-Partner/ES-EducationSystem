@@ -1,13 +1,7 @@
 	require('./zone_login.css');//引入css文件
 	import hex_md5 from '../kit/md5.js';
 
-	import form from '../comp/form.js';
-
 	import dialogFull from '../comp/dialogFull.js';
-
-
-// alert( validate.tel('1234567655') );
-
 
 	//dialogFull.Tips();
 	//http://www.jb51.net/article/82831.htm
@@ -29,20 +23,10 @@
 		}
 
 	}).on('click', '#submit_login', function(){
-
-		const sub_data = $.form.get();
-
-		if( !sub_data ){
-			return;
-		}
-
 		const data = {
 			a: $('input').eq(0).val(),
 			b: $('input').eq(1).val(),
 			c: hex_md5( $('input').eq(2).val() )
 		}
-		$.form.submit({
-			data: sub_data
-		});
-		console.log(sub_data);
+		console.log(data);
 	})

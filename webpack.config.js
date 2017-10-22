@@ -27,7 +27,10 @@ let htmlPluginsList = (path) => {
                     template: 'html-withimg-loader!' + './DEV/' + item,
                     filename: './' + item,
                     inject: 'body',
-                    chunks: ['CMD', pageJs]//'modules/'+item.match(/(.[^\.]+)\.html/)[1]
+                    chunks: ['CMD', pageJs],//'modules/'+item.match(/(.[^\.]+)\.html/)[1]
+                    chunksSortMode: "manual"
+                    //参考排序：https://segmentfault.com/q/1010000008621650?_ea=1700642
+                    //参考排序：https://segmentfault.com/a/1190000007294861
                 })
             console.log(item);
             pluginsList.push(htmlItem);
