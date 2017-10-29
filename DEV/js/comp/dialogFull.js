@@ -12,7 +12,7 @@
             var options = {
                     boxClass: '.DomPopClass',
                     title: '提示',//弹框标题
-                    content: '',//弹框内容区
+                    content: '2345',//弹框内容区
                     confirm: true,//是否显示“确定/取消”按钮，及只显示alert确定按钮
                     width: 'auto',
                     height: 'auto',
@@ -49,14 +49,13 @@
                         "height": dialogMainHeight,
                         "width": dialogMainWidth
                 },300);
-                return;
             }
             //cache缓存隐藏dom end
 
-            var main = '<div class="sui-title"><i class="dialog-close dialogFullClose"></i></div><div class="dialog-body"></div>',
-                doneBtn = options.doneBtnText ? '<input type="button" value="' + options.doneBtnText + '" class="btn btn-primary dialogFullDone">' : '',
-                closeBtn = options.closeBtnText ? '<input type="button" value="' + options.closeBtnText + '" class="btn btn-grey dialogFullClose">' : '',
-                confirm = '<div class="dialog-footer">'
+            var main = '<div class="head"><a href="JavaScript:;" class="dialogFullClose">×</a></div><div class="content"></div>',
+                doneBtn = options.doneBtnText ? '<a href="JavaScript:;" class="btn-Blue dialogFullDone">' + options.doneBtnText + '</a>' : '',
+                closeBtn = options.closeBtnText ? '<a href="JavaScript:;" class="btn-Grey dialogFullClose">' + options.closeBtnText + '</a>' : '',
+                confirm = '<div class="btn-confirm">'
                     + doneBtn + closeBtn +
                     '</div>',
                 time = (new Date()).getTime(),
@@ -64,20 +63,20 @@
                 dialogCoverId = '#dialogCover' + time;
 
             if( options.confirm == 'alert' ){
-                confirm = '<div class="dialog-footer">\
-                    <input type="button" value="确定" class="btn btn-primary dialogFullClose">\
+                confirm = '<div class="btn-confirm">\
+                    <input type="button" value="确定" class="btn-primary dialogFullClose">\
                     </div>';
             }
-            var $dom = $('<div />').addClass('sui-dialog').attr( 'id', dialogMainId.substring(1) ).addClass(options.boxClass.substring(1));
-            $dom.append(main).find('.sui-title').append(options.title);
-            $dom.find('.dialog-body').append(options.content);
+            var $dom = $('<div />').addClass('dialogPopBox').attr( 'id', dialogMainId.substring(1) ).addClass(options.boxClass.substring(1));
+            $dom.append(main).find('.head').append(options.title);
+            $dom.find('.content').append(options.content);
             options.confirm ? $dom.append(confirm) : '';
             if( options.cacheId && !options.ajaxUrl ){
                 $dom.attr( 'cache', options.cacheId );
             };
             if( options.clear ){
                 //$( '.sui-dialog, .bodyCover' ).remove()
-                $( 'i.dialogFullClose' ).click();
+                $( '.dialogFullClose' ).click();
                 //this.offEvent();
             };
             if (options.cover) {
@@ -90,10 +89,12 @@
             var dialogMainWidth = options.width === 'auto' ? $( dialogMainId ).width() : options.width;
             dialogMainHeight = dialogMainHeight > $(window).height() * 0.9 ? $(window).height() * 0.9 : dialogMainHeight;
             dialogMainWidth = dialogMainWidth > $(window).width() * 0.9 ? $(window).width() * 0.9 : dialogMainWidth;
+
+
             if( options.confirm ){
-                $( dialogMainId ).find( '.dialog-body' ).height( dialogMainHeight - 143 ).css("overflow", "hidden");
+                $( dialogMainId ).find( '.content' ).height( dialogMainHeight - 143 ).css("overflow", "hidden");
             }else{
-                $( dialogMainId ).find( '.dialog-body' ).height( dialogMainHeight - 79 ).css("overflow", "hidden");
+                $( dialogMainId ).find( '.content' ).height( dialogMainHeight - 79 ).css("overflow", "hidden");
             }
             $( dialogMainId ).css({
                 "height": 0,
@@ -102,12 +103,14 @@
                     "height": dialogMainHeight,
                     "width": dialogMainWidth + 2
             },300, function(){
-                    $( dialogMainId ).find( '.dialog-body' ).css("overflow", "auto");
+                    $( dialogMainId ).find( '.content' ).css("overflow", "auto");
              });
+
+
             options.showCallback( $( dialogMainId ), $contentBox );//show回调
             var dialogFullCloseDom = dialogMainId + ' .dialogFullClose',
                 dialogFullDoneDom = dialogMainId + ' .dialogFullDone',
-                $contentBox = $(dialogMainId).find('.dialog-body');
+                $contentBox = $(dialogMainId).find('.content');
             var dialogClose = function(delCache){
                 if( !options.cacheId || delCache ) {
                     $(dialogMainId).remove();
@@ -151,11 +154,11 @@
                         if (options.height === 'auto') {
                                 setTimeout(function(){
                                     $( dialogMainId ).css('height', 'auto');
-                                    var dialogBodyScrollHeight = $( dialogMainId ).find( '.dialog-body' ).prop("scrollHeight") - 30;
-                                    var diffHeight = $( dialogMainId ).height() - $( dialogMainId ).find( '.dialog-body' ).height();
+                                    var dialogBodyScrollHeight = $( dialogMainId ).find( '.content' ).prop("scrollHeight") - 30;
+                                    var diffHeight = $( dialogMainId ).height() - $( dialogMainId ).find( '.content' ).height();
                                     var allHeight = dialogBodyScrollHeight + diffHeight;
                                     var dialogBodyHeight = allHeight > $(window).height() * 0.9 ? $(window).height() * 0.9 - diffHeight : allHeight - diffHeight;
-                                    $( dialogMainId ).find( '.dialog-body' ).animate({
+                                    $( dialogMainId ).find( '.content' ).animate({
                                         "height": dialogBodyHeight
                                     }, 300);
                                 },300);
@@ -163,9 +166,9 @@
                         if (options.width === 'auto') {
                                 setTimeout(function(){
                                     $( dialogMainId ).css('width', 'auto');
-                                    var dialogBodyScrollWidth = $( dialogMainId ).find( '.dialog-body' ).prop("scrollWidth") - 30;
+                                    var dialogBodyScrollWidth = $( dialogMainId ).find( '.content' ).prop("scrollWidth") - 30;
                                     var dialogBodyWidth = dialogBodyScrollWidth > $(window).width() * 0.9 ? $(window).width() * 0.9 : dialogBodyScrollWidth;
-                                        $( dialogMainId ).find( '.dialog-body' ).animate({
+                                        $( dialogMainId ).find( '.content' ).animate({
                                             "width": dialogBodyWidth +2
                                         }, 300);
                                 },300);
@@ -192,13 +195,13 @@
             if( typeof param == 'string' || typeof param == 'number' ){
                 options.text = param;
             }
-            var $dom = $('<div />').addClass( 'sui-toptip' ).addClass(options.box.substring(1)).html(options.text);
-            $( '.sui-toptip' ).remove();
+            var $dom = $('<div />').addClass( 'dialogTipsBox' ).addClass(options.box.substring(1)).html(options.text);
+            $( '.dialogTipsBox' ).remove();
             $('body').append($dom);
             if( options.status === true || options.status === 'success' ){
-                $(options.box).addClass('tip-success').slideDown(200);
+                $(options.box).slideDown(200);
             }else if( !options.status || options.status === 'error' ) {
-                $(options.box).addClass('tip-error').slideDown(200);
+                $(options.box).addClass('error').slideDown(200);
             }else if ( options.status === 'warning' ) {
                 $(options.box).addClass('tip-warning').slideDown(200);
             }else{
@@ -206,8 +209,8 @@
             }
             if (options.setTime) {
                 setTimeout(function() {
-                    $( '.sui-toptip' ).slideUp(200, function() {
-                        $( '.sui-toptip' ).remove();
+                    $( '.dialogTipsBox' ).slideUp(200, function() {
+                        $( '.sdialogTipsBox' ).remove();
                     })
                 }, options.setTime);
             }

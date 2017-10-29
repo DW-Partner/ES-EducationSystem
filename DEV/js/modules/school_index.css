@@ -18,17 +18,16 @@
 			width: 125px;
 			height: 65px;
 			border-left: 2px solid #3580D9;
-			background: #ddd;
+			background: #eaf2fb;
 			position: absolute;
-			padding: 0 5px;
-			line-height: 30px;
+			padding: 11px 5px 10px 5px;
+			line-height: 22px;
 			h6{
 				font-size: 16px;
 				color: #354052;
 				font-weight: normal;
 			}
 			p{
-
 			}
 			span{
 				position: absolute;
@@ -49,7 +48,7 @@
 		justify-content:space-between;
 		span{
 			/*flex: 1;*/
-			width: 36px;
+			display: inline;
 		}
 	}
 }

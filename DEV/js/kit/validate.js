@@ -18,7 +18,7 @@ export default {
 		}
 		const reg = /^[0-9]+$/;
 		if( !reg.test(val) ){
-			opts.text = opts.text ? opts.text : '请输入正确数字';
+			opts.text = opts.text || '请输入正确数字';
 			handle( opts );
 			return false;
 		}
@@ -43,7 +43,7 @@ export default {
 		}
 		const reg = /^[\u0391-\uFFE5]+$/;
 		if( !reg.test(val) ){
-			opts.text = opts.text ? opts.text : '请输入汉字';
+			opts.text = opts.text || '请输入汉字';
 			handle( opts );
 			return false;
 		}
@@ -97,7 +97,7 @@ export default {
 		if( val || (!must && !val) ){
 			return true;
 		}
-		opts.text = opts.text ? opts.text : '请填写必填项！';
+		opts.text = opts.text || '请填写必填项！';
 		handle( opts );
 		return false;
 

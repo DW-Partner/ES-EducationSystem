@@ -41,7 +41,7 @@ var form = {
             const opts = {
                 that: that,
                 type: type,
-                text: options.error_text ? that.attr( options.placeholder ) : ''
+                text: options.error_text ? that.attr( options.error_text ) : ''
             }
             const result = validate[ type ]( value, options.handle, opts, must );
             if( !result ){
