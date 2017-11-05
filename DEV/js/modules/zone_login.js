@@ -2,15 +2,7 @@
 	import hex_md5 from '../kit/md5.js';
 	import QRCode from '../kit/qrcode.js';
 
-	import form from '../comp/form.js';
-
-	import dialogFull from '../comp/dialogFull.js';
-
-
-// alert( validate.tel('1234567655') );
-
-
-
+	// alert( validate.tel('1234567655') );
 
     //     var qrcode = new QRCode($("div")[0], {
 		  // text: 'your content',
@@ -21,9 +13,6 @@
     //     });
     //     qrcode.makeCode("http://www.baidu.com");
 
-
-
-	//dialogFull.Pop();
 	//http://www.jb51.net/article/82831.htm
 	let set;
 	$('.content_box').on('click', '.loginType', function(){
@@ -44,17 +33,15 @@
 
 	}).on('click', '#submit_login', function(){
 
+		//$.dialogFull.Alert(234567);
+
 		const sub_data = $.form.get();
 
 		if( !sub_data ){
 			return;
 		}
-
-		const data = {
-			a: $('input').eq(0).val(),
-			b: $('input').eq(1).val(),
-			c: hex_md5( $('input').eq(2).val() )
-		}
+		// alert( sub_data.passpord )
+		sub_data.password = hex_md5( sub_data.password );
 		$.form.submit({
 			data: sub_data
 		});

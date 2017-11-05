@@ -12,6 +12,19 @@ export default {
 		return true;
 
 	},
+	password: ( val, handle, opts, must )=>{//密码
+		if( !must && !val ){
+			return true;
+		}
+		const reg = /^[\w]{6,}$/;
+		if( !reg.test(val) ){
+			opts.text = '请输入有效密码(至少6位)';
+			handle( opts );
+			return false;
+		}
+		return true;
+	},
+	//http://blog.csdn.net/pp_fzp/article/details/50764600
 	number: ( val, handle, opts, must )=>{//数字
 		if( !must && !val ){
 			return true;
@@ -25,7 +38,7 @@ export default {
 		return true;
 
 	},
-	mail: ( val, handle, opts, must )=>{//数字
+	mail: ( val, handle, opts, must )=>{//邮箱
 		if( !must && !val ){
 			return true;
 		}
@@ -37,7 +50,7 @@ export default {
 		}
 		return true;
 	},
-	chinese: ( val, handle, opts, must )=>{//数字
+	chinese: ( val, handle, opts, must )=>{//汉字
 		if( !must && !val ){
 			return true;
 		}

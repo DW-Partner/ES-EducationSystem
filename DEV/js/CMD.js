@@ -1,11 +1,12 @@
 	require('../css/CMD.css');
 	// const $$ = window.$ = require('./jquery.min.js');
 	window.$ = require('jquery');
-	//import jsonPage from './comp/jsonPage.js';//公共分页插件
+	import jsonPage from './comp/jsonPage.js';//公共分页插件
 	import dialogFull from './comp/dialogFull.js';//公共弹框插件
+	import form from './comp/form.js';//公共表单插件
 
-	import form from './comp/form.js';
-
+	$.dialogFull = dialogFull;
+	$.jsonPage = jsonPage;
 	//公共销毁方法
 	$.distory = ()=>{};
 	//main容器
@@ -18,7 +19,7 @@
 			opts = opts ? opts : {};
 			opts.handle = opts.handle ? opts.handle : (opt)=>{
                 opt.that.addClass('error');
-				dialogFull.Tips({
+				$.dialogFull.Tips({
 					text: opt.text,
 					status: false
 				});
@@ -29,9 +30,11 @@
 			form.submit(opts)
 		}
 	};
+	//end
 
 	//load css文件方法
 	$.loadCss = (urls)=>{
+		//let urls_arr = [];
 		//let urls = typeof urls === 'string' ? [urls] : urls;
 		for( let i=0;i<urls.length; i++ ){
 			let link=document.createElement('link');
@@ -42,6 +45,7 @@
 	 		document.getElementById('main_box').appendChild(link);
 		}
 	}
+	//end
 
 
     //时间转化start
@@ -84,7 +88,6 @@
         }) + ' ' + week[ t.getDay() ]
     };
     //时间转化end
-    $('#times').text( changeFormat('YYYY年MM月DD日') );
     
 
 
@@ -96,6 +99,7 @@
 			window.event.returnValue = false;
 		}
 	}
+	//end
 
 	//ajax请求html页面公共方法
 	let ajaxGetHtml;
@@ -119,6 +123,7 @@
 			}
 		})
 	}
+	//end
 
 
 	//退出方法
@@ -133,18 +138,21 @@
 					window.location.href = 'xxxx';
 					return;
 				}
-
 				$.distory();
-
 			},
 			error: ()=>{
-
 			}
 		})
 	}
+	//end
 
-	$(document).on('click', '#left_nav a', (e)=>{
-		stopDefault(e);
-		const url = $(this).attr('href');
-		ajaxGetHtml( url );
-	});
+
+	let init = ()=>{
+		$('#times').text( changeFormat('YYYY年MM月DD日') );
+		$(document).on('click', '#left_nav a', (e)=>{
+			stopDefault(e);
+			const url = $(this).attr('href');
+			ajaxGetHtml( url );
+		});
+	};
+	init();

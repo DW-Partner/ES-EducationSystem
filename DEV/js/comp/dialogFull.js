@@ -34,21 +34,13 @@
                     runClose: function($this, $thisBox) {}
                 },
                 options = $.extend(options, param);
+
             //cache缓存隐藏dom start
             if (options.cacheId && $( '[cache = ' + options.cacheId + ']' ).length) {
                 var dialogMainId = '#' + $( '[cache = ' + options.cacheId + ']' ).attr( 'id' ),
                     dialogCoverId = dialogMainId.replace( 'dialogMain', 'dialogCover' );
                 $(dialogCoverId).show();
                 $(dialogMainId).show();
-                var dialogMainHeight = $( dialogMainId ).height(),
-                    dialogMainWidth = $( dialogMainId ).width();
-                $(dialogMainId).css({
-                    "height": 0,
-                    "width": 0
-                }).animate({
-                        "height": dialogMainHeight,
-                        "width": dialogMainWidth
-                },300);
             }
             //cache缓存隐藏dom end
 
@@ -64,7 +56,7 @@
 
             if( options.confirm == 'alert' ){
                 confirm = '<div class="btn-confirm">\
-                    <input type="button" value="确定" class="btn-primary dialogFullClose">\
+                    <a href="JavaScript:;" class="btn-Blue dialogFullClose">确定</a>\
                     </div>';
             }
             var $dom = $('<div />').addClass('dialogPopBox').attr( 'id', dialogMainId.substring(1) ).addClass(options.boxClass.substring(1));
@@ -74,38 +66,19 @@
             if( options.cacheId && !options.ajaxUrl ){
                 $dom.attr( 'cache', options.cacheId );
             };
+            $dom.css({
+                height: options.height,
+                width: options.width
+            });
             if( options.clear ){
-                //$( '.sui-dialog, .bodyCover' ).remove()
                 $( '.dialogFullClose' ).click();
                 //this.offEvent();
             };
             if (options.cover) {
                 var $coverDom = $('<div />').addClass('bodyCover').attr('id', dialogCoverId.substring(1));
                 $('body').append($coverDom);
-                $( dialogCoverId ).show();
             }
             $('body').append($dom);
-            var dialogMainHeight = options.height === 'auto' ? $( dialogMainId ).height() : options.height;
-            var dialogMainWidth = options.width === 'auto' ? $( dialogMainId ).width() : options.width;
-            dialogMainHeight = dialogMainHeight > $(window).height() * 0.9 ? $(window).height() * 0.9 : dialogMainHeight;
-            dialogMainWidth = dialogMainWidth > $(window).width() * 0.9 ? $(window).width() * 0.9 : dialogMainWidth;
-
-
-            if( options.confirm ){
-                $( dialogMainId ).find( '.content' ).height( dialogMainHeight - 143 ).css("overflow", "hidden");
-            }else{
-                $( dialogMainId ).find( '.content' ).height( dialogMainHeight - 79 ).css("overflow", "hidden");
-            }
-            $( dialogMainId ).css({
-                "height": 0,
-                "width":0
-            }).animate({
-                    "height": dialogMainHeight,
-                    "width": dialogMainWidth + 2
-            },300, function(){
-                    $( dialogMainId ).find( '.content' ).css("overflow", "auto");
-             });
-
 
             options.showCallback( $( dialogMainId ), $contentBox );//show回调
             var dialogFullCloseDom = dialogMainId + ' .dialogFullClose',
@@ -151,28 +124,6 @@
                     data: options.ajaxData,
                     success: function(msg) {
                         options.ajaxSuccess(msg, $( dialogMainId ), $contentBox);
-                        if (options.height === 'auto') {
-                                setTimeout(function(){
-                                    $( dialogMainId ).css('height', 'auto');
-                                    var dialogBodyScrollHeight = $( dialogMainId ).find( '.content' ).prop("scrollHeight") - 30;
-                                    var diffHeight = $( dialogMainId ).height() - $( dialogMainId ).find( '.content' ).height();
-                                    var allHeight = dialogBodyScrollHeight + diffHeight;
-                                    var dialogBodyHeight = allHeight > $(window).height() * 0.9 ? $(window).height() * 0.9 - diffHeight : allHeight - diffHeight;
-                                    $( dialogMainId ).find( '.content' ).animate({
-                                        "height": dialogBodyHeight
-                                    }, 300);
-                                },300);
-                        };
-                        if (options.width === 'auto') {
-                                setTimeout(function(){
-                                    $( dialogMainId ).css('width', 'auto');
-                                    var dialogBodyScrollWidth = $( dialogMainId ).find( '.content' ).prop("scrollWidth") - 30;
-                                    var dialogBodyWidth = dialogBodyScrollWidth > $(window).width() * 0.9 ? $(window).width() * 0.9 : dialogBodyScrollWidth;
-                                        $( dialogMainId ).find( '.content' ).animate({
-                                            "width": dialogBodyWidth +2
-                                        }, 300);
-                                },300);
-                        };
                         if( options.cacheId && msg.code == 0  ){
                              $(dialogMainId).attr( 'cache', options.cacheId );
                         }
