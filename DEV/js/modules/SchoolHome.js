@@ -103,7 +103,7 @@ let getZoneDayIndex = ()=>{
             });
             option.xAxis.data = chartNameArr;
             ChartHandle( 'income', '今日流水实收' );
-            //ChartHandle( $('.selectBox select').val(), $('.selectBox select').find("option:selected").text() );
+            //ChartHandle( $('#echartSelect').val(), $('#echartSelect').find("option:selected").text() );
         },
         error: ()=>{
             myChart1.setOption( option );
@@ -139,7 +139,7 @@ $.jsonPage({
     }
 });
 
-$.mainBox.on('change', '.selectBox select', function(){
+$.mainBox.on('change', '#echartSelect', function(){
     const type = $(this).val();
     const word = $(this).find("option:selected").text();
     ChartHandle( type, word );
