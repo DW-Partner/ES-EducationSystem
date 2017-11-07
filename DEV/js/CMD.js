@@ -103,23 +103,35 @@
 
 	//ajax请求html页面公共方法
 	let ajaxGetHtml;
-	$.ajaxGetHtml = ajaxGetHtml = (url) => {
+	$.ajaxGetHtml = ajaxGetHtml = (url, that) => {
+		let data = {};
+		if( $('#school_code').val() ){
+			data = {
+				code: $('#school_code').val()				
+			}
+		}else{
+			data = {
+				code: $('#zone_code').val(),
+				zoneid: $('#zoneid').val()			
+			}
+		}
 		$.ajax({
 			type: "get",
 			dataType: "html",
 			url: url,
-			data: {},
+			data: data,
 			success: (html)=>{
-				if( html === 'xxxx' ){
-					window.location.href = 'xxxx';
-					return;
-				}
-
+				// if( html === 'xxxx' ){
+				// 	window.location.href = 'xxxx';
+				// 	return;
+				// }
+				$.mainBox.off();
 				$.distory();
-
+				that.addClass('on').siblings('.on').removeClass('on');
+				$('#main_box').html( html );
 			},
 			error: ()=>{
-
+            	$.dialogFull.Tips( "网络错误，请稍后重试" );
 			}
 		})
 	}
@@ -149,10 +161,11 @@
 
 	let init = ()=>{
 		$('#times').text( changeFormat('YYYY年MM月DD日') );
-		$(document).on('click', '#left_nav a', (e)=>{
-			stopDefault(e);
+		$(document).on('click', '#left_nav a', function(e){
 			const url = $(this).attr('href');
-			ajaxGetHtml( url );
+			const li = $(this).parent('li');
+			ajaxGetHtml( url, li );
+			stopDefault(e);
 		});
 	};
 	init();

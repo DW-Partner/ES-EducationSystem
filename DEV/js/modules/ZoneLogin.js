@@ -59,7 +59,7 @@
              		$(".loginStatus_success").show();
              	}else if( res.errcode == 50003 ){
              		clearInterval(set);
-             		$(".loginStatus_success").hide();
+             		$(".qrcodeLogin, .loginStatus_success").hide();
              		$(".loginStatus_error").show();
              	}else if( res.errcode == 0 ){
              		clearInterval(set);
@@ -99,7 +99,6 @@
 		}
 
 	}).on('click', '#submit_login', function(){
-
 		const sub_data = $.form.get();
 		if( !sub_data ){
 			return;
@@ -119,4 +118,6 @@
             	$.dialogFull.Tips( "网络错误，请稍后重试" );
             }
 		});
+	}).on('click', '.loginStatus_error .btn', function(){
+		window.location.reload();
 	})

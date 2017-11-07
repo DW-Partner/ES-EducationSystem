@@ -42,6 +42,11 @@
 
 
 	let set;
+
+	set = setInterval(function(){
+		queryScanResult( qrcode_data )
+	},2000);
+
 	let queryScanResult = (qid)=>{
 		$.ajax({
              type: "post",
@@ -59,7 +64,7 @@
              		$(".loginStatus_success").show();
              	}else if( res.errcode == 50003 ){
              		clearInterval(set);
-             		$(".loginStatus_success").hide();
+             		$(".qrcodeLogin, .loginStatus_success").hide();
              		$(".loginStatus_error").show();
              	}else if( res.errcode == 0 ){
              		clearInterval(set);
@@ -72,7 +77,6 @@
             	$.dialogFull.Tips( "网络错误，请稍后重试" );
             }
          });
-
 	};
 	$('.content_box').on('click', '.loginType', function(){
 		let self = $(this);
@@ -80,18 +84,14 @@
 		const dom = type === 'passwordLogin' ? '.qrcodeLogin' : '.passwordLogin';
 		self.parent().slideUp();
 		$( dom ).slideDown();
-
 		if( dom === '.qrcodeLogin' ){
 			clearInterval(set);
 			set = setInterval(function(){
-
 				queryScanResult( qrcode_data )
-
 			},2000);
 		}else{
 			clearInterval(set);
 		}
-
 	}).on('click', '.loginStatus_error .btn', function(){
 		window.location.reload();
 	}).on('click', '#submit_login', function(){

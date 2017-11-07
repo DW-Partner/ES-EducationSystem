@@ -751,7 +751,7 @@ select::-ms-expand {
       margin: 100px auto 0 auto;
       padding-top: 120px;
       background-image: url(../images/ico_loginStatus.png);
-      background-size: 120px 240px;
+      background-size: 120px 320px;
       background-position: center 0;
       background-repeat: no-repeat;
       p{
@@ -766,7 +766,7 @@ select::-ms-expand {
       }
   }
   .loginStatus_error{
-    background-position: center -120px;
+    background-position: center -200px;
   }
 }
 
