@@ -4,13 +4,13 @@ const fs = require('fs');
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const extractCSS = new ExtractTextPlugin('/css/[name].css');
+const extractCSS = new ExtractTextPlugin('res/css/[name].css');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const dev_path = './DEV/';//develop目录路径，暂时只支持监听子集层
 const build_path = './build/';//distribution目录路径
-const static_path = './static/';//distribution目录路径
+const static_path = './MVP_static/';//distribution目录路径
 
 let pluginsList = [];
 let htmlPluginsList = (path) => {
@@ -27,7 +27,9 @@ let htmlPluginsList = (path) => {
                     template: 'html-withimg-loader!' + './DEV/' + item,
                     filename: './' + item,
                     inject: 'body',
-                    chunks: ['CMD', pageJs]//'modules/'+item.match(/(.[^\.]+)\.html/)[1]
+                    chunks: ['CMD', pageJs],//'modules/'+item.match(/(.[^\.]+)\.html/)[1]
+                    chunksSortMode: "manual",
+                    minify: false
                 })
             console.log(item);
             pluginsList.push(htmlItem);
@@ -62,9 +64,11 @@ module.exports = {
     entry: entryList,
 //    extensions: ['', '.js', '.json', '.css', 'scss', '.less'],
     output: {
-        path: __dirname + "/static",//打包后的文件存放的地方
-        filename: "js/[name].js"//打包后输出文件的文件名
+        path: __dirname + "/MVP_static/",//打包后的文件存放的地方
+        publicPath:"/",// 文件的引用
+        filename: "res/js/[name].js"//打包后输出文件的文件名
     },
+    //http://blog.csdn.net/misttt/article/details/73616324
     // devtool: 'eval-source-map',
     // devServer: {
     //     contentBase: "./build",//本地服务器所加载的页面所在的目录
@@ -96,7 +100,7 @@ module.exports = {
             },
     　　　　 {
     　　　　　　test: /\.(png|jpg|gif)$/,
-　　　　　　    use: 'url-loader?limit=819&name=images/[name]_[hash:8].[ext]'
+　　　　　　    use: 'url-loader?limit=819&name=res/images/[name]_[hash:8].[ext]'
                     //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
     　　　　 },
             {

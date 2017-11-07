@@ -1,4 +1,4 @@
-require('./zone_index.css');
+require('./SchoolHome.css');
 
 var echarts = require('echarts');
 

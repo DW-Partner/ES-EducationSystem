@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <title>机构-登录</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="format-detection" content="telephone=no">
   </head>
@@ -16,28 +16,33 @@
 	<div class="layout_center">
 		<div class="content_box">
 
+			<!-- 隐藏域start ~二维码素材~ -->
+			<input type="hidden" id="qecode_data" value="-dsdsfdsfxxxx" >
+			<!-- 隐藏域end -->
+
 			<!-- 扫描登录start -->
-			<div class="qrcodeLogin none">
+			<div class="qrcodeLogin">
 				<a href="JavaScript:;" class="loginType" data-type="qrcodeLogin"></a>
-				<img src="./images/code_img.png" />
+				<div class="qrcode">
+				</div>
 				<p>打开微信，进入培生素公众号，进入我的培生素选择扫一扫，扫描上图二维码登录</p>
 			</div>
 			<!-- 扫描登录end -->
 
 			<!-- 账号密码登录start -->
-			<div class="passwordLogin">
+			<div class="passwordLogin none">
 				<a href="JavaScript:;" class="loginType" data-type="passwordLogin"></a>
 				<h5>密码登录</h5>
 				<div class="pub_form">
 					<ul>
 						<li>
-							<input type="text" name="jigou" data-validate="number" data-must="1" placeholder="机构代码">
+							<input type="text" name="code" data-validate="number" data-must="1" placeholder="机构代码">
 						</li>
 						<li>
-							<input type="text" name="userId" data-validate="number" data-must="1"  placeholder="账号">
+							<input type="text" name="user" data-validate="any" data-must="1"  placeholder="账号">
 						</li>
 						<li>
-							<input type="password" name="password" data-validate="password" data-must="1"  placeholder="账号">
+							<input type="password" name="password" data-validate="password" data-must="1"  placeholder="密码">
 						</li>
 					</ul>
 					<p class="none">机构代码、用户名和密码不匹配</p>

@@ -652,6 +652,10 @@ select::-ms-expand {
   .qrcodeLogin{
     line-height: 18px;
     font-size: 14px;
+    .qrcode{
+      height: 280px;
+      overflow: hidden;
+    }
     img{
       display: block;
       width: 180px;
@@ -661,7 +665,7 @@ select::-ms-expand {
     p{
       padding: 0 32px;
     }
-    .loginType{
+    .loginType, .ico{
       position: absolute;
       right: 0;
       top: 0;
@@ -670,6 +674,11 @@ select::-ms-expand {
       background-image: url(../images/ico_loginType.png);
       background-size: 83px 76px;
       background-position: 0 0; 
+    }
+    .ico{
+      background-image: url(../images/ico_loginType.png);
+      background-size: 83px 76px;
+      background-position: 0 -40px; 
     }
   }
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>校区-登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no">
+  </head>
+  <body>
+	<div class="top_box">
+		<img src="./images/logo.png"/>
+		<p>管好资源、看清数据<span class="times" id="times"></span></p>
+		</span>
+	</div>
+
+	<div class="layout_center">
+		<div class="content_box">
+
+			<!-- 隐藏域start ~二维码素材~ -->
+			<input type="hidden" id="qecode_data" value="-dsdsfdsfxxxx" >
+			<!-- 隐藏域end -->
+
+
+			<!-- 扫描登录start -->
+			<div class="qrcodeLogin">
+				<a href="JavaScript:;" class="ico"></a>
+				<div class="qrcode">
+				</div>
+				<p>打开微信，进入培生素公众号，进入我的培生素选择扫一扫，扫描上图二维码登录</p>
+			</div>
+			<!-- 扫描登录end -->
+
+
+			<!-- 扫描成功start -->
+			<div class="loginStatus_success none">
+				<p>扫描成功，请在手机上根据提示确认登录</p>
+			</div>
+			<!-- 扫描成功end -->
+
+			<!-- 扫描失败start -->
+			<div class="loginStatus_error none">
+				<p>二维码已失效</p>
+				<a href="JavaScript:;" class="btn">刷新二维码</a>
+			</div>
+			<!-- 扫描失败end -->
+
+		</div>
+	</div>
+	<p class="layout_footer">京 ICP 证 17002468 号 | Copyright © 2006-2017, website.com, All Rights Reserved</p>
+  </body>
+</html>

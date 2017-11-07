@@ -72,7 +72,7 @@ var form = {
                  options.success(msg);
             },
             error: ()=>{
-                 options.error();
+                options.error();
             }
         })
     }

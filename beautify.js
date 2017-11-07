@@ -25,7 +25,7 @@ let fn_beautify_html = (path) => {
         }
     })
 }
-fn_beautify_html( './static/' );
+fn_beautify_html( './MVP_static/' );
 
 //监听static文件夹
 // let fsWatcher = fs.watch('./static/', (event, filename) => {

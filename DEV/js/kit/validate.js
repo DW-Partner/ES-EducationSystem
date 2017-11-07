@@ -16,7 +16,7 @@ export default {
 		if( !must && !val ){
 			return true;
 		}
-		const reg = /^[\w]{6,}$/;
+		const reg = /^[\s\S]{6,}$/;
 		if( !reg.test(val) ){
 			opts.text = '请输入有效密码(至少6位)';
 			handle( opts );

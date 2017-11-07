@@ -1,4 +1,4 @@
-	require('./school_index.css');//引入css文件
+	require('./zoneHome.css');//引入css文件
 	$.mainBox.on('click', 'p', ()=>{
 		//alert(5678);
 	})
