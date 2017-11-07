@@ -112,7 +112,7 @@
 		}else{
 			data = {
 				code: $('#zone_code').val(),
-				zoneid: $('#zoneid').val()			
+				zoneid: $('#zone_zoneid').val()			
 			}
 		}
 		$.ajax({
