@@ -41,6 +41,8 @@ var tpl = {
 
 }
 
+
+//经营指标 start 3.7
 let getDayIndex = ()=>{
     $.ajax({
         type: "post",
@@ -50,7 +52,7 @@ let getDayIndex = ()=>{
             code: $('#school_code').val()
         },
         success: (res)=>{
-            if( res != 0 ){
+            if( res.errcode != 0 ){
                 $.dialogFull.Tips( res.errmsg );
                  return;
             }
@@ -59,13 +61,15 @@ let getDayIndex = ()=>{
 
         },
         error: ()=>{
-            $.dialogFull.Tips( "网络错误，请稍后重试" );
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
         }
     })
 }
 getDayIndex();
+//经营指标 end
 
 
+//校区今日数据对比 start 3.8
 let chartNameArr = [];
 let ChartData=[];
 // ChartData = [{"zone_name":"校区2","income":888,"zone_id":1,"teacher_leave_num":0,"sign_num":1,"reserve_num":0,"visit_num":12,"outcome":999,"class_num":6},{"zone_name":"校区2","income":43242,"zone_id":2,"teacher_leave_num":0,"sign_num":3,"reserve_num":1,"visit_num":34,"outcome":7654,"class_num":16}];
@@ -93,9 +97,9 @@ let getZoneDayIndex = ()=>{
             code: $('#school_code').val()
         },
         success: (res)=>{
-            if( res != 0 ){
+            if( res.errcode != 0 ){
                 $.dialogFull.Tips( res.errmsg );
-                 return;
+                return;
             }
             ChartData = res.data;
             ChartData.map(function(item, index){
@@ -107,12 +111,15 @@ let getZoneDayIndex = ()=>{
         },
         error: ()=>{
             myChart1.setOption( option );
-            $.dialogFull.Tips( "网络错误，请稍后重试" );
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
         }
     })
 }
 getZoneDayIndex();
+//校区今日数据对比 end
 
+
+//校区列表 start 3.9
 $.jsonPage({
     listBox: 'ul.body',//列表容器
     ajaxUrl: '/pss/getZoneList',
@@ -138,6 +145,7 @@ $.jsonPage({
         $.dialogFull.Tips( "网络错误，请稍后重试" );
     }
 });
+//校区列表 end
 
 $.mainBox.on('change', '#echartSelect', function(){
     const type = $(this).val();

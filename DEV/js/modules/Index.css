@@ -1,0 +1,19 @@
+.detailContent{
+	background-color: #F8F7F7;
+	.echartsBox{
+		background-color: #FFF;
+		margin-bottom: 20px;
+		position: relative;
+		.selectBox{
+			position: absolute;
+			top: 30px;
+			left: 300px;
+			z-index: 1;
+		}
+		.echarts{
+			width: 100%;
+			height: 427px;
+			padding: 30px;
+		}
+	}
+}

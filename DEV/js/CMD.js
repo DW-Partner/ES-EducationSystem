@@ -12,6 +12,18 @@
 	//main容器
 	$.mainBox = $('#main_box');
 
+	let base_data = {};
+	if( $('#school_code').val() ){
+		base_data = {
+			code: $('#school_code').val()
+		}
+	}else{
+		base_data = {
+			code: $('#zone_code').val(),
+			zoneid: $('#zone_zoneid').val()
+		}
+	}
+
 
 	//公共表单插件
 	$.form = {
@@ -90,7 +102,6 @@
     //时间转化end
     
 
-
 	//阻止浏览器默认事件
 	let stopDefault = (e) => {
 		if (e && e.preventDefault) {
@@ -102,24 +113,12 @@
 	//end
 
 	//ajax请求html页面公共方法
-	let ajaxGetHtml;
-	$.ajaxGetHtml = ajaxGetHtml = (url, that) => {
-		let data = {};
-		if( $('#school_code').val() ){
-			data = {
-				code: $('#school_code').val()				
-			}
-		}else{
-			data = {
-				code: $('#zone_code').val(),
-				zoneid: $('#zone_zoneid').val()			
-			}
-		}
+	let navGetHtml = (url, that) => {
 		$.ajax({
 			type: "get",
 			dataType: "html",
 			url: url,
-			data: data,
+			data: base_data,
 			success: (html)=>{
 				// if( html === 'xxxx' ){
 				// 	window.location.href = 'xxxx';
@@ -138,25 +137,49 @@
 	//end
 
 
-	//退出方法
+	//内容区域ajax获取html satrt
+	let ajaxGetHtml;
+	$.ajaxGetHtml = ajaxGetHtml = (url, _data, _callback) => {
+		$.ajax({
+			type: "get",
+			dataType: "html",
+			url: url,
+			data: _data || base_data,
+			success: (html)=>{
+				$.mainBox.off();
+				$.distory();
+				$('#main_box').html( html );
+				_callback && _callback();
+			},
+			error: ()=>{
+            	$.dialogFull.Tips( "网络错误，请稍后重试" );
+			}
+		})
+	}
+	//内容区域ajax获取html end
+
+
+	//退出方法 start
 	var logout = ()=>{
 		$.ajax({
 			type: "post",
 			dataType: "json",
-			url: 'url',
-			data: {},
-			success: (json)=>{
-				if( json.errcode != 0 ){
-					window.location.href = 'xxxx';
+			url: '/pss/logout',
+			data: base_data,
+			success: (res)=>{
+				if( res.errcode != 0 ){
+                	$.dialogFull.Tips( res.errmsg );
 					return;
 				}
 				$.distory();
+				window.location.href = res.data.url;
 			},
 			error: ()=>{
+            	$.dialogFull.Tips( "网络错误，请稍后重试" );
 			}
 		})
 	}
-	//end
+	//退出方法 end
 
 
 	let init = ()=>{
@@ -164,8 +187,16 @@
 		$(document).on('click', '#left_nav a', function(e){
 			const url = $(this).attr('href');
 			const li = $(this).parent('li');
-			ajaxGetHtml( url, li );
+			navGetHtml( url, li );
 			stopDefault(e);
-		});
+		}).on('click', '#main_box a', function(e){
+			const run = $(this).data('auto') == 0;
+			if( run ){
+				return;
+			}
+			const url = $(this).attr('href');
+			ajaxGetHtml( url );
+			stopDefault(e);
+		}).on('click', '#logout', logout);
 	};
 	init();
