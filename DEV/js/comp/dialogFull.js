@@ -12,7 +12,7 @@
             var options = {
                     boxClass: '.DomPopClass',
                     title: '提示',//弹框标题
-                    content: '2345',//弹框内容区
+                    content: '',//弹框内容区
                     confirm: true,//是否显示“确定/取消”按钮，及只显示alert确定按钮
                     width: 'auto',
                     height: 'auto',

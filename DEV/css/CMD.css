@@ -421,7 +421,7 @@ select {
  -moz-appearance: none;
  -webkit-appearance: none;
  /*在选择框的最右侧中间显示小箭头图片*/
- background: #F3F5F8 url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll 90% center;
+ background: #F3F5F8 url("../images/ico_select_arrow.png") no-repeat scroll 90% center;
  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
  font-size: 14px;
  color: #6F737A;
@@ -478,6 +478,9 @@ select::-ms-expand {
           display: table-cell;
           vertical-align: middle;
           word-break: break-all;
+        }
+        a{
+          white-space: nowrap;
         }
       }
       &:hover{
@@ -553,6 +556,9 @@ select::-ms-expand {
       line-height: 36px;
       display: inline-block;
       vertical-align: top;
+      i{
+        color: #c00;
+      }
     }
     .wide{
       width: 100px;
@@ -560,7 +566,7 @@ select::-ms-expand {
     em{
       width: auto;
     }
-    input[type=text],input[type=date],input[type=password], textarea {
+    input[type=text],input[type=date], input[type=week], input[type=month], input[type=number], input[type=password], textarea {
       color: #212224;
       font-size: 14px;
       line-height: 18px;
@@ -595,7 +601,13 @@ select::-ms-expand {
 }
 
 
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
 
 
 
@@ -771,7 +783,6 @@ select::-ms-expand {
 }
 
 
-
 /*登录界面底部部分*/
 .layout_footer{
   height: 70px;
@@ -782,17 +793,6 @@ select::-ms-expand {
   border-top: 1px solid #eaeaea;
   background: #fff;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -875,6 +875,7 @@ select::-ms-expand {
       box-shadow: 0px 0px 1px 4px #f6f5f5;
       min-height: 360px;
       background: #fff;
+      animation: fadeIn 1s ease;
   }
 }
 
@@ -946,7 +947,7 @@ select::-ms-expand {
     color:#fff;
     cursor:pointer;
     margin:0 5px;
-    animation: fadeShow .5s;
+    animation: fadeShow .3s;
 }
 .dialogPopBox .btn-Grey{
     line-height: 34px;
@@ -998,6 +999,31 @@ select::-ms-expand {
         }
     }
 }
+
+
+/*error状态*/
+.get_error{
+    padding-top: 140px;
+    background-image: url(../images/ico_loginStatus.png);
+    background-size: 120px 320px;
+    background-position: center -200px;
+    background-repeat: no-repeat;
+    text-align: center;
+    position: relative;
+    top: 60px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  .dialogPopBox .content{
+    overflow: visible;
+  }
+}
+/*_::-webkit-full-page-media, _:future, :root .safari_only {
+  此处为css样式
+  .dialogPopBox .content{
+    overflow: visible;
+  }
+}*/
 /*dialog：pop、tips、alert end*/
 
 /*.main{

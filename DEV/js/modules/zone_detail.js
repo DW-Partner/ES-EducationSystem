@@ -1,1 +1,0 @@
-require('./zone_detail.css');

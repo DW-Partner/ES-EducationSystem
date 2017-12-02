@@ -1,0 +1,68 @@
+.AddOrEditCourse.pub_form li input.no_margin{
+	margin: 0;
+}
+.submit_course{
+	margin: 30px;
+}
+/*textarea{
+	border: 1px solid #E0E3E8;
+	font-size: 14px;
+	line-height: 18px;
+	border-radius: 4px;
+	padding: 8px 12px;
+}
+
+.content{
+	background-color: #F8F7F7;
+	.editBox{
+		background-color: #FFF;
+		padding: 33px 35px 0 35px;
+		p{
+			display: inline-block;
+			width: auto;
+			margin-right: 60px;
+			margin-bottom: 30px;
+			vertical-align: top;
+			span{
+				color: #707379;
+				font-size: 14px;
+				line-height: 18px;
+				padding: 11px 0;
+				display: inline-block;
+				width: 70px;
+				margin-right: 4px;
+				vertical-align: top;
+				&.four{
+					width: 56px;
+				}
+				&.six{
+					width: 84px;
+				}
+			}
+			input{
+				font-size: 14px;
+				padding: 11px 4px;
+				width: 300px;
+				border-radius: 4px;
+				&.small{
+					width: 40px;
+				}
+				&.big{
+					width: 498px;
+				}
+			}
+			em{
+
+			}
+			textarea{
+				width: 956px;
+				height: 120px;
+			}
+		}
+	}
+	.btnBox{
+		background-color: #FFF;
+		padding-left: 36px;
+		padding-bottom: 30px;
+	}
+}*/

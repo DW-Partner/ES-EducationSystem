@@ -1,0 +1,81 @@
+
+.ZoneDetail{
+	background-color: #F8F7F7;
+
+	.btn{
+		display: block;
+	    margin: 0 25px 10px auto;
+	}
+	/*全局清除浮动样式*/
+	.fix{display:inline-block;}
+	.fix{display:block;}
+	.fix:after{content:""; display:block; height:0px;clear:both; visibility:hidden;}
+
+	.header{
+		background-color: #FFF;
+		padding-bottom: 15px;
+		.info{
+			padding-top: 36px;
+			padding-left: 35px;
+			p{
+				display: inline-block;
+				width: auto;
+				margin-right: 60px;
+				margin-bottom: 30px;
+				&:last-child{
+					margin-bottom: 0;
+				}
+				span{
+					color: #707379;
+					font-size: 16px;
+					line-height: 16px;
+				}
+				em{
+					color: #0F1011;
+					font-size: 16px;
+					line-height: 16px;
+				}
+			}
+		}
+		.content_middle{
+			padding: 26px 35px;
+			.data{
+				background-color: #4580D3;
+				border-radius: 4px;
+				padding: 18px 32px 24px 32px;
+				display: inline-block;
+				width: 23%;
+				border: none;
+				margin-right: 1%;
+				&.data1{
+					
+				}
+				&.data2{
+					background-color: #5A96E6;
+				}
+				&.data3{
+					background-color: #F5B051;
+				}
+				&.data4{
+					background-color: #F7BF6D;
+				}
+				span{
+					font-size: 16px;
+					line-height: 16px;
+					color: #FFF;
+				}
+				p{
+					font-size: 36px;
+					line-height: 36px;
+					color: #FFF;
+					margin-top: 10px;
+				}
+			}
+		}
+		button{
+			float: right;
+			margin-right: 30px;
+			margin-bottom: 35px;
+		}
+	}
+}

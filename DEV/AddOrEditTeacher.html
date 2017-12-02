@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	<meta charset="UTF-8">
+	<title>机构-教师员工-教师编辑</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no">
+	</head>
+
+	<body>
+		<div class="top_box">
+			<img src="./images/logo.png"/>
+			<p>管好资源、看清数据<span class="times" id="times"></span></p>
+			<span class="user">宇文靖<a href="JavaScript:;">退出</a>
+						</span>
+		</div>
+
+		<div class="left_nav" id="left_nav">
+			<ul>
+				<li><a href="#">首页</a></li>
+				<li><a href="#">校区</a></li>
+				<li class="on"><a href="#">课程资源</a></li>
+				<li><a href="#">教学教研</a></li>
+				<li><a href="#">教职员工</a></li>
+				<li><a href="#">账号设置</a></li>
+				<li><a href="#">系统资源</a></li>
+			</ul>
+		</div>
+
+		<div class="main_box" id="main_box">
+			<div class="main">
+<!-- {"data":{"birthday":"1991-05-11","address":"平乐园","gender":"女","mobile":"1323345","zone_name":"望京","type":"助教","mtime":"2017-10-18 12:45:49","tid":1,"native_place":"上海","name":"赵赵","id_num":"4013420333","entry_day":"2017-07-20","status":"正常"},"errcode":"0","errmsg":"success"} -->
+				<div class="pub_form">
+					<ul>
+						<li>
+							<span>教师姓名</span>
+							<input type="text" class="normal" placeholder="请输入教师姓名" name="name" data-validate="any" data-must="1" />
+							<span>教师性别</span>
+							<select name="gender" data-must="1">
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</li>
+						<li>
+							<span>第二称谓</span>
+							<input type="text" class="normal" placeholder="请输入第二称谓" name="name_2" data-validate="any" data-must="1" />
+						</li>
+						<li>
+							<span>出生年月</span>
+							<input type="date" class="normal" placeholder="请输入出生年月" name="birthday" data-validate="any" data-must="1" />
+							<span>机关</span>
+							<select name="native_place" data-validate="any" data-must="1" >
+								<option>北京</option>
+								<option>河北</option>>
+							</select>
+						</li>
+						<li>
+							<span>身份证号</span>
+							<input type="text" class="normal" placeholder="请输入身份证号" name="id_num" data-validate="IDnumber" data-must="1" />
+							<span>工号</span>
+							<input type="text" class="short" placeholder="请输入工号" name="work_no" data-validate="number" data-must="1" />
+						</li>
+						<li>
+							<span>手机号</span>
+							<input type="text" class="normal" placeholder="请输入手机号" name="mobile" data-validate="any" data-must="1" />
+							<span>所属校区</span>
+							<select name="" id="" name="zone_name" data-validate="any" data-must="1" >
+								<option value="">北京</option>
+								<option value="">天津</option>
+								<option value="">河北</option>
+							</select>
+						</li>
+						<li>
+							<span>当前住址</span>
+							<input type="text" class="long" placeholder="请输入当前住址" name="address" data-validate="any" data-must="1" />
+						</li>
+						<li>
+							<span>入职时间</span>
+							<input type="date" class="normal" name="entry_day" data-validate="any" data-must="1" />
+							<span>类别</span>
+							<select name="type" data-validate="any" data-must="1" >
+								<option value="">北京</option>
+								<option value="">天津</option>
+								<option value="">河北</option>
+							</select>
+						</li>
+						<li>
+							<span>其他信息</span>
+							<input type="text" class="long" placeholder="请输入" name="zone_name" data-validate="any" data-must="1" />
+						</li>
+					</ul>
+					<a href="JavaScript:;" class="btn">保存</a>
+				</div>
+
+
+
+			<!-- 	<div class="content">
+						<p>
+							<span>教师姓名</span>
+							<input type="text" />
+						</p>
+						<p>
+							<span></span>
+							<select name="" id="">
+								<option value="">男</option>
+								<option value="">女</option>
+							</select>
+						</p>
+						<br />
+						<p>
+							<span></span>
+							<input type="text" />
+						</p>
+						<br />
+						<p>
+							<span>出生年月日</span>
+							<input type="date" />
+						</p>
+						<p>
+							<span>籍贯</span>
+							<select name="" id="">
+								<option value="">北京</option>
+								<option value="">天津</option>
+								<option value="">河北</option>
+							</select>
+						</p>
+						<br />
+						<p>
+							<span>身份证号</span>
+							<input type="text" />
+						</p>
+						<p>
+							<span>工号</span>
+							<input class="small" type="text" />
+						</p>
+						<br />
+						<p>
+							<span>手机号</span>
+							<input type="text" />
+						</p>
+						<p>
+							<span>所属校区</span>
+							<select name="" id="">
+								<option value="">北京</option>
+								<option value="">天津</option>
+								<option value="">河北</option>
+							</select>
+						</p>
+						<br />
+						<p>
+							<span>当前住址</span>
+							<input class='big' type="text" />
+						</p>
+						<br />
+						<p>
+							<span>入职时间</span>
+							<input type="date" />
+						</p>
+						<p>
+							<span>类别</span>
+							<select name="" id="">
+								<option value="">北京</option>
+								<option value="">天津</option>
+								<option value="">河北</option>
+							</select>
+						</p>
+						<br />
+						<p>
+							<span>其他信息</span>
+							<input class='big' type="text" />
+						</p>
+						<br />
+						<button class="on">保存</button>
+				</div> -->
+
+			</div>
+		</div>
+	</body>
+
+
+</html>

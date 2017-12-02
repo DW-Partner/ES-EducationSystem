@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const extractCSS = new ExtractTextPlugin('res/css/[name].css');
+const extractCSS = new ExtractTextPlugin('/css/[name].css');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -66,15 +66,14 @@ module.exports = {
 //    extensions: ['', '.js', '.json', '.css', 'scss', '.less'],
     output: {
         path: __dirname + "/build",//打包后的文件存放的地方
-        filename: "res/js/[name].js"//打包后输出文件的文件名
+        filename: "js/[name].js"//打包后输出文件的文件名
     },
     devtool: 'eval-source-map',
     devServer: {
         contentBase: "./build",//本地服务器所加载的页面所在的目录
         historyApiFallback: true,//不跳转
         inline: true,//实时刷新
-        port:9090,
-        disableHostCheck: true
+        port:8080
     },
     module: {
         rules: [
@@ -100,7 +99,7 @@ module.exports = {
             },
     　　　　 {
     　　　　　　test: /\.(png|jpg|gif)$/,
-　　　　　　    use: 'url-loader?limit=819&name=/res/images/[name]_[hash:8].[ext]'
+　　　　　　    use: 'url-loader?limit=819&name=/images/[name]_[hash:8].[ext]'
                     //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
     　　　　 },
             {

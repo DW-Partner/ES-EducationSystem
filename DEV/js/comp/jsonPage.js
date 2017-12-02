@@ -6,10 +6,10 @@
  * @param
  * @example
  */
-    var jsonPage = function( param ){
-        var options = {
-            listBox: '#listBox',//列表容器
-            pageBox: '#pageBox',//分页容器
+    let jsonPage = function( param ){
+        let options = {
+            listBox: 'ul.body',//列表容器
+            pageBox: '.page p',//分页容器
             ajaxUrl: '',
             ajaxType: 'get',
             ajaxDataType: 'json',
@@ -31,7 +31,8 @@
             successRunBefor: false,//function(data,pageNum, pageSize, $listBox, $pageBox) { return msg }
             successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {},//function(msg) {  }
             ajaxCodeError: function( msg ){},
-            ajaxError: false//function(XMLHttpRequest, textStatus, errorThrown, text) {}
+            ajaxError: false,//function(XMLHttpRequest, textStatus, errorThrown, text) {}
+            start: 0
         };
         options = $.extend(options, param);
         options.replaceTemplate = function(tpl, json) {
@@ -42,9 +43,9 @@
                 });
                 return html;
             },
-        options.run = function( num, pageSize ){
-            if( pageSize ){
-                this.pageSize = pageSize;
+        options.run = function( num, _pageSize ){
+            if( _pageSize ){
+                this.pageSize = _pageSize;
             }
             var pageSize = this.pageSize;
             this.ajaxData[ this.pageKeyName ] = num;
@@ -75,6 +76,7 @@
                     }
                     var listHtml = '';
                     for( var i in list ){
+                        list._page = num;
                         if( options.eachDataHandle ){
                             list[ i ] = options.eachDataHandle( list[ i ], num, pageSize );
                         }
@@ -107,7 +109,7 @@
                         if( options.noData ){
                             options.noData( $( options.listBox ), $( options.pageBox ) );
                         } else{
-                            $( options.pageBox ).addClass( 'content-page' ).html( totalHtml );
+                            $( options.pageBox ).html( totalHtml );
                         }
                         return;
                     }
@@ -152,7 +154,6 @@
                         }
                     };
                     totalHtml = options.showTotal ? totalHtml : '';
-                    $( options.pageBox ).addClass( 'sui-page' );
                     //构建分页end
 
                     pageHtml = totalHtml + '<div class="pageNumList">' + prevHtml + startHtml + ellipsisLeft + pageHtml + ellipsisRight + endHtml + nextHtml + '</div>';
@@ -176,7 +177,7 @@
                 }
             });
         }
-        options.run( 1 );
+        options.run( options.start );
         if( !options.pageBar ){
             return false;
         }

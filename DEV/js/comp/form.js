@@ -6,9 +6,8 @@
  * @param
  * @example
  */
-
 import validate from '../kit/validate.js';
-var form = {
+let form = {
     get: (opts)=>{
         let options = {
             item: '.pub_form [data-validate]',//表单项dom
@@ -21,20 +20,11 @@ var form = {
             error_text: false,//存放错误文案的属性名
         };
         options = $.extend(options, opts);
-
-        console.log(2)
-
         const $ele = $( options.item );
         const len = $ele.length;
-
-        console.log(len);
-
         let sub_data = {};
         for( let i=0; i<len; i++ ){
             const that = $ele.eq( i );
-
-            console.log(i);
-
             const type = that.data( options.key_validate );
             const must = that.data( options.key_must );
             const value = that.val();
@@ -49,7 +39,6 @@ var form = {
             }
             const key = that.attr('name');
             sub_data[ key ] = value;
-
         }
         return sub_data;
     },
@@ -76,7 +65,5 @@ var form = {
             }
         })
     }
-
 }
-
 export default form;

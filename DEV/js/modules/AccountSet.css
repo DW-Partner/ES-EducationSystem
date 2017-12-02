@@ -1,0 +1,98 @@
+.main_box .main{
+	background-color: #F8F7F7;
+}
+
+.set_content{
+	.set_top{
+		h5{
+			color: #707379;
+			font-size: 16px;
+			line-height: 16px;
+			font-weight: 100;
+		}
+		margin-bottom: 20px;
+		background-color: #FFF;
+
+		.passwordBox{
+			padding: 44px 0 44px 32px;
+			display: inline-block;
+			width: 50%;
+			border-right: 1px solid #EAEAEA;
+			vertical-align: top;
+			p{
+				padding-top: 30px;
+				span{
+					color: #707379;
+					font-size: 14px;
+					line-height: 14px;
+					width: 80px;
+					height: 36px;
+					line-height: 36px;
+					display: inline-block;
+				}
+				input{
+					color: #212224;
+					font-size: 14px;
+					line-height: 18px;
+					padding: 8px;
+					border-radius: 4px;
+					width: 60%;
+				}
+			}
+			.btn{
+		    	margin: 20px auto 0 40px;
+			}
+		}
+		.loginCode{
+			display: inline-block;
+			width: 38%;
+			padding: 44px 0 44px 32px;
+			h5{
+				margin-bottom: 18px;
+			}
+			.codeImg{
+				text-align: center;
+				img{
+					width: 177px;
+					height: 177px;
+					margin: 0 auto;
+				}
+				span{
+					line-height: 20px;
+					color: #AAAEB2;
+				}
+			}
+			.btn{
+				display: block;
+				margin: 6px auto 0;
+			}
+		}
+	}
+	.set_bottom{
+		padding: 44px 0 44px 32px;
+		background-color: #FFF;
+		h5{
+			color: #707379;
+			font-size: 16px;
+			line-height: 16px;
+			font-weight: 100;
+			margin-bottom: 27px;
+		}
+		li{
+			margin-bottom: 20px;
+			span{
+				font-size: 14px;
+				line-height: 14px;
+				color: #707379;
+				display: inline-block;
+				padding: 11px;
+				width: 140px;
+				
+			}
+			.btn{
+				margin-right: 40px;
+			}
+		}
+
+	}
+}

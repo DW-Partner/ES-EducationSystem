@@ -2,7 +2,7 @@ require('./SchoolHome.css');
 
 var echarts = require('echarts');
 
-import replaceTemplate from '../kit/replaceTemplate.js';//公共表单插件
+import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 // 基于准备好的dom，初始化echarts实例
 var myChart1 = echarts.init(document.getElementById('echart1'));
@@ -37,6 +37,7 @@ var tpl = {
                     <div class="item"><p><span>{address}</span></p></div>\
                     <div class="item"><p><span>{type}</span></p></div>\
                     <div class="item"><p><span>{coreContent}</span></p></div>\
+                    <div class="item"><p><span><a href="JavaScript:;" data-href="/pss/goZoneDetail?zoneid={id}#goZone">查看详情</a></span></p></div>\
                 </li>',
 
 }
@@ -130,7 +131,16 @@ $.jsonPage({
     template: tpl.zoneList,//列表模板
     listKey: ['data'],//下行结构
     pageBar: false,//是否启用分页
-    eachDataHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
+    eachDataHandle: function(msg,pageNum,pageSize){
+        const words = {
+            '00': '直营/商场',
+            '01': '直营/社区',
+            '10': '合作/商场',
+            '11': '合作/社区',
+        }
+        msg.type = words[msg.type];
+        return msg;
+    },
     eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
     noData: false,//Function : function( $listBox, $pageBox ){}
     codeKeyName: 'errcode',//状态标示key名

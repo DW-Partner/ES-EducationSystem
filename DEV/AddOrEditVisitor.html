@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>校区-咨询登记-添加页面</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no">
+</head>
+
+<body>
+	<div class="top_box">
+		<img src="./images/logo.png"/>
+		<p>管好资源、看清数据<span class="times" id="times"></span></p>
+		<span class="user">宇文靖<a href="JavaScript:;">退出</a>
+					</span>
+	</div>
+
+	<div class="left_nav" id="left_nav">
+		<ul>
+			<li><a href="#">首页</a></li>
+			<li><a href="#">校区</a></li>
+			<li class="on"><a href="#">课程资源</a></li>
+			<li><a href="#">教学教研</a></li>
+			<li><a href="#">教职员工</a></li>
+			<li><a href="#">账号设置</a></li>
+			<li><a href="#">系统资源</a></li>
+		</ul>
+	</div>
+
+	<div class="main_box" id="main_box">
+		<div class="main">
+
+		
+		<div class="pub_form">
+			<ul>
+				<li>
+					<span>姓名</span>
+					<input type="text" class="short" placeholder="请输入姓名" name="name" data-validate="any" data-must="1" />
+				</li>
+				<li>
+					<span>年龄</span>
+					<input type="text" class="short" placeholder="请输入年龄" name="age" data-validate="number" data-must="1" />
+				</li>
+				<li>
+					<span>性别</span>
+					<select name="gender" data-validate="any" data-must="1">
+						<option value="男">男</option>
+						<option value="女">女</option>
+					</select>
+				</li>
+				<li>
+					<span>住址</span>
+					<input type="text" class="long" placeholder="请输入住址" name="address" data-validate="any" data-must="1" />
+				</li>
+				<li>
+					<span>电话</span>
+					<input type="text" class="short" placeholder="请输入电话" name="mobile" data-validate="mobile" data-must="1" />
+				</li>
+				<li>
+					<span>家长姓名</span>
+					<input type="text" class="short" placeholder="请输入家长姓名" name="official" data-validate="any" data-must="1" />
+					<span>与学员关系</span>
+					<input type="text" class="short" placeholder="请输入与学员关系" name="relation" data-validate="any" />
+				</li>
+				<li>
+					<span>来源</span>
+					<select name="origin" data-validate="any" data-must="1">
+						<option value="市场反馈">市场反馈</option>
+					</select>
+				</li>
+				<li>
+					<span>咨询内容</span>
+					<input type="text" class="long" placeholder="请输入咨询内容" name="visitorContent" data-validate="any" data-must="1" />
+				</li>
+			</ul>
+			<a href="JavaScript:;" class="btn">确定</a>
+			<a href="JavaScript:;" class="btn_dis">取消</a>
+		</div>
+
+
+
+		</div>
+	</div>
+</body>
+</html>

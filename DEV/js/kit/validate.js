@@ -1,5 +1,5 @@
 export default {
-	tel: ( val, handle, opts, must )=>{//手机号码
+	mobile: ( val, handle, opts, must )=>{//手机号码
 		if( !must && !val ){
 			return true;
 		}
@@ -69,16 +69,16 @@ export default {
 		var city = [11, 12, 13, 14, 15, 21, 22, 23, 31, 32, 33, 34, 35, 36, 37, 41, 42, 43, 44, 45, 46, 50, 51, 52, 53, 54, 61, 62, 63, 64, 65, 71, 81, 82, 91];
 	    var tip = "";
 	    var pass = true;
-	    if (!code || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(code)) {
+	    if (!val || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i.test(val)) {
 	        tip = "身份证号格式错误";
 	        pass = false;
-	    } else if (city.indexOf(+code.substr(0, 2)) == -1) {
+	    } else if (city.indexOf(+val.substr(0, 2)) == -1) {
 	        tip = "地址编码错误";
 	        pass = false;
 	    } else {
 	        //18位身份证需要验证最后一位校验位
-	        if (code.length == 18) {
-		        code = code.split('');
+	        if (val.length == 18) {
+		        val = val.split('');
 		        //∑(ai×Wi)(mod 11)
 		        //加权因子
 		        var factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
@@ -88,12 +88,12 @@ export default {
 		        var ai = 0;
 		        var wi = 0;
 		        for (var i = 0; i < 17; i++) {
-		            ai = code[i];
+		            ai = val[i];
 		            wi = factor[i];
 		            sum += ai * wi;
 		        }
 		        var last = parity[sum % 11];
-		        if (parity[sum % 11] != code[17]) {
+		        if (parity[sum % 11] != val[17]) {
 		            tip = "校验位错误";
 		            pass = false;
 		        }
@@ -107,6 +107,7 @@ export default {
 		return true || pass;
 	},
 	any: ( val, handle, opts, must )=>{//任意
+		//const trim_val = val.(/(^\s*)|(\s*$)/g, "")
 		if( val || (!must && !val) ){
 			return true;
 		}
