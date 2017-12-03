@@ -1,4 +1,4 @@
-	require('./school_classManagement_period.css');//引入css文件
+	require('./LessonOperate.css');//引入css文件
 	$.mainBox.on('click', 'p', ()=>{
 		//alert(5678);
 	})

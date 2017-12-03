@@ -3,7 +3,7 @@
 * Base64 encode / decode
 *
 * @author haitao.tu
-* @date 2010-04-26
+* @date 2016-04-26
 * @email tuhaitao@foxmail.com
 *
 */

@@ -99,7 +99,7 @@ module.exports = {
                 use: extractCSS.extract([ 'css-loader', 'postcss-loader', 'sass-loader' ])
             },
     　　　　 {
-    　　　　　　test: /\.(png|jpg|gif)$/,
+    　　　　　　test: /\.(png|jpg|gif|woff|svg|eot|ttf)$/,
 　　　　　　    use: 'url-loader?limit=819&name=res/images/[name]_[hash:8].[ext]'
                     //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
     　　　　 },
