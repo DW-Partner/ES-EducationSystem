@@ -4,8 +4,8 @@
 	// import changeFormat from '../kit/changeFormat.js';//时间轴转换
 
 	const tpl = {
-		// {class_name}-
-		li: '<li class="item"><h6>{course_name}-课时{lesson_id}</h6><p>{teacher_name}</p> <span class="mark">❤</span></li>',
+		li: '<li class="item"><a href="javascript:;" data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}#goZoneClassManage">\
+		<h6>{course_name}-课时{lesson_id}</h6><p>{teacher_name}</p> <span class="mark">❤</span></a></li>',
 		info: '<span>今日开课班级 {classes}个</span> <span>今日授课教师 {teachers}个</span> <span>今日正式学员 {students}人</span> <span>今日试听学员 {audits}人</span>'
 	};
 
@@ -48,8 +48,12 @@ let getZoneDayLessons = (date,type)=>{
 	        	$ul.addClass('item_box');
 	        	newData[ t ].map(function(li){
 			        const html = replaceTemplate( tpl.li, li );
-					const num = +li.start_time.split(' ')[1].split(':').join('');
-					const left = (num - 80000) / 120000;
+
+			        const time = li.start_time.split(' ')[1] || '8:00:00';
+
+					const num = +time.split(':').join('');
+
+					const left = (num - 80000) / 140000;
 					const marginLeft = left > 0.16 ? 16 : 0;
 					let $li = $(html);
 					$li.css({

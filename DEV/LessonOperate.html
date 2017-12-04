@@ -37,22 +37,11 @@
 
 				<div class="pub_form">
 					<ul>
-						<li>
-							<span>课时更改</span>
-							<select>
-								<option>2017年</option>
-								<option>2017年</option>>
-							</select>
-							<select>
-								<option>8月</option>
-							</select>
-							<select>
-								<option>6月</option>
-							</select>
-							<select>
-								<option>10点</option>
-							</select>
-						</li>
+                        
+                        <li>
+                            <span>课时更改</span>
+                            <input type="text" class="short" id="plan_time" placeholder="请输入上课时间" name="plan_time" data-validate="any" data-must="1"/>
+                        </li>
 						<li>
 							<span>教师调整</span>
 							<select>
@@ -60,8 +49,8 @@
 							</select>
 						</li>
 					</ul>
-					<a href="JavaScript:;" class="btn">确定</a>
-					<a href="JavaScript:;" class="btn_dis">取消</a>
+					<a href="JavaScript:;" class="btn" id="submit_edit">确定</a>
+					<a href="JavaScript:;" class="btn_dis" id="cancel">取消</a>
 				</div>
 
 				<div class="info">

@@ -4,7 +4,7 @@ require('./Visitor.css');//引入css文件
 //{"data":{"page_num":1,"list":[{"address":"通州","gender":"男","origin":"市场活动","visitorContent":"","name":"bb","mobile":"1322222","official":"老王","ctime":"2017-09-28 10:00:00","visitorStatus":"登记状态","age":7,"sid":1}]},"errcode":"0","errmsg":"success"}
 const tpl = {
 	list:'<li>\
-	<div class="item flex_2"><p><span>{ctime}</span></p></div\
+	<div class="item flex_2"><p><span>{ctime}</span></p></div>\
 	<div class="item"><p><span>{name}</span></p></div>\
 	<div class="item"><p><span>{age}</span></p></div>\
 	<div class="item"><p><span>{gender}</span></p></div>\
@@ -16,7 +16,7 @@ const tpl = {
 	<div class="item"><p><span>--</span></p></div>\
 	<div class="item"><p><span>--</span></p></div>\
 	<div class="item"><p><span>{visitorStatus}</span></p></div>\
-	<div class="item flex_2"><p><span>\
+	<div class="item"><p><span></div>\
 	<a href="JavaScript:;" data-href="/pss/goEditVisitor?sid={sid}">编辑</a><br />\
 	<a href="JavaScript:;" data-href="/pss/goAddAudit?sid={sid}&page=0">试听</a><br />\
 	<a href="JavaScript:;" class="toBeStudent" data-sid="{sid}">转正式</a></span></p></div>\

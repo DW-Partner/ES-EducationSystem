@@ -3,7 +3,7 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const tpl = {
 	//{"errcode":0,"errmsg":"success","data":{"class_name":"xxx","teacher":"xxx","start_time":"xxx","reserve_num":"xxx","students_num":"xxx","students":[{"sid":"xxx","name":"xxx"},...]}
-	info: '<span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span>',
+	info: '<span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
 	list: '<li class="li_status_{lesson_status}" data-lessonid="{lesson_id}">\
 			<div class="info">\
@@ -101,7 +101,7 @@ getZoneSummary();
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
     getClassLessonsList(sid);
-}).on('click', '.li_status_3', function(){
+}).on('click', '.li_status_0, .li_status_3', function(){
 	const lessonid = $(this).data('lessonid');
     $.ajax({
 	    type: "post",
@@ -123,7 +123,10 @@ $.mainBox.on('change', '#students', function(){
 	        	span += replaceTemplate( tpl.span, item );
 
 			});
-	        $.dialogFull.Alert( span || '无缺课学生' );
+	        $.dialogFull.Alert({
+                title: '缺课人员',//弹框标题
+                content: span || '无缺课学生',//弹框内容区
+	        });
 
 	    },
 	    error: ()=>{

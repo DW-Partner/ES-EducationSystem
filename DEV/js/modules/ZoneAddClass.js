@@ -14,7 +14,6 @@ laydate.render({
 
 
 let getZoneTeacherList = ()=>{
-
     $.ajax({
 	    type: "post",
 	    dataType: "json",
@@ -30,7 +29,7 @@ let getZoneTeacherList = ()=>{
 	        }
 	        let options = "";
 			res.data.map(function(item){
-			    options += '<option value="' + item.tid + '">' + item.name + '</option>'
+			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
 			});
 			$('[name=teacher_id]').html(options);
 
@@ -80,6 +79,10 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	if( !sub_data ){
 		return;
 	}
+	sub_data.course_id = +sub_data.course_id;
+	sub_data.teacher_id = +sub_data.teacher_id;
+	sub_data.reserve_num = +sub_data.reserve_num;
+
 	sub_data.lessons = [];
 
 	const start_time = $('[name=start_time]').val();
@@ -110,10 +113,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
 			}
         	$.dialogFull.Tips( "提交成功！" );
          	$.ajaxGetHtml({
-         		url: '/pss/goClassInfo',
-         		data: {
-         			classid: res.data.classid
-         		}
+         		url: res.data.url
          	})
 		},
         error: function(){
