@@ -6,13 +6,14 @@ const tpl = {
 	info: '<span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
 	list: '<li class="li_status_{lesson_status}" data-lessonid="{lesson_id}">\
+			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">\
 			<div class="info">\
 			<em class="status_{lesson_status}"></em>\
 			<h6>{theme}</h6>\
 			<p>{words}</p>\
 			</div>\
 			<div class="arrow"><div>\
-			</div></div></li>',
+			</div></div></a></li>',
 	span: '<span>{sid}:{student_name}</span>',
 };
 const classid = $('#classid').val();
@@ -40,6 +41,11 @@ let getClassLessonsList = (sid)=>{
 	            '3': '缺课',
 	        }
 	        msg.words = words[msg.lesson_status];
+			msg.class_id = classid;
+			msg.href = msg.lesson_status == 0 ? 'null' : 'href';
+
+
+
 	        return msg;
 	    },
 	    eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }

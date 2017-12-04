@@ -3,8 +3,8 @@ require('../comp/laydate/laydate.css');//引入css文件
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
-const class_id = $('classid').val();
-const lesson_id = $('lessonid').val();
+const class_id = $('#classid').val();
+const lesson_id = $('#lessonid').val();
 
 
 const tpl = {
@@ -99,6 +99,8 @@ $.mainBox.on('click', '#submit_edit', ()=>{
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
+        classid: class_id,
+        lessonid: lesson_id,
 		data: JSON.stringify( sub_data ),
     }
 
