@@ -2,12 +2,14 @@ require('./ZoneAddClass.css');//引入css文件
 require('../comp/laydate/laydate.css');//引入css文件
 
 import changeFormat from '../kit/changeFormat.js';//模板引擎
-import laydate from '../comp/laydate/laydate.js';//模板引擎
 
 // window.laydate = laydate;
 
+// console.log(laydate);
+
+
 //常规用法
-laydate.render({
+$.laydate.render({
   elem: '#day_times',
   type: 'time'
 });
@@ -120,4 +122,4 @@ $.mainBox.on('click', '#submit_add', ()=>{
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
-})
+});

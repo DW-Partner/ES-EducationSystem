@@ -8,7 +8,7 @@ const tpl = {
 	<div class="item"><p><span>{name}</span></p></div>\
 	<div class="item"><p><span>{age}</span></p></div>\
 	<div class="item"><p><span>{gender}</span></p></div>\
-	<div class="item flex_2"><p><span>{address}</span></p></div\
+	<div class="item flex_2"><p><span>{address}</span></p></div>\
 	<div class="item flex_2"><p><span>{mobile}</span></p></div>\
 	<div class="item"><p><span>{official}</span></p></div>\
 	<div class="item flex_2"><p><span>{visitorContent}</span></p></div>\
@@ -16,7 +16,7 @@ const tpl = {
 	<div class="item"><p><span>--</span></p></div>\
 	<div class="item"><p><span>--</span></p></div>\
 	<div class="item"><p><span>{visitorStatus}</span></p></div>\
-	<div class="item"><p><span></div>\
+	<div class="item"><p><span>\
 	<a href="JavaScript:;" data-href="/pss/goEditVisitor?sid={sid}">编辑</a><br />\
 	<a href="JavaScript:;" data-href="/pss/goAddAudit?sid={sid}&page=0">试听</a><br />\
 	<a href="JavaScript:;" class="toBeStudent" data-sid="{sid}">转正式</a></span></p></div>\

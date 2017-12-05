@@ -17,12 +17,12 @@ const tpl = {
 }
 
 
-import laydate from '../comp/laydate/laydate.js';//模板引擎
+// import laydate from '../comp/laydate/laydate.js';//模板引擎
 
 // window.laydate = laydate;
 
 //常规用法
-laydate.render({
+$.laydate.render({
   elem: '#plan_time',
   type: 'datetime'
 });
@@ -77,6 +77,7 @@ let getLessonsDetail = ()=>{
 	        }
 	        const html = replaceTemplate( tpl.info, res.data );
 	        $('.info').html( html );
+	        $('#plan_time').val( res.data.plan_time );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -124,4 +125,4 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 
 }).on('click', '#cancel', function(){
 	window.location.reload();
-})
+});

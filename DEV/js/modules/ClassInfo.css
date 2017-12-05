@@ -10,6 +10,49 @@
 		margin-right: 15px;
 	}
 }
+
+
+.dataBox{
+	padding: 10px 30px
+}
+.data{
+	background-color: #4580D3;
+	border-radius: 4px;
+	padding: 18px 32px 24px 32px;
+	display: inline-block;
+	width: 18%;
+	border: none;
+	margin-top: 14px;
+	margin-right: 1.6%;
+	&.data1{
+		
+	}
+	&.data2{
+		background-color: #5A96E6;
+	}
+	&.data3{
+		background-color: #F5B051;
+	}
+	&.data4{
+		background-color: #febc66;
+	}
+	&.data5{
+		background-color: #F7BF6D;
+	}
+	span{
+		font-size: 16px;
+		line-height: 16px;
+		color: #FFF;
+	}
+	p{
+		font-size: 18px;
+		line-height: 36px;
+		color: #FFF;
+		margin-top: 10px;
+	}
+}
+
+
 .class_list{
 	width: 925px;
     margin: 30px auto;
@@ -28,7 +71,7 @@
 			background-image: url(../../images/ico_classInfo.png);
 			background-size: 100% 100%;
 			line-height: 20px;
-			padding: 15px 0;
+			padding: 10px 0;
 			em{
 				position: absolute;
 				width: 27px;

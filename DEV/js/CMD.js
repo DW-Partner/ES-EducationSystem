@@ -5,7 +5,10 @@
 	import dialogFull from './comp/dialogFull.js';//公共弹框插件
 	import stop from './kit/stop.js';//公共表单插件
 	import form from './comp/form.js';//公共表单插件
+	import laydate from './comp/laydate/laydate.js';
 
+
+	$.laydate = laydate;
 	$.dialogFull = dialogFull;
 	$.jsonPage = jsonPage;
 	//公共销毁方法

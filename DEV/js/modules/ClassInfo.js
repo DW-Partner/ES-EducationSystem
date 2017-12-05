@@ -3,7 +3,28 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const tpl = {
 	//{"errcode":0,"errmsg":"success","data":{"class_name":"xxx","teacher":"xxx","start_time":"xxx","reserve_num":"xxx","students_num":"xxx","students":[{"sid":"xxx","name":"xxx"},...]}
-	info: '<span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
+	info: '<div class="data data1">\
+			<span>班级名称</span>\
+			<p>{class_name}</p>\
+		</div>\
+		<div class="data data2">\
+			<span>任课老师</span>\
+			<p>{teacher}</p>\
+		</div>\
+		<div class="data data3">\
+			<span>开课时间</span>\
+			<p>{start_time}</p>\
+		</div>\
+		<div class="data data4">\
+			<span>预招人数</span>\
+			<p>{reserve_num}</p>\
+		</div>\
+		<div class="data data5">\
+			<span>学员人数</span>\
+			<p>{students_num}</p>\
+		</div>',
+
+	// <span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
 	list: '<li class="li_status_{lesson_status}" data-lessonid="{lesson_id}">\
 			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">\
@@ -12,8 +33,8 @@ const tpl = {
 			<h6>{theme}</h6>\
 			<p>{words}</p>\
 			</div>\
-			<div class="arrow"><div>\
-			</div></div></a></li>',
+			<div class="arrow"></div>\
+			</a></li>',
 	span: '<span>{sid}:{student_name}</span>',
 };
 const classid = $('#classid').val();
@@ -28,7 +49,7 @@ let getClassLessonsList = (sid)=>{
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
 	        classid: classid,
-	        sid: sid     	
+	        sid: sid || undefined
 	    },//上行参数
 	    template: tpl.list,//列表模板
 	    listKey: ['data'],//下行结构
@@ -82,15 +103,15 @@ let getZoneSummary = ()=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-			let select = '<select id="students">';
+			let select = '<select id="students"><option value="">所有</option>';
 			res.data.students.map(function(item){
 			    select += '<option value="' + item.sid + '">' + item.name + '</option>'
 			});
 			select += '</select>';
 
 	        const html = replaceTemplate( tpl.info, res.data );
-	        $('.run').html( select + html );
-	        $('.page_head h3').text(res.data.class_name);
+	        $('.dataBox').html( html );
+	        $('.run').html( select );
 	        getClassLessonsList();
 	    },
 	    error: ()=>{
