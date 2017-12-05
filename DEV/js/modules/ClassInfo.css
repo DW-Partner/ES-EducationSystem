@@ -72,6 +72,7 @@
 			background-size: 100% 100%;
 			line-height: 20px;
 			padding: 10px 0;
+			cursor: pointer;
 			em{
 				position: absolute;
 				width: 27px;
@@ -91,6 +92,26 @@
 				}
 				&.status_3{
 					background-image: url(../../images/ico_classInfo_mark3.png);
+				}
+			}
+			strong{
+			    line-height: 22px;
+			    font-size: 14px;
+			    background: #eee;
+			    font-weight: normal;
+			    color: #666;
+			    /* opacity: 0.5; */
+			    text-align: center;
+			    display: block;
+			    position: absolute;
+			    left: 1px;
+			    bottom: 1px;
+			    right: 1px;
+				display: none;
+			}
+			&:hover{
+				strong{
+					display: block;
 				}
 			}
 		}

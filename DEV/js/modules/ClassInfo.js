@@ -32,6 +32,7 @@ const tpl = {
 			<em class="status_{lesson_status}"></em>\
 			<h6>{theme}</h6>\
 			<p>{words}</p>\
+			<strong data-lessonid="{lesson_id}">{del}</strong>\
 			</div>\
 			<div class="arrow"></div>\
 			</a></li>',
@@ -65,7 +66,7 @@ let getClassLessonsList = (sid)=>{
 			msg.class_id = classid;
 			msg.href = msg.lesson_status == 0 ? 'null' : 'href';
 
-
+			msg.del = msg.lesson_status == 0 ? '' : '删除'
 
 	        return msg;
 	    },
@@ -160,4 +161,44 @@ $.mainBox.on('change', '#students', function(){
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
 	    }
 	})
+}).on('click', '.class_list li strong', function(e){
+    if ( e && e.stopPropagation ){
+        e.stopPropagation(); 
+    }
+    else{
+        window.event.cancelBubble = true; 
+    }
+	const lessonid = $(this).data('lessonid');
+	const self = $(this);
+	$.dialogFull.Pop({
+        title: '提示',//弹框标题
+        content: '确认删除该课时？',//弹框内容区
+        runDone: function($this, $thisBox, dialogClose) {
+			// /pss/cancelLesson?code=x&zoneid=x&classid=x&lessonid=x&sid=x
+		    $.ajax({
+			    type: "post",
+			    dataType: "json",
+			    url: '/pss/cancelLesson',
+			    data: {
+			        code: $('#zone_code').val(),
+			        zoneid: $('#zone_zoneid').val(),
+			        classid: classid,
+			        lessonid: lessonid,
+			        sid: $( '#students' ).val() || undefined
+			    },
+			    success: (res)=>{
+			        if( res.errcode != 0 ){
+			            $.dialogFull.Tips( res.errmsg );
+			             return;
+			        }
+		            $.dialogFull.Tips( '删除成功！' );
+		            self.parent().parent().parent().remove();
+		        	dialogClose();
+			    },
+			    error: ()=>{
+			        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+			    }
+			})
+        }
+	});
 })
