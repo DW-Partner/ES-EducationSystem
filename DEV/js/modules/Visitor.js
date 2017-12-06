@@ -14,22 +14,26 @@ const tpl = {
 	<div class="item flex_2"><p><span>{visitorContent}</span></p></div>\
 	<div class="item"><p><span>{origin}</span></p></div>\
 	<div class="item"><p><span>--</span></p></div>\
-	<div class="item"><p><span>--</span></p></div>\
+	<div class="item"><p><span>{audit_time}</span></p></div>\
 	<div class="item"><p><span>{visitorStatus}</span></p></div>\
 	<div class="item"><p><span>\
-	<a href="JavaScript:;" data-href="/pss/goEditVisitor?sid={sid}">编辑</a><br />\
-	<a href="JavaScript:;" data-href="/pss/goAddAudit?sid={sid}&page=0">试听</a><br />\
-	<a href="JavaScript:;" class="toBeStudent" data-sid="{sid}">转正式</a></span></p></div>\
+	<a href="JavaScript:;" data-href="/pss/goEditVisitor?sid={sid}&page={_page}">编辑</a><br />\
+	<a href="JavaScript:;" data-href="/pss/goAddAudit?sid={sid}&page={_page}">试听</a><br />\
+	<a href="JavaScript:;" class="toBeStudent" data-sid="{sid}">转正式</a><br />\
+	<a href="JavaScript:;" data-href="/pss/goVisitorLog?sid={sid}&page={_page}">跟进反馈</a>\
+	</span></p></div>\
 	</li>'
 }
 
-let getVisitorList = (data)=>{
+const search_data = $('#data').val();
+
+let getVisitorList = ()=>{
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
     }
-    if( data ){
-		ajaxData.data = JSON.stringify( data );
+    if( search_data ){
+		ajaxData.data = JSON.stringify( search_data );
     }
     //列表 start 5.15
     $.jsonPage({

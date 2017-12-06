@@ -6,6 +6,7 @@ const tpl = {
 }
 
 const sid = $('#sid').val();
+const page = $('#page').val();
 let getVisitorDetail = ()=>{
 	$.ajax({
 	    type: "post",
@@ -42,7 +43,7 @@ let getVisitorLog = ()=>{
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
 	        sid: sid,
-	        page: 0
+	        page: page ? page : 0
 	    },
 	    success: (res)=>{
 	        if( res.errcode != 0 ){
@@ -86,7 +87,7 @@ let addVisitorLog = ()=>{
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
 	        sid: sid,
-	        page: 0,
+	        page: page ? page : 0,
 	        data: JSON.stringify( listData )
 	    },
 	    success: (res)=>{
@@ -98,7 +99,7 @@ let addVisitorLog = ()=>{
          	$.ajaxGetHtml({
          		url: res.data.url,
          		data: {
-         			page: 0
+         			page: page ? page : 0
          		}
          	})
 	    },
@@ -109,7 +110,7 @@ let addVisitorLog = ()=>{
 }
 
 
-$.mainBox.on('click', '#addItem', ()=>{
+$.mainBox.on('click', '#addItem', function(){
 	const li = replaceTemplate( tpl.item, {} );
 	if( !$('.pub_form [type=text]').eq(0).val() ){
 		$('.pub_form [type=text]').eq(0).focus();

@@ -76,7 +76,7 @@
                     }
                     var listHtml = '';
                     for( var i in list ){
-                        list._page = num;
+                        list[i]._page = num;
                         if( options.eachDataHandle ){
                             list[ i ] = options.eachDataHandle( list[ i ], num, pageSize );
                         }

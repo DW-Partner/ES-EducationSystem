@@ -28,21 +28,27 @@ const form_tpl = '<li>\
 			<li>\
 				<span><i>*</i>家长姓名</span>\
 				<input type="text" class="short" value="{official}" placeholder="请输入家长姓名" name="official" data-validate="any" data-must="1" />\
-				<span><i>*</i>与学员关系</span>\
+			</li>\
+			<li>\
+				<span class="wide"><i>*</i>与学员关系</span>\
 				<input type="text" class="short" value="{relation}" placeholder="请输入与学员关系" name="relation" data-validate="any" data-must="1"/>\
 			</li>\
 			<li>\
 				<span><i>*</i>来源</span>\
 				<select name="origin" data-validate="any" data-must="1">\
-					<option value="市场反馈">市场反馈</option>\
+			        <option value="市场活动">市场活动</option>\
+			        <option value="主动咨询">主动咨询</option>\
+			        <option value="熟人介绍">熟人介绍</option>\
+			        <option value="其他途径">其他途径</option>\
 				</select>\
 			</li>\
 			<li>\
 				<span><i>*</i>咨询内容</span>\
-				<input type="text" class="long" value="{visitorContent}" placeholder="请输入咨询内容" name="visitorContent" data-validate="any" data-must="1" />\
+				<input type="text" class="long" value="{visitorContent}" placeholder="请输入咨询内容" name="visitor_content" data-validate="any" data-must="1" />\
 			</li>';
 
 const sid = $('#sid').val();
+const page = $('#page').val();
 if( sid ){
     $.ajax({
 	    type: "post",
@@ -51,7 +57,8 @@ if( sid ){
 	    data: {
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
-	        sid: sid
+	        sid: sid,
+	        page: +$('#page').val() || 0
 	    },
 	    success: (res)=>{
 	        if( res.errcode != 0 ){
@@ -60,6 +67,7 @@ if( sid ){
 	        }
 	        const html = replaceTemplate( form_tpl, res.data );
 	        $('.pub_form ul').html( html );
+	        $('[name=origin]').val( res.data.origin || '市场活动' );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -79,11 +87,13 @@ $.mainBox.on('click', '#submit_AddOrEdit', ()=>{
 	if( !sub_data ){
 		return;
 	}
+	sub_data.age = +sub_data.age;
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
 		data: JSON.stringify( sub_data ),
-		sid: sid
+		sid: sid,
+		page: page ? page : 0
     }
 
 	!ajaxData.sid && delete ajaxData.sid;
@@ -98,7 +108,7 @@ $.mainBox.on('click', '#submit_AddOrEdit', ()=>{
 			}
         	$.dialogFull.Tips( "提交成功！" );
          	$.ajaxGetHtml({
-         		url: '/pss/goVisitor'
+         		url: res.data.url
          	})
 		},
         error: function(){
