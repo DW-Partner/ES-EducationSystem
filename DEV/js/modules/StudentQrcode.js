@@ -12,10 +12,10 @@ let run_qrcode = (tips)=>{
 	    dataType: "json",
 	    url: '/pss/updateQrcode',
 	    data: {
-	        code: $('#school_code').val(),
-	        zoneid: $('#zoneid').val(),
-	        usertype: 'zone',
-	        userid: $('#zoneid').val(),
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        usertype: 'student',
+	        userid: $('#sid').val(),
 	        expired: 30
 	    },
 	    success: (res)=>{

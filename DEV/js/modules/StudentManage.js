@@ -18,11 +18,11 @@
         <div class="item flex_2"><p><span>\
             <a href="JavaScript:;" data-href="/pss/goStudentManage?sid={sid}&page={_page}">编辑</a>\
             |\
-            <a href="JavaScript:;" data-href="/pss/goSendToStudent?sid={sid}&page={_page}">发送通知</a><br />\
-            <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a>\
+            <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
+            <a href="JavaScript:;" data-href="/pss/goSendToStudent?sid={sid}&page={_page}">发送通知</a>\
             |\
-            <a href="JavaScript:;" class="exitFromClass" data-sid={sid}>退出班级</a><br />\
-            <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a>\
+            <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a><br />\
+            <a href="JavaScript:;" class="none{classid} exitFromClass" data-sid={sid} data-classid={classid}>退出班级</a>\
         </span></p></div>\
 		</li>',
 	};
@@ -59,3 +59,39 @@ $.jsonPage({
     }
 });
 //获取教案列表 end
+
+
+let exitFromClass = (sid,classid)=>{
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/exitFromClass',
+        data: {
+            code: $('#zone_code').val(),
+            zoneid: $('#zone_zoneid').val(),
+            sid: sid,
+            classid: classid,
+            page: +$('#page').val() || 0
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            $.dialogFull.Tips( "提交成功！" );
+            $.ajaxGetHtml({
+                url: res.data.url,
+            })
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    })    
+}
+
+$.mainBox.on('click', '.exitFromClass', ()=>{
+    const sid = $(this).data('sid');
+    const classid = $(this).data('classid');
+    exitFromClass(sid,classid);
+})
+
