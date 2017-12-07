@@ -1,4 +1,4 @@
-	require('./school_advisoryRegistration_sendMessage.css');//引入css文件
+	require('./AddStudent.css');//引入css文件
 	$.mainBox.on('click', 'p', ()=>{
 		//alert(5678);
 	})

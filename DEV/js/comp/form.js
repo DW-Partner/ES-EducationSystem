@@ -13,6 +13,7 @@ let form = {
             item: '.pub_form [data-validate]',//表单项dom
             key_validate: 'validate',//验证项dom
             key_must: 'must',//必填项dom
+            value_true_out: false,
             handle: (opt)=>{
                 opt.that.addClass('error');
                 alert(opt.text);
@@ -37,8 +38,10 @@ let form = {
             if( !result ){
                 return;
             }
-            const key = that.attr('name');
-            sub_data[ key ] = value;
+            if( value || !options.value_true_out ){
+                const key = that.attr('name');
+                sub_data[ key ] = value;
+            }
         }
         return sub_data;
     },

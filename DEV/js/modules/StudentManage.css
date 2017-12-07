@@ -12,3 +12,9 @@
 		margin: 0 5px;
 	}
 }
+.page_head{
+	.btn{
+		margin-left: 10px;
+		width: 120px;
+	}
+}
