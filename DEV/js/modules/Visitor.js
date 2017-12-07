@@ -16,16 +16,18 @@ const tpl = {
 	<div class="item"><p><span>--</span></p></div>\
 	<div class="item"><p><span>{audit_time}</span></p></div>\
 	<div class="item"><p><span>{visitorStatus}</span></p></div>\
-	<div class="item"><p><span>\
-	<a href="JavaScript:;" data-href="/pss/goEditVisitor?sid={sid}&page={_page}">编辑</a><br />\
+	<div class="item flex_2"><p><span>\
+	<a href="JavaScript:;" data-href="/pss/goEditVisitor?sid={sid}&page={_page}">编辑</a>\
+	|\
 	<a href="JavaScript:;" data-href="/pss/goAddAudit?sid={sid}&page={_page}">试听</a><br />\
-	<a href="JavaScript:;" class="toBeStudent" data-sid="{sid}">转正式</a><br />\
+	<a href="JavaScript:;" class="toBeStudent" data-sid="{sid}">转正式</a>\
+	|\
 	<a href="JavaScript:;" data-href="/pss/goVisitorLog?sid={sid}&page={_page}">跟进反馈</a>\
 	</span></p></div>\
 	</li>'
 }
 
-const search_data = $('#data').val();
+const search_data = $('#data').val().replace(/'/g, '"');
 
 let getVisitorList = ()=>{
     let ajaxData = {
@@ -33,7 +35,7 @@ let getVisitorList = ()=>{
         zoneid: $('#zone_zoneid').val(),
     }
     if( search_data ){
-		ajaxData.data = JSON.stringify( search_data );
+		ajaxData.data = search_data;
     }
     //列表 start 5.15
     $.jsonPage({

@@ -2,6 +2,7 @@ require('./VisitorLog.css');//引入css文件
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const tpl = {
+	info: '<li><span>·</span><em>{content}</em></li>',
 	item: '<li><span></span><input type="text" value="{content}" placeholder="请输入反馈信息"><a href="JavaScript:;" class="btn_dis del">删除</a></li>'
 }
 
@@ -23,7 +24,7 @@ let getVisitorDetail = ()=>{
 	             return;
 	        }
 	        const name = res.data.name;
-	        $('.pub_form em').html( name );
+	        $('.pub_form em').eq(0).html( name );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -53,7 +54,8 @@ let getVisitorLog = ()=>{
 	        listData = res.data;
 	        let li = '';
 	        listData.map(function(item){
-	        	li += replaceTemplate( tpl.item, item );
+	        	console.log(li);
+	        	li += replaceTemplate( tpl.info, item );
 	        });
 	        $('.pub_form li').eq(0).after(li);
 	    },
@@ -122,7 +124,7 @@ $.mainBox.on('click', '#addItem', function(){
 			$(this).parent().remove();
 		}
 	})
-	$('.pub_form').append( li ).find('[type=text]').eq(-1).focus();
+	$('.pub_form ul').append( li ).find('[type=text]').eq(-1).focus();
 }).on('click', '.del', function(){
 	$(this).parent().remove();
 }).on('click', '#submit_log', function(){

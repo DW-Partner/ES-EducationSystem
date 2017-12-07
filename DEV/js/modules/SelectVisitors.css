@@ -3,6 +3,9 @@
 		input[type=text].short{
       		margin-right: 3px;
     	}
+    	input[type=text].shortest{
+    		margin: 0;
+    	}
 	}
 	
 }

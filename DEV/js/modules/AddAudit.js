@@ -88,8 +88,8 @@ getVisitorDetail();
 $.mainBox.on('change', '[name=class_id]', function(){
 	const val = $(this).val();
 	option_data.map(function( item ){
-		if( val === item.class_id ){
-			let option_2 = ''
+		if( val == item.class_id ){
+			let option_2 = '';
 	        item.lessons.map(function( lesson ){
 	        	option_2 += replaceTemplate( tpl.lesson_option, lesson );
 	        })
@@ -101,6 +101,8 @@ $.mainBox.on('change', '[name=class_id]', function(){
 	if( !sub_data ){
 		return;
 	}
+	sub_data.class_id = +sub_data.class_id;
+	sub_data.lesson_id = +sub_data.lesson_id;
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
