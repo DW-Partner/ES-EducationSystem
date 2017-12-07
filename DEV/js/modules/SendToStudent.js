@@ -10,6 +10,7 @@ let sentMessageToStudent = ()=>{
 		return;
 	}else if( sub_data.notice.length > 100 ){
         $.dialogFull.Alert( "最多允许输入100字，请重新编辑！" );
+		return;
 	}
 	$.form.submit({
 		url: '/pss/sentMessageToStudent',
@@ -35,8 +36,7 @@ let sentMessageToStudent = ()=>{
         }
 	});
 }
-
-	$.mainBox.on('click', '#submit_send', ()=>{
-		sentMessageToStudent()
-	})
+$.mainBox.on('click', '#submit_send', ()=>{
+	sentMessageToStudent();
+})
 
