@@ -16,13 +16,13 @@
 		<div class="item"><p><span>{origin}</span></p></div>\
         <div class="item"><p><span>{remaining_lesson}</span></p></div>\
         <div class="item flex_2"><p><span>\
-            <a href="JavaScript:;" data-href="/pss/goStudentManage?sid={sid}&page={_page}">编辑</a>\
+            <a href="JavaScript:;" data-href="/pss/goEditStudent?sid={sid}&page={_page}">编辑</a>\
             |\
             <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
             <a href="JavaScript:;" data-href="/pss/goSendToStudent?sid={sid}&page={_page}">发送通知</a>\
             |\
-            <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a><br />\
-            <a href="JavaScript:;" class="none{classid} exitFromClass" data-sid={sid} data-classid={classid}>退出班级</a>\
+            <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}&classid={class_id}" data-sid="{sid}">加入班级</a><br />\
+            <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id}>退出班级</a>\
         </span></p></div>\
 		</li>',
 	};
@@ -95,7 +95,7 @@ let exitFromClass = (sid,classid)=>{
     })    
 }
 
-$.mainBox.on('click', '.exitFromClass', ()=>{
+$.mainBox.on('click', '.exitFromClass', function(){
     const sid = $(this).data('sid');
     const classid = $(this).data('classid');
     exitFromClass(sid,classid);

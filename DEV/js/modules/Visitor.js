@@ -82,7 +82,11 @@ $.mainBox.on('click', '.toBeStudent', function(){
 	        }
 
             $.dialogFull.Tips( '操作成功！' );
-			getVisitorList();
+			//getVisitorList();
+
+         	$.ajaxGetHtml({
+         		url: '/pss/goStudentManage#goStudentManage'
+         	})
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );

@@ -462,7 +462,7 @@ select::-ms-expand {
     font-size: 16px;
     li{
       min-height: 90px;
-      padding: 30px 0;
+      padding: 10px 0;
       line-height: 30px;
       border-top: 1px solid #eaeaea;
       display: flex;

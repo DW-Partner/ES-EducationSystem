@@ -1,4 +1,4 @@
-	require('./AddStudent.css');//引入css文件
+	require('./AddOrEditStudent.css');//引入css文件
 
 
 
@@ -90,7 +90,7 @@ $.mainBox.on('click', '#submit_AddOrEdit', ()=>{
         zoneid: $('#zone_zoneid').val(),
 		data: JSON.stringify( sub_data ),
 		sid: sid || undefined,
-		page: page ? page : 0
+		page: page || 0
     }
 
 
