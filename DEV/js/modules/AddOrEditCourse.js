@@ -5,6 +5,7 @@ require('./AddOrEditCourse.css');
 
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
+import cvsDataHandle from '../comp/cvsDataHandle.js';//模板引擎
 const tpl = {
 	form_tpl: '<li><span class="wide"><i>*</i>分类课程</span>\
 				<input type="text" class="short" placeholder="请输入分类课程" value="{course_name}" name="course_name" data-validate="any" data-must="1" />\
@@ -167,6 +168,18 @@ $.mainBox.on('click', '#submit_course', function(){
 	$('.dialog_add_lesson [name="outline"]').val( $('[name="outline"]').eq(0).val() );
 }).on('click', '#lessons .del', function(){
 	$(this).parent().parent().parent().remove();
+}).on('change', '.inputFile', function(){
+	cvsDataHandle({
+		input: this,
+		keys:['theme', 'status', 'outline'],
+		handle: (data)=>{
+			let li = '';
+			data.map(function(line, index){
+	        	li += replaceTemplate( tpl.item, line );
+			});
+	        $('#lessons').append( li );
+		}
+	});
 })
 
 

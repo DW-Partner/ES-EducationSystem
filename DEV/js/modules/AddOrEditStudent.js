@@ -50,7 +50,7 @@ if( sid ){
     $.ajax({
 	    type: "post",
 	    dataType: "json",
-	    url: '/pss/getStudentDetail',
+	    url: '/pss/getVisitorDetail',
 	    data: {
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
