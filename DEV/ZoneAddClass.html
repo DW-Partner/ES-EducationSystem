@@ -57,14 +57,28 @@
 				</li>
 				<li>
 				<span><i>*</i>上课时段</span>
-				<select>
+				<select class="timeType">
 					<option value="day">每日</option>
-			<!-- 		<option value="week">每周</option>
-					<option value="month">每月</option> -->
+					<option value="week">每周</option>
+					<option value="month">每月</option>
 				</select>
 
+				<div class="item box_day">
+					<input type="text" class="short" id="day_times" placeholder="请输入上课时段" />
+				</div>
 
-				<input type="text" class="short" id="day_times" placeholder="请输入上课时段" data-validate="any" data-must="1"/>
+				<div class="box_week">
+					周六：
+					<input type="text" class="short" id="day_times" placeholder="请输入上课时段" />
+					周日：
+					<input type="text" class="short" id="day_times" placeholder="请输入上课时段" />
+				</div>
+
+				<div class="box_month">
+					<input type="text" class="short" id="day_times_month" placeholder="请输入上课时段" />
+				</div>
+
+
 				</li>
 			</ul>
 			<a href="JavaScript:;" class="btn" id="submit_add">确定</a>

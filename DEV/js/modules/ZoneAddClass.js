@@ -14,6 +14,11 @@ $.laydate.render({
   type: 'time'
 });
 
+$.laydate.render({
+  elem: '#day_times_month',
+  type: 'datetime'
+});
+
 
 let getZoneTeacherList = ()=>{
     $.ajax({
@@ -74,6 +79,22 @@ let getCourseList = ()=>{
 getCourseList();
 
 
+let run_time = {
+	day: ()=>{
+		$('.box_day').addClass('item').siblings('div').removeClass('item');
+
+	},
+	week: ()=>{
+		$('.box_week').addClass('item').siblings('div').removeClass('item');
+
+	},
+	month: ()=>{
+		$('.box_month').addClass('item').siblings('div').removeClass('item');
+
+	}
+}
+
+
 $.mainBox.on('click', '#submit_add', ()=>{
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
@@ -122,4 +143,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
+}).on('change', '.timeType', function(){
+	const type = $(this).val();
+	run_time[ type ]();
 });

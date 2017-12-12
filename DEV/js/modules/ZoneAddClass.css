@@ -1,4 +1,14 @@
 .pub_form{
-
-	
+	.box_day{
+		display: none; 
+	}
+	.box_week{
+		display: none; 
+	}
+	.box_month{
+		display: none; 
+	}
+	.item{
+		display: inline-block;
+	}
 }
