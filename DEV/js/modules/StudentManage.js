@@ -22,7 +22,7 @@
             <a href="JavaScript:;" data-href="/pss/goSendToStudent?sid={sid}&page={_page}">发送通知</a>\
             |\
             <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}&classid={class_id}" data-sid="{sid}">加入班级</a><br />\
-            <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id}>退出班级</a><br />\
+            <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id}>退出班级</a>\
             <a href="JavaScript:;" data-href="/pss/goStudentPayment?sid={sid}">缴续费</a>\
         </span></p></div>\
 		</li>',
