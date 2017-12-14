@@ -27,7 +27,7 @@ const tpl = {
 	</li>'
 }
 
-const search_data = $('#data').val().replace(/'/g, '"');
+const search_data = $('#data').val() ? $('#data').val().replace(/'/g, '"') : $('#data').val();
 
 let getVisitorList = ()=>{
     let ajaxData = {
@@ -45,7 +45,6 @@ let getVisitorList = ()=>{
         ajaxData: ajaxData,//上行参数
         template: tpl.list,//列表模板
         listKey: ['data','list'],//下行结构
-        pageBar: false,//是否启用分页
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         noData: false,//Function : function( $listBox, $pageBox ){}
         codeKeyName: 'errcode',//状态标示key名
@@ -58,7 +57,8 @@ let getVisitorList = ()=>{
         },
         ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
             $.dialogFull.Tips( "网络错误，请稍后重试" );
-        }
+        },
+        gotoIndex: +$('#page').val()
     });
     //获取教案列表 end
 }
@@ -92,4 +92,47 @@ $.mainBox.on('click', '.toBeStudent', function(){
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
 	    }
 	});
+}).on('change', '.inputFile', function(){
+
+    $.dialogFull.Alert( "文件上传中，请勿刷新！" );
+
+    let self = $(this);
+
+    let formData = new FormData();//构造空对象，下面用append 方法赋值。
+    formData.append("code", $('#zone_code').val());
+    formData.append("zoneid", $('#zone_zoneid').val());
+    formData.append("type", 'visitor');
+
+    formData.append("file", self[0].files[0]);
+    $.ajax({
+        type: 'post',
+        cache: false,
+        url: '/pss/uploadStudentList',
+        data: formData,
+        processData : false,
+        contentType : false,
+        mimeType: "multipart/form-data",
+        dataType: 'json',
+        success: function(res) {
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            self.after( self.clone().val("") );
+            self.remove();
+            $.dialogFull.Alert({
+                content: "操作成功！" ,
+                clear: true
+            })
+            getVisitorList();
+        },
+        error: function(){
+            $.dialogFull.Alert({
+                content: "网络错误，请刷新页面或稍后重试" ,
+                clear: true
+            })
+        }
+    });
+
+
 })

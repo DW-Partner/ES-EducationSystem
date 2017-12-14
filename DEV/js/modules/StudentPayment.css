@@ -1,0 +1,13 @@
+.pub_form{
+	li{
+		input[type=text].shortest{
+    		margin-right: 5px;
+		}
+	}
+	.line{
+		border-top: 1px solid #eaeaea;
+		margin-top: 30px;
+		height: 0;
+		overflow: hidden;
+	}
+}

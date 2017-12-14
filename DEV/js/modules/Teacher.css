@@ -12,3 +12,21 @@
 		margin: 0 20px;
 	}
 }
+
+.page_head{
+	.btn{
+		margin-left: 10px;
+		width: 120px;
+		position: relative;
+		overflow: hidden;
+	}
+	.inputFile{
+	    opacity: 0;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    height: 100px;
+	    width: 800px;
+	    cursor: pointer;
+	}
+}

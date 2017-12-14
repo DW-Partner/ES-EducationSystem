@@ -33,12 +33,10 @@ let ZoneTasks = ()=>{
 	    ajaxType: 'post',
 	    ajaxData: {
 	        code: $('#zone_code').val(),
-	        zoneid: $('#zone_zoneid').val(),
-	        page: 0
+	        zoneid: $('#zone_zoneid').val()
 	    },//上行参数
 	    template: tpl.ZoneTasks,//列表模板
-	    listKey: ['data'],//下行结构
-	    pageBar: false,//是否启用分页
+        listKey: ['data','list'],//下行结构
         eachDataHandle: function(msg,pageNum,pageSize){
         	msg.checked = msg.status == '已处理' ? 'checked' : '';
         	msg.status = msg.status == '已处理' ? 'disabled' : '';
@@ -77,8 +75,7 @@ let MsgFromSchool = ()=>{
 	        page: 0
 	    },//上行参数
 	    template: tpl.MsgFromSchool,//列表模板
-	    listKey: ['data'],//下行结构
-	    pageBar: false,//是否启用分页
+        listKey: ['data','list'],//下行结构
         eachDataHandle: function(msg,pageNum,pageSize){
         	msg.status = msg.status == '已处理' ? 'disabled' : '';
         	return msg
@@ -116,8 +113,7 @@ let SendList = ()=>{
 	        page: 0
 	    },//上行参数
 	    template: tpl.SendList,//列表模板
-	    listKey: ['data'],//下行结构
-	    pageBar: false,//是否启用分页
+        listKey: ['data','list'],//下行结构
 	    eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
 	    noData: false,//Function : function( $listBox, $pageBox ){}
 	    codeKeyName: 'errcode',//状态标示key名

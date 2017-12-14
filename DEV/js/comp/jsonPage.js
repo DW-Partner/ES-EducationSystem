@@ -32,9 +32,11 @@
             successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {},//function(msg) {  }
             ajaxCodeError: function( msg ){},
             ajaxError: false,//function(XMLHttpRequest, textStatus, errorThrown, text) {}
-            start: 0
+            gotoIndex: 1 
         };
         options = $.extend(options, param);
+
+
         options.replaceTemplate = function(tpl, json) {
                 var html = tpl.replace(/\{([^\{|^\}]+)\}/ig, function($0, $1) {
                     if ($0 && $1) {
@@ -48,7 +50,7 @@
                 this.pageSize = _pageSize;
             }
             var pageSize = this.pageSize;
-            this.ajaxData[ this.pageKeyName ] = num;
+            this.ajaxData[ this.pageKeyName ] = num - 1;
             this.ajaxData[ this.pageSizeKeyName ] = pageSize;
             $.ajax({
                 type: this.ajaxType,
@@ -92,7 +94,7 @@
                     }
                     //构建分页start
                     var totalHtml = '<strong>共<em>' + total + '</em>条数据</strong>',
-                        pageLength = Math.ceil( +total / pageSize ),
+                        pageLength = msg.data.page_num || Math.ceil( +total / pageSize ) || 0,
                         prevHtml = '',
                         startHtml = '',
                         ellipsisLeft = '',
@@ -109,7 +111,7 @@
                         if( options.noData ){
                             options.noData( $( options.listBox ), $( options.pageBox ) );
                         } else{
-                            $( options.pageBox ).html( totalHtml );
+                            //$( options.pageBox ).html( totalHtml );
                         }
                         return;
                     }
@@ -156,7 +158,7 @@
                     totalHtml = options.showTotal ? totalHtml : '';
                     //构建分页end
 
-                    pageHtml = totalHtml + '<div class="pageNumList">' + prevHtml + startHtml + ellipsisLeft + pageHtml + ellipsisRight + endHtml + nextHtml + '</div>';
+                    pageHtml = prevHtml + startHtml + ellipsisLeft + pageHtml + ellipsisRight + endHtml + nextHtml;
                     $( options.pageBox ).html( pageHtml );
                     options.successRunAfter( msg, num, pageSize, $( options.listBox ), $( options.pageBox ) );//回调函数：数据、当前页、页面容量
                 },
@@ -177,7 +179,7 @@
                 }
             });
         }
-        options.run( options.start );
+        options.run( +options.gotoIndex || 1 );
         if( !options.pageBar ){
             return false;
         }

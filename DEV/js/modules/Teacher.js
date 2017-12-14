@@ -14,28 +14,75 @@ const tpl = '<li>\
 
 
 //获取教师列表 start 3.23
-$.jsonPage({
-    listBox: 'ul.body',//列表容器
-    ajaxUrl: '/pss/getTeacherList',
-    ajaxType: 'post',
-    ajaxData: {
-        code: $('#school_code').val()
-    },//上行参数
-    template: tpl,//列表模板
-    listKey: ['data'],//下行结构
-    pageBar: false,//是否启用分页
-    eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
-    noData: false,//Function : function( $listBox, $pageBox ){}
-    codeKeyName: 'errcode',//状态标示key名
-    codeSuccess: 0,//状态标示值
-    successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
+let getTeacherList = ()=>{
+    $.jsonPage({
+        listBox: 'ul.body',//列表容器
+        ajaxUrl: '/pss/getTeacherList',
+        ajaxType: 'post',
+        ajaxData: {
+            code: $('#school_code').val()
+        },//上行参数
+        template: tpl,//列表模板
+        listKey: ['data'],//下行结构
+        pageBar: false,//是否启用分页
+        eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
+        noData: false,//Function : function( $listBox, $pageBox ){}
+        codeKeyName: 'errcode',//状态标示key名
+        codeSuccess: 0,//状态标示值
+        successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
 
-    },//function(msg) {  }
-    ajaxCodeError: function( res ){
-        $.dialogFull.Tips( res.errmsg );
-    },
-    ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
-        $.dialogFull.Tips( "网络错误，请稍后重试" );
-    }
-});
+        },//function(msg) {  }
+        ajaxCodeError: function( res ){
+            $.dialogFull.Tips( res.errmsg );
+        },
+        ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
+            $.dialogFull.Tips( "网络错误，请稍后重试" );
+        }
+    });
+}
 //获取教师列表 end
+getTeacherList();
+
+$.mainBox.on('change', '.inputFile', function(){
+
+    $.dialogFull.Alert( "文件上传中，请勿刷新！" );
+
+    let self = $(this);
+
+    let formData = new FormData();//构造空对象，下面用append 方法赋值。
+
+    formData.append("code", $('#school_code').val());
+
+    formData.append("file", self[0].files[0]);
+    $.ajax({
+        type: 'post',
+        cache: false,
+        url: '/pss/uploadTeacherList',
+        data: formData,
+        processData : false,
+        contentType : false,
+        mimeType: "multipart/form-data",
+        dataType: 'json',
+        success: function(res) {
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            self.after( self.clone().val("") );
+            self.remove();
+            $.dialogFull.Alert({
+                content: "操作成功！" ,
+                clear: true
+            })
+            getTeacherList();
+        },
+        error: function(){
+            $.dialogFull.Alert({
+                content: "网络错误，请刷新页面或稍后重试" ,
+                clear: true
+            })
+        }
+    });
+
+
+})

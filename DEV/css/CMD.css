@@ -460,6 +460,7 @@ select::-ms-expand {
   .body{
     background-color: #fff;
     font-size: 16px;
+    min-height: 230px;
     li{
       min-height: 90px;
       padding: 10px 0;
