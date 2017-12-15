@@ -29,7 +29,7 @@ var tpl = {
                 <li><span>今日报名数</span><em>{sign_num}人</em></li>\
                 <li><span>预约发出数</span><em>{reserve_num}人</em></li>\
                 <li><span>今天请假数</span><em>{teacher_leave_num}人</em></li>\
-                <li><span>班级数</span><em>{class_num}人</em></li>',
+                <li><span>开班数</span><em>{class_num}人</em></li>',
     zoneList: '<li>\
                     <div class="item"><p><span>{name}</span></p></div>\
                     <div class="item"><p><span>{official}</span></p></div>\

@@ -9,25 +9,25 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const form_tpl = '<li>\
 					<span><i>*</i>教师姓名</span>\
 					<input type="text" class="normal" placeholder="请输入教师姓名" value="{name}" name="name" data-validate="any" data-must="1" />\
-					<span><i>*</i>教师性别</span>\
-					<select name="gender" data-validate="any" data-must="1">\
+					<span>教师性别</span>\
+					<select name="gender" data-validate="any">\
 						<option value="男">男</option>\
 						<option value="女">女</option>\
 					</select>\
 				</li>\
 				<li>\
-					<span>第二称谓</span>\
-					<input type="text" class="normal" placeholder="请输入第二称谓" value="{name_2}" name="name_2" data-validate="any" />\
+					<span><i>*</i>第二称谓</span>\
+					<input type="text" class="normal" placeholder="请输入第二称谓" value="{name_2}" name="name_2" data-validate="any" data-must="1" />\
 				</li>\
 				<li>\
-					<span><i>*</i>出生年月</span>\
-					<input type="date" class="normal" placeholder="请输入出生年月" value="{birthday}" name="birthday" data-validate="any" data-must="1" />\
-					<span><i>*</i>籍贯</span>\
-					<input type="text" class="short" placeholder="请输入籍贯" value="{native_place}" name="native_place" data-validate="any" data-must="1" />\
+					<span>出生年月</span>\
+					<input type="date" class="normal" placeholder="请输入出生年月" value="{birthday}" name="birthday" data-validate="any" />\
+					<span>籍贯</span>\
+					<input type="text" class="short" placeholder="请输入籍贯" value="{native_place}" name="native_place" data-validate="any" />\
 				</li>\
 				<li>\
-					<span><i>*</i>身份证号</span>\
-					<input type="text" class="normal" placeholder="请输入身份证号" value="{id_num}" name="id_num" data-validate="IDnumber" data-must="1" />\
+					<span>身份证号</span>\
+					<input type="text" class="normal" placeholder="请输入身份证号" value="{id_num}" name="id_num" data-validate="IDnumber" />\
 				</li>\
 				<li>\
 					<span><i>*</i>手机号</span>\
@@ -37,14 +37,14 @@ const form_tpl = '<li>\
 					</select>\
 				</li>\
 				<li>\
-					<span><i>*</i>当前住址</span>\
-					<input type="text" class="long" placeholder="请输入当前住址" value="{address}" name="address" data-validate="any" data-must="1" />\
+					<span>当前住址</span>\
+					<input type="text" class="long" placeholder="请输入当前住址" value="{address}" name="address" data-validate="any" />\
 				</li>\
 				<li>\
-					<span><i>*</i>入职时间</span>\
-					<input type="date" class="normal" value="{entry_day}" name="entry_day" data-validate="any" data-must="1" />\
+					<span>入职时间</span>\
+					<input type="date" class="normal" value="{entry_day}" name="entry_day" data-validate="any" />\
 					<span><i>*</i>类别</span>\
-					<select name="type" data-validate="any" data-must="1" >\
+					<select name="type" data-validate="any" data-must="1">\
 					<option value="主课">主课</option>\
 					<option value="助教">助教</option>\
 					</select>\

@@ -16,7 +16,7 @@ const tpl = {
 				<br />\
 				<p><span>所属门店：</span><em>{zone_name}</em></p>',
 	work_info: '<div class="data data1">\
-						<span>当月教案准备率</span>\
+						<span>当月简易教案准备率</span>\
 						<p>{ready_rate}</p>\
 					</div>\
 					<div class="data data2">\

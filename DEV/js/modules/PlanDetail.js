@@ -14,7 +14,7 @@ const tpl = '<div>\
 				<p><span>地点：</span><i>{location}</i></p>\
 			</div>\
 			<div>\
-				<p><span>我的教案：</span><i>{content}</i></p>\
+				<p><span>我的简易教案：</span><i>{content}</i></p>\
 			</div>';
 
 //{"data":{"contributor":"赵赵","course_name":"绘画","lesson_theme":"概念介绍","location":"baiziwan","lesson_id":1,"content":"fweafewfewfwaef"},"errcode":"0","errmsg":"success"}
