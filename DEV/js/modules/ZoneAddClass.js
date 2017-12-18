@@ -8,15 +8,59 @@ import changeFormat from '../kit/changeFormat.js';//模板引擎
 // console.log(laydate);
 
 
-//常规用法
-$.laydate.render({
-  elem: '#day_times',
-  type: 'time'
-});
+const _item = '<div class="item">\
+					<select class="timeType">\
+						<option value="day">每日</option>\
+						<option value="week">每周</option>\
+						<option value="month">每月</option>\
+					</select>\
+					<select class="week none">\
+						<option value="2">星期一</option><option value="3">星期二</option><option value="4">星期三</option>\
+						<option value="5">星期四</option><option value="6">星期五</option><option value="7">星期六</option>\
+						<option value="1">星期日</option>\
+					</select>\
+					<select class="month none">\
+						<option value="1">1日</option><option value="2">2日</option>\
+						<option value="3">3日</option><option value="4">4日</option>\
+						<option value="5">5日</option><option value="6">6日</option>\
+						<option value="7">7日</option><option value="8">8日</option>\
+						<option value="9">9日</option><option value="10">10日</option>\
+						<option value="11">11日</option><option value="12">12日</option>\
+						<option value="13">13日</option><option value="14">14日</option>\
+						<option value="15">15日</option><option value="16">16日</option>\
+						<option value="17">17日</option><option value="18">18日</option>\
+						<option value="19">19日</option><option value="20">20日</option>\
+						<option value="21">21日</option><option value="22">22日</option>\
+						<option value="23">23日</option><option value="24">24日</option>\
+						<option value="25">25日</option><option value="26">26日</option>\
+						<option value="27">27日</option><option value="28">28日</option>\
+						<option value="29">29日</option><option value="30">30日</option>\
+						<option value="31">31日</option>\
+					</select>\
+					<input type="text" class="short" placeholder="请输入上课时段" />\
+					<a href="JavaScript:;" class="btn_dis run_item_del">删除</a>\
+				</div>';
 
+
+//常规用法
+// $.laydate.render({
+//   elem: '#day_times',
+//   type: 'time'
+// });
+
+// $.laydate.render({
+//   elem: '#day_times_month',
+//   type: 'datetime'
+// });
+
+const baseId = 'i' + parseInt( Math.random() * 1000000 ).toString();
+let item_i = 0;
+let _before = baseId + item_i;
+$('.timeList input').eq(0).attr('id',baseId + item_i++);
 $.laydate.render({
-  elem: '#day_times_month',
-  type: 'datetime'
+  elem: '#' + _before,
+  type: 'time',
+  format: 'HH:MM'
 });
 
 
@@ -69,7 +113,7 @@ let getCourseList = ()=>{
 			    options += '<option value="' + item.course_id + '">' + item.course_name + '</option>'
 			});
 			$('[name=course_id]').html(options);
-
+			getCourseDetail( $('[name=course_id]').val() );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -95,6 +139,47 @@ let run_time = {
 }
 
 
+let getCourseDetail = (courseid)=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getCourseDetail',
+	    data: {
+	        code: $('#zone_code').val(),
+	        courseid: courseid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        $('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
+
+	        const html = replaceTemplate( tpl.form_tpl, res.data );
+	        $('.pub_form ul').html( html );
+	        const split = res.data.target.split('\n');
+	        split.map(function(_item,_index){
+				$('.target_item').eq( _index ).val(_item)
+	        })
+
+	        $('[name=fee_model]').val( res.data.fee_model );
+	        const lessons = res.data.lessons;
+	        let list="";
+	        lessons.map(function(item){
+	        	list += replaceTemplate( tpl.item, item );
+	        });
+	        $('#lessons').html( list );
+
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+
+
+
 $.mainBox.on('click', '#submit_add', ()=>{
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
@@ -110,14 +195,28 @@ $.mainBox.on('click', '#submit_add', ()=>{
 
 	const start_time = $('[name=start_time]').val();
 
-	let _times = start_time + ' ' + $('#day_times').val();
+	// let _times = start_time + ' ' + $('#day_times').val();
+	// for( let t=0; t<15; t++ ){
+	// 	const getTime = new Date( _times ).getTime() + (24*60*60*1000 * t);
+	// 	const getDate = changeFormat( getTime, 'YYYY-MM-DD hh:mm:ss' );
+	// 	sub_data.lessons.push( {lesson: getDate} );
+	// }
 
-	for( let t=0; t<15; t++ ){
-		const getTime = new Date( _times ).getTime() + (24*60*60*1000 * t);
-		const getDate = changeFormat( getTime, 'YYYY-MM-DD hh:mm:ss' );
+	sub_data.time_regular = [];
 
-		sub_data.lessons.push( {lesson: getDate} );
-	}
+	$( '.timeList .item' ).each(function(){
+		const val = $(this).find('input').eq(0).val();
+		let _item = {}
+		if(val){
+			_item.type = $(this).find('select').val();
+			_item.day = +$(this).find('select:visible').val() || 0;
+			_item.time = val;
+			sub_data.time_regular.push( _item );
+		}
+	})
+
+
+
 
     let ajaxData = {
         code: $('#zone_code').val(),
@@ -146,4 +245,32 @@ $.mainBox.on('click', '#submit_add', ()=>{
 }).on('change', '.timeType', function(){
 	const type = $(this).val();
 	run_time[ type ]();
-});
+}).on('change', '[name=course_id]', function(){
+	getCourseDetail( $(this).val() );
+}).on('change', '.timeType', function(){
+	const type = $(this).val();
+	if( type == 'week' ){
+		$(this).siblings('.week').show();
+		$(this).siblings('.month').hide();
+	}else if( type == 'month' ){
+		$(this).siblings('.month').show();
+		$(this).siblings('.week').hide();
+	}else{
+		$(this).siblings('.week, .month').hide();
+	}
+}).on('click', '.run_item_add', function(){
+	let item = $(_item);
+
+	_before = baseId + item_i;
+	item.find('input').eq(0).attr('id',baseId + item_i++);
+
+	$('.timeList').append( item );
+	$.laydate.render({
+		elem: '#' + _before,
+  		type: 'time',
+		format: 'HH:MM'
+	  // type: 'time'
+	});
+}).on('click', '.run_item_del', function(){
+	$(this).parent().remove();
+})

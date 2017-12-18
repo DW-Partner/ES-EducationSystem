@@ -8,18 +8,8 @@
 	.box_month{
 		display: none; 
 	}
-	.timeList{
+
+	.item{
 		display: inline-block;
 	}
-	.item{
-		min-width: 650px;
-		padding: 2px 0;
-		.btn{
-			float: right;
-		}
-	}
 }
-
-
-
-

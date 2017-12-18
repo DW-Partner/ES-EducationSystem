@@ -89,25 +89,34 @@
 			line-height: 16px;
 		}
 		.data{
-			background-color: #4580D3;
+			background-color: #3580D9;
 			border-radius: 4px;
-			padding: 18px 32px 24px 32px;
+			padding: 18px 5px 24px 8px;
 			display: inline-block;
-			width: 23%;
+			width: 15%;
 			border: none;
 			margin-top: 14px;
-			margin-right: 1.6%;
+			margin-right: 1%;
 			&.data1{
 				
 			}
+			&.data1{
+				background-color: #3580D9;
+			}
 			&.data2{
-				background-color: #5A96E6;
+				background-color: #4B96ED;
 			}
 			&.data3{
-				background-color: #F5B051;
+				background-color: #66A2E8;
 			}
 			&.data4{
-				background-color: #F7BF6D;
+				background-color: #FFAD37;
+			}
+			&.data5{
+				background-color: #FFBD5D;
+			}
+			&.data6{
+				background-color: #E3B36C;
 			}
 			span{
 				font-size: 16px;
@@ -115,7 +124,7 @@
 				color: #FFF;
 			}
 			p{
-				font-size: 36px;
+				font-size: 26px;
 				line-height: 36px;
 				color: #FFF;
 				margin-top: 10px;

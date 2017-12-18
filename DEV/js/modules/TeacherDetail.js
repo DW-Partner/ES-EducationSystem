@@ -16,20 +16,28 @@ const tpl = {
 				<br />\
 				<p><span>所属门店：</span><em>{zone_name}</em></p>',
 	work_info: '<div class="data data1">\
-						<span>当月简易教案准备率</span>\
-						<p>{ready_rate}</p>\
+						<span>当月课时完成数</span>\
+						<p>{completed_lessons}</p>\
 					</div>\
 					<div class="data data2">\
-						<span>当月出勤率</span>\
-						<p>{work_rate}</p>\
-					</div>\
-					<div class="data data3">\
 						<span>当月课时任务数</span>\
 						<p>{lesson_num}</p>\
 					</div>\
-					<div class="data data4">\
+					<div class="data data3">\
 						<span>负责班级数</span>\
 						<p>{class_num}</p>\
+					</div>\
+					<div class="data data4">\
+						<span>当月完成授课人次</span>\
+						<p>{completed_students}</p>\
+					</div>\
+					<div class="data data5">\
+						<span>当月班内续费人数</span>\
+						<p>{renew_students}</p>\
+					</div>\
+					<div class="data data6">\
+						<span>当月试听转正人数</span>\
+						<p>{signed_num}</p>\
 					</div>',
     classList: '<li>\
             <div class="item"><p><span>{class_name}</span></p></div>\
