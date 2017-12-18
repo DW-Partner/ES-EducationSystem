@@ -1,16 +1,45 @@
-require('./ZoneAddClass.css');//引入css文件
+require('./ZoneAddOrEditClass.css');//引入css文件
 require('../comp/laydate/laydate.css');//引入css文件
 
+import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
-const _item = '<div class="item">\
+const classid = $('#classid').val();
+
+
+
+const tpl = {
+	edit: '<li>\
+			<span><i>*</i>班级名称</span>\
+			<input type="text" class="short" placeholder="请输入班级名称" value="{class_name}" name="class_name" data-validate="any" data-must="1" />\
+			<span class="wide"><i>*</i>选择分类课程</span>\
+			<em>{course_name}</em>\
+		</li>\
+		<li>\
+			<span><i>*</i>预招人数</span>\
+			<input type="text" class="short" placeholder="请输入预招人数" value="{reserve_num}" name="reserve_num" data-validate="number" data-must="1" />\
+			<span class="wide"><i>*</i>选择教师</span>\
+			<select name="teacher_id" data-validate="any" data-must="1">\
+			</select>\
+		</li>\
+		<li class="tips"></li>\
+		<li>\
+		<span><i>*</i>上课时段</span>\
+			<div class="timeList">\
+			</div>\
+		</li>',
+	_item : '<div class="item">\
 					<select class="timeType">\
 						<option value="day">每日</option>\
 						<option value="week">每周</option>\
 						<option value="month">每月</option>\
 					</select>\
 					<select class="week none">\
-						<option value="2">星期一</option><option value="3">星期二</option><option value="4">星期三</option>\
-						<option value="5">星期四</option><option value="6">星期五</option><option value="7">星期六</option>\
+						<option value="2">星期一</option>\
+						<option value="3">星期二</option>\
+						<option value="4">星期三</option>\
+						<option value="5">星期四</option>\
+						<option value="6">星期五</option>\
+						<option value="7">星期六</option>\
 						<option value="1">星期日</option>\
 					</select>\
 					<select class="month none">\
@@ -33,30 +62,12 @@ const _item = '<div class="item">\
 					</select>\
 					<input type="text" class="short" placeholder="请输入上课时段" />\
 					<a href="JavaScript:;" class="btn_dis run_item_del">删除</a>\
-				</div>';
+				</div>'
+}
 
 
-//常规用法
-// $.laydate.render({
-//   elem: '#day_times',
-//   type: 'time'
-// });
 
-// $.laydate.render({
-//   elem: '#day_times_month',
-//   type: 'datetime'
-// });
-
-const baseId = 'i' + parseInt( Math.random() * 1000000 ).toString();
-let item_i = 0;
-let _before = baseId + item_i;
-$('.timeList input').eq(0).attr('id',baseId + item_i++);
-$.laydate.render({
-  elem: '#' + _before,
-  type: 'time',
-  format: 'HH:MM'
-});
-
+let teacher_id;
 
 let getZoneTeacherList = ()=>{
     $.ajax({
@@ -76,60 +87,13 @@ let getZoneTeacherList = ()=>{
 			res.data.map(function(item){
 			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
 			});
-			$('[name=teacher_id]').html(options);
+			$('[name=teacher_id]').html(options).val( teacher_id );
 
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
 	    }
 	})
-}
-getZoneTeacherList();
-
-
-
-let getCourseList = ()=>{
-    $.ajax({
-	    type: "post",
-	    dataType: "json",
-	    url: '/pss/getCourseList',
-	    data: {
-	        code: $('#zone_code').val(),
-	        zoneid: $('#zone_zoneid').val(),
-	    },
-	    success: (res)=>{
-	        if( res.errcode != 0 ){
-	            $.dialogFull.Tips( res.errmsg );
-	             return;
-	        }
-	        let options = "";
-			res.data.map(function(item){
-			    options += '<option value="' + item.course_id + '">' + item.course_name + '</option>'
-			});
-			$('[name=course_id]').html(options);
-			getCourseDetail( $('[name=course_id]').val() );
-	    },
-	    error: ()=>{
-	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
-	    }
-	})
-}
-getCourseList();
-
-
-let run_time = {
-	day: ()=>{
-		$('.box_day').addClass('item').siblings('div').removeClass('item');
-
-	},
-	week: ()=>{
-		$('.box_week').addClass('item').siblings('div').removeClass('item');
-
-	},
-	month: ()=>{
-		$('.box_month').addClass('item').siblings('div').removeClass('item');
-
-	}
 }
 
 
@@ -148,6 +112,7 @@ let getCourseDetail = (courseid)=>{
 	             return;
 	        }
 	        $('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
+
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -156,29 +121,92 @@ let getCourseDetail = (courseid)=>{
 }
 
 
+let classInfo = {};
+const baseId = 'i' + parseInt( Math.random() * 1000000 ).toString();
+let item_i = 0;
+let _before = baseId + item_i;
+
+let getClassInfo = ()=>{
+
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getClassInfo',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        classid: classid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        classInfo = res.data;
+	        let html = replaceTemplate( tpl.edit, classInfo );
+	        $('.pub_form ul').html( html );
+	        teacher_id = classInfo.teacher_id;
+	        getZoneTeacherList();
+			getCourseDetail( classInfo.course_id );
 
 
-$.mainBox.on('click', '#submit_add', ()=>{
-	const sub_data = $.form.get({
+			classInfo.time_regular = classInfo.time_regular ? classInfo.time_regular : [];
+
+
+			classInfo.time_regular = [{"type":"day","day":0,"time":"10:12"},{"type":"day","day":0,"time":"11:12"}]
+
+
+			classInfo.time_regular.map(function(item, index){
+				$('.timeList').append( tpl._item );
+
+				$('.timeList .item').eq( index ).find('select').eq(0).val( item.type );
+				if( item.day ){
+					$('.timeList .item').eq( index ).find('select').eq(1).val( item.type );
+				}
+				_before = baseId + item_i;
+				$('.timeList .item').eq( index ).find('input').val( item.time ).attr('id',baseId + item_i++);
+
+				$.laydate.render({
+					elem: '#' + _before,
+			  		type: 'time',
+					format: 'HH:MM'
+				  // type: 'time'
+				});
+
+
+				if( index === 0 ){
+					$('.timeList .item').eq( 0 ).find('a').remove();
+					$('.timeList .item').eq( 0 ).append('<a href="JavaScript:;" class="btn run_item_add">添加</a>');
+					
+				}
+			})
+
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+classid && getClassInfo();
+
+
+
+$.mainBox.on('click', '#submit_addOrEdit', ()=>{
+	let sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
 	});
 	if( !sub_data ){
 		return;
 	}
-	sub_data.course_id = +sub_data.course_id;
+
 	sub_data.teacher_id = +sub_data.teacher_id;
 	sub_data.reserve_num = +sub_data.reserve_num;
 
-	//sub_data.lessons = [];
-
-	const start_time = $('[name=start_time]').val();
-
-	// let _times = start_time + ' ' + $('#day_times').val();
-	// for( let t=0; t<15; t++ ){
-	// 	const getTime = new Date( _times ).getTime() + (24*60*60*1000 * t);
-	// 	const getDate = changeFormat( getTime, 'YYYY-MM-DD hh:mm:ss' );
-	// 	sub_data.lessons.push( {lesson: getDate} );
-	// }
+	for(let key in sub_data){
+		if( sub_data[ key ] == classInfo[ key ] ){
+			delete sub_data[ key ];
+		}
+	}
 
 	sub_data.time_regular = [];
 
@@ -193,8 +221,12 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		}
 	})
 
-
-
+	if( JSON.stringify( sub_data.time_regular ) == JSON.stringify( classInfo.time_regular ) ){
+		delete sub_data.time_regular
+	}
+	if( !classInfo.time_regular  && !sub_data.time_regular.length ){
+		delete sub_data.time_regular
+	}
 
     let ajaxData = {
         code: $('#zone_code').val(),
@@ -202,9 +234,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		data: JSON.stringify( sub_data ),
     }
 
-
 	$.form.submit({
-		url: '/pss/addClass',
+		url: '/pss/editClass',
 		data: ajaxData,
 		success: (res) => {
 			if( res.errcode != 0 ){
@@ -237,7 +268,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		$(this).siblings('.week, .month').hide();
 	}
 }).on('click', '.run_item_add', function(){
-	let item = $(_item);
+	let item = $(tpl._item);
 
 	_before = baseId + item_i;
 	item.find('input').eq(0).attr('id',baseId + item_i++);

@@ -11,7 +11,7 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 			<div class="item"><p><span>{audits}</span></p></div>\
 			<div class="item"><p><span>\
 			<a href="JavaScript:;" data-href="/pss/goClassInfo?classid={class_id}">查看</a>\
-			<a href="JavaScript:;" data-href="/pss/goEditClass?classid={class_id}">更新信息</a>\
+			<a href="JavaScript:;" data-href="/pss/goEditClass?classid={class_id}">更新班级</a>\
 			</span></p></div>\
 			</li>',
 	};

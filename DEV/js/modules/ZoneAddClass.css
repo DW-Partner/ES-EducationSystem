@@ -14,7 +14,7 @@
 	.item{
 		min-width: 650px;
 		padding: 2px 0;
-		.btn{
+		.btn,.btn_dis{
 			float: right;
 		}
 	}
