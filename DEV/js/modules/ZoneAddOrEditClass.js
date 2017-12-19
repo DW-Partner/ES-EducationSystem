@@ -11,7 +11,7 @@ const tpl = {
 	edit: '<li>\
 			<span><i>*</i>班级名称</span>\
 			<input type="text" class="short" placeholder="请输入班级名称" value="{class_name}" name="class_name" data-validate="any" data-must="1" />\
-			<span class="wide"><i>*</i>选择分类课程</span>\
+			<span class="wide"><i>*</i>分类课程</span>\
 			<em>{course_name}</em>\
 		</li>\
 		<li>\
@@ -22,6 +22,10 @@ const tpl = {
 			</select>\
 		</li>\
 		<li class="tips"></li>\
+		<li>\
+			<span class="wide"><i>*</i>选择开始时间</span>\
+			<input type="date" value="{start_time}" name="start_time" data-validate="any" data-must="1"/>\
+		</li>\
 		<li>\
 		<span><i>*</i>上课时段</span>\
 			<div class="timeList">\
@@ -223,17 +227,21 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 
 	if( JSON.stringify( sub_data.time_regular ) == JSON.stringify( classInfo.time_regular ) ){
 		delete sub_data.time_regular
+	}else{
+		sub_data.start_time = classInfo.start_time;
 	}
 	if( !classInfo.time_regular  && !sub_data.time_regular.length ){
 		delete sub_data.time_regular
 	}
+		sub_data.start_time = classInfo.start_time;
 
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
+		classid: classid,
 		data: JSON.stringify( sub_data ),
     }
-
+console.log(ajaxData);
 	$.form.submit({
 		url: '/pss/editClass',
 		data: ajaxData,
@@ -251,9 +259,6 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
-}).on('change', '.timeType', function(){
-	const type = $(this).val();
-	run_time[ type ]();
 }).on('change', '[name=course_id]', function(){
 	getCourseDetail( $(this).val() );
 }).on('change', '.timeType', function(){

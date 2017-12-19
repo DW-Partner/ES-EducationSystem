@@ -220,9 +220,6 @@ $.mainBox.on('click', '#submit_add', ()=>{
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
-}).on('change', '.timeType', function(){
-	const type = $(this).val();
-	run_time[ type ]();
 }).on('change', '[name=course_id]', function(){
 	getCourseDetail( $(this).val() );
 }).on('change', '.timeType', function(){

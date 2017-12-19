@@ -36,6 +36,12 @@ const tpl = {
 			<li>\
 				<span class="wide"><i>*</i>课程总体介绍</span>\
 				<textarea class="long" placeholder="请输入课程总体介绍" name="outline" data-validate="any" data-must="1">{outline}</textarea>\
+			</li>\
+			<li>\
+				<span class="wide"><i>*</i>下一阶段课程</span>\
+				<select name="next_courseid" data-validate="any">\
+					<option value="0">无</option>\
+				</select>\
 			</li>',
 	item: '<li>\
 				<div class="item"><p><span>{lesson_id}</span></p></div>\
@@ -70,6 +76,34 @@ const tpl = {
 
 
 const courseid = $('#courseid').val();
+
+
+let getCourses = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getCourses',
+	    data: {
+        	code: $('#school_code').val()
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let options = "";
+			res.data.map(function(item){
+			    options += '<option value="' + item.id + '">' + item.name + '</option>'
+			});
+			$('[name=next_courseid]').prepend(options);
+			$('[name=next_courseid]').val( res.data.next_courseid || 0 );
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
 if( courseid ){
     $.ajax({
 	    type: "post",
@@ -98,6 +132,8 @@ if( courseid ){
 	        	list += replaceTemplate( tpl.item, item );
 	        });
 	        $('#lessons').html( list );
+    
+	        getCourses();
 
 	    },
 	    error: ()=>{
@@ -108,7 +144,9 @@ if( courseid ){
     const html = replaceTemplate( tpl.form_tpl, {} );
     $('.pub_form ul').html( html );
     $('[name=lesson_num]').val(0);
+	getCourses();
 }
+
 
 $.mainBox.on('click', '#submit_course', function(){
 	const sub_data = $.form.get({
@@ -138,12 +176,10 @@ $.mainBox.on('click', '#submit_course', function(){
 		const val = $(this).val();
 		sub_data.target += val ? val + '\n' : ''
 	})
-console.log(sub_data.target)
 	if( !sub_data.target ){
 		$.dialogFull.Tips( "请输入课程多维目标" );
 		return;
 	}
-
 
     if( !lessons.length ){
 		$.dialogFull.Tips( "请添加课时！" );
@@ -151,6 +187,7 @@ console.log(sub_data.target)
     }
 	sub_data.lessons = lessons;
 	console.log(sub_data);
+
 	$.form.submit({
 		url: courseid ? '/pss/editCourse' : '/pss/addCourse',
 		data: {
