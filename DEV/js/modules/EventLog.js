@@ -19,8 +19,7 @@ $.jsonPage({
         code: $('#school_code').val()
     },//上行参数
     template: tpl,//列表模板
-    listKey: ['data'],//下行结构
-    pageBar: false,//是否启用分页
+    listKey: ['data','list'],//下行结构
     pageSizeKeyName: 'rec_per_page',//key名——上行使用: pageSizeKeyName 
     eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
     noData: false,//Function : function( $listBox, $pageBox ){}
