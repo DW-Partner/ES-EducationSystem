@@ -30,8 +30,7 @@ let getList = ()=>{
         ajaxType: 'post',
         ajaxData: ajaxData,//上行参数
         template: tpl.list,//列表模板
-        listKey: ['data'],//下行结构
-        pageBar: false,//是否启用分页
+        listKey: ['data','list'],//下行结构
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         noData: false,//Function : function( $listBox, $pageBox ){}
         codeKeyName: 'errcode',//状态标示key名
