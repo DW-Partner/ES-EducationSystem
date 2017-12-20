@@ -154,7 +154,11 @@ let getClassInfo = ()=>{
 			getCourseDetail( classInfo.course_id );
 
 
-			classInfo.time_regular = classInfo.time_regular ? classInfo.time_regular : [];
+			classInfo.time_regular = classInfo.time_regular ? classInfo.time_regular : [{
+				type:'day',
+				day:0,
+				time:''
+			}];
 
 			JSON.parse(classInfo.time_regular).map(function(item, index){
 				$('.timeList').append( tpl._item );
