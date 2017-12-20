@@ -156,16 +156,14 @@ let getClassInfo = ()=>{
 
 			classInfo.time_regular = classInfo.time_regular ? classInfo.time_regular : [];
 
-
-			classInfo.time_regular = [{"type":"day","day":0,"time":"10:12"},{"type":"day","day":0,"time":"11:12"}]
-
-
-			classInfo.time_regular.map(function(item, index){
+			JSON.parse(classInfo.time_regular).map(function(item, index){
 				$('.timeList').append( tpl._item );
 
 				$('.timeList .item').eq( index ).find('select').eq(0).val( item.type );
-				if( item.day ){
-					$('.timeList .item').eq( index ).find('select').eq(1).val( item.type );
+				if( item.type == 'week' ){
+					$('.timeList .item').eq( index ).find('select').eq(1).val( item.day ).show();
+				}else if( item.type == 'month' ){
+					$('.timeList .item').eq( index ).find('select').eq(2).val( item.day ).show();
 				}
 				_before = baseId + item_i;
 				$('.timeList .item').eq( index ).find('input').val( item.time ).attr('id',baseId + item_i++);
@@ -218,8 +216,8 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 		const val = $(this).find('input').eq(0).val();
 		let _item = {}
 		if(val){
-			_item.type = $(this).find('select').val();
-			_item.day = +$(this).find('select:visible').val() || 0;
+			_item.type = $(this).find('select').eq(0).val();
+			_item.day = +$(this).find('select:visible').eq(-1).val() || 0;
 			_item.time = val;
 			sub_data.time_regular.push( _item );
 		}
