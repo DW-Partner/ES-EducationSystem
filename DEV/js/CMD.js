@@ -214,8 +214,12 @@
 	}
 	//退出方法 end
 
+	let homeHref = ()=>{
+		$('#left_nav a:first').attr( 'href', location.href );
+	}
 
 	let init = ()=>{
+		homeHref();
 		$('#times').text( changeFormat('YYYY年MM月DD日') );
 		$(document).on('click', '#left_nav a', function(e){
 			const url = $(this).data('href');
