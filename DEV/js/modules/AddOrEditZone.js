@@ -127,4 +127,7 @@ $.mainBox.on('click', '#submit_AddOrEditZone', function(){
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
+}).on('change', '#city', function(){
+	const index = $(this).find('option:checked').data('index');
+	addressHandle( adress_data[index].list );
 })
