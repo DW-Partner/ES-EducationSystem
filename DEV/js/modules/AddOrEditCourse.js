@@ -77,6 +77,7 @@ const tpl = {
 
 const courseid = $('#courseid').val();
 
+let next_courseid = 0;
 
 let getCourses = ()=>{
     $.ajax({
@@ -96,7 +97,7 @@ let getCourses = ()=>{
 			    options += '<option value="' + item.id + '">' + item.name + '</option>'
 			});
 			$('[name=next_courseid]').prepend(options);
-			$('[name=next_courseid]').val( res.data.next_courseid || 0 );
+			$('[name=next_courseid]').val( next_courseid );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -132,7 +133,7 @@ if( courseid ){
 	        	list += replaceTemplate( tpl.item, item );
 	        });
 	        $('#lessons').html( list );
-    
+    		next_courseid = res.data.next_courseid;
 	        getCourses();
 
 	    },
@@ -186,6 +187,8 @@ $.mainBox.on('click', '#submit_course', function(){
 		return;
     }
 	sub_data.lessons = lessons;
+
+	sub_data.next_courseid = +sub_data.next_courseid
 	console.log(sub_data);
 
 	$.form.submit({

@@ -23,13 +23,11 @@ const tpl = {
 			<span>学员人数</span>\
 			<p>{students_num}</p>\
 		</div>',
-
 	// <span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
-	list: '<li class="li_status_{lesson_status}" data-lessonid="{lesson_id}">\
+	list: '<li data-lessonid="{lesson_id}">\
 			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">\
-			<div class="info">\
-			<em class="status_{lesson_status}"></em>\
+			<div class="info status_{lesson_status}">\
 			<h6>{theme}</h6>\
 			<p>{words}</p>\
 			<strong data-lessonid="{lesson_id}">{del}</strong>\

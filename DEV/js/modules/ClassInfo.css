@@ -71,7 +71,7 @@
 			background-image: url(../../images/ico_classInfo.png);
 			background-size: 100% 100%;
 			line-height: 20px;
-			padding: 10px 0;
+			padding: 15px 0 0;
 			cursor: pointer;
 			em{
 				position: absolute;
@@ -81,18 +81,6 @@
 				background-size: 100% 100%;
 				right: 0;
 				top: 0;
-				&.status_0{
-					background-image: url(../../images/ico_classInfo_mark0.png);
-				}
-				&.status_1{
-					background-image: url(../../images/ico_classInfo_mark1.png);
-				}
-				&.status_2{
-					background-image: url(../../images/ico_classInfo_mark2.png);
-				}
-				&.status_3{
-					background-image: url(../../images/ico_classInfo_mark3.png);
-				}
 			}
 			strong{
 			    line-height: 22px;
@@ -114,12 +102,32 @@
 					display: block;
 				}
 			}
+
+
+			&.status_0{
+				background-image: url(../../images/bg_classInfo_0.png);
+				color: #666;
+			}
+			&.status_1{
+				background-image: url(../../images/bg_classInfo_1.png);
+			}
+			&.status_2{
+				background-image: url(../../images/bg_classInfo_2.png);
+			}
+			&.status_3{
+				background-image: url(../../images/bg_classInfo_3.png);
+			}
+
+
 		}
 		h6{
 			font-size: 18px;
+			font-weight: 500;
 		}
 		p{
-			font-size: 12px;
+			font-size: 14px;
+			line-height: 16px;
+			padding-top: 8px
 		}
 		.arrow{
 			display: inline-block;
@@ -128,6 +136,8 @@
 			background-image: url(../../images/ico_arrow.png);
 			background-size: 100% 100%;
 			vertical-align: middle;
+			position: relative;
+			top: -15px;
 		}
 		&:nth-child(10n), &:nth-child(10n-1), &:nth-child(10n-2), &:nth-child(10n-3), &:nth-child(10n-4){
 			float: right;
@@ -140,6 +150,7 @@
 				display: block;
 				transform:rotate(90deg);
 				margin: 20px 0 0 42px;
+				top: 0;
 			}
 		}
 		&:nth-child(10n), &:nth-child(10n-1), &:nth-child(10n-2), &:nth-child(10n-3){
@@ -162,6 +173,9 @@
 				vertical-align: middle;
 				transform:rotate(90deg);
 			}
+			.arrow{
+				display: block;
+			}
 		}
 		&:nth-child(10n-4){
 			.arrow{
@@ -172,11 +186,19 @@
 			.arrow{
 				display: none;
 			}
-			&:alter{
+			&:after{
 				display: none;
 			}
 
-		};
+		}
+		&:nth-child(10n){
+			.arrow{
+				display: inline-block;
+			}
+		}
+
+
+
 	}
 }
 

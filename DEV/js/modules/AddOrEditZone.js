@@ -10,8 +10,8 @@ const form_tpl = '<li><span><i>*</i>校区名称</span>\
 				</li><li><span>固定电话</span>\
 					<input type="text" class="short" placeholder="请输入固定电话号码" value="{telephone}" name="telephone" data-validate="number" />\
 				</li><li><span><i>*</i>地址</span>\
-					<select data-validate="any" name="citys" data-must="1" id="city"></select>\
-					<select data-validate="any" name="area" data-must="1" id="area"></select>\
+					<select class="{opacity}" data-validate="any" name="city" data-must="1" id="city"></select>\
+					<select class="{opacity}" data-validate="any" name="area" data-must="1" id="area"></select>\
 					<input type="text" class="" placeholder="请输入地址" value="{address}" name="address" data-validate="any" data-must="1" />\
 				</li><li><span><i>*</i>校区类型</span>\
 					<p class="raioBox1">\
@@ -72,6 +72,7 @@ if( zoneid ){
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
+	        res.data.opacity = 'opacity';
 	        const html = replaceTemplate( form_tpl, res.data );
 	        $('.pub_form ul').html( html );
 	        $('[name=type_1]').eq( +res.data.type.split('')[0] ).prop('checked', true);
