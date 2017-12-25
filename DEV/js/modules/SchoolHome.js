@@ -1,8 +1,11 @@
 require('./SchoolHome.css');
 
 var echarts = require('echarts');
-
+import changeFormat from '../kit/changeFormat.js';//时间轴转换
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
+
+const yesterdayTime = new Date().getTime() - (1000*60*60*24) 
+const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD')
 
 // 基于准备好的dom，初始化echarts实例
 var myChart1 = echarts.init(document.getElementById('echart1'));
@@ -23,12 +26,12 @@ var option = {
 
 
 var tpl = {
-    dayIndex: '<li><span>今日流水实收</span><em>¥{income}</em></li>\
-                <li><span>杂项支出</span><em>¥{outcome}</em></li>\
-                <li><span>今日咨询登记数</span><em>{visit_num}人</em></li>\
-                <li><span>今日报名数</span><em>{sign_num}人</em></li>\
-                <li><span>预约发出数</span><em>{reserve_num}人</em></li>\
-                <li><span>今天请假数</span><em>{teacher_leave_num}人</em></li>\
+    dayIndex: '<li><span>昨日流水实收</span><em>¥{income}</em></li>\
+                <li><span>昨日杂项支出</span><em>¥{outcome}</em></li>\
+                <li><span>昨日咨询登记数</span><em>{visit_num}人</em></li>\
+                <li><span>昨日报名数</span><em>{sign_num}人</em></li>\
+                <li><span>昨日预约发出数</span><em>{reserve_num}人</em></li>\
+                <li><span>昨日请假数</span><em>{teacher_leave_num}人</em></li>\
                 <li><span>开班数</span><em>{class_num}人</em></li>',
     zoneList: '<li>\
                     <div class="item"><p><span>{name}</span></p></div>\
@@ -50,7 +53,8 @@ let getDayIndex = ()=>{
         dataType: "json",
         url: '/pss/getDayIndex',
         data: {
-            code: $('#school_code').val()
+            code: $('#school_code').val(),
+            date: yesterdayDate
         },
         success: (res)=>{
             if( res.errcode != 0 ){
@@ -95,7 +99,8 @@ let getZoneDayIndex = ()=>{
         dataType: "json",
         url: '/pss/getZoneDayIndex',
         data: {
-            code: $('#school_code').val()
+            code: $('#school_code').val(),
+            date: yesterdayDate
         },
         success: (res)=>{
             if( res.errcode != 0 ){
@@ -107,7 +112,7 @@ let getZoneDayIndex = ()=>{
                 chartNameArr.push( item.zone_name || '校区'+index );
             });
             option.xAxis.data = chartNameArr;
-            ChartHandle( 'income', '今日流水实收' );
+            ChartHandle( 'income', '昨日流水实收' );
             //ChartHandle( $('#echartSelect').val(), $('#echartSelect').find("option:selected").text() );
         },
         error: ()=>{
