@@ -10,6 +10,47 @@ const tpl = {
 const sid = $('#sid').val();
 const page = $('#page').val();
 
+
+
+
+let getAuditInfo = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getAuditInfo',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        sid: sid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        if( res.data.class_id ){
+				//"data":{"class_id":"xxx","class_name":"xxx","lesson_id":"xxx","lesson_name":"xxx"}
+
+		        let option_1 = replaceTemplate( tpl.class_option, res.data );
+	        	$('[name=class_id]').html( option_1 ).val( res.data.class_id ).attr('disabled', 'disabled');
+
+				let option_2 = replaceTemplate( '<option value="{lesson_id}">{lesson_name}</option>', res.data );
+	        	$('[name=lesson_id]').html( option_2 ).val( res.data.lesson_id ).attr('disabled', 'disabled');
+	        	$('#submit').html('删除试听').attr('id','submit_del');
+
+	        }else{
+				getAuditLessonList();
+	        }
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+getAuditInfo();
+
+
+
 // /pss/getAuditLessonList?code=x&zoneid=x
 
 //{"class_id":1,"class_name":"初级绘画班","lessons":[{"lesson_id":1,"theme":"主题1"}]}
@@ -55,7 +96,6 @@ let getAuditLessonList = ()=>{
 	})
 
 }
-getAuditLessonList();
 
 
 
@@ -127,4 +167,34 @@ $.mainBox.on('change', '[name=class_id]', function(){
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
+}).on('click', '#submit_del', function(){
+
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/deleteAudit',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        sid: sid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+			//"data":{"class_id":"xxx","class_name":"xxx","lesson_id":"xxx","lesson_name":"xxx"}
+
+        	$('[name=class_id]').removeAttr('disabled');
+
+        	$('[name=lesson_id]').removeAttr('disabled');
+        	$('#submit_del').html('提交').attr('id','submit');
+
+			getAuditLessonList();
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
 })
+

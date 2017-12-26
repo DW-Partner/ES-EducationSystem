@@ -44,7 +44,7 @@ const tpl = {
 				</select>\
 			</li>',
 	item: '<li>\
-				<div class="item"><p><span>{lesson_id}</span></p></div>\
+				<div class="item"><p><span data-lessonid="{lesson_id}"></span></p></div>\
 				<div class="item"><p><span>{theme}</span></p></div>\
 				<div class="item"><p><span>{status}</span></p></div>\
 				<div class="item"><p><span>{outline}</span></p></div>\
@@ -73,6 +73,13 @@ const tpl = {
 }
 
 // <textarea class="long" placeholder="请输入课程多维目标" name="target" data-validate="any" data-must="1">{target}</textarea>\
+
+
+let numberHandle = ()=>{
+	$('#lessons li').each(function(i){
+		$(this).find('span').eq(0).html(i+1)
+	})
+}
 
 
 const courseid = $('#courseid').val();
@@ -135,6 +142,7 @@ if( courseid ){
 	        $('#lessons').html( list );
     		next_courseid = res.data.next_courseid;
 	        getCourses();
+	        numberHandle();
 
 	    },
 	    error: ()=>{
@@ -163,7 +171,8 @@ $.mainBox.on('click', '#submit_course', function(){
 	$('#lessons li').each(function(){
 		const span = $(this).find( 'span' );
 		let _lesson = {
-			lesson_id: span.eq(0).text(),
+			// lesson_id: span.eq(0).text(),
+			lesson_id: span.eq(0).data('lessonid'),
 			theme: span.eq(1).text(),
 			status: span.eq(2).text(),
 			outline: span.eq(3).text(),
@@ -233,6 +242,7 @@ $.mainBox.on('click', '#submit_course', function(){
 	        $('#lessons').append( li );
         	dialogClose();
     		$('[name=lesson_num]').val( $('#lessons li').length );
+    		numberHandle();
         }
 
 	});
@@ -274,6 +284,7 @@ $.mainBox.on('click', '#submit_course', function(){
 }).on('click', '#lessons .del', function(){
 	$(this).parent().parent().parent().parent().remove();
 	$('[name=lesson_num]').val( $('#lessons li').length );
+	numberHandle();
 }).on('change', '.inputFile', function(){
 	cvsDataHandle({
 		input: this,
@@ -286,8 +297,16 @@ $.mainBox.on('click', '#submit_course', function(){
 			});
 	        $('#lessons').append( li );
     		$('[name=lesson_num]').val( $('#lessons li').length );
+    		numberHandle();
 		}
 	});
+}).on('blur', '[name="course_name"]', function(){
+	if( courseid ){
+		return;
+	}
+	$('[value="-1"]').remove();
+	const val = $(this).val();
+	$('[name="next_courseid"]').append('<option value="-1">' + val + '</option>')
 })
 
 

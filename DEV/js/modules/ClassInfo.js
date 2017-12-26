@@ -25,11 +25,11 @@ const tpl = {
 		</div>',
 	// <span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
-	list: '<li data-lessonid="{lesson_id}">\
+	list: '<li>\
 			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">\
-			<div class="info status_{lesson_status}">\
+			<div class="info status_{lesson_status}" data-lessonid="{lesson_id}">\
 			<h6>{theme}</h6>\
-			<p>{words}</p>\
+			<p>{lesson_time}</p>\
 			<strong data-lessonid="{lesson_id}">{del}</strong>\
 			</div>\
 			<div class="arrow"></div>\
@@ -54,13 +54,13 @@ let getClassLessonsList = (sid)=>{
 	    listKey: ['data'],//下行结构
 	    pageBar: false,//是否启用分页
 	    eachDataHandle: function(msg,pageNum,pageSize){
-	        const words = {
-	            '0': '已经上过',
-	            '1': '马上要上',
-	            '2': '以后上',
-	            '3': '缺课',
-	        }
-	        msg.words = words[msg.lesson_status];
+	        // const words = {
+	        //     '0': '已经上过',
+	        //     '1': '马上要上',
+	        //     '2': '以后上',
+	        //     '3': '缺课',
+	        // }
+	        // msg.words = words[msg.lesson_status];
 			msg.class_id = classid;
 			msg.href = msg.lesson_status == 0 ? 'null' : 'href';
 
@@ -127,7 +127,7 @@ getZoneSummary();
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
     getClassLessonsList(sid);
-}).on('click', '.li_status_0, .li_status_3', function(){
+}).on('click', '.status_0, .status_3', function(){
 	const lessonid = $(this).data('lessonid');
     $.ajax({
 	    type: "post",
