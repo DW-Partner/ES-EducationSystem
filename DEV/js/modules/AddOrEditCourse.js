@@ -281,6 +281,7 @@ $.mainBox.on('click', '#submit_course', function(){
 		handle: (data)=>{
 			let li = '';
 			data.map(function(line, index){
+			line.show = 1;
 	        	li += replaceTemplate( tpl.item, line );
 			});
 	        $('#lessons').append( li );
