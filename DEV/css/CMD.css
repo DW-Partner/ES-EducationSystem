@@ -1013,6 +1013,17 @@ input[type="number"]{
     position: relative;
     top: 60px;
 }
+.freeze{
+    padding-top: 160px;
+    background-image: url(../images/ico_freeze.png);
+    background-size: 123px 123px;
+    background-position: center 20px;
+    background-repeat: no-repeat;
+    text-align: center;
+    position: relative;
+    top: 60px;
+}
+
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   .dialogPopBox .content{
