@@ -26,12 +26,12 @@ const tpl = {
 				<input type="text" placeholder="请输入课程对象" value="{user}" name="user" data-validate="any" data-must="1" />\
 			</li>\
 			<li id="target">\
-				<div><span class="wide"><i>*</i>课程多维目标</span>\
+				<div><span class="wide"><i>*</i>班级多维目标</span>\
 				<input type="text" class="long target_item" placeholder="请输入课程多维目标" /></div>\
 				<div><span class="wide"></span>\
-				<input type="text" class="long target_item" placeholder="请输入课程多维目标" /></div>\
+				<input type="text" class="long target_item" placeholder="请输入班级多维目标" /></div>\
 				<div><span class="wide"></span>\
-				<input type="text" class="long target_item" placeholder="请输入课程多维目标" /></div>\
+				<input type="text" class="long target_item" placeholder="请输入班级多维目标" /></div>\
 			</li>\
 			<li>\
 				<span class="wide"><i>*</i>课程总体介绍</span>\
