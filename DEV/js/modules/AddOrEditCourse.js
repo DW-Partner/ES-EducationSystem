@@ -17,8 +17,8 @@ const tpl = {
 			<li>\
 				<span class="wide"><i>*</i>收费方式</span>\
 				<select name="fee_model" data-validate="any">\
-					<option value="按课时">按课时</option>\
 					<option value="按期">按期</option>\
+					<option value="按课时">按课时</option>\
 				</select>\
 			</li>\
 			<li>\
@@ -54,8 +54,8 @@ const tpl = {
 			</li>',
 	addLessonForm: '<ul class="pub_form">\
 			<li>\
-				<span><i>*</i>课程主题</span>\
-				<input type="text" placeholder="请输入课程主题" name="theme" data-validate="any" data-must="1" />\
+				<span><i>*</i>课时主题</span>\
+				<input type="text" placeholder="请输入课时主题名" name="theme" data-validate="any" data-must="1" />\
 			</li>\
 			<li>\
 				<span><i>*</i>状态</span>\
