@@ -29,7 +29,7 @@
              success: function(res){
              	if( res.errcode != 0 ){
                         if( res.errmsg.indexOf('frozen') > -1 ){
-                              $('.content_box').html( '<div class="freeze"><p>您的账号已被冻结，请与机构联系！</p></div>' );
+                              $('.content_box').html( '<div class="frozen"><p>您的账号已被冻结，请与机构联系！</p></div>' );
                               return;
                         }
              		$.dialogFull.Tips( res.errmsg );
