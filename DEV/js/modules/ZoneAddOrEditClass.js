@@ -177,7 +177,7 @@ let getClassInfo = ()=>{
 				$.laydate.render({
 					elem: '#' + _before,
 			  		type: 'time',
-					format: 'HH:MM'
+					format: 'HH:mm'
 				  // type: 'time'
 				});
 
@@ -291,7 +291,7 @@ console.log(ajaxData);
 	$.laydate.render({
 		elem: '#' + _before,
   		type: 'time',
-		format: 'HH:MM'
+		format: 'HH:mm'
 	  // type: 'time'
 	});
 }).on('click', '.run_item_del', function(){
