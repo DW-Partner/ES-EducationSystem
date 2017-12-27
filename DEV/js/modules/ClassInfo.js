@@ -12,7 +12,7 @@ const tpl = {
 			<p>{teacher}</p>\
 		</div>\
 		<div class="data data3">\
-			<span>开课时间</span>\
+			<span>建班时间</span>\
 			<p>{start_time}</p>\
 		</div>\
 		<div class="data data4">\
