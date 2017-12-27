@@ -186,8 +186,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		const val = $(this).find('input').eq(0).val();
 		let _item = {}
 		if(val){
-			_item.type = $(this).find('select').val();
-			_item.day = +$(this).find('select:visible').val() || 0;
+			_item.type = $(this).find('select').eq(0).val();
+			_item.day = +$(this).find('select:visible').eq(-1).val() || 0;
 			_item.time = val;
 			sub_data.time_regular.push( _item );
 		}
