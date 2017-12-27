@@ -17,7 +17,6 @@ const tpl = {
 			<li>\
 				<span class="wide"><i>*</i>收费方式</span>\
 				<select name="fee_model" data-validate="any">\
-					<option value="按期">按期</option>\
 					<option value="按课时">按课时</option>\
 				</select>\
 			</li>\
