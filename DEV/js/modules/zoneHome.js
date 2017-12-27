@@ -6,7 +6,7 @@
 	const tpl = {
 		li: '<li class="item"><a href="javascript:;" data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}#goZoneClassManage">\
 		<h6>{course_name}-课时{lesson_id}</h6><p>{teacher_name}</p> <span class="mark">❤</span></a></li>',
-		info: '<span>今日开课班级 {classes}个</span> <span>今日授课教师 {teachers}个</span> <span>今日正式学员 {students}人</span> <span>今日试听学员 {audits}人</span>'
+		info: '<span>开课班级 {classes}个</span> <span>授课教师 {teachers}个</span> <span>正式学员 {students}人</span> <span>试听学员 {audits}人</span>'
 	};
 
 	//classes":"xxx","teachers":"xxx","students":"xxx","audits":"x
