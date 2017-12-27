@@ -54,7 +54,7 @@ $('.timeList input').eq(0).attr('id',baseId + item_i++);
 $.laydate.render({
   elem: '#' + _before,
   type: 'time',
-  format: 'HH:MM'
+  format: 'HH:mm'
 });
 
 
