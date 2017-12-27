@@ -9,25 +9,27 @@ const classid = $('#classid').val();
 
 const tpl = {
 	edit: '<li>\
-			<span><i>*</i>班级名称</span>\
+			<span class="wide"><i>*</i>班级名称</span>\
 			<input type="text" class="short" placeholder="请输入班级名称" value="{class_name}" name="class_name" data-validate="any" data-must="1" />\
-			<span class="wide"><i>*</i>分类课程</span>\
-			<em>{course_name}</em>\
 		</li>\
 		<li>\
-			<span><i>*</i>预招人数</span>\
+			<span class="wide"><i>*</i>分类课程</span>\
+			<em>{course_name} </em>\
+			<em class="tips"></em>\
+		</li>\
+		<li>\
+			<span class="wide"><i>*</i>预招人数</span>\
 			<input type="text" class="short" placeholder="请输入预招人数" value="{reserve_num}" name="reserve_num" data-validate="number" data-must="1" />\
 			<span class="wide"><i>*</i>选择教师</span>\
 			<select name="teacher_id" data-validate="any" data-must="1">\
 			</select>\
 		</li>\
-		<li class="tips"></li>\
 		<li>\
 			<span class="wide"><i>*</i>选择开始时间</span>\
 			<input type="date" value="{start_time}" name="start_time" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
-		<span><i>*</i>上课时段</span>\
+		<span class="wide"><i>*</i>上课时段</span>\
 			<div class="timeList">\
 			</div>\
 		</li>',
@@ -227,15 +229,20 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 		}
 	})
 
+	if( !sub_data.time_regular.length ){
+        $.dialogFull.Tips( "请添加上课时段！" );
+        return;
+	}
+
 	if( JSON.stringify( sub_data.time_regular ) == JSON.stringify( classInfo.time_regular ) ){
 		delete sub_data.time_regular
-	}else{
-		sub_data.start_time = classInfo.start_time;
 	}
-	if( !classInfo.time_regular  && !sub_data.time_regular.length ){
-		delete sub_data.time_regular
+	if( JSON.stringify(sub_data) == '{}' ){
+        $.dialogFull.Tips( "您没有做任何修改！" );
+        return;
 	}
-		sub_data.start_time = classInfo.start_time;
+
+	sub_data.start_time =  sub_data.start_time || classInfo.start_time;
 
     let ajaxData = {
         code: $('#zone_code').val(),
