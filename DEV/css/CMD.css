@@ -1013,7 +1013,7 @@ input[type="number"]{
     position: relative;
     top: 60px;
 }
-.freeze{
+.frozen{
     padding-top: 160px;
     background-image: url(../images/ico_freeze.png);
     background-size: 123px 123px;
