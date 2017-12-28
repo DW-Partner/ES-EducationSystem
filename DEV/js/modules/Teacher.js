@@ -4,7 +4,6 @@ const tpl = '<li>\
 				<div class="item"><p><span>{work_no}</span></p></div>\
 				<div class="item"><p><span>{name}</span></p></div>\
 				<div class="item"><p><span>{zone_name}</span></p></div>\
-				<div class="item"><p><span>科目</span></p></div>\
 				<div class="item"><p><span>{type}</span></p></div>\
 				<div class="item"><p><span>{entry_day}</span></p></div>\
 				<div class="item"><p><span>{status}</span></p></div>\
