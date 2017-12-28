@@ -5,8 +5,8 @@ const tpl = {
 			<div class="item"><p><span>{name}</span></p></div>\
 			<div class="item"><p><span>{lesson_num}节</span></p></div>\
 			<div class="item"><p><span>{user}</span></p></div>\
-			<div class="item"><p><span>{target}</span></p></div>\
-			<div class="item flex_3"><p><span>{outline}</span></p></div>\
+			<div class="item"><p><span class="line20px">{target}</span></p></div>\
+			<div class="item flex_3"><p><span class="line20px">{outline}</span></p></div>\
 			<div class="item"><p><span>{fee_model}</span></p></div>\
 			<div class="item"><p><span><a href="javascript:;" data-href="/pss/goPlan?courseid={id}#goPlan">查看</a></span></p></div>\
 			<div class="item"><p><span><a href="javascript:;" data-href="/pss/goAddOrEditCourse?courseid={id}"><i></i>编辑</a></span></p></div>\
