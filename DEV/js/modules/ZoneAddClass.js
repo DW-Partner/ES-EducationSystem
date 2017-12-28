@@ -35,26 +35,16 @@ const _item = '<div class="item">\
 					<a href="JavaScript:;" class="btn_dis run_item_del">删除</a>\
 				</div>';
 
-
-//常规用法
-// $.laydate.render({
-//   elem: '#day_times',
-//   type: 'time'
-// });
-
-// $.laydate.render({
-//   elem: '#day_times_month',
-//   type: 'datetime'
-// });
-
 const baseId = 'i' + parseInt( Math.random() * 1000000 ).toString();
 let item_i = 0;
 let _before = baseId + item_i;
 $('.timeList input').eq(0).attr('id',baseId + item_i++);
 $.laydate.render({
-  elem: '#' + _before,
-  type: 'time',
-  format: 'HH:mm'
+	elem: '#' + _before,
+	type: 'time',
+	format: 'HH:mm',
+	min: '08:00:00',
+	max: '22:00:00'
 });
 
 
@@ -243,8 +233,9 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	$.laydate.render({
 		elem: '#' + _before,
   		type: 'time',
-		format: 'HH:mm'
-	  // type: 'time'
+		format: 'HH:mm',
+		min: '08:00:00',
+		max: '22:00:00'
 	});
 }).on('click', '.run_item_del', function(){
 	$(this).parent().remove();
