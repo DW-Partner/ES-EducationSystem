@@ -46,7 +46,7 @@ const tpl = {
 				<div class="item"><p><span data-lessonid="{lesson_id}"></span></p></div>\
 				<div class="item"><p><span>{theme}</span></p></div>\
 				<div class="item"><p><span>{status}</span></p></div>\
-				<div class="item"><p><span>{outline}</span></p></div>\
+				<div class="item"><p><span class="line20px">{outline}</span></p></div>\
 				<div class="item"><p><span>\
 				<a href="JavaScript:;" class="edit">编辑</a>\
 				<a href="JavaScript:;" class="del none{show}">删除</a></span></p></div>\
