@@ -50,11 +50,10 @@ $.laydate.render({
 let start_time = $.laydate.render({
 	elem: '#start_time',
 		type: 'date',
-		value: classInfo.start_time,
-		min: 0,
-	ready: function(){
-		start_time.hint('开班时间可选值不得小于今天');
-	}
+		min: 1,
+		ready: function(){
+			start_time.hint('开班时间必须大于当前日期');
+		}
 });
 
 let getZoneTeacherList = ()=>{

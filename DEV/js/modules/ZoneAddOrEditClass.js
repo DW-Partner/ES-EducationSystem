@@ -24,7 +24,7 @@ const tpl = {
 		</li>\
 		<li>\
 			<span class="wide"><i>*</i>选择开班时间</span>\
-			<input type="text" value="{start_time}" id="start_time" name="start_time" data-validate="any" data-must="1"/>\
+			<input type="text" value="{start_time}" id="start_time" class="short" name="start_time" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
 		<span class="wide"><i>*</i>上课时段</span>\
@@ -179,16 +179,16 @@ let getClassInfo = ()=>{
 					$('.timeList .item').eq( 0 ).append('<a href="JavaScript:;" class="btn run_item_add">添加</a>');
 				}
 			})
-			if( classInfo.isStarted ){
-				$('#start_time').attr('disabled','disabled');
+			if( classInfo.isStarted == 'true' ){
+				$('#start_time').attr('disabled','disabled').addClass('disabled');
 			}else{
 				let start_time = $.laydate.render({
 					elem: '#start_time',
 			  		type: 'date',
 			  		value: classInfo.start_time,
-			  		min: classInfo.start_time,
+			  		min: 1,
 					ready: function(){
-	    				start_time.hint('日期可选值不得小于原开班时间：' + classInfo.start_time);
+	    				start_time.hint('开班时间必须大于当前日期');
 	    			}
 				});
 			}
@@ -235,7 +235,7 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
         return;
 	}
 
-	if( JSON.stringify( sub_data.time_regular ) == JSON.stringify( classInfo.time_regular ) ){
+	if( JSON.stringify( sub_data.time_regular ) == JSON.stringify( JSON.parse(classInfo.time_regular) ) ){
 		delete sub_data.time_regular
 	}
 	if( JSON.stringify(sub_data) == '{}' ){

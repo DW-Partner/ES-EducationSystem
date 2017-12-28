@@ -3,25 +3,17 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const tpl = {
 	//{"errcode":0,"errmsg":"success","data":{"class_name":"xxx","teacher":"xxx","start_time":"xxx","reserve_num":"xxx","students_num":"xxx","students":[{"sid":"xxx","name":"xxx"},...]}
-	info: '<div class="data data1">\
+	info: '<div class="data_line">\
 			<span>班级名称</span>\
-			<p>{class_name}</p>\
-		</div>\
-		<div class="data data2">\
+			<strong>{class_name}</strong>\
 			<span>任课老师</span>\
-			<p>{teacher}</p>\
-		</div>\
-		<div class="data data3">\
+			<strong>{teacher}</strong>\
 			<span>建班时间</span>\
-			<p>{start_time}</p>\
-		</div>\
-		<div class="data data4">\
+			<strong>{start_time}</strong>\
 			<span>预招人数</span>\
-			<p>{reserve_num}</p>\
-		</div>\
-		<div class="data data5">\
+			<strong>{reserve_num}</strong>\
 			<span>学员人数</span>\
-			<p>{students_num}</p>\
+			<strong>{students_num}</strong>\
 		</div>',
 	// <span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
@@ -31,9 +23,9 @@ const tpl = {
 			<h6>{theme}</h6>\
 			<p>{lesson_time}</p>\
 			<strong data-lessonid="{lesson_id}">{del}</strong>\
-			</div>\
+			</div></a>\
 			<div class="arrow"></div>\
-			</a></li>',
+			</li>',
 	span: '<span>{sid}:{student_name}</span>',
 };
 const classid = $('#classid').val();

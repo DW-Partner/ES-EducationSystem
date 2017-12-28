@@ -15,6 +15,18 @@
 .dataBox{
 	padding: 10px 30px
 }
+.data_line{
+	padding: 0 10px;
+	font-size: 16px;
+	line-height: 30px;
+	span{
+		color: #AAAEB3;
+	}
+	strong{
+		font-weight: normal;
+		padding: 0 20px 0 0;
+	}
+}
 .data{
 	background-color: #4580D3;
 	border-radius: 4px;
@@ -54,12 +66,13 @@
 
 
 .class_list{
-	width: 925px;
+	min-width: 985px;
+	padding: 0 30px;
     margin: 30px auto;
 	overflow: auto;
 	li{
 		width: 20%;
-		height: 120px;
+		height: 140px;
 		float: left;
 		.info{
 			position: relative;
@@ -139,6 +152,13 @@
 			vertical-align: middle;
 			position: relative;
 			top: -15px;
+
+			min-width: 41px;
+			background-size: 100% auto;
+			height: 20px;
+			background-repeat: no-repeat;
+			width: calc(100% - 175px);
+
 		}
 		&:nth-child(10n), &:nth-child(10n-1), &:nth-child(10n-2), &:nth-child(10n-3), &:nth-child(10n-4){
 			float: right;
@@ -173,6 +193,14 @@
 				background-size: 100% 100%;
 				vertical-align: middle;
 				transform:rotate(90deg);
+
+				min-width: 41px;
+				background-size: 100% auto;
+				height: 20px;
+				background-repeat: no-repeat;
+				width: calc(100% - 175px);
+
+
 			}
 			.arrow{
 				display: block;
@@ -192,7 +220,7 @@
 			}
 
 		}
-		&:nth-child(10n){
+		&:nth-child(10n-3), &:nth-child(10n-2), &:nth-child(10n-1),&:nth-child(10n){
 			.arrow{
 				display: inline-block;
 			}
