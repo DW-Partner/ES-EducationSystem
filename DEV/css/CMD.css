@@ -487,6 +487,9 @@ select::-ms-expand {
       &:hover{
         background-color: #eaeaea;
       };
+      .line20px{
+        line-height: 20px;    
+      }
     }
 
   }
