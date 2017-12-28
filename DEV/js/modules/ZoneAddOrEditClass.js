@@ -5,8 +5,6 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const classid = $('#classid').val();
 
-
-
 const tpl = {
 	edit: '<li>\
 			<span class="wide"><i>*</i>班级名称</span>\
@@ -25,8 +23,8 @@ const tpl = {
 			</select>\
 		</li>\
 		<li>\
-			<span class="wide"><i>*</i>选择开始时间</span>\
-			<input type="date" value="{start_time}" name="start_time" data-validate="any" data-must="1"/>\
+			<span class="wide"><i>*</i>选择开班时间</span>\
+			<input type="text" value="{start_time}" id="start_time" name="start_time" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
 		<span class="wide"><i>*</i>上课时段</span>\
@@ -71,8 +69,6 @@ const tpl = {
 				</div>'
 }
 
-
-
 let teacher_id;
 
 let getZoneTeacherList = ()=>{
@@ -102,7 +98,6 @@ let getZoneTeacherList = ()=>{
 	})
 }
 
-
 let getCourseDetail = (courseid)=>{
     $.ajax({
 	    type: "post",
@@ -125,7 +120,6 @@ let getCourseDetail = (courseid)=>{
 	    }
 	})
 }
-
 
 let classInfo = {};
 const baseId = 'i' + parseInt( Math.random() * 1000000 ).toString();
@@ -155,8 +149,7 @@ let getClassInfo = ()=>{
 	        getZoneTeacherList();
 			getCourseDetail( classInfo.course_id );
 
-
-			classInfo.time_regular = classInfo.time_regular ? classInfo.time_regular : [{
+			classInfo.time_regular = classInfo.time_regular && classInfo.time_regular.length ? classInfo.time_regular : [{
 				type:'day',
 				day:0,
 				time:''
@@ -177,18 +170,28 @@ let getClassInfo = ()=>{
 				$.laydate.render({
 					elem: '#' + _before,
 			  		type: 'time',
-					format: 'HH:mm'
-				  // type: 'time'
+					format: 'HH:mm',
+					min: '08:00:00',
+					max: '22:00:00'
 				});
-
-
 				if( index === 0 ){
 					$('.timeList .item').eq( 0 ).find('a').remove();
 					$('.timeList .item').eq( 0 ).append('<a href="JavaScript:;" class="btn run_item_add">添加</a>');
-					
 				}
 			})
-
+			if( classInfo.isStarted ){
+				$('#start_time').attr('disabled','disabled');
+			}else{
+				let start_time = $.laydate.render({
+					elem: '#start_time',
+			  		type: 'date',
+			  		value: classInfo.start_time,
+			  		min: classInfo.start_time,
+					ready: function(){
+	    				start_time.hint('日期可选值不得小于原开班时间：' + classInfo.start_time);
+	    			}
+				});
+			}
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -196,8 +199,6 @@ let getClassInfo = ()=>{
 	})
 }
 classid && getClassInfo();
-
-
 
 $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	let sub_data = $.form.get({
@@ -242,7 +243,7 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
         return;
 	}
 
-	sub_data.start_time =  sub_data.start_time || classInfo.start_time;
+	//sub_data.start_time =  sub_data.start_time || classInfo.start_time;
 
     let ajaxData = {
         code: $('#zone_code').val(),
@@ -250,7 +251,6 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 		classid: classid,
 		data: JSON.stringify( sub_data ),
     }
-console.log(ajaxData);
 	$.form.submit({
 		url: '/pss/editClass',
 		data: ajaxData,
@@ -291,7 +291,9 @@ console.log(ajaxData);
 	$.laydate.render({
 		elem: '#' + _before,
   		type: 'time',
-		format: 'HH:mm'
+		format: 'HH:mm',
+		min: '08:00:00',
+		max: '22:00:00'
 	  // type: 'time'
 	});
 }).on('click', '.run_item_del', function(){
