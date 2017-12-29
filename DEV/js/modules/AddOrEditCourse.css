@@ -25,6 +25,9 @@
 	    width: 800px;
 	    cursor: pointer;
 	}
+	.none{
+		display: none;
+	}
 }
 .dialog_add_lesson .pub_form{
 	padding: 0 10px;
