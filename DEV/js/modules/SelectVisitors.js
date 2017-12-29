@@ -19,4 +19,11 @@ $.mainBox.on('click', '#search', ()=>{
  			data: JSON.stringify( sub_data ).replace(/\"/g,"'")
  		}
  	})
+}).on('click', '#cancel', function () {
+ 	$.ajaxGetHtml({
+ 		url: _from == 1 ? '/pss/goVisitor#goVisitor' : '/pss/goStudentManage#goStudentManage',
+ 		data: {
+ 			page: 0
+ 		}
+ 	})
 })
