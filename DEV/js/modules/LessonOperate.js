@@ -10,7 +10,7 @@ const lesson_id = $('#lessonid').val();
 const tpl = {
 	info: '<p>原定上课时间：{plan_time}</p>\
 			<p>原任课教师：{teacher_name}</p>\
-			<p>课时主题：{outline}</p>\
+			<p>课时主题：{theme}</p>\
 			<p>课时教学大纲：{outline}</p>'
 
 	//'{"plan_time":"xxx","tid":"xxx","teacher_name":"xxx","outline":"xxx"}}'
