@@ -12,7 +12,8 @@ const form_tpl = '<li>\
 			</li>\
 			<li>\
 				<span><i>*</i>性别</span>\
-				<select name="gender" data-validate="any" data-must="1">\
+				<select name="gender" data-validate="any" data-must="1" placeholder="请选择性别">\
+					<option value="">请选择</option>\
 					<option value="男">男</option>\
 					<option value="女">女</option>\
 				</select>\
