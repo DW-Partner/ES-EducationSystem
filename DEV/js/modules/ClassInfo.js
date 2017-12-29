@@ -8,7 +8,7 @@ const tpl = {
 			<strong>{class_name}</strong>\
 			<span>任课老师</span>\
 			<strong>{teacher}</strong>\
-			<span>建班时间</span>\
+			<span>开班时间</span>\
 			<strong>{start_time}</strong>\
 			<span>预招人数</span>\
 			<strong>{reserve_num}</strong>\
