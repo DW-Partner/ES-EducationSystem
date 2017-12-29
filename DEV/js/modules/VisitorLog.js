@@ -34,7 +34,7 @@ let getVisitorDetail = ()=>{
 getVisitorDetail();
 
 
-let listData = [];
+
 let getVisitorLog = ()=>{
 	$.ajax({
 	    type: "post",
@@ -51,7 +51,7 @@ let getVisitorLog = ()=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        listData = res.data;
+	        let listData = res.data;
 	        let li = '';
 	        listData.map(function(item){
 	        	console.log(li);
@@ -68,6 +68,7 @@ getVisitorLog();
 
 
 let addVisitorLog = ()=>{
+	let listData = [];
 	$('.pub_form [type=text]').map(function(index){
 		const val = $(this).val();
 		if( index>0 && !val ){
