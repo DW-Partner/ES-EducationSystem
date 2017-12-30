@@ -13,7 +13,8 @@ const form_tpl = '<li>\
 			</li>\
 			<li>\
 				<span><i>*</i>性别</span>\
-				<select name="gender" data-validate="any" data-must="1">\
+				<select name="gender" data-validate="any" data-must="1" placeholder="请选择性别">\
+					<option value="">请选择</option>\
 					<option value="男">男</option>\
 					<option value="女">女</option>\
 				</select>\
@@ -37,6 +38,7 @@ const form_tpl = '<li>\
 			<li>\
 				<span><i>*</i>来源</span>\
 				<select name="origin" data-validate="any" data-must="1">\
+					<option value="">请选择</option>\
 			        <option value="市场活动">市场活动</option>\
 			        <option value="主动咨询">主动咨询</option>\
 			        <option value="熟人介绍">熟人介绍</option>\
@@ -64,7 +66,8 @@ if( sid ){
 	        }
 	        const html = replaceTemplate( form_tpl, res.data );
 	        $('.pub_form ul').html( html );
-	        $('[name=origin]').val( res.data.origin || '市场活动' );
+	        $('[name=origin]').val( res.data.origin || '' );
+	        $('[name=gender]').val( res.data.gender || '' );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
