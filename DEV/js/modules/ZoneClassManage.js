@@ -6,7 +6,7 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 		list: '<li>\
 			<div class="item"><p><span>{class_name}</span></p></div>\
 			<div class="item"><p><span>{start_time}</span></p></div>\
-			<div class="item"><p><span>{teacher_name}</span></p></div>\
+			<div class="item"><p><span>{teacher_name}({name_2})</span></p></div>\
 			<div class="item"><p><span>{students}</span></p></div>\
 			<div class="item"><p><span>{audits}</span></p></div>\
 			<div class="item"><p><span>\

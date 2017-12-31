@@ -5,7 +5,7 @@ import changeFormat from '../kit/changeFormat.js';//时间轴转换
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const yesterdayTime = new Date().getTime() - (1000*60*60*24) 
-const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD')
+const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD');
 
 // 基于准备好的dom，初始化echarts实例
 var myChart1 = echarts.init(document.getElementById('echart1'));
@@ -54,7 +54,7 @@ let getDayIndex = ()=>{
         url: '/pss/getDayIndex',
         data: {
             code: $('#school_code').val(),
-            date: yesterdayDate
+            day: yesterdayDate
         },
         success: (res)=>{
             if( res.errcode != 0 ){
@@ -100,7 +100,7 @@ let getZoneDayIndex = ()=>{
         url: '/pss/getZoneDayIndex',
         data: {
             code: $('#school_code').val(),
-            date: yesterdayDate
+            day: yesterdayDate
         },
         success: (res)=>{
             if( res.errcode != 0 ){

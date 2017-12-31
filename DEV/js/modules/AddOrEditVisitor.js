@@ -45,8 +45,8 @@ const form_tpl = '<li>\
 				</select>\
 			</li>\
 			<li>\
-				<span><i>*</i>咨询内容</span>\
-				<input type="text" class="long" value="{visitorContent}" placeholder="请输入咨询内容" name="visitor_content" data-validate="any" data-must="1" />\
+				<span class="wide_2"><i>*</i>关注与咨询方向</span>\
+				<input type="text" class="long" value="{visitorContent}" placeholder="请输入关注与咨询方向(请用斜杠 / 隔开)" name="visitor_content" data-validate="any" data-must="1" />\
 			</li>';
 
 const sid = $('#sid').val();
