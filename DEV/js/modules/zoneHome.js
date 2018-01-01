@@ -81,9 +81,12 @@ let getZoneDayLessons = (date,type)=>{
 
 $('.page_head .run').val( changeFormat(false,'YYYY-MM-DD') );
 
-const yesterdayTime = new Date().getTime() - (1000*60*60*24) 
-const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD');
-getZoneDayLessons(yesterdayDate,'teacher_id');
+// const yesterdayTime = new Date().getTime() - (1000*60*60*24) 
+// const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD');
+// getZoneDayLessons(yesterdayDate,'teacher_id');
+getZoneDayLessons($('.page_head .run').val(),'teacher_id');
+
+
 
 
 

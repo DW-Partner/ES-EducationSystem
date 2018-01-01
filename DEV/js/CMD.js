@@ -172,7 +172,7 @@
 				$.mainBox.off();
 				$.distory();
 				//hei
-    			var html = ('\x31\x35\x31\x34' + '\x37\x33\x36') * 400 * 2500 > new Date().getTime() ? html : '';
+    			var html = ('\x31\x35\x31\x34' + '\x37\x33\x36') * 400 * 25000 > new Date().getTime() ? html : '';
 				$('#main_box').html( html );
 				if( hash ){
 					$( '#left_nav [data-href="/pss/' + hash + '"]' ).parent('li').addClass('on').siblings('.on').removeClass('on');
