@@ -18,7 +18,7 @@ const tpl = {
 	// <span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
 	list: '<li>\
-			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">\
+			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}&sid={sid}">\
 			<div class="info status_{lesson_status}" data-lessonid="{lesson_id}">\
 			<h6>{theme}</h6>\
 			<p>{lesson_time}</p>\
@@ -57,6 +57,8 @@ let getClassLessonsList = (sid)=>{
 			msg.href = msg.lesson_status == 0 ? 'null' : 'href';
 
 			msg.del = msg.lesson_status == 0 ? '' : '删除'
+
+			msg.sid = sid;
 
 	        return msg;
 	    },
@@ -103,7 +105,7 @@ let getZoneSummary = ()=>{
 	        const html = replaceTemplate( tpl.info, res.data );
 	        $('.dataBox').html( html );
 	        $('.run').html( select );
-	        getClassLessonsList();
+	        getClassLessonsList('');
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );

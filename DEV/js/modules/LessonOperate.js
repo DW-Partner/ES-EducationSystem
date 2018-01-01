@@ -5,7 +5,7 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const class_id = $('#classid').val();
 const lesson_id = $('#lessonid').val();
-
+const sid =  $('#sid').val();
 
 const tpl = {
 	info: '<p>原定上课时间：{plan_time}</p>\
@@ -24,7 +24,8 @@ const tpl = {
 //常规用法
 $.laydate.render({
   elem: '#plan_time',
-  type: 'datetime'
+  type: 'datetime',
+  format: 'yyyy-MM-dd HH:mm'
 });
 
 
@@ -102,6 +103,7 @@ $.mainBox.on('click', '#submit_edit', ()=>{
         zoneid: $('#zone_zoneid').val(),
         classid: class_id,
         lessonid: lesson_id,
+        sid: sid || undefined,
 		data: JSON.stringify( sub_data ),
     }
 
