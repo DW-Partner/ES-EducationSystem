@@ -43,7 +43,8 @@ $.laydate.render({
 	elem: '#' + _before,
 	type: 'time',
 	min: '08:00:00',
-	max: '22:00:00'
+	max: '22:00:00',
+	btns: ['confirm']
 });
 
 let start_time = $.laydate.render({
@@ -241,7 +242,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		elem: '#' + _before,
   		type: 'time',
 		min: '08:00:00',
-		max: '22:00:00'
+		max: '22:00:00',
+		btns: ['confirm']
 	});
 }).on('click', '.run_item_del', function(){
 	$(this).parent().remove();
