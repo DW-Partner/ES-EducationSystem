@@ -69,7 +69,8 @@ let getLessonsDetail = ()=>{
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
 	        classid: class_id,
-	        lessonid: lesson_id
+	        lessonid: lesson_id,
+                sid: sid || undefined
 	    },
 	    success: (res)=>{
 	        if( res.errcode != 0 ){
