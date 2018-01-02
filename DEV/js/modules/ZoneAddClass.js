@@ -42,7 +42,6 @@ $('.timeList input').eq(0).attr('id',baseId + item_i++);
 $.laydate.render({
 	elem: '#' + _before,
 	type: 'time',
-	format: 'HH:mm',
 	min: '08:00:00',
 	max: '22:00:00'
 });
@@ -241,7 +240,6 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	$.laydate.render({
 		elem: '#' + _before,
   		type: 'time',
-		format: 'HH:mm',
 		min: '08:00:00',
 		max: '22:00:00'
 	});
