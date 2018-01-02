@@ -170,7 +170,6 @@ let getClassInfo = ()=>{
 				$.laydate.render({
 					elem: '#' + _before,
 			  		type: 'time',
-					format: 'HH:mm',
 					min: '08:00:00',
 					max: '22:00:00'
 				});
@@ -291,7 +290,6 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	$.laydate.render({
 		elem: '#' + _before,
   		type: 'time',
-		format: 'HH:mm',
 		min: '08:00:00',
 		max: '22:00:00'
 	  // type: 'time'
