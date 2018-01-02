@@ -97,6 +97,12 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 	if( !sub_data ){
 		return;
 	}
+
+	if( $('#plan_time').val().indexOf(' 00:00') > -1 ){
+     	$.dialogFull.Tips( '请选择合理上课时间段！' );
+     	return;
+	}
+
 	sub_data.tid = +sub_data.tid;
 
     let ajaxData = {
