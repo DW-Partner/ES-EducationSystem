@@ -25,7 +25,6 @@ const tpl = {
 $.laydate.render({
   elem: '#plan_time',
   type: 'datetime',
-  format: 'yyyy-MM-dd HH:mm'
 });
 
 
