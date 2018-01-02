@@ -177,11 +177,15 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	// 	const getDate = changeFormat( getTime, 'YYYY-MM-DD hh:mm:ss' );
 	// 	sub_data.lessons.push( {lesson: getDate} );
 	// }
-
 	sub_data.time_regular = [];
-
+	let _sub = true;
 	$( '.timeList .item' ).each(function(){
 		const val = $(this).find('input').eq(0).val();
+
+		if( val.indexOf('00:00') == 0 ){
+         	_sub = false;
+         	return;
+		}
 		let _item = {}
 		if(val){
 			_item.type = $(this).find('select').eq(0).val();
@@ -191,8 +195,10 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		}
 	})
 
-
-
+	if( !_sub ){
+     	$.dialogFull.Tips( '请选择合理上课时间段！' );
+		return;
+	}
 
     let ajaxData = {
         code: $('#zone_code').val(),
