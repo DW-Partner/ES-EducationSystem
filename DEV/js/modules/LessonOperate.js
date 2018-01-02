@@ -25,6 +25,7 @@ const tpl = {
 $.laydate.render({
   elem: '#plan_time',
   type: 'datetime',
+btns: ['confirm']
 });
 
 
