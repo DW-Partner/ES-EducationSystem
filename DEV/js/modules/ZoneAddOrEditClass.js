@@ -171,7 +171,8 @@ let getClassInfo = ()=>{
 					elem: '#' + _before,
 			  		type: 'time',
 					min: '08:00:00',
-					max: '22:00:00'
+					max: '22:00:00',
+					btns: ['confirm']
 				});
 				if( index === 0 ){
 					$('.timeList .item').eq( 0 ).find('a').remove();
@@ -291,7 +292,8 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 		elem: '#' + _before,
   		type: 'time',
 		min: '08:00:00',
-		max: '22:00:00'
+		max: '22:00:00',
+		btns: ['confirm']
 	  // type: 'time'
 	});
 }).on('click', '.run_item_del', function(){
