@@ -1,7 +1,7 @@
 require('./Plan.css');
+//            <div class="item"><p><span>{lesson_id}</span></p></div>\
 const tpl = {
 	list:'<li>\
-			<div class="item"><p><span>{lesson_id}</span></p></div>\
 			<div class="item"><p><span>{theme}</span></p></div>\
 			<div class="item"><p><span>{contributor}</span></p></div>\
 			<div class="item"><p><span>{ctime}</span></p></div>\
