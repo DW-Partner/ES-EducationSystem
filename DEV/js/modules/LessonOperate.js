@@ -28,7 +28,6 @@ $.laydate.render({
 btns: ['confirm']
 });
 
-
 let getZoneTeacherList = ()=>{
     $.ajax({
 	    type: "post",
@@ -48,6 +47,7 @@ let getZoneTeacherList = ()=>{
 			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
 			});
 			$('[name=tid]').html(options);
+			getLessonsDetail();
 
 	    },
 	    error: ()=>{
@@ -80,13 +80,13 @@ let getLessonsDetail = ()=>{
 	        const html = replaceTemplate( tpl.info, res.data );
 	        $('.info').html( html );
 	        $('#plan_time').val( res.data.plan_time );
+	        $('[name=tid]').val( res.data.tid );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
 	    }
 	})
 }
-getLessonsDetail();
 
 
 
