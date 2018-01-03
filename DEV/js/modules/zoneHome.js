@@ -3,8 +3,9 @@
 	import changeFormat from '../kit/changeFormat.js';//时间轴转换
 	// import changeFormat from '../kit/changeFormat.js';//时间轴转换
 //{course_name}-课时{lesson_id}
+//data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}
 	const tpl = {
-		li: '<li class="item"><a href="javascript:;" data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}#goZoneClassManage">\
+		li: '<li class="item"><a href="javascript:;" data-href="/pss/goClassInfo?classid={class_id}#goZoneClassManage">\
 		<h6>{class_name}</h6><p>{teacher_name}</p> <span class="mark none">❤</span></a></li>',
 		info: '<span>开课班级 {classes}个</span> <span>授课教师 {teachers}个</span> <span>正式学员 {students}人</span> <span>试听学员 {audits}人</span>'
 	};
