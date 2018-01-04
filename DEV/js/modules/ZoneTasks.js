@@ -78,6 +78,7 @@ let MsgFromSchool = ()=>{
         listKey: ['data','list'],//下行结构
         eachDataHandle: function(msg,pageNum,pageSize){
         	msg.status = msg.status == '已处理' ? 'disabled' : '';
+        	msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" data-href="/pss/goInAndOutCome">填写当日流水</a>')
         	return msg
         },//Function : 
 	    eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
