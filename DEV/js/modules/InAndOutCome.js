@@ -1,6 +1,6 @@
 require('./InAndOutCome.css');//引入css文件
 $.laydate.render({
-	elem: '#InAndOutCome_date',
+	elem: '#date',
 	type: 'date'
 });
 $.mainBox.on('click', '#submitInAndOutCome', ()=>{
