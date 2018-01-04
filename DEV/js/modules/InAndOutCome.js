@@ -1,4 +1,8 @@
 require('./InAndOutCome.css');//引入css文件
+$.laydate.render({
+	elem: '#InAndOutCome_date',
+	type: 'date'
+});
 $.mainBox.on('click', '#submitInAndOutCome', ()=>{
 		const sub_data = $.form.get();
 		if( !sub_data ){
@@ -7,6 +11,8 @@ $.mainBox.on('click', '#submitInAndOutCome', ()=>{
 
 	    sub_data.code= $('#zone_code').val();
 	    sub_data.zoneid= $('#zone_zoneid').val();
+	    sub_data.income= +sub_data.income;
+	    sub_data.outcome= +sub_data.outcome;
 
 		$.form.submit({
 			url: '/pss/submitInAndOutCome',
