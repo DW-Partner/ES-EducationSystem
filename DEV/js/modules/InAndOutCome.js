@@ -4,15 +4,18 @@ $.laydate.render({
 	type: 'date'
 });
 $.mainBox.on('click', '#submitInAndOutCome', ()=>{
-		const sub_data = $.form.get();
-		if( !sub_data ){
+		const input_data = $.form.get();
+		if( !input_data ){
 			return;
 		}
-
+		let sub_data = {};
 	    sub_data.code= $('#zone_code').val();
 	    sub_data.zoneid= $('#zone_zoneid').val();
-	    sub_data.income= +sub_data.income;
-	    sub_data.outcome= +sub_data.outcome;
+	    sub_data.date = input_data.date;
+		sub_data.data = {};
+	    sub_data.data.income = +input_data.income;
+	    sub_data.data.outcome = +input_data.outcome;
+	    sub_data.data = JSON.stringify(sub_data.data);
 
 		$.form.submit({
 			url: '/pss/submitInAndOutCome',
