@@ -1,5 +1,5 @@
 require('./ZoneTasks.css');//引入css文件
-
+import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const type = $('#type').val();
 
 const tpl = {
