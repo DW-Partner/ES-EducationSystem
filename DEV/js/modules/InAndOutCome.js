@@ -1,4 +1,5 @@
 require('./InAndOutCome.css');//引入css文件
+require('../comp/laydate/laydate.css');//引入css文件
 $.laydate.render({
 	elem: '#date',
 	type: 'date'
