@@ -30,4 +30,7 @@
     .btn{
     	height: 34px;
     }
+	.echartSelect_zone{
+		width:200px;
+	}
 }
