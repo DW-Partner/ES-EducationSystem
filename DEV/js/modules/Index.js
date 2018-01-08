@@ -212,6 +212,9 @@ let getZoneIndexCompare = ()=>{
             option_2.xAxis.data = chartNameArr;
             option_2.series[0].data = chartDataArr;
 
+    if( ChartData.length < 5 ){
+        option_2.series[0].barWidth = 70;
+    }
             myChart2.setOption( option_2 );
         },
         error: ()=>{

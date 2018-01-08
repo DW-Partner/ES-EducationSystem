@@ -89,77 +89,76 @@
                         listHtml += options.replaceTemplate( options.template, list[ i ] );
                     }
                     $( options.listBox ).html( listHtml );
-                    if( !options.pageBar ){
-                        return false;
-                    }
-                    //构建分页start
-                    var totalHtml = '<strong>共<em>' + total + '</em>条数据</strong>',
-                        pageLength = msg.data.page_num || Math.ceil( +total / pageSize ) || 0,
-                        prevHtml = '',
-                        startHtml = '',
-                        ellipsisLeft = '',
-                        pageHtml = '',
-                        ellipsisRight = '',
-                        endHtml = '',
-                        nextHtml = '';
-                    var prevVar = '<a href="javascript:;" data-page="' + (num-1) + '" class="prev"></a>',
-                        startVar = '<a href="javascript:;" data-page="1">1</a>',
-                        ellipsisVar = '<span>…</span>',
-                        endVar = '<a href="javascript:;" data-page="' + pageLength + '">' + pageLength + '</a>',
-                        nextVar = '<a href="javascript:;" data-page="' + (num+1) + '" class="next"></a>';
-                    if(!pageLength){
-                        if( options.noData ){
-                            options.noData( $( options.listBox ), $( options.pageBox ) );
-                        } else{
-                            //$( options.pageBox ).html( totalHtml );
+                    if( options.pageBar ){
+                        //构建分页start
+                        var totalHtml = '<strong>共<em>' + total + '</em>条数据</strong>',
+                            pageLength = msg.data.page_num || Math.ceil( +total / pageSize ) || 0,
+                            prevHtml = '',
+                            startHtml = '',
+                            ellipsisLeft = '',
+                            pageHtml = '',
+                            ellipsisRight = '',
+                            endHtml = '',
+                            nextHtml = '';
+                        var prevVar = '<a href="javascript:;" data-page="' + (num-1) + '" class="prev"></a>',
+                            startVar = '<a href="javascript:;" data-page="1">1</a>',
+                            ellipsisVar = '<span>…</span>',
+                            endVar = '<a href="javascript:;" data-page="' + pageLength + '">' + pageLength + '</a>',
+                            nextVar = '<a href="javascript:;" data-page="' + (num+1) + '" class="next"></a>';
+                        if(!pageLength){
+                            if( options.noData ){
+                                options.noData( $( options.listBox ), $( options.pageBox ) );
+                            } else{
+                                //$( options.pageBox ).html( totalHtml );
+                            }
+                            return;
                         }
-                        return;
-                    }
-                    if( pageLength <= 5 ){
-                        prevHtml = prevVar;
-                        nextHtml = nextVar;
-                        var startNum = 1,
-                            endNum = pageLength;
-                    }else{
-                        if( num <= 3 ){
+                        if( pageLength <= 5 ){
                             prevHtml = prevVar;
-                            ellipsisRight = ellipsisVar;
-                            endHtml = endVar;
                             nextHtml = nextVar;
                             var startNum = 1,
-                                endNum = 4;
-                        }else if( num >= (pageLength-2) ){
-                            prevHtml = prevVar;
-                            startHtml = startVar;
-                            ellipsisLeft = ellipsisVar;
-                            nextHtml = nextVar;
-                            var startNum = pageLength - 3,
                                 endNum = pageLength;
                         }else{
-                            prevHtml = prevVar;
-                            startHtml = startVar;
-                            ellipsisLeft = ellipsisVar;
-                            ellipsisRight = ellipsisVar;  
-                            endHtml = endVar;
-                            nextHtml = nextVar;
-                            var startNum = num - 1,
-                                endNum = num + 1;
-                        }
-                    };
-                    num == 1 ? prevHtml = '' : '';
-                    num == pageLength ? nextHtml = '' : '';
-                    for (var x = startNum; x <= endNum; x++) {
-                        if( x == num ){
-                            pageHtml += '<a class="on" href="javascript:;">' + x + '</a>';
-                        }else{
-                            pageHtml += '<a href="javascript:;" data-page="' + x + '">' + x + '</a>';                                    
-                        }
-                    };
-                    totalHtml = options.showTotal ? totalHtml : '';
-                    //构建分页end
+                            if( num <= 3 ){
+                                prevHtml = prevVar;
+                                ellipsisRight = ellipsisVar;
+                                endHtml = endVar;
+                                nextHtml = nextVar;
+                                var startNum = 1,
+                                    endNum = 4;
+                            }else if( num >= (pageLength-2) ){
+                                prevHtml = prevVar;
+                                startHtml = startVar;
+                                ellipsisLeft = ellipsisVar;
+                                nextHtml = nextVar;
+                                var startNum = pageLength - 3,
+                                    endNum = pageLength;
+                            }else{
+                                prevHtml = prevVar;
+                                startHtml = startVar;
+                                ellipsisLeft = ellipsisVar;
+                                ellipsisRight = ellipsisVar;  
+                                endHtml = endVar;
+                                nextHtml = nextVar;
+                                var startNum = num - 1,
+                                    endNum = num + 1;
+                            }
+                        };
+                        num == 1 ? prevHtml = '' : '';
+                        num == pageLength ? nextHtml = '' : '';
+                        for (var x = startNum; x <= endNum; x++) {
+                            if( x == num ){
+                                pageHtml += '<a class="on" href="javascript:;">' + x + '</a>';
+                            }else{
+                                pageHtml += '<a href="javascript:;" data-page="' + x + '">' + x + '</a>';                                    
+                            }
+                        };
+                        totalHtml = options.showTotal ? totalHtml : '';
+                        //构建分页end
 
-                    pageHtml = prevHtml + startHtml + ellipsisLeft + pageHtml + ellipsisRight + endHtml + nextHtml;
-                    $( options.pageBox ).html( pageHtml );
+                        pageHtml = prevHtml + startHtml + ellipsisLeft + pageHtml + ellipsisRight + endHtml + nextHtml;
+                        $( options.pageBox ).html( pageHtml );
+                    }
                     options.successRunAfter( msg, num, pageSize, $( options.listBox ), $( options.pageBox ) );//回调函数：数据、当前页、页面容量
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {

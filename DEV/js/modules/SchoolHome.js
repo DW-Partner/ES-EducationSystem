@@ -90,7 +90,7 @@ let ChartHandle = (type,word)=>{
     });
     option.series[0].name = word;
     if( ChartData.length < 5 ){
-        option.series[0].barWidth = 30;
+        option.series[0].barWidth = 70;
     }
     option.series[0].data = data;
     myChart1.setOption( option );

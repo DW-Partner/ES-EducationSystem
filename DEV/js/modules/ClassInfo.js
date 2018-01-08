@@ -1,6 +1,5 @@
 	require('./ClassInfo.css');//引入css文件
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
-
 const tpl = {
 	//{"errcode":0,"errmsg":"success","data":{"class_name":"xxx","teacher":"xxx","start_time":"xxx","reserve_num":"xxx","students_num":"xxx","students":[{"sid":"xxx","name":"xxx"},...]}
 	info: '<div class="data_line">\
@@ -29,8 +28,9 @@ const tpl = {
 	span: '<span>{sid}:{student_name}</span>',
 };
 const classid = $('#classid').val();
+$('.page_head h3').after('<span class="title_info"></span>')
 
-let getClassLessonsList = (sid)=>{
+let getClassLessonsList = (sid, title_info)=>{
 	// start 3.21
 	$.jsonPage({
 	    listBox: '.class_list',//列表容器
@@ -67,7 +67,7 @@ let getClassLessonsList = (sid)=>{
 	    codeKeyName: 'errcode',//状态标示key名
 	    codeSuccess: 0,//状态标示值
 	    successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
-
+		    $('.title_info').text( title_info || '（班级课程表）');
 	    },//function(msg) {  }
 	    ajaxCodeError: function( res ){
 	        $.dialogFull.Tips( res.errmsg );
@@ -120,7 +120,8 @@ getZoneSummary();
 
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
-    getClassLessonsList(sid);
+    const title_info = sid ? '（' + $(this).find('option:selected').text() + '的课程表）' : '';
+    getClassLessonsList(sid, title_info);
 }).on('click', '.status_0, .status_3', function(){
 	const lessonid = $(this).data('lessonid');
     $.ajax({
