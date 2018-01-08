@@ -176,6 +176,7 @@ $.mainBox.on('click', '#submit_course', function(){
 			status: span.eq(2).text(),
 			outline: span.eq(3).text(),
 		};
+		!_lesson.lesson_id && delete _lesson.lesson_id;
 		lessons.push( _lesson );
 	});
 
@@ -307,7 +308,3 @@ $.mainBox.on('click', '#submit_course', function(){
 	const val = $(this).val();
 	$('[name="next_courseid"]').append('<option value="-1">' + val + '</option>')
 })
-
-
-
-
