@@ -28,7 +28,6 @@ const tpl = {
 	span: '<span>{sid}:{student_name}</span>',
 };
 const classid = $('#classid').val();
-$('.page_head h3').after('<span class="title_info"></span>')
 
 let getClassLessonsList = (sid, title_info)=>{
 	// start 3.21
@@ -67,7 +66,7 @@ let getClassLessonsList = (sid, title_info)=>{
 	    codeKeyName: 'errcode',//状态标示key名
 	    codeSuccess: 0,//状态标示值
 	    successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
-		    $('.title_info').text( title_info || '（班级课程表）');
+		    $('.page_head h3').text( '班级信息——' + (title_info || '班级课程表'));
 	    },//function(msg) {  }
 	    ajaxCodeError: function( res ){
 	        $.dialogFull.Tips( res.errmsg );
@@ -120,7 +119,7 @@ getZoneSummary();
 
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
-    const title_info = sid ? '（' + $(this).find('option:selected').text() + '的课程表）' : '';
+    const title_info = sid ? $(this).find('option:selected').text() + '的课程表' : '';
     getClassLessonsList(sid, title_info);
 }).on('click', '.status_0, .status_3', function(){
 	const lessonid = $(this).data('lessonid');
