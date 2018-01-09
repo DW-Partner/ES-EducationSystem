@@ -1,23 +1,22 @@
-	require('./ZoneClassManage.css');//引入css文件
+require('./ZoneClassManage.css');//引入css文件
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
-	const tpl = {
-		info: '<span>今日开课班级 {classes}个</span> <span>今日授课教师 {teachers}个</span> <span>今日正式学员 {students}人</span> <span>今日试听学员 {audits}人</span>',
-		list: '<li>\
-			<div class="item"><p><span>{class_name}</span></p></div>\
-			<div class="item"><p><span>{start_time}</span></p></div>\
-			<div class="item"><p><span>{teacher_name}({name_2})</span></p></div>\
-			<div class="item"><p><span>{students}</span></p></div>\
-			<div class="item"><p><span>{audits}</span></p></div>\
-			<div class="item"><p><span>\
-			<a href="JavaScript:;" data-href="/pss/goClassInfo?classid={class_id}">查看</a>\
-			<a href="JavaScript:;" data-href="/pss/goEditClass?classid={class_id}">更新班级</a>\
-			</span></p></div>\
-			</li>',
-	};
+const tpl = {
+	info: '<span>今日开课班级 {classes}个</span> <span>今日授课教师 {teachers}个</span> <span>今日正式学员 {students}人</span> <span>今日试听学员 {audits}人</span>',
+	list: '<li>\
+		<div class="item"><p><span>{class_name}</span></p></div>\
+		<div class="item"><p><span>{start_time}</span></p></div>\
+		<div class="item"><p><span>{teacher_name}({name_2})</span></p></div>\
+		<div class="item"><p><span>{students}</span></p></div>\
+		<div class="item"><p><span class="audits" data-classid="{class_id}">{audits}</span></p></div>\
+		<div class="item"><p><span>\
+		<a href="JavaScript:;" data-href="/pss/goClassInfo?classid={class_id}">查看</a>\
+		<a href="JavaScript:;" data-href="/pss/goEditClass?classid={class_id}">更新班级</a>\
+		</span></p></div>\
+		</li>',
+};
 
 let getZoneSummary = ()=>{
-
     $.ajax({
 	    type: "post",
 	    dataType: "json",
@@ -40,7 +39,6 @@ let getZoneSummary = ()=>{
 	})
 }
 //getZoneSummary();
-
 
 //{"data":[{"start_time":"2017-10-10","teacher_name":"赵正","class_id":1,"students":1,"class_name":"初级","audits":0},{"start_time":"2017-11-01","teacher_name":"keke","class_id":2,"students":1,"class_name":"中级","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":3,"students":0,"class_name":"newnew","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":4,"students":0,"class_name":"newnew","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":5,"students":0,"class_name":"newnew","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":6,"students":0,"class_name":"newnew","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":7,"students":0,"class_name":"newnew","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":8,"students":0,"class_name":"newnew","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":9,"students":0,"class_name":"newnew","audits":0},{"start_time":"2017-10-23 16:00:00","teacher_name":"keke","class_id":10,"students":0,"class_name":"newnew","audits":0}],"errcode":"0","errmsg":"success"}
 // start 3.21
@@ -70,3 +68,37 @@ $.jsonPage({
     }
 });
 //获取教案列表 end
+
+let getClassAuditList = (classid)=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getClassAuditList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        classid: classid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+		 	$.ajaxGetHtml({
+		 		url: '/pss/goVisitor#goVisitor',
+		 		data: {
+		 			page: 0,
+		 			data: JSON.stringify( {sids: res.data} ).replace(/\"/g,"'")
+		 		}
+		 	})
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+$.mainBox.on('click', '.audits', function(){
+	const classid = $(this).data('classid');
+	getClassAuditList( classid );
+})
