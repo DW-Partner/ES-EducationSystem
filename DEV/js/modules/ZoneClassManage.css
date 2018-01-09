@@ -9,4 +9,6 @@
 		float: right;
 	}
 }
-
+.audits{
+	cursor: pointer;
+}
