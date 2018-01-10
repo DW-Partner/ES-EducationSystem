@@ -55,7 +55,7 @@ let getClassLessonsList = (sid, title_info)=>{
 			msg.class_id = classid;
 			msg.href = msg.lesson_status == 0 ? 'null' : 'href';
 
-			msg.del = msg.lesson_status == 0 ? '' : '删除'
+			//msg.del = msg.lesson_status == 0 ? '' : '删除'
 
 			msg.sid = sid;
 

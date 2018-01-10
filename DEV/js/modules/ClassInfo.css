@@ -100,8 +100,8 @@
 			    opacity: 0.8;
 			    display: block;
 			    position: absolute;
-			    right: 0;
-			    bottom: 0;
+			    right: 1px;
+			    bottom: 1px;
 				display: none;
 				background-image: url(../../images/ico_lession_del.png);
 				background-size: 100% 100%;
