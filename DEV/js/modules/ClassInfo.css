@@ -95,23 +95,23 @@
 				top: 0;
 			}
 			strong{
-			    line-height: 22px;
-			    font-size: 14px;
-			    background: #eee;
-			    font-weight: normal;
-			    color: #666;
-			    /* opacity: 0.5; */
-			    text-align: center;
+				width:44px;
+				height: 37px;
+			    opacity: 0.8;
 			    display: block;
 			    position: absolute;
-			    left: 1px;
-			    bottom: 1px;
-			    right: 1px;
+			    right: 0;
+			    bottom: 0;
 				display: none;
+				background-image: url(../../images/ico_lession_del.png);
+				background-size: 100% 100%;
 			}
 			&:hover{
 				strong{
 					display: block;
+					&:hover{
+					    opacity: 1;
+					}
 				}
 			}
 
