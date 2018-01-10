@@ -119,6 +119,12 @@
 			&.status_0{
 				background-image: url(../../images/bg_classInfo_0.png);
 				color: #666;
+
+				&:hover{
+					strong{
+						display: none;
+					}
+				}
 			}
 			&.status_1{
 				background-image: url(../../images/bg_classInfo_2.png);
