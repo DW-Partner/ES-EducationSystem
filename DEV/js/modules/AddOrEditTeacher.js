@@ -51,7 +51,7 @@ const form_tpl = '<li>\
 				</li>\
 				<li>\
 					<span>毕业学历信息</span>\
-					<input type="text" class="long" placeholder="请输入“毕业院校”、“毕业时间”、“学历”3项信息，请用斜杠 / 隔开" value="{education}" name="education" data-validate="any" />\
+					<input type="text" class="long" placeholder="请输入“毕业院校”、“毕业时间”、“学历”3项信息，输入格式：毕业院校/毕业时间/学历" value="{education}" name="education" data-validate="any" />\
 				</li>\
 				<li>\
 					<span>其他信息</span>\
