@@ -17,11 +17,10 @@ const tpl = {
             <div class="item"><p><span>{course_name}</span></p></div>\
             <div class="item"><p><span>{start_time}</span></p></div>\
             <div class="item"><p><span>{teacher_name}</span></p></div>\
-            <div class="item"><p><span>{current_lesson}</span></p></div>\
             <div class="item"><p><span>{student_num}</span></p></div>\
         </li>',
 }
-
+//<div class="item"><p><span>{current_lesson}</span></p></div>\
 
 //获取校区信息 start 3.12
 let getZoneInfo = ()=>{
