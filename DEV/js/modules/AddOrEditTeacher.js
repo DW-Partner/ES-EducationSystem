@@ -9,8 +9,9 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const form_tpl = '<li>\
 					<span><i>*</i>教师姓名</span>\
 					<input type="text" class="normal" placeholder="请输入教师姓名" value="{name}" name="name" data-validate="any" data-must="1" />\
-					<span>教师性别</span>\
-					<select name="gender" data-validate="any">\
+					<span><i>*</i>教师性别</span>\
+					<select name="gender" data-validate="any" placeholder="请选择教师性别" data-must="1">\
+						<option value="">请选择</option>\
 						<option value="男">男</option>\
 						<option value="女">女</option>\
 					</select>\
@@ -21,7 +22,7 @@ const form_tpl = '<li>\
 				</li>\
 				<li>\
 					<span>出生年月</span>\
-					<input type="date" class="normal" placeholder="请输入出生年月" value="{birthday}" name="birthday" data-validate="any" />\
+					<input type="text" id="birthday" class="normal" placeholder="请输入出生年月" value="{birthday}" name="birthday" data-validate="any" />\
 					<span>籍贯</span>\
 					<input type="text" class="short" placeholder="请输入籍贯" value="{native_place}" name="native_place" data-validate="any" />\
 				</li>\
@@ -33,7 +34,7 @@ const form_tpl = '<li>\
 					<span><i>*</i>手机号</span>\
 					<input type="text" class="normal" placeholder="请输入手机号" value="{mobile}" name="mobile" data-validate="any" data-must="1" />\
 					<span><i>*</i>所属校区</span>\
-					<select id="zoneList" name="zone_id" data-validate="any" data-must="1" >\
+					<select id="zoneList" name="zone_id" data-validate="any" placeholder="请选择所属校区" data-must="1" >\
 					</select>\
 				</li>\
 				<li>\
@@ -42,15 +43,16 @@ const form_tpl = '<li>\
 				</li>\
 				<li>\
 					<span>入职时间</span>\
-					<input type="date" class="normal" value="{entry_day}" name="entry_day" data-validate="any" />\
+					<input type="text" id="entry_day" class="normal" placeholder="请输入入职时间" value="{entry_day}" name="entry_day" data-validate="any" />\
 					<span><i>*</i>类别</span>\
-					<select name="type" data-validate="any" data-must="1">\
+					<select name="type" data-validate="any" placeholder="请选择类别" data-must="1">\
+					<option value="">请选择</option>\
 					<option value="主课">主课</option>\
 					<option value="助教">助教</option>\
 					</select>\
 				</li>\
 				<li>\
-					<span>毕业学历信息</span>\
+					<span class="wide">毕业学历信息</span>\
 					<input type="text" class="long" placeholder="请输入“毕业院校”、“毕业时间”、“学历”3项信息，输入格式：毕业院校/毕业时间/学历" value="{education}" name="education" data-validate="any" />\
 				</li>\
 				<li>\
@@ -76,13 +78,20 @@ let getZoneList = (zone_id)=>{
                 $.dialogFull.Tips( res.errmsg );
                 return;
             }
-            let options = '';
+            let options = '<option value="">请选择</option>';
             let data = res.data;
             data.map(function(item){
                 options += '<option value="' + item.id +'">'+ item.name +'</option>'
             });
-            $('#zoneList').html( options ).val( zone_id || res.data[0].id );
-
+            $('#zoneList').html( options ).val( zone_id || '' );
+            $.laydate.render({
+				elem: '#birthday',
+					type: 'date'
+			});
+            $.laydate.render({
+				elem: '#entry_day',
+					type: 'date'
+			});
         },
         error: ()=>{
 
@@ -90,7 +99,7 @@ let getZoneList = (zone_id)=>{
     });
 }
 
-getZoneList();
+//getZoneList();
 
 
 
@@ -111,7 +120,8 @@ let getTeacherDetail = ()=>{
 	        const html = replaceTemplate( form_tpl, res.data );
 	        $('.pub_form ul').html( html );
 			getZoneList( res.data.zone_id );
-			$('[name="type"]').val( res.data.type )
+			$('[name="type"]').val( res.data.type );
+			$('[name="gender"]').val( res.data.gender );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );

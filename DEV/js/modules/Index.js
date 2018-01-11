@@ -1,4 +1,6 @@
 require('./Index.css');
+    require('../comp/laydate/laydate.css');//引入css文件
+
 var echarts = require('echarts');
 import changeFormat from '../kit/changeFormat.js';//时间轴转换
 
@@ -34,13 +36,8 @@ let option_2 = {
 };
 
 
-
     // $('.echartsBox').eq(0).attr('id', 'echartsBox_1');
-
-
-$('#echartsBox_2 .entey_date').val( changeFormat(false,'YYYY-MM-DD') );
-
-
+$('#entey_date').val( changeFormat(false,'YYYY-MM-DD') );
 
 
 let getZoneList_times = {
@@ -142,6 +139,10 @@ let getZoneIndex = (zoneid, type, period)=>{
             });
             option_1.xAxis.data = chartNameArr;
             option_1.series[0].data = chartDataArr;
+            if( ChartData.length < 7 ){
+                option_1.series[0].barWidth = 70;
+            }
+
 
             myChart1.setOption( option_1 );
         },
@@ -153,8 +154,6 @@ let getZoneIndex = (zoneid, type, period)=>{
 }
 //getZoneIndex();
 //校区经营数据详情 end
-
-
 
 
 
@@ -212,9 +211,9 @@ let getZoneIndexCompare = ()=>{
             option_2.xAxis.data = chartNameArr;
             option_2.series[0].data = chartDataArr;
 
-    if( ChartData.length < 5 ){
-        option_2.series[0].barWidth = 70;
-    }
+            if( ChartData.length < 7 ){
+                option_2.series[0].barWidth = 70;
+            }
             myChart2.setOption( option_2 );
         },
         error: ()=>{
@@ -229,8 +228,12 @@ getZoneIndexCompare();
 
 
 
+    //$('[type="date"]').attr('type','text').attr('id','entey_date');
 
-
+    $.laydate.render({
+        elem: '#entey_date',
+            type: 'date',
+    });
 
 $.mainBox.on('click', '#echartsBox_1 .btn', function(){
     getZoneIndex();
@@ -238,8 +241,22 @@ $.mainBox.on('click', '#echartsBox_1 .btn', function(){
 
     const val = $(this).val()
     const type = val == 'month' ? val : 'date';
-    $('.entey_date').attr('type', type);
-    $('#echartsBox_2 .entey_date').val( changeFormat(false, val == 'month' ? 'YYYY-MM' : 'YYYY-MM-DD' ) );
+
+    let entey_date = $('#entey_date');
+
+    entey_date.after( entey_date.clone() );
+    entey_date.remove();
+
+
+    $.laydate.render({
+        elem: '#entey_date',
+            type: type,
+    });
+
+
+
+    //$('.entey_date').attr('type', type);
+    $('#entey_date').val( changeFormat(false, val == 'month' ? 'YYYY-MM' : 'YYYY-MM-DD' ) );
 
 }).on('click', '#echartsBox_2 .btn', function(){
     getZoneIndexCompare();

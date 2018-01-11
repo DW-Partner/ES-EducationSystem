@@ -16,7 +16,6 @@
                 // <ul class="item_box">
                 // </ul>
 
-
 let getZoneDayLessons = (date,type)=>{
     $.ajax({
 	    type: "post",
@@ -67,10 +66,8 @@ let getZoneDayLessons = (date,type)=>{
 	        }
 	        const html = $box.html();
 
-
 	        // $('.item_box').remove();
 	        // $('.class_show').prepend('<div class="list_box"></div>');
-
 
 	        $('.list_box').html( html );
 	    },
@@ -80,18 +77,22 @@ let getZoneDayLessons = (date,type)=>{
 	})
 }
 
-$('.page_head .run').val( changeFormat(false,'YYYY-MM-DD') );
+$('#s_date').val( changeFormat(false,'YYYY-MM-DD') );
 
+$.laydate.render({
+	elem: '#s_date',
+		type: 'date',
+		done: function(value, date){
+			getZoneSummary({
+				date: value
+			});
+			getZoneDayLessons(value,'teacher_id');
+		  }
+});
 // const yesterdayTime = new Date().getTime() - (1000*60*60*24) 
 // const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD');
 // getZoneDayLessons(yesterdayDate,'teacher_id');
-getZoneDayLessons($('.page_head .run').val(),'teacher_id');
-
-
-
-
-
-
+getZoneDayLessons($('#s_date').val(),'teacher_id');
 
 
 let getZoneSummary = ()=>{
@@ -118,14 +119,3 @@ let getZoneSummary = ()=>{
 	})
 }
 getZoneSummary();
-
-
-$.mainBox.on('change', '[type=date]',function(){
-	const date = $(this).val();
-	getZoneSummary({
-		date: date
-	})
-}).on('change', '.page_head [type=date]', function(){
-	const date = $(this).val();
-	getZoneDayLessons(date,'teacher_id');
-})

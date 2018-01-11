@@ -14,7 +14,8 @@ const tpl = {
 				<br /><p><span>身份证号：</span><em>{id_num}</em></p>\
 				<p><span>类型：</span><em>{type}</em></p>\
 				<br />\
-				<p><span>所属门店：</span><em>{zone_name}</em></p>',
+				<p><span>所属门店：</span><em>{zone_name}</em></p>\
+				<p><span>毕业学历信息：</span><em>{education}</em></p>',
 	work_info: '<div class="data data1">\
 						<span>当月课时完成数</span>\
 						<p>{completed_lessons}</p>\

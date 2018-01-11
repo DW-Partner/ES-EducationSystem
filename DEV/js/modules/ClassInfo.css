@@ -105,6 +105,7 @@
 				display: none;
 				background-image: url(../../images/ico_lession_del.png);
 				background-size: 100% 100%;
+				border-radius: 42px 0px 0px 0px;
 			}
 			&:hover{
 				strong{

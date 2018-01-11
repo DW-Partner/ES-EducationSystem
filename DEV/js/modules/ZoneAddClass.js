@@ -1,6 +1,4 @@
 require('./ZoneAddClass.css');//引入css文件
-require('../comp/laydate/laydate.css');//引入css文件
-
 
 const _item = '<div class="item">\
 					<select class="timeType">\

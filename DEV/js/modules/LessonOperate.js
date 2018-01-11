@@ -1,5 +1,4 @@
 require('./LessonOperate.css');//引入css文件
-require('../comp/laydate/laydate.css');//引入css文件
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 

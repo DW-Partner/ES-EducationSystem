@@ -1,4 +1,6 @@
 	require('../css/CMD.css');
+	require('./comp/laydate/laydate.css');//引入css文件
+
 	// const $$ = window.$ = require('./jquery.min.js');
 	window.$ = require('jquery');
 	import jsonPage from './comp/jsonPage.js';//公共分页插件
