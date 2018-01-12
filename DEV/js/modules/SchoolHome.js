@@ -12,7 +12,13 @@ var myChart1 = echarts.init(document.getElementById('echart1'));
 // 绘制图表
 var option = {
     title: { text: '校区今日数据对比' },
-    tooltip: {},
+    tooltip: {
+        enterable:true,
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
     xAxis: {
         data: ['网络错误，请稍后重试']
     },

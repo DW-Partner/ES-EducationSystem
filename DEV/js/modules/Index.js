@@ -140,6 +140,8 @@ let getZoneIndex = (zoneid, type, period)=>{
                 $.dialogFull.Tips( res.errmsg );
                 return;
             }
+            const name = $('#echartsBox_1 .echartSelect_type option:checked').text();
+            
             let ChartData = res.data;
 
             let chartNameArr = [];
@@ -151,6 +153,9 @@ let getZoneIndex = (zoneid, type, period)=>{
             });
             option_1.xAxis.data = chartNameArr;
             option_1.series[0].data = chartDataArr;
+            option_1.series[0].name = name;
+
+            
             if( ChartData.length < 7 ){
                 option_1.series[0].barWidth = 70;
             }
@@ -211,6 +216,8 @@ let getZoneIndexCompare = ()=>{
                 $.dialogFull.Tips( res.errmsg );
                 return;
             }
+            const name = $('#echartsBox_2 .echartSelect_type option:checked').text();
+
             let ChartData = res.data;
 
             let chartNameArr = [];
@@ -222,6 +229,7 @@ let getZoneIndexCompare = ()=>{
             });
             option_2.xAxis.data = chartNameArr;
             option_2.series[0].data = chartDataArr;
+            option_2.series[0].name = name;
 
             if( ChartData.length < 7 ){
                 option_2.series[0].barWidth = 70;
