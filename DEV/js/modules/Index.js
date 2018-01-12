@@ -10,7 +10,13 @@ var myChart2 = echarts.init(document.getElementById('echart2'));
 // 绘制图表
 let option_1 = {
     title: { text: '校区经营数据详情' },
-    tooltip: {},
+    tooltip: {
+        enterable:true,
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
     xAxis: {
         data: ["网络错误，请稍后重试"]
     },
@@ -23,7 +29,13 @@ let option_1 = {
 };
 let option_2 = {
     title: { text: '校区对比详情' },
-    tooltip: {},
+    tooltip: {
+        enterable:true,
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
     xAxis: {
         data: ["网络错误，请稍后重试"]
     },
