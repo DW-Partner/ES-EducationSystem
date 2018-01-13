@@ -264,7 +264,7 @@ $.mainBox.on('click', '#echartsBox_1 .btn', function(){
 
     let entey_date = $('#entey_date');
 
-    entey_date.after( entey_date.clone() );
+    entey_date.after( entey_date.clone().removeAttr('lay-key') );
     entey_date.remove();
 
 
