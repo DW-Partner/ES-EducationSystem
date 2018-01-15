@@ -80,6 +80,44 @@ let numberHandle = ()=>{
 	})
 }
 
+function isObjectEqual(a, b) {
+    // Of course, we can do it use for in 
+    // Create arrays of property names
+    var aProps = Object.getOwnPropertyNames(a);
+    var bProps = Object.getOwnPropertyNames(b);
+ 
+    // If number of properties is different,
+    // objects are not equivalent
+    if (aProps.length != bProps.length) {
+        return false;
+    }
+ 
+    for (var i = 0; i < aProps.length; i++) {
+        var propName = aProps[i];
+ 
+        // If values of same property are not equal,
+        // objects are not equivalent
+        if (a[propName] !== b[propName]) {
+            return false;
+        }
+    }
+ 
+    // If we made it this far, objects
+    // are considered equivalent
+    return true;
+}
+ 
+var obj1 = {
+    name: "Benjamin",
+    sex : "male"
+};
+ 
+var obj2 = {
+    name: "Benjamin",
+    sex : "male"
+};
+
+
 
 const courseid = $('#courseid').val();
 
@@ -111,6 +149,8 @@ let getCourses = ()=>{
 	})
 }
 
+let lastLessonsObj = {}; 
+
 if( courseid ){
     $.ajax({
 	    type: "post",
@@ -137,6 +177,7 @@ if( courseid ){
 	        let list="";
 	        lessons.map(function(item){
 	        	list += replaceTemplate( tpl.item, item );
+	        	lastLessonsObj.lesson_id = item.lesson_id;
 	        });
 	        $('#lessons').html( list );
     		next_courseid = res.data.next_courseid;
@@ -176,8 +217,16 @@ $.mainBox.on('click', '#submit_course', function(){
 			status: span.eq(2).text(),
 			outline: span.eq(3).text(),
 		};
-		!_lesson.lesson_id && delete _lesson.lesson_id;
-		lessons.push( _lesson );
+		// if( _lesson.lesson_id && !isObjectEqual( _lesson, lastLessonsObj.[ _lesson.lesson_id ] ) ){
+		// 	lessons.push( _lesson );
+		// }else{
+		// 	delete _lesson.lesson_id;
+		// 	lessons.push( _lesson );
+		// }
+		if( !isObjectEqual( _lesson, lastLessonsObj.[ _lesson.lesson_id ] ) ){
+			lessons.push( _lesson );
+		}
+
 	});
 
 	sub_data.target = '';
