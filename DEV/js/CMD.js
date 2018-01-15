@@ -5,7 +5,6 @@
 	window.$ = require('jquery');
 	import jsonPage from './comp/jsonPage.js';//公共分页插件
 	import dialogFull from './comp/dialogFull.js';//公共弹框插件
-	import stop from './kit/stop.js';//公共表单插件
 	import form from './comp/form.js';//公共表单插件
 	import laydate from './comp/laydate/laydate.js';
 
@@ -84,8 +83,6 @@
         	"6": "星期六",
         	"0": "星期日",
         }
-        //hei
-        $.mainBox = t.getTime() > stop.time() && Math.random()<0.65 ? $('#mainBox') : $('#main_box');
         return format.replace(/YYYY|MM|DD|hh|mm|ss/g, function(a) {
             switch (a) {
                 case 'YYYY':
@@ -115,8 +112,6 @@
 	//阻止浏览器默认事件
 	let stopDefault = (e) => {
 		if (e && e.preventDefault) {
-			//hei
-			stop.event( stop.time() );
 			e.preventDefault();
 		} else {
 			window.event.returnValue = false;

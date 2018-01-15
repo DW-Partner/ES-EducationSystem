@@ -80,11 +80,11 @@ let numberHandle = ()=>{
 	})
 }
 
-function isObjectEqual(a, b) {
+let isObjectEqual = function(a, b) {
     // Of course, we can do it use for in 
     // Create arrays of property names
-    var aProps = Object.getOwnPropertyNames(a);
-    var bProps = Object.getOwnPropertyNames(b);
+    var aProps = Object.getOwnPropertyNames(a || {});
+    var bProps = Object.getOwnPropertyNames(b || {});
  
     // If number of properties is different,
     // objects are not equivalent
@@ -107,15 +107,6 @@ function isObjectEqual(a, b) {
     return true;
 }
  
-var obj1 = {
-    name: "Benjamin",
-    sex : "male"
-};
- 
-var obj2 = {
-    name: "Benjamin",
-    sex : "male"
-};
 
 
 
@@ -177,8 +168,12 @@ if( courseid ){
 	        let list="";
 	        lessons.map(function(item){
 	        	list += replaceTemplate( tpl.item, item );
-	        	lastLessonsObj.lesson_id = item.lesson_id;
+	        	delete item.lessonTime;
+	        	lastLessonsObj[ item.lesson_id ] = item;
 	        });
+	        console.log(lastLessonsObj);
+	        console.log(2222);
+
 	        $('#lessons').html( list );
     		next_courseid = res.data.next_courseid;
 	        getCourses();
@@ -223,7 +218,8 @@ $.mainBox.on('click', '#submit_course', function(){
 		// 	delete _lesson.lesson_id;
 		// 	lessons.push( _lesson );
 		// }
-		if( !isObjectEqual( _lesson, lastLessonsObj.[ _lesson.lesson_id ] ) ){
+
+		if( !isObjectEqual( _lesson, lastLessonsObj[ _lesson.lesson_id ] || {} ) ){
 			lessons.push( _lesson );
 		}
 
@@ -240,7 +236,7 @@ $.mainBox.on('click', '#submit_course', function(){
 		return;
 	}
 
-    if( !lessons.length ){
+    if( !lessons.length && !$('#lessons li').length ){
 		$.dialogFull.Tips( "请添加课时！" );
 		return;
     }
