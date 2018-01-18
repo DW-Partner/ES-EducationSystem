@@ -13,12 +13,12 @@ let form = {
             item: '.pub_form [data-validate]',//表单项dom
             key_validate: 'validate',//验证项dom
             key_must: 'must',//必填项dom
-            value_true_out: false,
             handle: (opt)=>{
                 opt.that.addClass('error');
                 alert(opt.text);
             },
             error_text: false,//存放错误文案的属性名
+            get_empty: true,//是否获取未填写项数据
         };
         options = $.extend(options, opts);
         const $ele = $( options.item );
@@ -38,7 +38,7 @@ let form = {
             if( !result ){
                 return;
             }
-            if( value || !options.value_true_out ){
+            if( value || options.get_empty ){
                 const key = that.attr('name');
                 sub_data[ key ] = value;
             }
