@@ -220,9 +220,13 @@ $.mainBox.on('click', '#submit_course', function(){
 		// }
 
 		if( !isObjectEqual( _lesson, lastLessonsObj[ _lesson.lesson_id ] || {} ) ){
+			if( !_lesson.lesson_id ){
+				delete _lesson.lesson_id;
+			}
 			lessons.push( _lesson );
 		}
 
+		 
 	});
 
 	sub_data.target = '';
