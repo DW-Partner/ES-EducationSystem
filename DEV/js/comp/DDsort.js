@@ -10,6 +10,7 @@
  * DDSort: drag and drop sorting.
  * Documentation: https://github.com/Barrior/DDSort
  */
+ //https://www.cnblogs.com/barrior/p/4918118.html
 +function ($) {
     var defaultOptions = {
         down: $.noop,
