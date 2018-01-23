@@ -9,7 +9,7 @@
 		<div class="item flex_2"><p><span>{ctime}</span></p></div>\
 		<div class="item"><p><span>{name}</span></p></div>\
 		<div class="item"><p><span>{class_name}</span></p></div>\
-		<div class="item"><p><span>{age}</span></p></div>\
+		<div class="item"><p><span>{birthday}</span></p></div>\
 		<div class="item"><p><span>{gender}</span></p></div>\
 		<div class="item flex_2"><p><span>{address}</span></p></div>\
 		<div class="item flex_2"><p><span>{mobile}</span></p></div>\
