@@ -28,7 +28,7 @@
             noData: false,//Function : function( $listBox, $pageBox ){}
             codeKeyName: 'code',//状态标示key名
             codeSuccess: 0,//状态标示值
-            successRunBefor: false,//function(data,pageNum, pageSize, $listBox, $pageBox) { return msg }
+            successRunBefore: false,//function(data,pageNum, pageSize, $listBox, $pageBox) { return msg }
             successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {},//function(msg) {  }
             ajaxCodeError: function( msg ){},
             ajaxError: false,//function(XMLHttpRequest, textStatus, errorThrown, text) {}
@@ -63,8 +63,8 @@
                         options.ajaxCodeError(msg);
                         return;
                     }
-                    if( options.successRunBefor ){
-                        var msg = options.successRunBefor( msg, num, pageSize, $( options.listBox ), $( options.pageBox ) ) || msg;
+                    if( options.successRunBefore ){
+                        var msg = options.successRunBefore( msg, num, pageSize, $( options.listBox ), $( options.pageBox ) ) || msg;
                     };
                     var list = msg;
                     for( var k in options.listKey  ){
