@@ -8,7 +8,7 @@ const form_tpl = '<li>\
 			</li>\
 			<li>\
 				<span><i>*</i>出生日期</span>\
-				<input type="text" id="birthday" class="short" value="{birthday}" placeholder="请输入年龄" name="birthday" data-validate="any" data-must="1" />\
+				<input type="text" id="birthday" class="short" value="{birthday}" placeholder="请输入出生日期" name="birthday" data-validate="any" data-must="1" />\
 			</li>\
 			<li>\
 				<span><i>*</i>性别</span>\

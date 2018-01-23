@@ -70,7 +70,7 @@ let getLessonsDetail = ()=>{
 	        zoneid: $('#zone_zoneid').val(),
 	        classid: class_id,
 	        lessonid: lesson_id,
-                sid: sid || undefined
+            sid: sid || undefined
 	    },
 	    success: (res)=>{
 	        if( res.errcode != 0 ){
@@ -88,7 +88,9 @@ let getLessonsDetail = ()=>{
 	})
 }
 
-
+if( !sid ){
+	$('.pub_form ul').append('<li><span class="wide">课表自动重排</span><input type="checkbox" id="auto" class="m-checkbox" value="1"><label for="auto"></label></li>');	
+}
 
 $.mainBox.on('click', '#submit_edit', ()=>{
 	const sub_data = $.form.get({
@@ -104,6 +106,9 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 	}
 
 	sub_data.tid = +sub_data.tid;
+	if( $('#auto').length ){
+		sub_data.auto = $('#auto:checked').val() ? true : false;
+	}
 
     let ajaxData = {
         code: $('#zone_code').val(),
