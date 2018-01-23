@@ -2,6 +2,14 @@
 
 const _from = $('#from').val();
 
+            //常规用法
+            $.laydate.render({
+              elem: '#birthday1'
+            });
+            //常规用法
+            $.laydate.render({
+              elem: '#birthday2'
+            });
 $.mainBox.on('click', '#search', ()=>{
 	let sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
