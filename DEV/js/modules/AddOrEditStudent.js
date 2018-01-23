@@ -8,8 +8,8 @@ const form_tpl = '<li>\
                 <input type="text" class="short" value="{name}" placeholder="请输入姓名" name="name" data-validate="any" data-must="1" />\
             </li>\
             <li>\
-                <span>年龄</span>\
-                <input type="text" class="short" value="{age}" placeholder="请输入年龄" name="age" data-validate="number" />\
+                <span>出生日期</span>\
+                <input type="text" id="birthday" class="short" value="{birthday}" placeholder="请输入出生日期" name="birthday" data-validate="any" />\
             </li>\
             <li>\
                 <span>性别</span>\
@@ -68,6 +68,10 @@ if( sid ){
             $('.pub_form ul').html( html );
             $('[name=origin]').val( res.data.origin || '' );
             $('[name=gender]').val( res.data.gender || '' );
+            //常规用法
+            $.laydate.render({
+              elem: '#birthday'
+            });
         },
         error: ()=>{
             $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -76,6 +80,10 @@ if( sid ){
 }else{
     const html = replaceTemplate( form_tpl, {} );
     $('.pub_form ul').html( html );
+    //常规用法
+    $.laydate.render({
+      elem: '#birthday'
+    });
 }
 
 
