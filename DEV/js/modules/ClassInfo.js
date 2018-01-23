@@ -65,7 +65,24 @@ let getClassLessonsList = (sid, title_info)=>{
 	    noData: false,//Function : function( $listBox, $pageBox ){}
 	    codeKeyName: 'errcode',//状态标示key名
 	    codeSuccess: 0,//状态标示值
-	    successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
+		successRunBefore: function(msg, pageNum, pageSize, $listBox, $pageBox) {
+//{"data":[{"lesson_time":"2017-12-12 14:23:43","theme":null,"lesson_status":0,"lesson_id":50},{"lesson_time":"2017-12-15 00:00:00","theme":null,"lesson_status":0,"lesson_id":51}],"errcode":"0","errmsg":"success"}
+			let _sortList = [];
+			let time_obj = {};
+			let time_arr = msg.data.map(function(_item){
+				const key = +_item.lesson_time.replace(/[^\d]/g,'');
+				time_obj[ key ] = _item;
+				return key;
+			});
+			time_arr.sort(function(a,b){return a-b});
+
+			time_arr.forEach(function(_arr){
+				_sortList.push( time_obj[ _arr ] );
+			});
+			msg.data = _sortList;
+			return msg
+		},
+	    successRunAfter: function(msg, pageNum, pageSize, $listBox, $pageBox) {
 		    $('.page_head h3').text( '班级信息——' + (title_info || '班级课程表'));
 	    },//function(msg) {  }
 	    ajaxCodeError: function( res ){
