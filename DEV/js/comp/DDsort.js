@@ -12,6 +12,14 @@
  */
  //https://www.cnblogs.com/barrior/p/4918118.html
 
+// 参数列表	类型	描述
+// target	string	插件内部使用的是jQuery的on方法绑定的事件，此参数就是on方法上的选择器字符串
+// cloneStyle	object	可选，设置占位符元素的样式
+// floatStyle	object	可选，设置拖动元素的样式
+// down	function	可选，鼠标按下时执行的函数
+// move	function	可选，鼠标移动时执行的函数
+// up	function	可选，鼠标抬起时执行的函数
+
     $.fn.DDSort = function (options) {
 
         var defaultOptions = {
