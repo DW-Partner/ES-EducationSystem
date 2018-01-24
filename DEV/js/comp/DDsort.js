@@ -11,28 +11,25 @@
  * Documentation: https://github.com/Barrior/DDSort
  */
  //https://www.cnblogs.com/barrior/p/4918118.html
-+function ($) {
-    var defaultOptions = {
-        down: $.noop,
-        move: $.noop,
-        up: $.noop,
-        target: 'li',
-        delay: 100,
-        cloneStyle: {
-            'background-color': '#eee'
-        },
-        floatStyle: {
-            // 用固定定位可以防止定位父级不是Body的情况的兼容处理，表示不兼容IE6，无妨
-            'position': 'fixed',
-            'box-shadow': '10px 10px 20px 0 #eee',
-            'webkitTransform': 'rotate(4deg)',
-            'mozTransform': 'rotate(4deg)',
-            'msTransform': 'rotate(4deg)',
-            'transform': 'rotate(4deg)'
-        }
-    };
 
     $.fn.DDSort = function (options) {
+
+        var defaultOptions = {
+            down: $.noop,
+            move: $.noop,
+            up: $.noop,
+            target: 'li',
+            delay: 100,
+            cloneStyle: {
+                'background-color': '#eee'
+            },
+            floatStyle: {
+                // 用固定定位可以防止定位父级不是Body的情况的兼容处理，表示不兼容IE6，无妨
+                'position': 'fixed',
+                'box-shadow': '10px 10px 20px 0 #eee',
+            }
+        };
+
         var $doc = $(document);
         var settings = $.extend(true, {}, defaultOptions, options);
 
@@ -185,4 +182,3 @@
             });
         });
     };
-}($);
