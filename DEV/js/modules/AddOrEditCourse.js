@@ -1,8 +1,5 @@
 require('./AddOrEditCourse.css');
-
-
-//submit_AddOrEditCourse
-
+import DDsort from '../comp/DDsort.js';//模板引擎
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 import cvsDataHandle from '../comp/cvsDataHandle.js';//模板引擎
@@ -49,7 +46,7 @@ const tpl = {
 				<div class="item"><p><span class="line20px">{outline}</span></p></div>\
 				<div class="item"><p><span>\
 				<a href="JavaScript:;" class="edit">编辑</a>\
-				<a href="JavaScript:;" class="del none{show}">删除</a></span></p></div>\
+				<a href="JavaScript:;" class="del {showDel}">删除</a></span></p></div>\
 			</li>',
 	addLessonForm: '<ul class="pub_form">\
 			<li>\
@@ -159,7 +156,11 @@ if( courseid ){
 	        const html = replaceTemplate( tpl.form_tpl, res.data );
 	        $('.pub_form ul').html( html );
 	        const split = res.data.target.split('\n');
+
+			const showDel = res.data.isbinding : 'none' : '';
+
 	        split.map(function(_item,_index){
+	        	_item.showDel = showDel;
 				$('.target_item').eq( _index ).val(_item)
 	        })
 
@@ -171,8 +172,6 @@ if( courseid ){
 	        	delete item.lessonTime;
 	        	lastLessonsObj[ item.lesson_id ] = item;
 	        });
-	        console.log(lastLessonsObj);
-	        console.log(2222);
 
 	        $('#lessons').html( list );
     		next_courseid = res.data.next_courseid;
@@ -191,6 +190,13 @@ if( courseid ){
 	getCourses();
 }
 
+$( '#lessons' ).DDSort({
+    target: 'li',
+    up: function(){
+		numberHandle();
+    }
+});
+
 
 $.mainBox.on('click', '#submit_course', function(){
 	const sub_data = $.form.get({
@@ -206,7 +212,7 @@ $.mainBox.on('click', '#submit_course', function(){
 	$('#lessons li').each(function(){
 		const span = $(this).find( 'span' );
 		let _lesson = {
-			// lesson_id: span.eq(0).text(),
+			snum: +span.eq(0).text(),
 			lesson_id: span.eq(0).data('lessonid'),
 			theme: span.eq(1).text(),
 			status: span.eq(2).text(),
@@ -286,7 +292,6 @@ $.mainBox.on('click', '#submit_course', function(){
 			if( !sub_data ){
 				return;
 			}
-			sub_data.show = 1;
 	        const li = replaceTemplate( tpl.item, sub_data );
 	        $('#lessons').append( li );
         	dialogClose();
