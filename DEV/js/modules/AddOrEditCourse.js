@@ -1,5 +1,9 @@
 require('./AddOrEditCourse.css');
+
 import DDsort from '../comp/DDsort.js';//模板引擎
+
+//submit_AddOrEditCourse
+
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 import cvsDataHandle from '../comp/cvsDataHandle.js';//模板引擎
@@ -46,7 +50,7 @@ const tpl = {
 				<div class="item"><p><span class="line20px">{outline}</span></p></div>\
 				<div class="item"><p><span>\
 				<a href="JavaScript:;" class="edit">编辑</a>\
-				<a href="JavaScript:;" class="del {showDel}">删除</a></span></p></div>\
+				<a href="JavaScript:;" class="del {showDel}" data-lessonid="{lesson_id}">删除</a></span></p></div>\
 			</li>',
 	addLessonForm: '<ul class="pub_form">\
 			<li>\
@@ -197,6 +201,7 @@ $( '#lessons' ).DDSort({
     }
 });
 
+let delItems = [];
 
 $.mainBox.on('click', '#submit_course', function(){
 	const sub_data = $.form.get({
@@ -234,6 +239,7 @@ $.mainBox.on('click', '#submit_course', function(){
 
 		 
 	});
+	lessons = lessons.concat( delItems );
 
 	sub_data.target = '';
 
@@ -338,6 +344,14 @@ $.mainBox.on('click', '#submit_course', function(){
 }).on('click', '#lessons .del', function(){
 	$(this).parent().parent().parent().parent().remove();
 	$('[name=lesson_num]').val( $('#lessons li').length );
+
+	const lessonid = $(this).data('lessonid');
+	if( lessonid ){
+		let delItem = lastLessonsObj[ lessonid ];
+		delItem.snum = 0;
+		delItems.push( delItem );
+	}
+
 	numberHandle();
 }).on('change', '.inputFile', function(){
 	cvsDataHandle({
