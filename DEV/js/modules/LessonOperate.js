@@ -92,6 +92,38 @@ if( !sid ){
 	$('.pub_form ul').append('<li><span class="wide">课表自动重排</span><input type="checkbox" id="auto" class="m-checkbox" value="1"><label for="auto"></label></li>');	
 }
 
+
+let getLessonAbsenceAndAudits = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getLessonAbsenceAndAudits',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        classid: class_id,
+	        lessonid: lesson_id,
+            // sid: sid || undefined
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let dom = '<div class="list"><h5>缺勤学员</h5><p class="student"></p><h5>试听学员</h5><p class="visitor"></p></div>';
+	        let $dom = $(dom);
+	        res.data.forEach(function(item){
+	        	$dom.find( '.' + item.type ).append( '<span>' + item.sname + '</span>' )
+	        })
+	        $( '.period_edit' ).append( $dom );
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+getLessonAbsenceAndAudits();
+
 $.mainBox.on('click', '#submit_edit', ()=>{
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
