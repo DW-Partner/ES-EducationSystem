@@ -1,10 +1,6 @@
 require('./AddOrEditCourse.css');
-
 import DDsort from '../comp/DDsort.js';//模板引擎
-
 //submit_AddOrEditCourse
-
-
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 import cvsDataHandle from '../comp/cvsDataHandle.js';//模板引擎
 const tpl = {
@@ -86,13 +82,11 @@ let isObjectEqual = function(a, b) {
     // Create arrays of property names
     var aProps = Object.getOwnPropertyNames(a || {});
     var bProps = Object.getOwnPropertyNames(b || {});
- 
     // If number of properties is different,
     // objects are not equivalent
     if (aProps.length != bProps.length) {
         return false;
     }
- 
     for (var i = 0; i < aProps.length; i++) {
         var propName = aProps[i];
  
@@ -102,7 +96,6 @@ let isObjectEqual = function(a, b) {
             return false;
         }
     }
- 
     // If we made it this far, objects
     // are considered equivalent
     return true;
@@ -161,7 +154,7 @@ if( courseid ){
 	        $('.pub_form ul').html( html );
 	        const split = res.data.target.split('\n');
 
-			const showDel = res.data.isbinding : 'none' : '';
+			const showDel = res.data.isbinding ? 'none' : '';
 
 	        split.map(function(_item,_index){
 	        	_item.showDel = showDel;
@@ -171,8 +164,9 @@ if( courseid ){
 	        $('[name=fee_model]').val( res.data.fee_model );
 	        const lessons = res.data.lessons;
 	        let list="";
-	        lessons.map(function(item){
+	        lessons.map(function(item, i){
 	        	list += replaceTemplate( tpl.item, item );
+	        	item.snum = i+1;
 	        	delete item.lessonTime;
 	        	lastLessonsObj[ item.lesson_id ] = item;
 	        });
