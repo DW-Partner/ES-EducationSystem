@@ -134,6 +134,7 @@
 				$.mainBox.off();
 				$.distory();
 				that.addClass('on').siblings('.on').removeClass('on');
+				//html.replace(/\=\"\/res/ig,'="http://127.0.0.1/res')
 				$('#main_box').html( html );
 				$.mainBox.scrollTop(0);
 			},
@@ -168,6 +169,7 @@
 			success: (html)=>{
 				$.mainBox.off();
 				$.distory();
+				//html.replace(/\=\"\/res/ig,'="http://127.0.0.1/res')
 				$('#main_box').html( html );
 				if( hash ){
 					$( '#left_nav [data-href="/pss/' + hash + '"]' ).parent('li').addClass('on').siblings('.on').removeClass('on');
