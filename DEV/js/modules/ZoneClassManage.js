@@ -135,8 +135,9 @@ let deleteClass = (classid)=>{
 
 
 $.mainBox.on('click', '.audits', function(){
+    const num = +$(this).text();
     const classid = $(this).data('classid');
-    getClassAuditList( classid );
+    num && getClassAuditList( classid );
 }).on('click', '.deleteClass', function(){
     const classid = $(this).data('classid');
     deleteClass( classid );
