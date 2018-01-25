@@ -32,6 +32,11 @@
 .dialog_add_lesson .pub_form{
 	padding: 0 10px;
 }
+#lessons.body{
+	li{
+		cursor: move;
+	}
+}
 /*textarea{
 	border: 1px solid #E0E3E8;
 	font-size: 14px;
