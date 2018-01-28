@@ -4,7 +4,7 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const tpl = {
     class_option: '<option value="{class_id}">{class_name}</option>',
-    lesson_option: '<option value="{lesson_id}" data-time="{lesson_time}">{theme}</option>'
+    lesson_option: '<option value="{lesson_id}" data-time="{lesson_time}">{lesson_time} {theme}</option>'
 }
 
 const sid = $('#sid').val();
@@ -85,15 +85,15 @@ let getAuditLessonList = ()=>{
             let option_2 = '';
             let lesson_time = '';
             option_data[0].lessons.map(function( lesson, i ){
-                if( i==0 ){
-                    lesson_time = lesson.lesson_time;
-                }
+                // if( i==0 ){
+                //     lesson_time = lesson.lesson_time;
+                // }
                 option_2 += replaceTemplate( tpl.lesson_option, lesson );
             })
 
             $('[name=lesson_id]').html( option_2 );
-            $('[name=lesson_id]').siblings('span').remove();
-            $('[name=lesson_id]').parent().append( '<span>(上课时间：' + lesson_time + ')</span>' );
+            //$('[name=lesson_id]').siblings('span').remove();
+            //$('[name=lesson_id]').parent().append( '<span>(上课时间：' + lesson_time + ')</span>' );
 
         },
         error: ()=>{
@@ -150,7 +150,7 @@ $.mainBox.on('change', '[name=class_id]', function(){
         }
     })
 
-}).on('change', '[name=lesson_id]', function(){
+}).on('change', '[name=lesson_id111]', function(){
     const li = $(this).parent();
     const lesson_time = $(this).find('option:checked').data('time');
     li.find('span').remove();

@@ -23,9 +23,9 @@ const tpl = {
 
 //常规用法
 $.laydate.render({
-  elem: '#plan_time',
-  type: 'datetime',
-btns: ['confirm']
+	elem: '#plan_time',
+	type: 'datetime',
+	btns: ['confirm']
 });
 
 let getZoneTeacherList = ()=>{
