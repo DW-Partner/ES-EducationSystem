@@ -110,27 +110,34 @@ let getClassAuditList = (classid)=>{
 
 
 let deleteClass = (classid)=>{
-    $.ajax({
-        type: "post",
-        dataType: "json",
-        url: '/pss/deleteClass',
-        data: {
-            code: $('#zone_code').val(),
-            zoneid: $('#zone_zoneid').val(),
-            classid: classid
-        },
-        success: (res)=>{
-            if( res.errcode != 0 ){
-                $.dialogFull.Tips( res.errmsg );
-                 return;
-            }
-            $.dialogFull.Tips( "操作成功" );
-            getZoneClassesList();
-        },
-        error: ()=>{
-            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+    $.dialogFull.Pop({
+        title: '提示',//弹框标题
+        content: '确认删除该班级？',//弹框内容区
+        runDone: function($this, $thisBox, dialogClose) {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/pss/deleteClass',
+                data: {
+                    code: $('#zone_code').val(),
+                    zoneid: $('#zone_zoneid').val(),
+                    classid: classid
+                },
+                success: (res)=>{
+                    if( res.errcode != 0 ){
+                        $.dialogFull.Tips( res.errmsg );
+                         return;
+                    }
+                    $.dialogFull.Tips( "操作成功" );
+                    getZoneClassesList();
+                    dialogClose();
+                },
+                error: ()=>{
+                    $.dialogFull.Tips( "网络错误，请稍后重试！" );
+                }
+            })
         }
-    })
+    });
 }
 
 

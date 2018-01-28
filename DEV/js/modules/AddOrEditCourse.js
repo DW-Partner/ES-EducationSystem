@@ -70,7 +70,6 @@ const tpl = {
 
 // <textarea class="long" placeholder="请输入课程多维目标" name="target" data-validate="any" data-must="1">{target}</textarea>\
 
-
 let numberHandle = ()=>{
 	$('#lessons li').each(function(i){
 		$(this).find('span').eq(0).html(i+1)
@@ -89,7 +88,6 @@ let isObjectEqual = function(a, b) {
     }
     for (var i = 0; i < aProps.length; i++) {
         var propName = aProps[i];
- 
         // If values of same property are not equal,
         // objects are not equivalent
         if (a[propName] !== b[propName]) {
@@ -121,7 +119,7 @@ let getCourses = ()=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        let options = "";
+	        let options = '';
 			res.data.map(function(item){
 			    options += '<option value="' + item.id + '">' + item.name + '</option>'
 			});
@@ -207,6 +205,8 @@ $.mainBox.on('click', '#submit_course', function(){
 	sub_data.lesson_num = +sub_data.lesson_num;
 	sub_data.standard_time = +sub_data.standard_time;
 
+	numberHandle();
+
 	let lessons = [];
 	$('#lessons li').each(function(){
 		const span = $(this).find( 'span' );
@@ -253,7 +253,6 @@ $.mainBox.on('click', '#submit_course', function(){
 	sub_data.lessons = lessons;
 
 	sub_data.next_courseid = +sub_data.next_courseid
-	console.log(sub_data);
 
 	$.form.submit({
 		url: courseid ? '/pss/editCourse' : '/pss/addCourse',

@@ -1,6 +1,4 @@
-    require('./AddOrEditStudent.css');//引入css文件
-
-
+require('./AddOrEditStudent.css');//引入css文件
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const form_tpl = '<li>\
@@ -86,8 +84,6 @@ if( sid ){
     });
 }
 
-
-
 $.mainBox.on('click', '#submit_AddOrEdit', ()=>{
     const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
@@ -106,7 +102,6 @@ $.mainBox.on('click', '#submit_AddOrEdit', ()=>{
         sid: sid || undefined,
         page: page || 0
     }
-
 
     $.form.submit({
         url: sid ? '/pss/editStudent' : '/pss/addStudent',

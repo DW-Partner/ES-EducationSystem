@@ -131,9 +131,6 @@ let getZoneSummary = ()=>{
 getZoneSummary();
 
 
-
-
-
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
     const title_info = sid ? $(this).find('option:selected').text() + '的课程表' : '';

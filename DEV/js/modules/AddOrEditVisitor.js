@@ -1,6 +1,4 @@
 require('./AddOrEditVisitor.css');//引入css文件
-
-
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const form_tpl = '<li>\
 				<span><i>*</i>姓名</span>\
@@ -88,8 +86,6 @@ if( sid ){
 	   elem: '#birthday'
 	});
 }
-
-
 
 $.mainBox.on('click', '#submit_AddOrEdit', ()=>{
 	const sub_data = $.form.get({
