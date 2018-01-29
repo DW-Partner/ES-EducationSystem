@@ -6,12 +6,12 @@ const form_tpl = '<li>\
                 <input type="text" class="short" value="{name}" placeholder="请输入姓名" name="name" data-validate="any" data-must="1" />\
             </li>\
             <li>\
-                <span>出生日期</span>\
-                <input type="text" id="birthday" class="short" value="{birthday}" placeholder="请输入出生日期" name="birthday" data-validate="any" />\
+                <span><i>*</i>出生日期</span>\
+                <input type="text" id="birthday" class="short" value="{birthday}" placeholder="请输入出生日期" name="birthday" data-validate="any" data-must="1" />\
             </li>\
             <li>\
-                <span>性别</span>\
-                <select name="gender" data-validate="any" placeholder="请选择性别">\
+                <span><i>*</i>性别</span>\
+                <select name="gender" data-validate="any" placeholder="请选择性别" data-must="1">\
                     <option value="">请选择</option>\
                     <option value="男">男</option>\
                     <option value="女">女</option>\
@@ -22,8 +22,8 @@ const form_tpl = '<li>\
                 <input type="text" class="long" value="{address}" placeholder="请输入住址" name="address" data-validate="any" />\
             </li>\
             <li>\
-                <span>手机号</span>\
-                <input type="text" class="short" value="{mobile}" placeholder="请输入手机号" name="mobile" data-validate="mobile" />\
+                <span><i>*</i>手机号</span>\
+                <input type="text" class="short" value="{mobile}" placeholder="请输入手机号" name="mobile" data-validate="mobile" data-must="1" />\
             </li>\
             <li>\
                 <span>家长姓名</span>\
