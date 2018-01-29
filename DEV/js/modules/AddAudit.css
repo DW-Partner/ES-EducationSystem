@@ -7,6 +7,9 @@
 			text-align: right;
 			padding-right: 24px;
 		}
+		select.wider{
+			width: 320px;
+		}
 	}
 }
 .btn{
