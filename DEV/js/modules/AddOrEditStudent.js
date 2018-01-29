@@ -22,8 +22,8 @@ const form_tpl = '<li>\
                 <input type="text" class="long" value="{address}" placeholder="请输入住址" name="address" data-validate="any" />\
             </li>\
             <li>\
-                <span>电话</span>\
-                <input type="text" class="short" value="{mobile}" placeholder="请输入电话" name="mobile" data-validate="mobile" />\
+                <span>手机号</span>\
+                <input type="text" class="short" value="{mobile}" placeholder="请输入手机号" name="mobile" data-validate="mobile" />\
             </li>\
             <li>\
                 <span>家长姓名</span>\
