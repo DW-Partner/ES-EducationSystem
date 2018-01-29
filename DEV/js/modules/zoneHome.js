@@ -2,19 +2,19 @@
 	import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 	import changeFormat from '../kit/changeFormat.js';//时间轴转换
 	// import changeFormat from '../kit/changeFormat.js';//时间轴转换
-//{course_name}-课时{lesson_id}
-//data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}
+	//{course_name}-课时{lesson_id}
+	//data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}
 	const tpl = {
-		li: '<li class="item" title="{start_time}&#10 ~ &#10{end_time}"><a href="javascript:;" data-href="/pss/goClassInfo?classid={class_id}#goZoneClassManage">\
+		li: '<li class="item" title="{start_time} ~ {end_time}"><a href="javascript:;" data-href="/pss/goClassInfo?classid={class_id}#goZoneClassManage">\
 		<h6>{class_name}</h6><p>{teacher_name}</p> <span class="mark none">❤</span></a></li>',
 		info: '<span>开课班级 {classes}个</span> <span>授课教师 {teachers}个</span> <span>正式学员 {students}人</span> <span>试听学员 {audits}人</span>'
 	};
 
 	//classes":"xxx","teachers":"xxx","students":"xxx","audits":"x
 	//{"course_id":2,"start_time":"2017-11-17 10:23:19","teacher_name":"赵正","course_name":"中级绘画","teacher_id":1,"class_id":2,"lesson_time":60,"class_name":"中级","lesson_id":3}
-//
-                // <ul class="item_box">
-                // </ul>
+	//
+    // <ul class="item_box">
+    // </ul>
 
 let getZoneDayLessons = (date,type)=>{
     $.ajax({
@@ -48,8 +48,9 @@ let getZoneDayLessons = (date,type)=>{
 	        	$ul.addClass('item_box');
 	        	newData[ t ].map(function(li){
 
-	        		const e_times = new Date().getTime( li.start_time ) + (1000 * 60 * li.lesson_time);
-	        		li.end_time = changeFormat(e_times,'YYYY-MM-DD hh:mm:ss');
+	        		const e_times = new Date( li.start_time ).getTime() + (1000 * 60 * li.lesson_time);
+	        		li.end_time = changeFormat(e_times,'hh:mm:ss');
+	        		li.start_time = li.start_time.split(' ')[1];
 
 			        const html = replaceTemplate( tpl.li, li );
 
@@ -85,13 +86,13 @@ $('#s_date').val( changeFormat(false,'YYYY-MM-DD') );
 
 $.laydate.render({
 	elem: '#s_date',
-		type: 'date',
-		done: function(value, date){
-			getZoneSummary({
-				date: value
-			});
-			getZoneDayLessons(value,'teacher_id');
-		  }
+	type: 'date',
+	done: function(value, date){
+		getZoneSummary({
+			date: value
+		});
+		getZoneDayLessons(value,'teacher_id');
+	}
 });
 // const yesterdayTime = new Date().getTime() - (1000*60*60*24) 
 // const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD');
