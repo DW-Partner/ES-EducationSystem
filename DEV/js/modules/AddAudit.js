@@ -4,7 +4,7 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const tpl = {
     class_option: '<option value="{class_id}">{class_name}</option>',
-    lesson_option: '<option value="{lesson_id}" data-time="{lesson_time}">{lesson_time} {theme}</option>'
+    lesson_option: '<option value="{lesson_id}" data-time="{lesson_time}">{lesson_time}&nbsp;&nbsp;&nbsp;&nbsp;{theme}</option>'
 }
 
 const sid = $('#sid').val();
@@ -90,20 +90,15 @@ let getAuditLessonList = ()=>{
                 // }
                 option_2 += replaceTemplate( tpl.lesson_option, lesson );
             })
-
             $('[name=lesson_id]').html( option_2 );
             //$('[name=lesson_id]').siblings('span').remove();
             //$('[name=lesson_id]').parent().append( '<span>(上课时间：' + lesson_time + ')</span>' );
-
         },
         error: ()=>{
             $.dialogFull.Tips( "网络错误，请稍后重试！" );
         }
     })
-
 }
-
-
 
 let getVisitorDetail = ()=>{
     $.ajax({
