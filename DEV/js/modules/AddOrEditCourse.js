@@ -162,9 +162,10 @@ if( courseid ){
             const lessons = res.data.lessons;
             let list="";
             lessons.map(function(item, i){
-                _item.showDel = showDel;
+                item.showDel = showDel;
                 list += replaceTemplate( tpl.item, item );
                 item.snum = i+1;
+                delete item.showDel;
                 delete item.lessonTime;
                 lastLessonsObj[ item.lesson_id ] = item;
             });
@@ -204,8 +205,6 @@ $.mainBox.on('click', '#submit_course', function(){
     }
     sub_data.lesson_num = +sub_data.lesson_num;
     sub_data.standard_time = +sub_data.standard_time;
-
-    numberHandle();
 
     let lessons = [];
     $('#lessons li').each(function(){
