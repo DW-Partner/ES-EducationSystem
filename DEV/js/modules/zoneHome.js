@@ -5,7 +5,7 @@
 	//{course_name}-课时{lesson_id}
 	//data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}
 	const tpl = {
-		li: '<li class="item" title="{start_time} ~ {end_time}"><a href="javascript:;" data-href="/pss/goClassInfo?classid={class_id}#goZoneClassManage">\
+		li: '<li class="item" title="{s_start_time} ~ {end_time}"><a href="javascript:;" data-href="/pss/goClassInfo?classid={class_id}#goZoneClassManage">\
 		<h6>{class_name}</h6><p>{teacher_name}</p> <span class="mark none">❤</span></a></li>',
 		info: '<span>开课班级 {classes}个</span> <span>授课教师 {teachers}个</span> <span>正式学员 {students}人</span> <span>试听学员 {audits}人</span>'
 	};
@@ -50,7 +50,7 @@ let getZoneDayLessons = (date,type)=>{
 
 	        		const e_times = new Date( li.start_time ).getTime() + (1000 * 60 * li.lesson_time);
 	        		li.end_time = changeFormat(e_times,'hh:mm:ss');
-	        		li.start_time = li.start_time.split(' ')[1];
+	        		li.s_start_time = li.start_time.split(' ')[1];
 
 			        const html = replaceTemplate( tpl.li, li );
 
