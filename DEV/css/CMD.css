@@ -581,9 +581,9 @@ label {
     font-size: 14px;
     min-height: 230px;
     li{
-      min-height: 90px;
-      padding: 10px 0;
-      line-height: 30px;
+      min-height: 80px;
+      padding: 16px 0;
+      line-height: 24px;
       border-top: 1px solid #eaeaea;
       display: flex;
       .item{
@@ -605,6 +605,7 @@ label {
       }
       &:hover{
         background-color: #eaeaea;
+        background-color: #FEFEF5;
       };
       .line20px{
         line-height: 20px;    

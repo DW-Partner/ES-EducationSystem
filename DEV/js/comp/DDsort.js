@@ -29,11 +29,12 @@
             target: 'li',
             delay: 100,
             cloneStyle: {
-                'background-color': '#eee'
+                'background-color': '#fff'
             },
             floatStyle: {
                 // 用固定定位可以防止定位父级不是Body的情况的兼容处理，表示不兼容IE6，无妨
                 'position': 'fixed',
+                'background-color': '#FEFEF2',
                 'box-shadow': '10px 10px 20px 0 #eee',
             }
         };
