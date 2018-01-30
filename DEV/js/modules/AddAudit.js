@@ -140,16 +140,16 @@ $.mainBox.on('change', '[name=class_id]', function(){
                 option_2 += replaceTemplate( tpl.lesson_option, lesson );
             })
             $('[name=lesson_id]').html( option_2 );
-            li.find('span').remove();
-            li.append( '<span>(上课时间：' + lesson_time + ')</span>' );
+            // li.find('span').remove();
+            // li.append( '<span>(上课时间：' + lesson_time + ')</span>' );
         }
     })
 
 }).on('change', '[name=lesson_id111]', function(){
     const li = $(this).parent();
     const lesson_time = $(this).find('option:checked').data('time');
-    li.find('span').remove();
-    li.append( '<span>(上课时间：' + lesson_time + ')</span>' );
+    // li.find('span').remove();
+    // li.append( '<span>(上课时间：' + lesson_time + ')</span>' );
 }).on('click', '#submit', function(){
     const sub_data = $.form.get();
     if( !sub_data ){
