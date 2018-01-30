@@ -54,7 +54,7 @@ let getZoneDayLessons = (date,type)=>{
 
 			        const html = replaceTemplate( tpl.li, li );
 
-			        const time = li.start_time.split(' ')[1] || '8:00:00';
+			        const time = li.start_time || '8:00:00';
 
 					const num = +time.split(':').join('');
 

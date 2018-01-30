@@ -13,7 +13,7 @@ const _from = $('#from').val();
 $.mainBox.on('click', '#search', ()=>{
 	let sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
-        value_true_out: true
+        get_empty: false
 	});
 	// if( !sub_data ){
 	// 	return;
