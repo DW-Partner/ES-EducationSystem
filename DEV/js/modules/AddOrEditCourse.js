@@ -298,7 +298,7 @@ $.mainBox.on('click', '#submit_course', function(){
         }
 
     });
-    $('.dialog_add_lesson [name="outline"]').val( $('[name="outline"]').eq(0).val() );
+    //$('.dialog_add_lesson [name="outline"]').val( $('[name="outline"]').eq(0).val() );
 })
 .on('click', '#lessons .edit', function(){
 
