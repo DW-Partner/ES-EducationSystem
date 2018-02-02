@@ -151,8 +151,11 @@ if( courseid ){
             const html = replaceTemplate( tpl.form_tpl, res.data );
             $('.pub_form ul').html( html );
             const split = res.data.target.split('\n');
-
-            const showDel = res.data.isbinding == 'true' ? 'none' : '';
+            const isbinding = res.data.isbinding == 'true';
+            if( isbinding ){
+                $('#add_lesson').after('<span clas="sort_tips">课时顺序调整不影响已经开班的班级！</span>');
+            }
+            const showDel = isbinding == 'true' ? 'none' : '';
 
             split.map(function(_item,_index){
                 $('.target_item').eq( _index ).val(_item)
