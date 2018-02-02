@@ -207,4 +207,15 @@ $.mainBox.on('change', '#students', function(){
 			})
         }
 	});
+}).on('mouseenter', '.class_list .status_2', function(e){
+	let self = $(this);
+	self.data('req', 1);
+	setTimeout(function(){
+		if( self.data('req') == 0 ){
+			return;
+		}
+		//fn();
+	},1000)
+}).on('mouseleave', '.class_list .status_2', function(e){
+	$(this).data('req', 0);
 })
