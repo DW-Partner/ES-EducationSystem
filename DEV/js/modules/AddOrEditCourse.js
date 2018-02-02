@@ -333,21 +333,26 @@ $.mainBox.on('click', '#submit_course', function(){
             _item.find('span').eq(3).text( sub_data.outline );
             dialogClose();
         }
-
     });
 
 }).on('click', '#lessons .del', function(){
-    $(this).parent().parent().parent().parent().remove();
-    $('[name=lesson_num]').val( $('#lessons li').length );
-
-    const lessonid = $(this).data('lessonid');
-    if( lessonid ){
-        let delItem = lastLessonsObj[ lessonid ];
-        delItem.snum = 0;
-        delItems.push( delItem );
-    }
-
-    numberHandle();
+    let self = $(this);
+    $.dialogFull.Pop({
+        boxClass: '.dialog_add_lesson',
+        title: '删除课时',//弹框标题
+        content: '确定删除课时？',//弹框内容区
+        runDone: function($this, $thisBox, dialogClose) {
+            self.parent().parent().parent().parent().remove();
+            $('[name=lesson_num]').val( $('#lessons li').length );
+            const lessonid = self.data('lessonid');
+            if( lessonid ){
+                let delItem = lastLessonsObj[ lessonid ];
+                delItem.snum = 0;
+                delItems.push( delItem );
+            }
+            numberHandle();
+        }
+    });
 }).on('change', '.inputFile', function(){
     cvsDataHandle({
         input: this,
