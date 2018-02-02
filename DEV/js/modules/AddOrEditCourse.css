@@ -29,6 +29,12 @@
 		display: none;
 	}
 }
+.sort_tips{
+    padding: 0 0 0 20px;
+    color: #999;
+    position: relative;
+    top: -8px;
+}
 .dialog_add_lesson .pub_form{
 	padding: 0 10px;
 }
