@@ -69,11 +69,20 @@
 	min-width: 985px;
 	padding: 0 30px;
     margin: 30px auto;
-	overflow: auto;
+	&:after{
+		display:block;
+		clear:both;
+		content:"";
+		visibility:hidden;
+		height:0
+	} 
 	li{
 		width: 20%;
 		height: 140px;
 		float: left;
+		a{
+			color: #fff;
+		}
 		.info{
 			position: relative;
 			display: inline-block;
@@ -85,6 +94,29 @@
 			background-size: 100% 100%;
 			line-height: 20px;
 			cursor: pointer;
+			z-index: 1;
+			.list{
+				width: 175px;
+				padding: 10px;
+			    position: absolute;
+			    left: 100px;
+			    top: 50px;
+			    background: #fff;
+			    cursor: default;
+			    display: none;
+			    color: #666;
+			    h5{
+				    font-size: 14px;
+				    font-weight: normal;
+				    text-align: left;
+				    line-height: 28px;
+			    }
+			    p{
+			    	padding: 0;
+			    	line-height: 22px;
+			    	text-align: left;
+			    }
+			}
 			em{
 				position: absolute;
 				width: 27px;
@@ -120,6 +152,9 @@
 			&.status_0{
 				background-image: url(../../images/bg_classInfo_0.png);
 				color: #666;
+				a{
+					color: #666;
+				}
 
 				&:hover{
 					strong{

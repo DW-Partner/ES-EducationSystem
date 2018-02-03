@@ -17,17 +17,18 @@ const tpl = {
 	// <span>上课时间<em>{start_time}</em></span><span>预招人数<em>{reserve_num}</em></span><span>实际学员人数<em>{students_num}</em></span><span>讲师<em>{teacher}</em></span>',
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
 	list: '<li>\
+			<div class="info status_{lesson_status}" data-status="{lesson_status}" data-lessonid="{lesson_id}">\
 			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}&sid={sid}">\
-			<div class="info status_{lesson_status}" data-lessonid="{lesson_id}">\
 			<h6>{theme}</h6>\
 			<p>{lesson_time}</p>\
-			<strong data-lessonid="{lesson_id}">{del}</strong>\
-			</div></a>\
+			<strong data-lessonid="{lesson_id}">{del}</strong></a>\
+			</div>\
 			<div class="arrow"></div>\
 			</li>',
 	span: '<span>{sid}:{student_name}</span>',
 };
 const classid = $('#classid').val();
+const sid = $('#sid').val();
 
 let getClassLessonsList = (sid, title_info)=>{
 	// start 3.21
@@ -117,11 +118,17 @@ let getZoneSummary = ()=>{
 			    select += '<option value="' + item.sid + '">' + item.name + '</option>'
 			});
 			select += '</select>';
-
 	        const html = replaceTemplate( tpl.info, res.data );
 	        $('.dataBox').html( html );
 	        $('.run').html( select );
-	        getClassLessonsList('');
+	        $('#students').val( sid || '' );
+		    const title_info = sid ? $('#students').find('option:selected').text() + '的课程表' : '';
+		    if( sid ){
+		    	$('.dataBox').hide();
+		    }else{
+		    	$('.dataBox').show();
+		    }
+	        getClassLessonsList( sid || '', title_info );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -131,11 +138,95 @@ let getZoneSummary = ()=>{
 getZoneSummary();
 
 
+
+let getLessonAbsenceAndAudits = (that,lessonid)=>{
+	let list = that.find( '.list' );
+	if(list.length){
+		list.show();
+		return;
+	}
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getLessonAbsenceAndAudits',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        classid: classid,
+	        lessonid: lessonid,
+            // sid: sid || undefined
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let dom = '<div class="list"><h5>缺勤学员：</h5><p class="student"></p><h5>试听学员：</h5><p class="visitor"></p></div>';
+	        let $dom = $(dom);
+	        res.data.forEach(function(item){
+	        	$dom.find( '.' + item.type ).append( '<span>' + item.sname + '</span>' )
+	        })
+	        that.append( $dom );
+	        that.find('.list').show();
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+
+
+let getLessonsMissList = (that,lessonid)=>{
+	let list = that.find( '.list' );
+	if(list.length){
+		list.show();
+		return;
+	}
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getLessonsMissList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        classid: classid,
+	        lessonid: lessonid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let span = '';
+			res.data.map(function(item){
+	        	span += replaceTemplate( tpl.span, item );
+
+			});
+	        let dom = '<div class="list"><h5>缺勤学员：</h5><p></p></div>';
+	        let $dom = $(dom);
+	        $dom.find('p').html(span);
+	        that.append( $dom );
+	        that.find('.list').show();
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})	
+}
+
+
+
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
     const title_info = sid ? $(this).find('option:selected').text() + '的课程表' : '';
     getClassLessonsList(sid, title_info);
-}).on('click', '.status_0, .status_3', function(){
+    if( sid ){
+    	$('.dataBox').hide();
+    }else{
+    	$('.dataBox').show();
+    }
+}).on('click', '.status_0xx, .status_3xx', function(){
 	const lessonid = $(this).data('lessonid');
     $.ajax({
 	    type: "post",
@@ -207,15 +298,21 @@ $.mainBox.on('change', '#students', function(){
 			})
         }
 	});
-}).on('mouseenter', '.class_list .status_2', function(e){
+}).on('mouseenter', '.class_list .info', function(e){
 	let self = $(this);
 	self.data('req', 1);
 	setTimeout(function(){
 		if( self.data('req') == 0 ){
 			return;
 		}
-		//fn();
+		const lessonid = self.data('lessonid');
+		const status = self.data('status');
+		if( status == 1 || status == 2 ){
+			getLessonAbsenceAndAudits( self, lessonid );
+		}else{
+			getLessonsMissList( self, lessonid );
+		}
 	},1000)
-}).on('mouseleave', '.class_list .status_2', function(e){
-	$(this).data('req', 0);
+}).on('mouseleave', '.class_list .info', function(e){
+	$(this).data('req', 0).find( '.list' ).hide();
 })

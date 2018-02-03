@@ -122,7 +122,7 @@ let getLessonAbsenceAndAudits = ()=>{
 	    }
 	})
 }
-getLessonAbsenceAndAudits();
+//getLessonAbsenceAndAudits();
 
 $.mainBox.on('click', '#submit_edit', ()=>{
 	const sub_data = $.form.get({
