@@ -161,7 +161,7 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 			}
         	$.dialogFull.Tips( "提交成功！" );
          	$.ajaxGetHtml({
-         		url: res.data.url
+         		url: res.data.url + '&sid=' + (sid || '');
          	});
 		},
         error: function(){

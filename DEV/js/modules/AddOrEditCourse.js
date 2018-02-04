@@ -153,7 +153,7 @@ if( courseid ){
             const split = res.data.target.split('\n');
             const isbinding = res.data.isbinding == 'true';
             if( isbinding ){
-                $('#add_lesson').after('<span clas="sort_tips">课时顺序调整不影响已经开班的班级！</span>');
+                $('#add_lesson').after('<span class="sort_tips">课时顺序调整不影响已经开班的班级！</span>');
             }
             const showDel = isbinding == 'true' ? 'none' : '';
 

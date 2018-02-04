@@ -161,11 +161,17 @@ let getLessonAbsenceAndAudits = (that,lessonid)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        let dom = '<div class="list"><h5>缺勤学员：</h5><p class="student"></p><h5>试听学员：</h5><p class="visitor"></p></div>';
+	        let dom = '<div class="list"><p class="student"><span>缺勤学员：</span></p><p class="visitor"><span>试听学员：</span></p></div>';
 	        let $dom = $(dom);
 	        res.data.forEach(function(item){
 	        	$dom.find( '.' + item.type ).append( '<span>' + item.sname + '</span>' )
-	        })
+	        });
+	        if( !$dom.find( '.student' ).find('span').length==1 ){
+	        	$dom.find( '.student' ).append('<span>无</span>');
+	        }
+	        if( !$dom.find( '.visitor' ).find('span').length==1 ){
+	        	$dom.find( '.visitor' ).append('<span>无</span>');
+	        }
 	        that.append( $dom );
 	        that.find('.list').show();
 	    },
@@ -174,8 +180,6 @@ let getLessonAbsenceAndAudits = (that,lessonid)=>{
 	    }
 	})
 }
-
-
 
 let getLessonsMissList = (that,lessonid)=>{
 	let list = that.find( '.list' );
@@ -201,11 +205,10 @@ let getLessonsMissList = (that,lessonid)=>{
 	        let span = '';
 			res.data.map(function(item){
 	        	span += replaceTemplate( tpl.span, item );
-
 			});
-	        let dom = '<div class="list"><h5>缺勤学员：</h5><p></p></div>';
+	        let dom = '<div class="list"><span>缺勤学员：</span></div>';
 	        let $dom = $(dom);
-	        $dom.find('p').html(span);
+	        $dom.append(span || '<span>无</span>');
 	        that.append( $dom );
 	        that.find('.list').show();
 	    },
@@ -299,6 +302,9 @@ $.mainBox.on('change', '#students', function(){
         }
 	});
 }).on('mouseenter', '.class_list .info', function(e){
+	if( $('#students').val() ){
+		return;
+	}
 	let self = $(this);
 	self.data('req', 1);
 	setTimeout(function(){
@@ -314,5 +320,8 @@ $.mainBox.on('change', '#students', function(){
 		}
 	},1000)
 }).on('mouseleave', '.class_list .info', function(e){
+	if( $('#students').val() ){
+		return;
+	}
 	$(this).data('req', 0).find( '.list' ).hide();
 })
