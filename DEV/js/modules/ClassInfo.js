@@ -164,14 +164,20 @@ let getLessonAbsenceAndAudits = (that,lessonid)=>{
 	        let dom = '<div class="list"><p class="student"><span>缺勤学员：</span></p><p class="visitor"><span>试听学员：</span></p></div>';
 	        let $dom = $(dom);
 	        res.data.forEach(function(item){
-	        	$dom.find( '.' + item.type ).append( '<span>' + item.sname + '</span>' )
+	        	$dom.find( '.' + item.type ).append( '<span>' + item.sname + '、</span>' )
 	        });
-	        if( !$dom.find( '.student' ).find('span').length==1 ){
+	        if( $dom.find( '.student' ).find('span').length==1 ){
 	        	$dom.find( '.student' ).append('<span>无</span>');
 	        }
-	        if( !$dom.find( '.visitor' ).find('span').length==1 ){
+	        if( $dom.find( '.visitor' ).find('span').length==1 ){
 	        	$dom.find( '.visitor' ).append('<span>无</span>');
 	        }
+	        let last_student = $dom.find( '.student' ).find('span').eq(-1);
+	        last_student.text( last_student.text().replace('、','') );
+
+	        let last_visitor = $dom.find( '.visitor' ).find('span').eq(-1);
+	        last_visitor.text( last_student.text().replace('、','') );
+
 	        that.append( $dom );
 	        that.find('.list').show();
 	    },
@@ -202,13 +208,12 @@ let getLessonsMissList = (that,lessonid)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        let span = '';
-			res.data.map(function(item){
-	        	span += replaceTemplate( tpl.span, item );
+	        let span = res.data.map(function(item){
+	        	return replaceTemplate( tpl.span, item );
 			});
 	        let dom = '<div class="list"><span>缺勤学员：</span></div>';
 	        let $dom = $(dom);
-	        $dom.append(span || '<span>无</span>');
+	        $dom.append(span.join('、') || '<span>无</span>');
 	        that.append( $dom );
 	        that.find('.list').show();
 	    },

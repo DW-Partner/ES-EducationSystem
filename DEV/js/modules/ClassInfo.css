@@ -105,6 +105,7 @@
 			    cursor: default;
 			    display: none;
 			    color: #666;
+			    z-index: 1;
 			    h5{
 				    font-size: 14px;
 				    font-weight: normal;
