@@ -79,7 +79,11 @@
 	li{
 		width: 20%;
 		height: 140px;
+		position: relative;
 		float: left;
+		&:hover{
+			z-index: 2;
+		};
 		a{
 			color: #fff;
 		}
