@@ -351,6 +351,7 @@ $.mainBox.on('click', '#submit_course', function(){
                 delItems.push( delItem );
             }
             numberHandle();
+            dialogClose();
         }
     });
 }).on('change', '.inputFile', function(){
