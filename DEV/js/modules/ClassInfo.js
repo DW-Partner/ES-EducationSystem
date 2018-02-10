@@ -161,7 +161,7 @@ let getLessonAbsenceAndAudits = (that,lessonid)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        let dom = '<div class="list"><p class="student"><span>缺勤学员：</span></p><p class="visitor"><span>试听学员：</span></p></div>';
+	        let dom = '<div class="list"><p class="student"><span>请假学员：</span></p><p class="visitor"><span>试听学员：</span></p></div>';
 	        let $dom = $(dom);
 	        res.data.forEach(function(item){
 	        	$dom.find( '.' + item.type ).append( '<span>' + item.sname + '、</span>' )
@@ -323,7 +323,7 @@ $.mainBox.on('change', '#students', function(){
 		}else{
 			getLessonsMissList( self, lessonid );
 		}
-	},1000)
+	},500)
 }).on('mouseleave', '.class_list .info', function(e){
 	if( $('#students').val() ){
 		return;

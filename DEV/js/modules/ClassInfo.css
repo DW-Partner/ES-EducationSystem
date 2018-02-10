@@ -79,8 +79,8 @@
 	li{
 		width: 20%;
 		height: 140px;
-		position: relative;
 		float: left;
+		position: relative;
 		&:hover{
 			z-index: 2;
 		};
@@ -159,6 +159,7 @@
 				color: #666;
 				a{
 					color: #666;
+				    cursor: default;
 				}
 
 				&:hover{
