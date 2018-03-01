@@ -41,5 +41,8 @@
 		transform:scale(1.6);
 		cursor: pointer;  
 	}
+	a.disabled{
+		color: #999;
+	}
 }
 
