@@ -1,9 +1,9 @@
 require('./InAndOutCome.css');//引入css文件
-require('../comp/laydate/laydate.css');//引入css文件
-$.laydate.render({
-	elem: '#date',
-	type: 'date'
-});
+// require('../comp/laydate/laydate.css');//引入css文件
+// $.laydate.render({
+// 	elem: '#date',
+// 	type: 'date'
+// });
 $.mainBox.on('click', '#submitInAndOutCome', ()=>{
 		const input_data = $.form.get();
 		if( !input_data ){
@@ -28,7 +28,8 @@ $.mainBox.on('click', '#submitInAndOutCome', ()=>{
 				}
              	$.dialogFull.Tips('操作成功！');
 	            $.ajaxGetHtml({
-	         		url: res.data.url,
+	         		//url: res.data.url,
+	         		url: '/pss/goMsgFromSchool'
 	         	})
 			},
             error: function(){
