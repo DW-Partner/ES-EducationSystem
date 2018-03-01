@@ -79,7 +79,16 @@ let MsgFromSchool = ()=>{
         eachDataHandle: function(msg,pageNum,pageSize){
         	msg.checked = msg.status == '已处理' ? 'checked' : '';
         	msg.status = msg.status == '已处理' ? 'disabled' : '';
-        	msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" data-href="/pss/goInAndOutCome">填写当日流水</a>')
+
+			if( msg.content.indexOf('填写当日流水') > -1 ){
+				msg.status = 'disabled';
+			}
+			if( msg.status == '已处理' ){
+        		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" class="disabled">填写当日流水</a>')
+			}else{
+        		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" data-href="/pss/goInAndOutCome?date=' + msg.time + '">填写当日流水</a>')
+			}
+
         	return msg
         },//Function : 
 	    eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
