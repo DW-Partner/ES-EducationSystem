@@ -29,7 +29,10 @@ $.mainBox.on('click', '#submitInAndOutCome', ()=>{
              	$.dialogFull.Tips('操作成功！');
 	            $.ajaxGetHtml({
 	         		//url: res.data.url,
-	         		url: '/pss/goMsgFromSchool'
+	         		url: '/pss/goMsgFromSchool',
+	         		data: {
+	         			page: $('#page').val()
+	         		}
 	         	})
 			},
             error: function(){
