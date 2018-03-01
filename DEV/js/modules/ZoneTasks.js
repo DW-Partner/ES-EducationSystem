@@ -86,7 +86,7 @@ let MsgFromSchool = ()=>{
 			if( msg.status == '已处理' ){
         		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" class="disabled">填写当日流水</a>')
 			}else{
-        		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" data-href="/pss/goInAndOutCome?date=' + msg.time + '">填写当日流水</a>')
+        		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" data-href="/pss/goInAndOutCome?date=' + msg.time + '&page=' + msg_page + '">填写当日流水</a>')
 			}
 
         	return msg
@@ -103,7 +103,8 @@ let MsgFromSchool = ()=>{
 	    },
 	    ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
 	        $.dialogFull.Tips( "网络错误，请稍后重试" );
-	    }
+	    },
+        gotoIndex: +$('#page').val()
 	});
 	// end
 }
