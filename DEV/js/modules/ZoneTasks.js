@@ -86,7 +86,7 @@ let MsgFromSchool = ()=>{
 			if( msg.checked ){
         		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" class="disabled">填写当日流水</a>')
 			}else{
-        		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" data-href="/pss/goInAndOutCome?date=' + msg.time + '&page=' + msg._page + '">填写当日流水</a>')
+        		msg.content = msg.content.replace( /填写当日流水/g, '<a href="javascript:;" data-href="/pss/goInAndOutCome?date=' + msg.time.split(' ')[0] + '&page=' + msg._page + '">填写当日流水</a>')
 			}
 
         	return msg
