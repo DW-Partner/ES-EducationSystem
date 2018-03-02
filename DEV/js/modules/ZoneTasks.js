@@ -176,8 +176,8 @@ $.mainBox.on('change', '#ZoneTaskList input', function(){
 				$(this).removeAttr('disabled');
 	            return;
 	        }
-	        const html = replaceTemplate( tpl, res.data );
-	        $('.classLi').html( html );
+	        //const html = replaceTemplate( tpl, res.data );
+	        //$('.classLi').html( html );
 	    },
 	    error: ()=>{
 			$(this).removeAttr('disabled');
@@ -202,8 +202,8 @@ $.mainBox.on('change', '#ZoneTaskList input', function(){
 				$(this).removeAttr('disabled');
 	             return;
 	        }
-	        const html = replaceTemplate( tpl, res.data );
-	        $('.classLi').html( html );
+	        //const html = replaceTemplate( tpl, res.data );
+	        //$('.classLi').html( html );
 	    },
 	    error: ()=>{
 			$(this).removeAttr('disabled');
