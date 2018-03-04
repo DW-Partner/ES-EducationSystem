@@ -950,6 +950,14 @@ input[type="number"]{
   .user{
     float: right;
   }
+  .flagship{
+    padding: 0 0 0 28px;
+    background-image: url(../images/icon_flagship.jpg);
+    background-size: 22px 22px;
+    background-position: 0 center;
+    background-repeat: no-repeat;
+
+  }
   a,.times{
     color: #AAAEB3;
     margin-left: 20px;

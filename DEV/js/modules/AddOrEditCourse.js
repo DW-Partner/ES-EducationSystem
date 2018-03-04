@@ -112,7 +112,7 @@ let getCourses = ()=>{
         dataType: "json",
         url: '/pss/getCourses',
         data: {
-            code: $('#school_code').val()
+            code: $('#school_code').val() || $('#zone_code').val()
         },
         success: (res)=>{
             if( res.errcode != 0 ){
@@ -259,7 +259,7 @@ $.mainBox.on('click', '#submit_course', function(){
     $.form.submit({
         url: courseid ? '/pss/editCourse' : '/pss/addCourse',
         data: {
-            code: $('#school_code').val(),
+            code: $('#school_code').val() || $('#zone_code').val(),
             courseid: courseid ? courseid : '',
             data: JSON.stringify( sub_data )
         },

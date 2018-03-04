@@ -71,7 +71,7 @@ let getZoneList = (zone_id)=>{
         dataType: "json",
         url: '/pss/getZoneList',
         data: {
-            code: $('#school_code').val()
+            code: $('#school_code').val() || $('#zone_code').val()
         },
         success: (res)=>{
             if( res.errcode != 0 ){
@@ -109,7 +109,7 @@ let getTeacherDetail = ()=>{
 	    dataType: "json",
 	    url: '/pss/getTeacherDetail',
 	    data: {
-	        code: $('#school_code').val(),
+	        code: $('#school_code').val() || $('#zone_code').val(),
 	        tid: tid
 	    },
 	    success: (res)=>{
@@ -150,7 +150,7 @@ $.mainBox.on('click', '#submit_AddOrEditTeacher', function(){
 	sub_data.zone_id = +sub_data.zone_id;
 
     let ajaxData = {
-        code: $('#school_code').val(),
+        code: $('#school_code').val() || $('#zone_code').val(),
         tid: tid,
 		data: JSON.stringify( sub_data )
     }

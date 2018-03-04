@@ -18,7 +18,7 @@ let getTeacherList = ()=>{
         ajaxUrl: '/pss/getTeacherList',
         ajaxType: 'post',
         ajaxData: {
-            code: $('#school_code').val()
+            code: $('#school_code').val() || $('#zone_code').val()
         },//上行参数
         template: tpl,//列表模板
         listKey: ['data','list'],//下行结构

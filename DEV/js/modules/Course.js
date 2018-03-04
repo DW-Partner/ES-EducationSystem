@@ -19,7 +19,7 @@ $.jsonPage({
     ajaxUrl: '/pss/getCourses',
     ajaxType: 'post',
     ajaxData: {
-        code: $('#school_code').val()
+        code: $('#school_code').val() || $('#zone_code').val()
     },//上行参数
     template: tpl.list,//列表模板
     listKey: ['data'],//下行结构

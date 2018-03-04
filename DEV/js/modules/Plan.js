@@ -16,7 +16,7 @@ const tpl = {
 let getList = ()=>{
 
     let ajaxData = {
-        code: $('#school_code').val(),
+        code: $('#school_code').val() || $('#zone_code').val(),
         courseid: $('#courseid').val(),
         theme: $('.page_head input').val()
     }

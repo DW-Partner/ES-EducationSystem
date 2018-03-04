@@ -64,7 +64,7 @@ let run_qrcode = (tips)=>{
 	    dataType: "json",
 	    url: '/pss/updateQrcode',
 	    data: {
-	        code: $('#school_code').val(),
+	        code: $('#school_code').val() || $('#zone_code').val(),
 	        zoneid: zoneid,
 	        usertype: 'teacher',
 	        userid: tid,
@@ -102,7 +102,7 @@ let getTeacherDetail = ()=>{
 	    dataType: "json",
 	    url: '/pss/getTeacherDetail',
 	    data: {
-	        code: $('#school_code').val(),
+	        code: $('#school_code').val() || $('#zone_code').val(),
 	        tid: tid
 	    },
 	    success: (res)=>{
@@ -133,7 +133,7 @@ let getTeacherWorkInfo = ()=>{
 	    dataType: "json",
 	    url: '/pss/getTeacherWorkInfo',
 	    data: {
-	        code: $('#school_code').val(),
+	        code: $('#school_code').val() || $('#zone_code').val(),
 	        tid: tid
 	    },
 	    success: (res)=>{
@@ -159,7 +159,7 @@ let action = ()=>{
 	    dataType: "json",
 	    url: '/pss/teachAction',
 	    data: {
-	        code: $('#school_code').val(),
+	        code: $('#school_code').val() || $('#zone_code').val(),
 	        tid: tid,
 	        action: run_action
 	    },

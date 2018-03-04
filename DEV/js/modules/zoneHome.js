@@ -1,6 +1,7 @@
 	require('./zoneHome.css');//引入css文件
 
 	var echarts = require('echarts');
+	const flagship = $( '#flagship' ).val() == 1 ? true : false;
 
 	import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 	import changeFormat from '../kit/changeFormat.js';//时间轴转换
@@ -178,6 +179,9 @@ let getZoneDayLessons = (date,type)=>{
 }
 
 $('#s_date').val( changeFormat(false,'YYYY-MM-DD') );
+flagship ? $('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
+	<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
+	<li><a href="javascript:;" data-href="/pss/goTeacher">教师员工</a></li>' ) : '';
 
 $.laydate.render({
 	elem: '#s_date',

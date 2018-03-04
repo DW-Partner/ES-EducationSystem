@@ -83,7 +83,7 @@ if( zoneid ){
 			$('#city').html( _citys ).val( res.data.city ).attr('disabled','disabled');
 			addressHandle( adress_data[0].list );
 	    	$('#area').val( res.data.area ).attr('disabled','disabled');
-		    res.data.flagship == 'true' ? $('#flagship').prop('checked',true) : '';
+		    res.data.flagship == 1 ? $('#flagship').prop('checked',true) : '';
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -110,7 +110,7 @@ $.mainBox.on('click', '#submit_AddOrEditZone', function(){
         $.dialogFull.Tips( '主营项目不得超过3项，请重新编辑！' );
 	}
 
-	sub_data.flagship = $('#flagship:checked').val() ? 'true' : 'false';
+	sub_data.flagship = $('#flagship:checked').val() ? 1 : 0;
 
 	$.form.submit({
 		url: zoneid ? '/pss/editZone' : '/pss/addZone',
