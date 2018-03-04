@@ -64,3 +64,39 @@
 		padding-right: 20px;
 	}
 }
+
+
+
+	.echartsBox{
+		background-color: #FFF;
+		margin-bottom: 20px;
+		position: relative;
+		padding: 30px;
+		.selectBox{
+			position: absolute;
+			top: 30px;
+			left: 300px;
+			z-index: 1;
+		}
+		.echarts{
+			height: 427px;
+		}
+	}
+	input[type=text],input[type=date], input[type=week], input[type=month], input[type=number], input[type=password], textarea {
+      color: #212224;
+      font-size: 14px;
+      line-height: 18px;
+      padding: 8px;
+      border-radius: 4px;
+      width: 200px;
+    }
+    .entey_date{
+    	margin: 0 4px 0 3px;
+    	height: 32px;
+    }
+    .btn{
+    	height: 34px;
+    }
+	.echartSelect_zone{
+		width:200px;
+	}

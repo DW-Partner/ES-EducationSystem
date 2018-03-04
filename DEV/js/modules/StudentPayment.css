@@ -1,4 +1,13 @@
 .pub_form{
+	overflow: auto;
+	.left,.right{
+		float: left;
+	}
+	.left{
+		width: 600px;
+		border-right: 1px solid #eaeaea;
+		margin: 0 30px;
+	}
 	li{
 		input[type=text].short{
     		margin-right: 5px;

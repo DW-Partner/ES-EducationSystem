@@ -1,4 +1,7 @@
 	require('./zoneHome.css');//引入css文件
+
+	var echarts = require('echarts');
+
 	import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 	import changeFormat from '../kit/changeFormat.js';//时间轴转换
 	// import changeFormat from '../kit/changeFormat.js';//时间轴转换
@@ -9,6 +12,98 @@
 		<h6>{class_name}</h6><p>{teacher_name}</p> <span class="mark none">❤</span></a></li>',
 		info: '<span>开课班级 {classes}个</span> <span>授课教师 {teachers}个</span> <span>正式学员 {students}人</span> <span>试听学员 {audits}人</span>'
 	};
+
+	var myChart1 = echarts.init(document.getElementById('echart1'));
+
+	// 绘制图表
+	let option_1 = {
+	    title: { text: '校区经营数据详情' },
+	    tooltip: {
+	        enterable:true,
+	        trigger: 'axis',
+	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+	        }
+	    },
+	    xAxis: {
+	        data: ["网络错误，请稍后重试"]
+	    },
+	    yAxis: {},
+	    series: [{
+	        name: '',
+	        type: 'bar',
+	        data: [1]
+	    }]
+	};
+
+
+
+	let getZoneList_times = {
+	    day: ()=>{
+	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * 20) );
+	    },
+	    week: ()=>{
+	        let getTime = new Date().getTime();
+	        let num = ( getTime - (3600 * 1000 * 24 * 140) );
+	        let getDayNum = (new Date(num)).getDay() == 0 ? 6 : ((new Date(num)).getDay() - 1) 
+	        num = num - getDayNum * (3600 * 1000 * 24);
+	        return changeFormat( num );
+	    },
+	    month: ()=>{
+	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * 610), 'YYYY-MM' );
+	    },
+	}
+	//校区经营数据详情 start
+	let getZoneIndex = ()=>{
+	    $.ajax({
+	        type: "post",
+	        dataType: "json",
+	        url: '/pss/getZoneIndex',
+	        data: {
+	            code: $('#zone_code').val(),
+	            zoneid: $('#zone_zoneid').val(),
+	            index: $('#echartsBox_1 .echartSelect_type').val(),
+	            period: $('#echartsBox_1 .echartSelect_date').val(),
+	            sdate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ],
+	            edate: $('#echartsBox_1 .echartSelect_date').val() == 'month' ? changeFormat(false, 'YYYY-MM') : changeFormat(),
+	            page: 0
+	        },
+	        success: (res)=>{
+	            if( res.errcode != 0 ){
+	                $.dialogFull.Tips( res.errmsg );
+	                return;
+	            }
+	            const name = $('#echartsBox_1 .echartSelect_type option:checked').text();
+	            
+	            let ChartData = res.data;
+
+	            let chartNameArr = [];
+	            let chartDataArr = [];
+
+	            ChartData.map(function(item, index){
+	                chartNameArr.push( item.date );
+	                chartDataArr.push( item.value );
+	            });
+	            option_1.xAxis.data = chartNameArr;
+	            option_1.series[0].data = chartDataArr;
+	            option_1.series[0].name = name;
+
+	            
+	            if( ChartData.length < 7 ){
+	                option_1.series[0].barWidth = 70;
+	            }
+
+
+	            myChart1.setOption( option_1 );
+	        },
+	        error: ()=>{
+	            myChart1.setOption( option_1 );
+	            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	        }
+	    })
+	}
+	getZoneIndex();
+
 
 	//classes":"xxx","teachers":"xxx","students":"xxx","audits":"x
 	//{"course_id":2,"start_time":"2017-11-17 10:23:19","teacher_name":"赵正","course_name":"中级绘画","teacher_id":1,"class_id":2,"lesson_time":60,"class_name":"中级","lesson_id":3}
@@ -124,3 +219,7 @@ let getZoneSummary = ()=>{
 	})
 }
 getZoneSummary();
+
+$.mainBox.on('click', '#echartsBox_1 .btn', function(){
+    getZoneIndex();
+})
