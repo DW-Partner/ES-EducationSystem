@@ -40,20 +40,21 @@
 
 
 	let getZoneList_times = {
-	    day: ()=>{
-	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * 20) );
+	    day: (index,num)=>{
+	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (20 * index + num)) );
 	    },
-	    week: ()=>{
+	    week: (index,num)=>{
 	        let getTime = new Date().getTime();
-	        let num = ( getTime - (3600 * 1000 * 24 * 140) );
-	        let getDayNum = (new Date(num)).getDay() == 0 ? 6 : ((new Date(num)).getDay() - 1) 
-	        num = num - getDayNum * (3600 * 1000 * 24);
-	        return changeFormat( num );
+	        let _num = ( getTime - (3600 * 1000 * 24 * (140 * index + num * 7)) );
+	        let getDayNum = (new Date(_num)).getDay() == 0 ? 6 : ((new Date(_num)).getDay() - 1) 
+	        _num = _num - getDayNum * (3600 * 1000 * 24);
+	        return changeFormat( _num );
 	    },
-	    month: ()=>{
-	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * 610), 'YYYY-MM' );
+	    month: (index,num)=>{
+	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (610 * index + num * 31)), 'YYYY-MM' );
 	    },
 	}
+
 	//校区经营数据详情 start
 	let getZoneIndex = ()=>{
 	    $.ajax({
@@ -65,8 +66,8 @@
 	            zoneid: $('#zone_zoneid').val(),
 	            index: $('#echartsBox_1 .echartSelect_type').val(),
 	            period: $('#echartsBox_1 .echartSelect_date').val(),
-	            sdate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ],
-	            edate: $('#echartsBox_1 .echartSelect_date').val() == 'month' ? changeFormat(false, 'YYYY-MM') : changeFormat(),
+	            sdate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ]( getZoneList_times_index+1, -1 ),
+	            edate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ]( getZoneList_times_index, 0 ),
 	            page: 0
 	        },
 	        success: (res)=>{
@@ -197,7 +198,10 @@ $.laydate.render({
 // const yesterdayDate = changeFormat(yesterdayTime,'YYYY-MM-DD');
 // getZoneDayLessons(yesterdayDate,'teacher_id');
 getZoneDayLessons($('#s_date').val(),'teacher_id');
-
+$('#echartsBox_1').append('<p style="text-align: center;">\
+    <a href="javascript:;" class="btn_dis getZoneList_times_prev">上一期</a>\
+    <a href="javascript:;" class="btn_dis getZoneList_times_next">下一期</a>\
+    </p>');
 
 let getZoneSummary = ()=>{
 
@@ -224,6 +228,16 @@ let getZoneSummary = ()=>{
 }
 getZoneSummary();
 
+
+let getZoneList_times_index = 0;
 $.mainBox.on('click', '#echartsBox_1 .btn', function(){
+    getZoneIndex();
+}).on('click', '.getZoneList_times_prev', function(){
+    getZoneList_times_index++;
+    getZoneIndex();
+
+}).on('click', '.getZoneList_times_next', function(){
+    getZoneList_times_index--;
+    getZoneList_times_index = getZoneList_times_index < 0 ? 0 : getZoneList_times_index;
     getZoneIndex();
 })

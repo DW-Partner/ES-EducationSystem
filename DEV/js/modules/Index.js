@@ -50,27 +50,35 @@ let option_2 = {
 
     // $('.echartsBox').eq(0).attr('id', 'echartsBox_1');
 $('#entey_date').val( changeFormat(false,'YYYY-MM-DD') );
+$('#echartsBox_1').append('<p style="text-align: center;">\
+    <a href="javascript:;" class="btn_dis getZoneList_times_prev">上一期</a>\
+    <a href="javascript:;" class="btn_dis getZoneList_times_next">下一期</a>\
+    </p>');
 
+$('#echartsBox_2').append('<p style="text-align: center;">\
+    <a href="javascript:;" class="btn_dis getZoneIndexCompare_times_prev">上一期</a>\
+    <a href="javascript:;" class="btn_dis getZoneIndexCompare_times_next">下一期</a>\
+    </p>');
 
 let getZoneList_times = {
-    day: ()=>{
-        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * 20) );
+    day: (index,num)=>{
+        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (20 * index + num)) );
     },
-    week: ()=>{
+    week: (index,num)=>{
         let getTime = new Date().getTime();
-        let num = ( getTime - (3600 * 1000 * 24 * 140) );
-        let getDayNum = (new Date(num)).getDay() == 0 ? 6 : ((new Date(num)).getDay() - 1) 
-        num = num - getDayNum * (3600 * 1000 * 24);
-        return changeFormat( num );
+        let _num = ( getTime - (3600 * 1000 * 24 * (140 * index + num * 7)) );
+        let getDayNum = (new Date(_num)).getDay() == 0 ? 6 : ((new Date(_num)).getDay() - 1) 
+        _num = _num - getDayNum * (3600 * 1000 * 24);
+        return changeFormat( _num );
     },
-    month: ()=>{
-        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * 610), 'YYYY-MM' );
+    month: (index,num)=>{
+        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (610 * index + num * 31)), 'YYYY-MM' );
     },
 }
 
 
 let getZoneIndexCompare_times = {
-    day: (_date)=>{
+    day: (_date,index)=>{
 
         return changeFormat( (new Date( _date )).getTime(), 'YYYY-MM-DD' );
     },
@@ -121,7 +129,7 @@ getZoneList();
 
 
 //校区经营数据详情 start
-let getZoneIndex = (zoneid, type, period)=>{
+let getZoneIndex = ()=>{
     $.ajax({
         type: "post",
         dataType: "json",
@@ -131,8 +139,8 @@ let getZoneIndex = (zoneid, type, period)=>{
             zoneid: $('#echartsBox_1 .echartSelect_zone').val(),
             index: $('#echartsBox_1 .echartSelect_type').val(),
             period: $('#echartsBox_1 .echartSelect_date').val(),
-            sdate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ],
-            edate: $('#echartsBox_1 .echartSelect_date').val() == 'month' ? changeFormat(false, 'YYYY-MM') : changeFormat(),
+            sdate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ]( getZoneList_times_index+1, -1 ),
+            edate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ]( getZoneList_times_index, 0 ),
             page: 0
         },
         success: (res)=>{
@@ -182,20 +190,6 @@ let getZoneIndexCompare = ()=>{
         $.dialogFull.Tips( "请输入时间！" );
         return;
     }
-    // if( _date.indexOf( 'W' ) > 0 ){
-
-    //         const newDate = new Date( _date.split('W')[0] + '01-01'); 
-
-    //         const num = newDate.getTime() + (_date.split('W')[1] - 1) * 7 * 24 * 3600 * 1000
-
-    //         const thenDay = (new Date( num )).getDay();
-
-    //         let getDayNum = thenDay == 0 ? 6 : thenDay - 1;
-
-    //         const targetNum = num - ( getDayNum * 3600 * 1000 * 24 );
-
-    //         _date = changeFormat( targetNum );
-    // }
     const period = $('#echartsBox_2 .echartSelect_date').val();
 
     $.ajax({
@@ -206,10 +200,7 @@ let getZoneIndexCompare = ()=>{
             code: $('#school_code').val(),
             index: $('#echartsBox_2 .echartSelect_type').val(),
             period: period,
-            date: getZoneIndexCompare_times[period]( _date )
-            // sdate: '',
-            // edate: '',
-            // page: ''
+            date: getZoneIndexCompare_times[period]( _date, )
         },
         success: (res)=>{
             if( res.errcode != 0 ){
@@ -245,17 +236,16 @@ let getZoneIndexCompare = ()=>{
 getZoneIndexCompare();
 //校区对比详情 end
 
+$.laydate.render({
+    elem: '#entey_date',
+        type: 'date',
+});
 
-
-
-    //$('[type="date"]').attr('type','text').attr('id','entey_date');
-
-    $.laydate.render({
-        elem: '#entey_date',
-            type: 'date',
-    });
+let getZoneList_times_index = 0;
+let getZoneIndexCompare_times_index = 0;
 
 $.mainBox.on('click', '#echartsBox_1 .btn', function(){
+    getZoneList_times_index = 0;
     getZoneIndex();
 }).on('change', '#echartsBox_2 .echartSelect_date', function(){
 
@@ -273,11 +263,61 @@ $.mainBox.on('click', '#echartsBox_1 .btn', function(){
             type: type,
     });
 
-
-
     //$('.entey_date').attr('type', type);
     $('#entey_date').val( changeFormat(false, val == 'month' ? 'YYYY-MM' : 'YYYY-MM-DD' ) );
 
 }).on('click', '#echartsBox_2 .btn', function(){
+    getZoneIndexCompare();
+}).on('click', '.getZoneList_times_prev', function(){
+    getZoneList_times_index++;
+    getZoneIndex();
+
+}).on('click', '.getZoneList_times_next', function(){
+    getZoneList_times_index--;
+    getZoneList_times_index = getZoneList_times_index < 0 ? 0 : getZoneList_times_index;
+    getZoneIndex();
+}).on('click', '.getZoneIndexCompare_times_prev', function(){
+    let _date = $('.entey_date').val();
+
+    const period = $('#echartsBox_2 .echartSelect_date').val();
+    let DATE;
+    let num;
+
+    if( period == 'day' ){
+        num = 1;
+        DATE = changeFormat( (new Date( _date )).getTime() - 1000 * 3600 * 24 * num, 'YYYY-MM-DD' );
+    }else if( period == 'week' ){
+        num = 7;
+        DATE = changeFormat( (new Date( _date )).getTime() - 1000 * 3600 * 24 * num, 'YYYY-MM-DD' );
+    }else if( period == 'month' ){
+        DATE = changeFormat( (new Date( _date+'-1' )).getTime() - 1000 * 3600 * 24 * 2, 'YYYY-MM' )
+    }
+
+    $('#entey_date').val( DATE );
+
+    getZoneIndexCompare();
+}).on('click', '.getZoneIndexCompare_times_next', function(){
+    let _date = $('.entey_date').val();
+
+    const period = $('#echartsBox_2 .echartSelect_date').val();
+    let DATE;
+    let num;
+
+    // if( (new Date( _date )).getTime() > (new Date()).getTime() ){
+    //     return;
+    // }
+
+    if( period == 'day' ){
+        num = 1;
+        DATE = changeFormat( (new Date( _date )).getTime() + 1000 * 3600 * 24 * num, 'YYYY-MM-DD' );
+    }else if( period == 'week' ){
+        num = 7;
+        DATE = changeFormat( (new Date( _date )).getTime() + 1000 * 3600 * 24 * num, 'YYYY-MM-DD' );
+    }else if( period == 'month' ){
+        DATE = changeFormat( (new Date( _date+'-1' )).getTime() + 1000 * 3600 * 24 * 32, 'YYYY-MM' )
+    }
+
+    $('#entey_date').val( DATE );
+
     getZoneIndexCompare();
 });

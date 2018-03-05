@@ -59,7 +59,7 @@ adress_data.map(function(item,index){
 });
 
 const zoneid = $('#zoneid').val();
-
+let flagshipBar;
 if( zoneid ){
     $.ajax({
 	    type: "post",
@@ -84,6 +84,10 @@ if( zoneid ){
 			addressHandle( adress_data[0].list );
 	    	$('#area').val( res.data.area ).attr('disabled','disabled');
 		    res.data.flagship == 1 ? $('#flagship').prop('checked',true) : '';
+		    flagshipBar = $('[name="type_1"]:checked').val() == '0' ? true : false;
+		    if( !flagshipBar ){
+    			$('#flagship').attr('checked',false).attr( 'disabled', 'disabled' );
+		    }
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -139,4 +143,12 @@ $.mainBox.on('click', '#submit_AddOrEditZone', function(){
 }).on('change', '#city', function(){
 	const index = $(this).find('option:checked').data('index');
 	addressHandle( adress_data[index].list );
+}).on('change', '[name="type_1"]', function(){
+    flagshipBar = $('[name="type_1"]:checked').val() == '0' ? true : false;
+    if( !flagshipBar ){
+    	$('#flagship').attr('checked',false).attr( 'disabled', 'disabled' );
+    }else{
+    	$('#flagship').removeAttr( 'disabled' );
+    }
 })
+
