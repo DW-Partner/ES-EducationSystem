@@ -37,7 +37,7 @@
 	    }]
 	};
 
-
+	let getZoneList_times_index = 0;
 
 	let getZoneList_times = {
 	    day: (index,num)=>{
@@ -228,8 +228,6 @@ let getZoneSummary = ()=>{
 }
 getZoneSummary();
 
-
-let getZoneList_times_index = 0;
 $.mainBox.on('click', '#echartsBox_1 .btn', function(){
     getZoneList_times_index = 0;
     getZoneIndex();
