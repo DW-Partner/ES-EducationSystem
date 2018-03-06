@@ -47,6 +47,8 @@ let option_2 = {
     }]
 };
 
+let getZoneList_times_index = 0;
+let getZoneIndexCompare_times_index = 0;
 
     // $('.echartsBox').eq(0).attr('id', 'echartsBox_1');
 $('#entey_date').val( changeFormat(false,'YYYY-MM-DD') );
@@ -240,9 +242,6 @@ $.laydate.render({
     elem: '#entey_date',
         type: 'date',
 });
-
-let getZoneList_times_index = 0;
-let getZoneIndexCompare_times_index = 0;
 
 $.mainBox.on('click', '#echartsBox_1 .btn', function(){
     getZoneList_times_index = 0;
