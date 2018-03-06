@@ -147,7 +147,7 @@ $.mainBox.on('click', '#submit_AddOrEditZone', function(){
 }).on('change', '[name="type_1"]', function(){
     flagshipBar = $('[name="type_1"]:checked').val() == '0' ? true : false;
     if( !flagshipBar ){
-    	$('#flagship').attr('checked',false).attr( 'disabled', 'disabled' );
+    	$('#flagship').prop('checked',false).attr( 'disabled', 'disabled' );
     }else{
     	$('#flagship').removeAttr( 'disabled' );
     }
