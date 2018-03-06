@@ -140,7 +140,7 @@ if( courseid ){
         dataType: "json",
         url: '/pss/getCourseDetail',
         data: {
-            code: $('#school_code').val(),
+            code: $('#school_code').val() || $('#zone_code').val(),
             courseid: courseid
         },
         success: (res)=>{
