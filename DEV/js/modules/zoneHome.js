@@ -41,17 +41,17 @@
 
 	let getZoneList_times = {
 	    day: (index,num)=>{
-	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (20 * index + num)) );
+	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (10 * index + num)) );
 	    },
 	    week: (index,num)=>{
 	        let getTime = new Date().getTime();
-	        let _num = ( getTime - (3600 * 1000 * 24 * (140 * index + num * 7)) );
+	        let _num = ( getTime - (3600 * 1000 * 24 * (70 * index + num * 7)) );
 	        let getDayNum = (new Date(_num)).getDay() == 0 ? 6 : ((new Date(_num)).getDay() - 1) 
 	        _num = _num - getDayNum * (3600 * 1000 * 24);
 	        return changeFormat( _num );
 	    },
 	    month: (index,num)=>{
-	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (610 * index + num * 31)), 'YYYY-MM' );
+	        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (305 * index + num * 31)), 'YYYY-MM' );
 	    },
 	}
 
@@ -180,9 +180,13 @@ let getZoneDayLessons = (date,type)=>{
 }
 
 $('#s_date').val( changeFormat(false,'YYYY-MM-DD') );
-flagship ? $('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
-	<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
-	<li><a href="javascript:;" data-href="/pss/goTeacher">教师员工</a></li>' ) : '';
+
+if( flagship ){
+	$('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
+		<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
+		<li><a href="javascript:;" data-href="/pss/goTeacher">教师员工</a></li>' );
+	$('.top_box .user').addClass( 'flagship' );
+}
 
 $.laydate.render({
 	elem: '#s_date',

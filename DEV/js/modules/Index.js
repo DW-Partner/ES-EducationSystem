@@ -64,17 +64,17 @@ $('#echartsBox_2').append('<p style="text-align: center;">\
 
 let getZoneList_times = {
     day: (index,num)=>{
-        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (20 * index + num)) );
+        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (10 * index + num)) );
     },
     week: (index,num)=>{
         let getTime = new Date().getTime();
-        let _num = ( getTime - (3600 * 1000 * 24 * (140 * index + num * 7)) );
+        let _num = ( getTime - (3600 * 1000 * 24 * (70 * index + num * 7)) );
         let getDayNum = (new Date(_num)).getDay() == 0 ? 6 : ((new Date(_num)).getDay() - 1) 
         _num = _num - getDayNum * (3600 * 1000 * 24);
         return changeFormat( _num );
     },
     month: (index,num)=>{
-        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (610 * index + num * 31)), 'YYYY-MM' );
+        return changeFormat( (new Date()).getTime() - (3600 * 1000 * 24 * (305 * index + num * 31)), 'YYYY-MM' );
     },
 }
 
@@ -169,7 +169,6 @@ let getZoneIndex = ()=>{
             if( ChartData.length < 7 ){
                 option_1.series[0].barWidth = 70;
             }
-
 
             myChart1.setOption( option_1 );
         },

@@ -22,7 +22,7 @@ const form_tpl = '<li><span><i>*</i>校区名称</span>\
 						<label><input type="radio" value="1" name="type_2">社区</label>\
 					</p></li>\
 					<li><span>设置为旗舰</span>\
-					<input type="checkbox" id="flagship" class="m-checkbox" value="1"><label for="flagship"></label><em>仅直营校区可设置</em></li>\
+					<input type="checkbox" id="flagship" class="m-checkbox" value="1"><label for="flagship"></label><em class="tips_info">仅直营校区可设置</em></li>\
 					</li>\
 					<li><span><i>*</i>主营项目</span>\
 					<input type="text" class="long" placeholder="请输入主营项目(不得超过3项,请用斜杠 / 隔开)" value="{coreContent}" name="core_content" data-validate="any" data-must="1" />';

@@ -15,7 +15,9 @@
 .opacity{
 	opacity: 0.4;
 }
-
+.tips_info{
+	padding-left:15px;
+}
 /*input{
 	border: 1px solid #E0E3E8;
 	box-shadow: none;
