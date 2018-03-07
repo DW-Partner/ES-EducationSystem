@@ -1,9 +1,15 @@
 .pub_list{
-	.flagship{
-        padding: 14px 19px;
+	.flagship, .direct, .cooperation{
+	    padding: 14px 19px;
 	    background-image: url(../../images/icon_flagship.png);
 	    background-size: 28px 37px;
 	    background-position: 0 center;
 	    background-repeat: no-repeat;
-	}	
+	}
+	.direct{
+	    background-image: url(../../images/icon_direct.png);
+	}
+	.cooperation{
+	    background-image: url(../../images/icon_cooperation.png);
+	}
 }
