@@ -181,11 +181,15 @@ let getZoneDayLessons = (date,type)=>{
 
 $('#s_date').val( changeFormat(false,'YYYY-MM-DD') );
 
+
 if( flagship ){
 	$('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
 		<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
 		<li><a href="javascript:;" data-href="/pss/goTeacher">教师员工</a></li>' );
 	$('.top_box .user').addClass( 'flagship' );
+}else{
+        let icon_class = +$('#type').val() < 2 ? 'direct' : 'cooperation';
+	$('.top_box .user').addClass( 'icon_class' );
 }
 
 $.laydate.render({
