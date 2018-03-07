@@ -950,14 +950,19 @@ input[type="number"]{
   .user{
     float: right;
   }
-  .flagship{
+  .flagship, .direct, .cooperation{
     padding: 0 0 0 32px;
     background-image: url(../images/icon_flagship.png);
     background-size: 28px 37px;
     background-position: 0 center;
     background-repeat: no-repeat;
-
-  }
+  }	
+    .direct{
+        background-image: url(../images/icon_direct.png);
+    }
+    .cooperation{
+        background-image: url(../images/icon_cooperation.png);
+    }
   a,.times{
     color: #AAAEB3;
     margin-left: 20px;
