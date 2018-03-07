@@ -3,7 +3,7 @@ require('./Zone.css');
 
 var tpl = {
     zoneList: '<li>\
-                    <div class="item"><p><span>{icon_flagship}{name}</span></p></div>\
+                    <div class="item"><p><span><em class="{icon_class}"></em>{name}</span></p></div>\
                     <div class="item"><p><span>{official}</span></p></div>\
                     <div class="item"><p><span>{mobile}</span></p></div>\
                     <div class="item"><p><span>{address}</span></p></div>\
@@ -33,7 +33,9 @@ $.jsonPage({
             '11': '合作/社区',
         }
         msg.type = words[msg.type];
-        msg.icon_flagship = msg.flagship == 1 ? '<em class="flagship"></em>' : '';
+
+        msg.icon_class = +msg.type < 2 ? 'direct' : 'cooperation';
+        msg.icon_class = msg.flagship == 1 ? 'flagship' : msg.icon_class;
         return msg;
     },
     eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
