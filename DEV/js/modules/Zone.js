@@ -3,7 +3,7 @@ require('./Zone.css');
 
 var tpl = {
     zoneList: '<li>\
-                    <div class="item"><p><span><em class="{icon_class}"></em>{name}</span></p></div>\
+                    <div class="item"><p style="text-align: left;"><span><em class="{icon_class}"></em>{name}</span></p></div>\
                     <div class="item"><p><span>{official}</span></p></div>\
                     <div class="item"><p><span>{mobile}</span></p></div>\
                     <div class="item"><p><span>{address}</span></p></div>\
