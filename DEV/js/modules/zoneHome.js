@@ -188,8 +188,8 @@ if( flagship ){
 		<li><a href="javascript:;" data-href="/pss/goTeacher">教师员工</a></li>' );
 	$('.top_box .user').addClass( 'flagship' );
 }else{
-        let icon_class = +$('#type').val() < 2 ? 'direct' : 'cooperation';
-	$('.top_box .user').addClass( 'icon_class' );
+    let icon_class = +$('#type').val() < 2 ? 'direct' : 'cooperation';
+	$('.top_box .user').addClass( icon_class );
 }
 
 $.laydate.render({
