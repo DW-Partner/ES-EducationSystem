@@ -32,10 +32,9 @@ $.jsonPage({
             '10': '合作/商场',
             '11': '合作/社区',
         }
-        msg.type = words[msg.type];
-
         msg.icon_class = +msg.type < 2 ? 'direct' : 'cooperation';
         msg.icon_class = msg.flagship == 1 ? 'flagship' : msg.icon_class;
+        msg.type = words[msg.type];
         return msg;
     },
     eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
