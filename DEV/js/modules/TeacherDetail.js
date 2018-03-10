@@ -3,6 +3,8 @@ require('./TeacherDetail.css');
 import QRCode from '../kit/qrcode.js';
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
+import tab from '../comp/tab.js';//tab切换
+
 const tpl = {
 	base_info: '<p><span>教师姓名：</span><em>{name}</em></p>\
 				<p><span>性别：</span><em>{gender}</em></p>\
@@ -48,14 +50,21 @@ const tpl = {
             <div class="item"><p><span>{current_lesson}</span></p></div>\
             <div class="item"><p><span>{student_num}</span></p></div>\
         </li>',
+    teacherHistoryWorkInfo: '<li>\
+                <div class="item"><p><span>{time}</span></p></div>\
+                <div class="item"><p><span>{class_num}</span></p></div>\
+                <div class="item"><p><span>{lesson_num}</span></p></div>\
+                <div class="item"><p><span>{completed_lessons}</span></p></div>\
+                <div class="item"><p><span>{completed_students}</span></p></div>\
+                <div class="item"><p><span>{renew_students}</span></p></div>\
+                <div class="item"><p><span>{signed_num}</span></p></div>\
+            </li>'
 }
+//time":"xxx","class_num":"xxx","lesson_num":"xxx","completed_lessons":"xxx","completed_students":"xxx", "renew_students":"xxx","signed_num":"xxx"
 
 const tid = $('#tid').val();
 let run_action;
 let zoneid;
-
-
-
 
 //qrcode start 3.29
 let run_qrcode = (tips)=>{
@@ -142,7 +151,7 @@ let getTeacherWorkInfo = ()=>{
 	             return;
 	        }
 	        const html = replaceTemplate( tpl.work_info, res.data );
-	        $('.content_middle').append( html );
+	        $('.content_middle').eq( 0 ).append( html );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -180,7 +189,39 @@ let action = ()=>{
 //授课操作 end
 
 
+let getTeacherHistoryWorkInfo = ()=>{
+    $.jsonPage({
+        listBox: 'ul.body',//列表容器
+        ajaxUrl: '/pss/getTeacherHistoryWorkInfo',
+        ajaxType: 'post',
+        ajaxData: {
+            code: $('#zone_code').val() || $('#zone_code').val(),
+            // zoneid: $('#zone_zoneid').val(),
+            tid: tid
+        },//上行参数
+        template: tpl.teacherHistoryWorkInfo,//列表模板
+        listKey: ['data'],//下行结构
+        pageBar: false,//是否启用分页
+        eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
+        noData: false,//Function : function( $listBox, $pageBox ){}
+        codeKeyName: 'errcode',//状态标示key名
+        codeSuccess: 0,//状态标示值
+        successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
 
+        },//function(msg) {  }
+        ajaxCodeError: function( res ){
+            $.dialogFull.Tips( res.errmsg );
+        },
+        ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
+            $.dialogFull.Tips( "网络错误，请稍后重试" );
+        }
+    });
+};
+
+
+tab({
+    tab_box: $('.tab_box')
+});
 
 
 $.mainBox.on('click', '#action', function(){

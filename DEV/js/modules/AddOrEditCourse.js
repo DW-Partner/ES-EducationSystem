@@ -65,6 +65,28 @@ const tpl = {
                 <span><i>*</i>教学大纲</span>\
                 <textarea placeholder="请输入教学大纲" name="outline" data-validate="any" data-must="1" />\
             </li>\
+        </ul>',
+    addLessonBatchForm: '<ul class="pub_form">\
+            <li>\
+                <span class="wide"><i>*</i>主题固定前缀</span>\
+                <input type="text" placeholder="请输入主题固定前缀" name="theme" data-validate="any" data-must="1" />\
+            </li>\
+            <li>\
+                <span class="wide"><i>*</i>添加的课时数</span>\
+                <input type="text" placeholder="请输入添加的课时数" name="number" data-validate="number" data-must="1" />\
+            </li>\
+            <li>\
+                <span class="wide"><i>*</i>状态</span>\
+                <select name="status" data-validate="any">\
+                    <option value="正常">正常</option>\
+                    <option value="研发中">研发中</option>\
+                    <option value="停止">停止</option>\
+                </select>\
+            </li>\
+            <li>\
+                <span class="wide"><i>*</i>教学大纲</span>\
+                <textarea placeholder="请输入教学大纲" name="outline" data-validate="any" data-must="1" />\
+            </li>\
         </ul>'
 }
 
@@ -302,8 +324,40 @@ $.mainBox.on('click', '#submit_course', function(){
 
     });
     //$('.dialog_add_lesson [name="outline"]').val( $('[name="outline"]').eq(0).val() );
-})
-.on('click', '#lessons .edit', function(){
+}).on('click', '#add_lesson_batch', function(){
+    $.dialogFull.Pop({
+        boxClass: '.dialog_add_lesson_batch',
+        title: '批量添加课时',//弹框标题
+        content: tpl.addLessonBatchForm,//弹框内容区
+        runDone: function($this, $thisBox, dialogClose) {
+            const sub_data = $.form.get({
+                item: '.dialog_add_lesson_batch .pub_form [data-validate]',//表单项dom
+                error_text: 'placeholder',//存放错误文案的属性名
+            });
+            if( !sub_data ){
+                return;
+            }
+            const number = +sub_data.number;
+            let index;
+            let $dom = $('<ul />');
+            for( index=1; index<=number; index++ ){
+                let item = {
+                    theme: sub_data.theme + '-' + index,
+                    status: sub_data.status,
+                    outline: sub_data.outline
+                }
+                const li = replaceTemplate( tpl.item, item );
+                $dom.append( li );
+            }
+            $('#lessons').append( $dom.html() );
+            dialogClose();
+            $('[name=lesson_num]').val( $('#lessons li').length );
+            numberHandle();
+        }
+
+    });
+    //$('.dialog_add_lesson [name="outline"]').val( $('[name="outline"]').eq(0).val() );
+}).on('click', '#lessons .edit', function(){
 
     let _item = $(this).parent().parent().parent().parent();
 
@@ -375,5 +429,5 @@ $.mainBox.on('click', '#submit_course', function(){
     }
     $('[value="-1"]').remove();
     const val = $(this).val();
-    $('[name="next_courseid"]').append('<option value="-1">' + val + '</option>')
+    $('[name="next_courseid"]').append('<option value="-1">' + ('循环使用本课程' || val) + '</option>')
 })

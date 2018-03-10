@@ -10,12 +10,15 @@ const tpl = '<li>\
 			</li>';
 	// {"data":[{"work_no":1,"name":"赵赵","zone_name":"望京","type":"助教","entry_day":"2017-07-20","tid":1,"status":"正常"},{"work_no":2,"name":"keke","zone_name":"望京","type":"教师","entry_day":"2017-08-10","tid":2,"status":"正常"},{"work_no":3,"name":"赵赵","zone_name":"望京","type":"助教","entry_day":"2017-07-20","tid":3,"status":"正常"},{"work_no":4,"name":"赵赵","zone_name":"通州","type":"教师","entry_day":"2017-07-20","tid":4,"status":"正常"}],"errcode":"0","errmsg":"success"}
 
+const flagship = $( '#flagship' ).val() == 1 ? true : false;
+const isZone = $('#zone_code').val() ? true : false;
 
 //获取教师列表 start 3.23
 let getTeacherList = ()=>{
+    const ajaxUrl = isZone && !flagship ? '/pss/getZoneTeacherList' : '/pss/getTeacherList'
     $.jsonPage({
         listBox: 'ul.body',//列表容器
-        ajaxUrl: '/pss/getTeacherList',
+        ajaxUrl: ajaxUrl,
         ajaxType: 'post',
         ajaxData: {
             code: $('#school_code').val() || $('#zone_code').val()

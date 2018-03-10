@@ -3,43 +3,41 @@
 .fix{display:block;}
 .fix:after{content:""; display:block; height:0px;clear:both; visibility:hidden;}
 
+
+.page_head{
+	.btn{
+		margin-left: 10px;
+		width: 120px;
+		position: relative;
+		overflow: hidden;
+	}
+	.action{
+		background-color: #EF6C67;
+	}
+}
+.tab_box{
+	h3{
+		margin-right: 20px;
+		cursor: pointer;
+		padding: 0 15px;
+		font-weight: normal;
+		&.on{
+			color: #1a91eb;
+			border-bottom: 2px solid #1a91eb; 
+		}
+	}
+}
+
 .TeacherDetail{
 	.content_top{
 		padding: 22px 30px 30px 35px;
 		border-bottom: 1px solid #EAEAEA;
-		.title{
-			margin-bottom: 30px;
-			span{
-				display: inline-block;
-				color: #AAAEB2;
-				font-size: 14px;
-				line-height: 14px;
-				font-weight: 100;
-			}
-			a{
-				color: #FFF;
-				font-size: 14px;
-				background-color: #4580D3;
-				padding: 8px 10px;
-				display: inline-block;
-				border-radius: 4px;
-				float: right;
-				min-width: 126px;
-				text-align: center;
-			}
-			i{
-				display: inline-block;
-				width: 10px;
-				height: 10px;
-				margin-right: 8px;
-			}
-		}
 		.center{
 			p{
 				font-weight: 100;
 				display: inline-block;
 				width: auto;
-				margin-right: 60px;
+				margin-right: 35px;
 				margin-bottom: 30px;
 				span{
 					display: inline-block;
@@ -47,7 +45,6 @@
 					font-size: 16px;
 					line-height: 16px;
 					font-weight: 100;
-
 				}
 				em{
 					display: inline-block;
@@ -60,34 +57,10 @@
 
 			}
 		}
-		.bottom{
-			a{
-				color: #FFF;
-				font-size: 14px;
-				background-color: #EF6C67;
-				padding: 8px 10px;
-				display: inline-block;
-				border-radius: 4px;
-				float: right;
-				min-width: 126px;
-				text-align: center;
-			}
-			i{
-				display: inline-block;
-				width: 10px;
-				height: 10px;
-				margin-right: 8px;
-			}
-		}
 	}
 	.content_middle{
-		padding: 30px 35px;
+		padding: 0 35px 30px 35px;
 		border-bottom: 1px solid #EAEAEA;
-		h5{
-			color: #707379;
-			font-size: 16px;
-			line-height: 16px;
-		}
 		.data{
 			background-color: #3580D9;
 			border-radius: 4px;
@@ -134,6 +107,13 @@
 	.content_bottom{
 		padding: 30px 0;
 		text-align: center;
+
+	    width: 200px;
+	    position: absolute;
+	    left: 830px;
+	    top: 80px;
+	    padding: 0;
+
 		h5{
 			color: #707379;
 			font-size: 16px;

@@ -1,10 +1,18 @@
-    require('./AddAudit.css');//引入css文件
+require('./AddAudit.css');//引入css文件
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const tpl = {
     class_option: '<option value="{class_id}">{class_name}</option>',
-    lesson_option: '<option value="{lesson_id}" data-time="{lesson_time}">{lesson_time}&nbsp;&nbsp;&nbsp;&nbsp;{theme}</option>'
+    lesson_option: '<option value="{lesson_id}" data-time="{lesson_time}">{lesson_time}&nbsp;&nbsp;&nbsp;&nbsp;{theme}</option>',
+    auditRecord: '<li>\
+                <div class="item"><p><span>{zone}</span></p></div>\
+                <div class="item"><p><span>{class}</span></p></div>\
+                <div class="item"><p><span>{course}</span></p></div>\
+                <div class="item"><p><span>{theme}</span></p></div>\
+                <div class="item"><p><span>{time}</span></p></div>\
+                <div class="item flex_3"><p><span>{result}</span></p></div>\
+            </li>'
 }
 
 const sid = $('#sid').val();
@@ -109,7 +117,7 @@ let getVisitorDetail = ()=>{
             code: $('#zone_code').val(),
             zoneid: $('#zone_zoneid').val(),
             sid: sid,
-            page: +$('#page').val() || 0
+            page: +$('#page').val() || 1
         },
         success: (res)=>{
             if( res.errcode != 0 ){
@@ -124,6 +132,41 @@ let getVisitorDetail = ()=>{
     })  
 }
 getVisitorDetail();
+
+
+
+
+//获取学员试听记录 start 5.50
+let getAuditRecord = ()=>{
+    $.jsonPage({
+        listBox: 'ul.body',//列表容器
+        ajaxUrl: '/pss/getAuditRecord',
+        ajaxType: 'post',
+        ajaxData: {
+            code: $('#zone_code').val(),
+            zoneid: $('#zone_zoneid').val(),
+            sid: sid
+        },//上行参数
+        template: tpl,//列表模板
+        listKey: ['data'],//下行结构
+        pageBar: false,//是否启用分页
+        eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
+        noData: false,//Function : function( $listBox, $pageBox ){}
+        codeKeyName: 'errcode',//状态标示key名
+        codeSuccess: 0,//状态标示值
+        successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
+
+        },//function(msg) {  }
+        ajaxCodeError: function( res ){
+            $.dialogFull.Tips( res.errmsg );
+        },
+        ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
+            $.dialogFull.Tips( "网络错误，请稍后重试" );
+        }
+    });
+}
+//获取学员试听记录 end
+getAuditRecord();
 
 
 $.mainBox.on('change', '[name=class_id]', function(){

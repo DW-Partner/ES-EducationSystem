@@ -29,12 +29,17 @@
 
 	<div class="main_box" id="main_box">
 		<div class="main">
+			<div class="page_head">
+				<h3>教师详情</h3>
+				<a href="JavaScript:;" id="action" class="btn action"><i class="icon"></i><span></span></a>
+				<a href="javascript:;" data-href="/pss/goAddOrEditTeacher?tid=${tid}" class="btn"><i class="icon"></i>编辑基本信息</a>
+			</div>
 			<div class="TeacherDetail">
 				<div class="content_top fix">
-					<div class="title">
+					<!-- <div class="title">
 						<span>上次更新信息 2017.10.05 22:59</span>
 						<a href="javascript:;"><i class="icon"></i> 编辑基本信息</a>
-					</div>
+					</div> -->
 					<div class="center">
 						<p>
 							<span>教师信息：</span>
@@ -76,37 +81,64 @@
 							<em>管庄店</em>
 						</p>
 					</div>
-					<div class="bottom fix">
+				<!-- 	<div class="bottom fix">
 						<a href="javascript:;"><i class="icon"></i> 暂停授课</a>
+					</div> -->
+				</div>
+
+				<div class="tab_box">
+
+					<div class="page_head">
+						<h3 class="tab_nav">教师详情</h3>
+						<h3 class="tab_nav">历史教学信息</h3>
+					</div>
+					<div class="content_middle tab_item">
+						<div class="data data1">
+							<span>当月课时完成数</span>
+							<p>100%</p>
+						</div>
+						<div class="data data2">
+							<span>当月课时任务数</span>
+							<p>90%</p>
+						</div>
+						<div class="data data3">
+							<span>负责班级数</span>
+							<p>216</p>
+						</div>
+						<div class="data data4">
+							<span>当月完成授课人次</span>
+							<p>3</p>
+						</div>
+						<div class="data data5">
+							<span>当月班内续费人数</span>
+							<p>3</p>
+						</div>
+						<div class="data data6">
+							<span>当月试听转正人数</span>
+							<p>3</p>
+						</div>
+					</div>
+
+					<div class="content_middle tab_item">
+						<div class="pub_list">
+							<div class="head">
+								<span>时间</span>
+								<span>负责班级数</span>
+								<span>课时任务数</span>
+								<span>课时完成数</span>
+								<span>完成授课人次</span>
+								<span>班内续费人数</span>
+								<span>试听转正人数</span>
+							</div>
+							<ul class="body">
+							</ul>
+							<div class="page">
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="content_middle">
-					<h5>教学信息</h5>
-					<div class="data data1">
-						<span>当月课时完成数</span>
-						<p>100%</p>
-					</div>
-					<div class="data data2">
-						<span>当月课时任务数</span>
-						<p>90%</p>
-					</div>
-					<div class="data data3">
-						<span>负责班级数</span>
-						<p>216</p>
-					</div>
-					<div class="data data4">
-						<span>当月完成授课人次</span>
-						<p>3</p>
-					</div>
-					<div class="data data5">
-						<span>当月班内续费人数</span>
-						<p>3</p>
-					</div>
-					<div class="data data6">
-						<span>当月试听转正人数</span>
-						<p>3</p>
-					</div>
-				</div>
+
+
 				<div class="content_bottom">
 					<h5>教师身份二维码</h5>
 					<div class="codeImg">

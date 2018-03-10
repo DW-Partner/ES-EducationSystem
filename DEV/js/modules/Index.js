@@ -114,8 +114,11 @@ let getZoneList = ()=>{
             }
             let options = '';
             let data = res.data;
-            data.map(function(item){
-                options += '<option value="' + item.id +'">'+ item.name +'</option>'
+            data.forEach(function(item){
+                if( +item.type < 2 ){
+                    options += '<option value="' + item.id +'">'+ item.name +'</option>';
+                }
+                // options += '<option value="' + item.id +'">'+ item.name +'</option>'
             });
             $('.echartsBox').eq(0).find('.echartSelect_zone').html( options );
 
@@ -132,13 +135,17 @@ getZoneList();
 
 //校区经营数据详情 start
 let getZoneIndex = ()=>{
+    const zoneid = $('#echartsBox_1 .echartSelect_zone').val();
+    if( !zoneid ){
+        return;
+    }
     $.ajax({
         type: "post",
         dataType: "json",
         url: '/pss/getZoneIndex',
         data: {
             code: $('#school_code').val(),
-            zoneid: $('#echartsBox_1 .echartSelect_zone').val(),
+            zoneid: zoneid,
             index: $('#echartsBox_1 .echartSelect_type').val(),
             period: $('#echartsBox_1 .echartSelect_date').val(),
             sdate: getZoneList_times[ $('#echartsBox_1 .echartSelect_date').val() ]( getZoneList_times_index+1, -1 ),
