@@ -8,7 +8,7 @@ const tpl = {
 		<p><span>固定电话：</span><em>{telephone}</em></p>\
 		<br />\
 		<p><span>详细地址：</span><em>{address}</em></p>',
-	extInfo_info: '<div class="data data1"><span>班级数</span><p>{class_num}</p></div>\
+	extInfo_info: '<div class="data data1"><span>开课班级数</span><p>{class_num}</p></div>\
 		<div class="data data2"><span>学员数</span><p>{student_num}</p></div>\
 		<div class="data data3"><span>学员总数</span><p>{his_student_num}</p></div>\
 		<div class="data data4"><span>咨询登记数</span><p>{visitor_num}</p></div>',

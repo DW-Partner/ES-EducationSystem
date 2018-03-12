@@ -15,14 +15,17 @@ const isZone = $('#zone_code').val() ? true : false;
 
 //获取教师列表 start 3.23
 let getTeacherList = ()=>{
-    const ajaxUrl = isZone && !flagship ? '/pss/getZoneTeacherList' : '/pss/getTeacherList'
+    const ajaxUrl = isZone && !flagship ? '/pss/getZoneTeacherList' : '/pss/getTeacherList';
+    const ajaxData = {
+        code: $('#school_code').val() || $('#zone_code').val(),
+    }
+    ajaxData.zoneid = isZone && !flagship ? $('#zone_zoneid').val() : undefined;
+
     $.jsonPage({
         listBox: 'ul.body',//列表容器
         ajaxUrl: ajaxUrl,
         ajaxType: 'post',
-        ajaxData: {
-            code: $('#school_code').val() || $('#zone_code').val()
-        },//上行参数
+        ajaxData: ajaxData,//上行参数
         template: tpl,//列表模板
         listKey: ['data','list'],//下行结构
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }

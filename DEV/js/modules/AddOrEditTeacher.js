@@ -130,10 +130,9 @@ let getTeacherDetail = ()=>{
 }
 
 
-
-
 if( tid ){
 	getTeacherDetail();
+	$( '.btn_dis' ).data( 'href', '/pss/goTeacherDetail?tid=' + tid );
 }else{
     const html = replaceTemplate( form_tpl, {} );
     $('.pub_form ul').html( html );

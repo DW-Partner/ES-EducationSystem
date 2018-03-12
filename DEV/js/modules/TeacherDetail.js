@@ -217,7 +217,7 @@ let getTeacherHistoryWorkInfo = ()=>{
         }
     });
 };
-
+getTeacherHistoryWorkInfo();
 
 tab({
     tab_box: $('.tab_box')

@@ -147,7 +147,7 @@ let getAuditRecord = ()=>{
             zoneid: $('#zone_zoneid').val(),
             sid: sid
         },//上行参数
-        template: tpl,//列表模板
+        template: tpl.auditRecord,//列表模板
         listKey: ['data'],//下行结构
         pageBar: false,//是否启用分页
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
