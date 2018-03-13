@@ -11,7 +11,7 @@ const tpl = {
                 <div class="item"><p><span>{course}</span></p></div>\
                 <div class="item"><p><span>{theme}</span></p></div>\
                 <div class="item"><p><span>{time}</span></p></div>\
-                <div class="item flex_3"><p><span>{result}</span></p></div>\
+                <div class="item"><p><span>{result}</span></p></div>\
             </li>'
 }
 
