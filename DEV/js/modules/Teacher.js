@@ -15,7 +15,8 @@ const isZone = $('#zone_code').val() ? true : false;
 
 //获取教师列表 start 3.23
 let getTeacherList = ()=>{
-    const ajaxUrl = isZone && !flagship ? '/pss/getZoneTeacherList' : '/pss/getTeacherList';
+	// getZoneTeacherList
+    const ajaxUrl = isZone && !flagship ? '/pss/getZoneTeacherInfoList' : '/pss/getTeacherList';
     const ajaxData = {
         code: $('#school_code').val() || $('#zone_code').val(),
     }
