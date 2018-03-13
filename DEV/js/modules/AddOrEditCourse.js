@@ -146,8 +146,15 @@ let getCourses = ()=>{
                 options += '<option value="' + item.id + '">' + item.name + '</option>'
             });
             $('[name=next_courseid]').prepend(options);
+            if( courseid ){
+                $('[name="next_courseid"] [value="' + courseid + '"]').remove();
+                $('[name="next_courseid"]').append('<option value="' + courseid + '">循环使用本课程</option>');
+            }else{
+                $('[name="next_courseid"]').append('<option value="-1">循环使用本课程</option>');
+
+            }
             $('[name=next_courseid]').val( next_courseid );
-            $('[name="next_courseid"]').append('<option value="-1">循环使用本课程</option>');
+
         },
         error: ()=>{
             $.dialogFull.Tips( "网络错误，请稍后重试！" );
