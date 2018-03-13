@@ -51,7 +51,7 @@ const tpl = {
             <div class="item"><p><span>{student_num}</span></p></div>\
         </li>',
     teacherHistoryWorkInfo: '<li>\
-                <div class="item"><p><span>{time}</span></p></div>\
+                <div class="item"><p><span>{stat_time}</span></p></div>\
                 <div class="item"><p><span>{class_num}</span></p></div>\
                 <div class="item"><p><span>{lesson_num}</span></p></div>\
                 <div class="item"><p><span>{completed_lessons}</span></p></div>\

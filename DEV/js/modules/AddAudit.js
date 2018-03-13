@@ -7,7 +7,7 @@ const tpl = {
     lesson_option: '<option value="{lesson_id}" data-time="{lesson_time}">{lesson_time}&nbsp;&nbsp;&nbsp;&nbsp;{theme}</option>',
     auditRecord: '<li>\
                 <div class="item"><p><span>{zone}</span></p></div>\
-                <div class="item"><p><span>{class}</span></p></div>\
+                <div class="item"><p><span>{class_name}</span></p></div>\
                 <div class="item"><p><span>{course}</span></p></div>\
                 <div class="item"><p><span>{theme}</span></p></div>\
                 <div class="item"><p><span>{time}</span></p></div>\

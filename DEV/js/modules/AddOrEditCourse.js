@@ -147,6 +147,7 @@ let getCourses = ()=>{
             });
             $('[name=next_courseid]').prepend(options);
             $('[name=next_courseid]').val( next_courseid );
+            $('[name="next_courseid"]').append('<option value="-1">循环使用本课程</option>');
         },
         error: ()=>{
             $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -423,7 +424,7 @@ $.mainBox.on('click', '#submit_course', function(){
             numberHandle();
         }
     });
-}).on('blur', '[name="course_name"]', function(){
+}).on('blur', '[name="course_name111"]', function(){
     if( courseid ){
         return;
     }
