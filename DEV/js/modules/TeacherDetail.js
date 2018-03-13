@@ -195,7 +195,7 @@ let getTeacherHistoryWorkInfo = ()=>{
         ajaxUrl: '/pss/getTeacherHistoryWorkInfo',
         ajaxType: 'post',
         ajaxData: {
-            code: $('#zone_code').val() || $('#zone_code').val(),
+            code: $('#school_code').val() || $('#zone_code').val(),
             // zoneid: $('#zone_zoneid').val(),
             tid: tid
         },//上行参数
