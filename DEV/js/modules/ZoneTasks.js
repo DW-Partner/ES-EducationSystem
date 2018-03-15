@@ -1,6 +1,6 @@
 require('./ZoneTasks.css');//引入css文件
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
-const type = $('#main_box input').eq(0).val();
+const type = $('#msgPageType').val();
 
 const tpl = {
 	//{"task_id":"xxx","time":"xxx","from":"xxx","content":"xxx","status":"xxx"}}
