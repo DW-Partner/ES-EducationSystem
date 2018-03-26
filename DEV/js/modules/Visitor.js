@@ -93,16 +93,12 @@ $.mainBox.on('click', '.toBeStudent', function(){
 	    }
 	});
 }).on('change', '.inputFile', function(){
-
     $.dialogFull.Alert( "文件上传中，请勿刷新！" );
-
     let self = $(this);
-
     let formData = new FormData();//构造空对象，下面用append 方法赋值。
     formData.append("code", $('#zone_code').val());
     formData.append("zoneid", $('#zone_zoneid').val());
     formData.append("type", 'visitor');
-
     formData.append("file", self[0].files[0]);
     $.ajax({
         type: 'post',
@@ -133,6 +129,25 @@ $.mainBox.on('click', '.toBeStudent', function(){
             })
         }
     });
-
-
-})
+}).on('click', '#exportData', function(){
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/downVisitorList',
+        data: {
+            code: $('#zone_code').val(),
+            zoneid: $('#zone_zoneid').val(),
+            data: search_data
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            window.location.href = res.data.url;
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    });
+});
