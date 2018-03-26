@@ -171,8 +171,71 @@ $.jsonPage({
 });
 //校区列表 end
 
+//获取机构介绍
+let introduce = '';
+let getSchoolIntroduce = ()=>{
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/getSchoolIntroduce',
+        data: {
+            code: $('#school_code').val(),
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                return;
+            }
+            introduce = res.data.introduce;
+            $( '.user strong' ).attr( 'title', introduce );
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    })
+}
+getSchoolIntroduce();
+
+let submitSchoolIntroduce = ()=>{
+    const _introduce = $('#introduce').val();
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/submitSchoolIntroduce',
+        data: {
+            code: $('#school_code').val(),
+            data: JSON.stringify( {introduce: _introduce} )
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                return;
+            }
+            $( '.user strong' ).attr( 'title', _introduce );
+            $.dialogFull.Tips( "操作成功" );
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    })
+}
+
 $.mainBox.on('change', '#echartSelect', function(){
     const type = $(this).val();
     const word = $(this).find("option:selected").text();
     ChartHandle( type, word );
+}).on('click', '.user strong', function(){
+    $.dialogFull.Pop({
+        boxClass: '.dialog_edit_introduce',
+        width: 400,
+        height: 300,
+        title: '编辑机构简介',//弹框标题
+        content: '<textarea id="introduce" placeholder="请输入机构介绍（最多可输入100字）" maxlength="100"></textarea>',//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+            $thisBox.find('textarea').val(introduce);
+        },
+        runDone: function($this, $thisBox, dialogClose) {
+            submitSchoolIntroduce();
+        }
+    });
 })
