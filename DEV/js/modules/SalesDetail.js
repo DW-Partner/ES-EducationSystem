@@ -1,4 +1,4 @@
-require('./TeacherDetail.css');
+require('./SalesDetail.css');
 
 import QRCode from '../kit/qrcode.js';
 
