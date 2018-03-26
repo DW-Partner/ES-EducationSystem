@@ -1,0 +1,8 @@
+.pub_form{
+	li{
+		input[type=text].short{
+			width: 140px;
+    		margin-right: 0;
+		}
+	}
+}
