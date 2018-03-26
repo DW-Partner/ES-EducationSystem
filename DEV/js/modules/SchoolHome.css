@@ -1,3 +1,10 @@
+.top_box{
+	.user{
+		strong{
+				cursor: context-menu;
+			}
+	}
+} 
 .SchoolHome{
 	background-color: #F8F7F7;
 	.header{
