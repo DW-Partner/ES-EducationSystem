@@ -144,4 +144,25 @@ $.mainBox.on('click', '.exitFromClass', function(){
             })
         }
     });
+}).on('click', '#exportData', function(){
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/DownStudentsList',
+        data: {
+            code: $('#zone_code').val(),
+            zoneid: $('#zone_zoneid').val(),
+            data: search_data
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            window.location.href = res.data.url;
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    });
 });
