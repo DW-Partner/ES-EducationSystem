@@ -40,7 +40,7 @@ var tpl = {
                 <li><span>昨日请假数</span><em>{teacher_leave_num}人</em></li>\
                 <li class="none"><span>开班数</span><em>{class_num}人</em></li>',
     zoneList: '<li>\
-                    <div class="item"><p><span>{name}</span></p></div>\
+                    <div class="item"><p style="text-align: left;"><span><em class="{icon_class}"></em>{name}</span></p></div>\
                     <div class="item"><p><span>{official}</span></p></div>\
                     <div class="item"><p><span>{mobile}</span></p></div>\
                     <div class="item"><p><span>{address}</span></p></div>\
@@ -152,6 +152,8 @@ $.jsonPage({
             '10': '合作/商场',
             '11': '合作/社区',
         }
+        msg.icon_class = +msg.type < 2 ? 'direct' : 'cooperation';
+        msg.icon_class = msg.flagship == 1 ? 'flagship' : msg.icon_class;
         msg.type = words[msg.type];
         return msg;
     },
@@ -224,7 +226,8 @@ $.mainBox.on('change', '#echartSelect', function(){
     const type = $(this).val();
     const word = $(this).find("option:selected").text();
     ChartHandle( type, word );
-}).on('click', '.user strong', function(){
+});
+$('body').on('click', '.user strong', function(){
     $.dialogFull.Pop({
         boxClass: '.dialog_edit_introduce',
         width: 400,
