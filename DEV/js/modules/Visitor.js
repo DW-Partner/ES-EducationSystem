@@ -1,5 +1,5 @@
 require('./Visitor.css');//引入css文件
-
+import QRCode from '../kit/qrcode.js';
 //{"sid":"xxx","ctime":"xxx","name":"xxx","age":"xxx","gender":"xxx","address":"xxx","official":"xxx","mobile":"xxx","visitor_content":"xxx","origin":"xxx","audit_time":"xxx","audit_status":"xxx"}
 //{"data":{"page_num":1,"list":[{"address":"通州","gender":"男","origin":"市场活动","visitorContent":"","name":"bb","mobile":"1322222","official":"老王","ctime":"2017-09-28 10:00:00","visitorStatus":"登记状态","age":7,"sid":1}]},"errcode":"0","errmsg":"success"}
 const tpl = {
@@ -148,6 +148,44 @@ $.mainBox.on('click', '.toBeStudent', function(){
         },
         error: ()=>{
             $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    });
+}).on('click', '#run_qrcode', function(){
+    $.dialogFull.Pop({
+        boxClass: '.dialog_run_qrcode',
+        confirm: false,
+        width: 400,
+        height: 400,
+        title: '校区咨询登记码',//弹框标题
+        content: '<div id="visitor_qrcode_box" class="visitor_qrcode_box"></div>',//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+            let visitor_qrcode = new QRCode($("#visitor_qrcode_box")[0], {
+              text: 'your content',
+              width: 300,
+              height: 300,
+              colorDark : '#000000',
+              colorLight : '#ffffff',
+            });
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/pss/getZoneVisitCode',
+                data: {
+                    code: $('#zone_code').val(),
+                    zoneid: $('#zone_zoneid').val()
+                },
+                success: (res)=>{
+                    if( res.errcode != 0 ){
+                        $.dialogFull.Tips( res.errmsg );
+                         return;
+                    }
+                    visitor_qrcode.makeCode(res.data.visit_code);
+                },
+                error: ()=>{
+                    $.dialogFull.Tips( "网络错误，请稍后重试！" );
+                }
+            });
         }
     });
 });
