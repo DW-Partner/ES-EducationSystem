@@ -26,6 +26,10 @@ const tpl = {
 			<input type="text" value="{start_time}" id="start_time" class="short" name="start_time" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
+			<span class="wide">设置为试听班级</span>\
+			<input type="checkbox" id="set_audit" class="m-checkbox" value="1"><label for="set_audit"></label>\
+		</li>\
+		<li>\
 		<span class="wide"><i>*</i>上课时段</span>\
 			<div class="timeList">\
 			</div>\
@@ -144,6 +148,11 @@ let getClassInfo = ()=>{
 	        classInfo = res.data;
 	        let html = replaceTemplate( tpl.edit, classInfo );
 	        $('.pub_form ul').html( html );
+
+			if(res.data.audit == 'true' ){
+				$('#set_audit').prop('checked', true);
+			}
+
 	        teacher_id = classInfo.teacher_id;
 	        getZoneTeacherList();
 			getCourseDetail( classInfo.course_id );
@@ -209,7 +218,7 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 
 	sub_data.teacher_id = +sub_data.teacher_id;
 	sub_data.reserve_num = +sub_data.reserve_num;
-
+	sub_data.set_audit = $('#set_audit:checked').val() ? true : false;
 	for(let key in sub_data){
 		if( sub_data[ key ] == classInfo[ key ] ){
 			delete sub_data[ key ];
