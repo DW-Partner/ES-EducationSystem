@@ -1,0 +1,23 @@
+.pub_list{
+	.body{
+		font-size: 14px;
+	}
+	.page{
+		/*top: 110px;*/
+	}
+}
+.run{
+	padding: 10px 0;
+	.btn{
+		margin: 0 20px;
+	}
+}
+
+.page_head{
+	.btn{
+		margin-left: 10px;
+		width: 120px;
+		position: relative;
+		overflow: hidden;
+	}
+}
