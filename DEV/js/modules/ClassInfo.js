@@ -211,9 +211,42 @@ let getLessonsMissList = (that,lessonid)=>{
 	        let span = res.data.map(function(item){
 	        	return replaceTemplate( tpl.span, item );
 			});
-	        let dom = '<div class="list"><span>缺勤学员：</span></div>';
+	        let dom = '<div class="list"><p><span>缺勤学员：</span></p><p><span>提交照片数：</span></p><p><span>提交视频数:</span></p></div>';
 	        let $dom = $(dom);
-	        $dom.append(span.join('、') || '<span>无</span>');
+	        $dom.find('p').eq(0).append(span.join('、') || '<span>无</span>');
+
+			getLessonsFileCounts( that,lessonid,$dom  );
+
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})	
+}
+let getLessonsFileCounts = (that,lessonid,$dom)=>{
+	let list = that.find( '.list' );
+	if(list.length){
+		list.show();
+		return;
+	}
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getLessonsFileCounts',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	        classid: classid,
+	        lessonid: lessonid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+			$dom.find('p').eq(1).append( res.data.pics );
+			$dom.find('p').eq(2).append( res.data.videos );
+
 	        that.append( $dom );
 	        that.find('.list').show();
 	    },
@@ -222,7 +255,6 @@ let getLessonsMissList = (that,lessonid)=>{
 	    }
 	})	
 }
-
 
 
 $.mainBox.on('change', '#students', function(){
