@@ -148,7 +148,7 @@ $.mainBox.on('click', '.exitFromClass', function(){
     $.ajax({
         type: "post",
         dataType: "json",
-        url: '/pss/DownStudentsList',
+        url: '/pss/downStudentsList',
         data: {
             code: $('#zone_code').val(),
             zoneid: $('#zone_zoneid').val(),
