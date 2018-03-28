@@ -218,7 +218,7 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 
 	sub_data.teacher_id = +sub_data.teacher_id;
 	sub_data.reserve_num = +sub_data.reserve_num;
-	sub_data.set_audit = $('#set_audit:checked').val() ? true : false;
+	sub_data.audit = $('#set_audit:checked').val() ? true : false;
 	for(let key in sub_data){
 		if( sub_data[ key ] == classInfo[ key ] ){
 			delete sub_data[ key ];
