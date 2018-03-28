@@ -61,7 +61,15 @@ let getSalesDetail = ()=>{
 	        }
 	        const html = replaceTemplate( form_tpl, res.data );
 	        $('.pub_form ul').html( html );
-			$('[name="gender"]').val( res.data.gender );
+		$('[name="gender"]').val( res.data.gender );
+		    $.laydate.render({
+					elem: '#birthday',
+						type: 'date'
+				});
+		    $.laydate.render({
+					elem: '#entry_day',
+						type: 'date'
+				});
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -76,6 +84,14 @@ if( salesid ){
 }else{
     const html = replaceTemplate( form_tpl, {} );
     $('.pub_form ul').html( html );
+    $.laydate.render({
+			elem: '#birthday',
+				type: 'date'
+		});
+    $.laydate.render({
+			elem: '#entry_day',
+				type: 'date'
+		});
 }
 
 $.mainBox.on('click', '#submit_AddOrEdit', function(){
