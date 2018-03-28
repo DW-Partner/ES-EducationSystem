@@ -85,10 +85,10 @@ $.mainBox.on('click', '#submit_AddOrEdit', function(){
 	if( !sub_data ){
 		return;
 	}
-	sub_data.zone_id = +sub_data.zone_id;
 
     let ajaxData = {
         code: $('#school_code').val() || $('#zone_code').val(),
+	zoneid = $('#school_zoneid').val() || $('#zone_zoneid').val(),
         salesid: salesid,
 		data: JSON.stringify( sub_data )
     }
