@@ -213,7 +213,7 @@ let submitSchoolIntroduce = ()=>{
                 $.dialogFull.Tips( res.errmsg );
                 return;
             }
-            $( '.user strong' ).attr( 'title', _introduce );
+            $( '.user strong' ).attr( 'title', _introduce ).data( 'introduce', _introduce );
             $.dialogFull.Tips( "操作成功" );
         },
         error: ()=>{
@@ -235,10 +235,12 @@ $('body').on('click', '.user strong', function(){
         title: '编辑机构简介',//弹框标题
         content: '<textarea id="introduce" placeholder="请输入机构介绍（最多可输入100字）" maxlength="100"></textarea>',//弹框内容区
         showCallback: function($thisBox, $contentBox){
-            $thisBox.find('textarea').val(introduce);
+            const _introduce = $( '.user strong' ).data( 'introduce' );
+            $thisBox.find('textarea').val(_introduce);
         },
         runDone: function($this, $thisBox, dialogClose) {
             submitSchoolIntroduce();
+            dialogClose();
         }
     });
 })
