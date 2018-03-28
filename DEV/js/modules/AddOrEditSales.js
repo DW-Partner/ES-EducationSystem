@@ -2,18 +2,14 @@ require('./AddOrEditSales.css');
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const form_tpl = '<li>\
-					<span><i>*</i>教师姓名</span>\
-					<input type="text" class="normal" placeholder="请输入教师姓名" value="{name}" name="name" data-validate="any" data-must="1" />\
+					<span><i>*</i>顾问姓名</span>\
+					<input type="text" class="normal" placeholder="请输入顾问姓名" value="{name}" name="name" data-validate="any" data-must="1" />\
 					<span><i>*</i>教师性别</span>\
-					<select name="gender" data-validate="any" placeholder="请选择教师性别" data-must="1">\
+					<select name="gender" data-validate="any" placeholder="请选择顾问性别" data-must="1">\
 						<option value="">请选择</option>\
 						<option value="男">男</option>\
 						<option value="女">女</option>\
 					</select>\
-				</li>\
-				<li>\
-					<span><i>*</i>第二称谓</span>\
-					<input type="text" class="normal" placeholder="请输入第二称谓" value="{name_2}" name="name_2" data-validate="any" data-must="1" />\
 				</li>\
 				<li>\
 					<span>出生年月</span>\
@@ -82,7 +78,7 @@ if( salesid ){
     $('.pub_form ul').html( html );
 }
 
-$.mainBox.on('click', '#submit_AddOrEditTeacher', function(){
+$.mainBox.on('click', '#submit_AddOrEditSales', function(){
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
 	});
