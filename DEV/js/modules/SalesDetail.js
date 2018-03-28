@@ -59,7 +59,7 @@ let run_qrcode = (tips)=>{
 //qrcode end
 
 //获取教师信息 start 3.24
-let getTeacherDetail = ()=>{
+let getSalesDetail = ()=>{
 	$.ajax({
 	    type: "post",
 	    dataType: "json",
@@ -75,7 +75,6 @@ let getTeacherDetail = ()=>{
 	        }
 	        const html = replaceTemplate( tpl.base_info, res.data );
 	        $('.TeacherDetail .center').html( html );
-	        $('#action span').text( res.data.status );
 			run_qrcode();
 	    },
 	    error: ()=>{
@@ -83,7 +82,7 @@ let getTeacherDetail = ()=>{
 	    }
 	})
 }
-getTeacherDetail();
+getSalesDetail();
 //获取教师信息 end
 
 
