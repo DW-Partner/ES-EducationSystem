@@ -104,7 +104,7 @@ $.mainBox.on('click', '#submit_AddOrEdit', function(){
 
     let ajaxData = {
         code: $('#school_code').val() || $('#zone_code').val(),
-	zoneid = $('#school_zoneid').val() || $('#zone_zoneid').val(),
+		zoneid: $('#school_zoneid').val() || $('#zone_zoneid').val(),
         salesid: salesid,
 		data: JSON.stringify( sub_data )
     }

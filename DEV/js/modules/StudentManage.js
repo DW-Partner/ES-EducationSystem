@@ -152,7 +152,7 @@ $.mainBox.on('click', '.exitFromClass', function(){
         data: {
             code: $('#zone_code').val(),
             zoneid: $('#zone_zoneid').val(),
-            data: search_data
+            data: search_data || undefined
         },
         success: (res)=>{
             if( res.errcode != 0 ){
