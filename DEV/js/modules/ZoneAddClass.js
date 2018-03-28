@@ -176,7 +176,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	// 	sub_data.lessons.push( {lesson: getDate} );
 	// }
 	sub_data.time_regular = [];
-	sub_data.audit = $('#set_audit:checked').val() ? true : false;
+	sub_data.audit = $('#set_audit:checked').val() ? 'true' : 'false';
 	let _sub = true;
 	$( '.timeList .item' ).each(function(){
 		const val = $(this).find('input').eq(0).val();
