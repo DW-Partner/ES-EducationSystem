@@ -104,7 +104,7 @@ $.mainBox.on('click', '#submit_AddOrEdit', function(){
 			}
         	$.dialogFull.Tips( "提交成功！" );
          	$.ajaxGetHtml({
-         		url: '/pss/goTeacherDetail',
+         		url: '/pss/goSales',
          		data: {
          			salesid: salesid || res.data.salesid
          		}
