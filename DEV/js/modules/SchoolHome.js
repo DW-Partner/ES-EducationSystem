@@ -198,7 +198,7 @@ let getSchoolIntroduce = ()=>{
 }
 getSchoolIntroduce();
 
-let submitSchoolIntroduce = ()=>{
+let submitSchoolIntroduce = (dialogClose)=>{
     const _introduce = $('#introduce').val();
     $.ajax({
         type: "post",
@@ -214,6 +214,7 @@ let submitSchoolIntroduce = ()=>{
                 return;
             }
             $( '.user strong' ).attr( 'title', _introduce ).data( 'introduce', _introduce );
+            dialogClose();
             $.dialogFull.Tips( "操作成功" );
         },
         error: ()=>{
@@ -239,8 +240,7 @@ $('body').on('click', '.user strong', function(){
             $thisBox.find('textarea').val(_introduce);
         },
         runDone: function($this, $thisBox, dialogClose) {
-            submitSchoolIntroduce();
-            dialogClose();
+            submitSchoolIntroduce(dialogClose);
         }
     });
 })
