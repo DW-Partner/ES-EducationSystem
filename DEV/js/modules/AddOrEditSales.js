@@ -78,7 +78,7 @@ if( salesid ){
     $('.pub_form ul').html( html );
 }
 
-$.mainBox.on('click', '#submit_AddOrEditSales', function(){
+$.mainBox.on('click', '#submit_AddOrEdit', function(){
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
 	});
