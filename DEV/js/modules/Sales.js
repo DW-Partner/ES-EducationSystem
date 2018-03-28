@@ -25,7 +25,8 @@ let getSalesList = ()=>{
         ajaxType: 'post',
         ajaxData: ajaxData,//上行参数
         template: tpl,//列表模板
-        listKey: ['data','list'],//下行结构
+        listKey: ['data'],//下行结构
+	pageBar: false,
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         noData: false,//Function : function( $listBox, $pageBox ){}
         codeKeyName: 'errcode',//状态标示key名
