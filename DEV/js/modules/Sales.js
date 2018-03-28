@@ -4,9 +4,9 @@ const tpl = '<li>\
 				<div class="item"><p><span>{name}</span></p></div>\
 				<div class="item"><p><span>{mobile}</span></p></div>\
 				<div class="item"><p><span>{entry_day}</span></p></div>\
-				<div class="item"><p><span><a href="JavaScript:;"" data-href="/pss/goSalesDetail?salesid={sales_id}">详情</a>\
-				<a href="JavaScript:;" data-href="/pss/goAddOrEditSales?salesid={sales_id}">编辑</a>\
-				<a href="JavaScript:;" clas="del_sales" data-salesid="{sales_id}">删除</a>\
+				<div class="item"><p><span><a href="JavaScript:;"" data-href="/pss/goSalesDetail?salesid={salesid}">详情</a>\
+				<a href="JavaScript:;" data-href="/pss/goAddOrEditSales?salesid={salesid}">编辑</a>\
+				<a href="JavaScript:;" clas="del_sales" data-salesid="{salesid}">删除</a>\
 				</span></p></div>\
 			</li>';
 
