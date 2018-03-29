@@ -63,9 +63,10 @@ let getSalesDetail = ()=>{
 	$.ajax({
 	    type: "post",
 	    dataType: "json",
-	    url: '/pss/getTeacherDetail',
+	    url: '/pss/getSalesDetail',
 	    data: {
 	        code: $('#school_code').val() || $('#zone_code').val(),
+	        zoneid: $('#school_zoneid').val() || $('#zone_zoneid').val(),
 	        salesid: salesid
 	    },
 	    success: (res)=>{
