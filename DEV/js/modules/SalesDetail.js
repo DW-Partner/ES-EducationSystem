@@ -3,10 +3,10 @@ require('./SalesDetail.css');
 import QRCode from '../kit/qrcode.js';
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
-import tab from '../comp/tab.js';//tab切换
+// import tab from '../comp/tab.js';//tab切换
 
 const tpl = {
-	base_info: '<p><span>教师姓名：</span><em>{name}</em></p>\
+	base_info: '<p><span>顾问姓名：</span><em>{name}</em></p>\
 				<p><span>性别：</span><em>{gender}</em></p>\
 				<p><span>出生日期：</span><em>{birthday}</em></p>\
 				<p><span>入职时间：</span><em>{entry_day}</em></p>\
@@ -58,7 +58,7 @@ let run_qrcode = (tips)=>{
 }
 //qrcode end
 
-//获取教师信息 start 3.24
+//获取信息 start 3.24
 let getSalesDetail = ()=>{
 	$.ajax({
 	    type: "post",
@@ -84,7 +84,7 @@ let getSalesDetail = ()=>{
 	})
 }
 getSalesDetail();
-//获取教师信息 end
+//获取信息 end
 
 
 $.mainBox.on('click', '#t_qrcode', function(){
