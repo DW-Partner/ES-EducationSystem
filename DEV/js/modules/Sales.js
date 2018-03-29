@@ -6,7 +6,7 @@ const tpl = '<li>\
 				<div class="item"><p><span>{entry_day}</span></p></div>\
 				<div class="item"><p><span><a href="JavaScript:;"" data-href="/pss/goSalesDetail?salesid={salesid}">详情</a>\
 				<a href="JavaScript:;" data-href="/pss/goAddOrEditSales?salesid={salesid}">编辑</a>\
-				<a href="JavaScript:;" clas="del_sales" data-salesid="{salesid}">删除</a>\
+				<a href="JavaScript:;" class="del_sales" data-salesid="{salesid}">删除</a>\
 				</span></p></div>\
 			</li>';
 
@@ -26,7 +26,7 @@ let getSalesList = ()=>{
         ajaxData: ajaxData,//上行参数
         template: tpl,//列表模板
         listKey: ['data'],//下行结构
-	pageBar: false,
+		pageBar: false,
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         noData: false,//Function : function( $listBox, $pageBox ){}
         codeKeyName: 'errcode',//状态标示key名
@@ -62,7 +62,7 @@ let deleteSales = (salesid)=>{
 	             return;
 	        }
 	        $.dialogFull.Tips( "操作成功" );
-			getTeacherList();
+			getSalesList();
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
