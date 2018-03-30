@@ -189,7 +189,7 @@ let getSchoolIntroduce = ()=>{
                 return;
             }
             introduce = res.data.introduce;
-            $( '.user strong' ).attr( 'title', introduce );
+            $( '.user strong' ).attr( 'title', introduce ).data( 'introduce', introduce );
         },
         error: ()=>{
             $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -233,8 +233,8 @@ $('body').on('click', '.user strong', function(){
         boxClass: '.dialog_edit_introduce',
         width: 400,
         height: 300,
-        title: '编辑机构简介',//弹框标题
-        content: '<textarea id="introduce" placeholder="请输入机构介绍（最多可输入100字）" maxlength="100"></textarea>',//弹框内容区
+        title: '请编辑本机构介绍详情(不超过100字)',//弹框标题
+        content: '<textarea id="introduce" placeholder="请编辑本机构介绍详情（不超过100字）" maxlength="100"></textarea>',//弹框内容区
         showCallback: function($thisBox, $contentBox){
             const _introduce = $( '.user strong' ).data( 'introduce' );
             $thisBox.find('textarea').val(_introduce);
