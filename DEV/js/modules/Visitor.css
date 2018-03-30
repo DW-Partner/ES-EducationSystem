@@ -29,6 +29,9 @@
 	    width: 800px;
 	    cursor: pointer;
 	}
+	.run_qrcode{
+		
+	}
 }
 .dialog_run_qrcode img{
 	display: block;
