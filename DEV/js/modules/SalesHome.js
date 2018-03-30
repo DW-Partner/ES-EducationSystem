@@ -9,8 +9,9 @@
 	//{course_name}-课时{lesson_id}
 	//data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}
 	const tpl = {
-		li: '<li class="item" title="{start_time} ~ {end_time}"><a href="javascript:;" data-xhref="/pss/goClassInfo?classid={class_id}#goZoneClassManage">\
+		li: '<li class="item" title="{start_time} ~ {end_time}"><a href="javascript:;">\
 		<h6>{class_name}</h6><p>{teacher_name}</p> <span class="mark none">❤</span></a></li>',
+		info: '<span>开课班级 {classes}个</span> <span>授课教师 {teachers}个</span> <span>正式学员 {students}人</span> <span>试听学员 {audits}人</span>'
 	};
 
 	var myChart1 = echarts.init(document.getElementById('echart1'));
@@ -182,6 +183,10 @@ $('#s_date').val( changeFormat(false,'YYYY-MM-DD') );
 
 
 if( flagship ){
+	$( '.goTeacher' ).remove();
+	$('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
+		<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
+		<li><a href="javascript:;" data-href="/pss/goTeacher">教师督导</a></li>' );
 	$('.top_box .user').addClass( 'flagship' );
 }else{
     let icon_class = +$('#type').val() < 2 ? 'direct' : 'cooperation';
@@ -192,9 +197,9 @@ $.laydate.render({
 	elem: '#s_date',
 	type: 'date',
 	done: function(value, date){
-		getZoneSummary({
-			date: value
-		});
+		// getZoneSummary({
+		// 	date: value
+		// });
 		getZoneDayLessons(value,'teacher_id');
 	}
 });
@@ -207,6 +212,30 @@ $('#echartsBox_1').append('<p style="text-align: center;">\
     <a href="javascript:;" class="btn_dis getZoneList_times_next">下一期</a>\
     </p>');
 
+let getZoneSummary = ()=>{
+
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getZoneSummary',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val()
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        const html = replaceTemplate( tpl.info, res.data );
+	        $('.class_info').html( html );
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+//getZoneSummary();
 
 $.mainBox.on('click', '#echartsBox_1 .btn', function(){
     getZoneList_times_index = 0;
