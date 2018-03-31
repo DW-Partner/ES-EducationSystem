@@ -30,21 +30,21 @@
 	    cursor: pointer;
 	}
 	.run_qrcode{
-		padding: 16px;
+		padding: 15px 85px;
 		background: url(../../images/icon_run_qrcode.png) center center no-repeat;
-		background-size: 30px 30px;
-		margin-left: 10px;
+		background-size: 169px 39px;
+		margin-left: 15px;
 		cursor: pointer;
-		opacity: .95;
+		opacity: 0.85;
 		&:hover{
 			opacity: 1;
-			background-size: 32px 32px;
+			/*background-size: 32px 32px;*/
 		};
 	}
 }
 
 .dialog_qrcode_box{
-	height: 245px;
+	height: 265px;
 	font-family: 'PingFang-SC-Medium';
 	overflow: hidden;
 	.words{

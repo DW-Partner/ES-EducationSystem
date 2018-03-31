@@ -73,10 +73,9 @@ $.mainBox.on('click', '.del_sales', function(){
 	const salesid = $(this).data( 'salesid' );
     $.dialogFull.Pop({
         boxClass: '.dialog_run_qrcode',
-        confirm: false,
-        width: 400,
-        height: 400,
-        title: '校区咨询登记码',//弹框标题
+        width: 350,
+        height: 150,
+        title: '提示',//弹框标题
         content: '<div class="words">确定删除该顾问？</div>',//弹框内容区
         showCallback: function($thisBox, $contentBox){
         },

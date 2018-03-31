@@ -155,7 +155,7 @@ $.mainBox.on('click', '.toBeStudent', function(){
         boxClass: '.dialog_run_qrcode',
         confirm: false,
         width: 647,
-        height: 320,
+        height: 'auto',
         title: '校区咨询登记码',//弹框标题
         content: '<div class="dialog_qrcode_box">\
         <div class="words">\
