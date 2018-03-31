@@ -30,10 +30,56 @@
 	    cursor: pointer;
 	}
 	.run_qrcode{
-		
+		padding: 16px;
+		background: url(../../images/icon_run_qrcode.png) center center no-repeat;
+		background-size: 30px 30px;
+		margin-left: 10px;
+		cursor: pointer;
+		opacity: .95;
+		&:hover{
+			opacity: 1;
+			background-size: 32px 32px;
+		};
 	}
 }
-.dialog_run_qrcode img{
-	display: block;
-	margin: 0 auto;
+
+.dialog_qrcode_box{
+	height: 245px;
+	font-family: 'PingFang-SC-Medium';
+	overflow: hidden;
+	.words{
+		float: left;
+		width: 360px;
+		height: 245px;
+		padding: 50px 20px;
+		color: #fff;
+		background-color: #2FC5AB;
+		font-size: 16px;
+		line-height: 24px;
+		position: relative;
+		h6{
+			font-size: 20px;
+			line-height: 30px;
+			font-weight: normal;
+			margin-bottom: 20px;
+		}
+		em{
+			position: absolute;
+			top: 47%;
+			right: -10px;
+			width: 0;
+			height: 0;
+			padding: 10px;
+			transform:rotate(45deg);
+			background-color: #2FC5AB;
+		}
+	}
+	img{
+		display: block;
+		margin: 38px auto 0;
+	}
+	.visitor_qrcode{
+		float: left;
+		width: 255px;
+	}
 }

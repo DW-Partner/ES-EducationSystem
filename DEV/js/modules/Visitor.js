@@ -154,15 +154,23 @@ $.mainBox.on('click', '.toBeStudent', function(){
     $.dialogFull.Pop({
         boxClass: '.dialog_run_qrcode',
         confirm: false,
-        width: 400,
-        height: 400,
+        width: 647,
+        height: 320,
         title: '校区咨询登记码',//弹框标题
-        content: '<div id="visitor_qrcode_box" class="visitor_qrcode_box"></div>',//弹框内容区
+        content: '<div class="dialog_qrcode_box">\
+        <div class="words">\
+        <em></em>\
+        <h6>（本校区专属）线下招生二维码</h6>\
+        <p>适用：校区各种线下宣传产品中嵌入使用，如地推宣传单等。</p>\
+        <p>优点：友好采集用户信息，立体化传递形象，从而实现登记和预约跟进一体化。</p>\
+        </div>\
+        <div id="visitor_qrcode" class="visitor_qrcode"></div>\
+        </div>',//弹框内容区
         showCallback: function($thisBox, $contentBox){
-            let visitor_qrcode = new QRCode($("#visitor_qrcode_box")[0], {
+            let visitor_qrcode = new QRCode($("#visitor_qrcode")[0], {
               text: 'your content',
-              width: 300,
-              height: 300,
+              width: 169,
+              height: 169,
               colorDark : '#000000',
               colorLight : '#ffffff',
             });

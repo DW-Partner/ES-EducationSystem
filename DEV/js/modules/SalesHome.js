@@ -182,16 +182,16 @@ let getZoneDayLessons = (date,type)=>{
 $('#s_date').val( changeFormat(false,'YYYY-MM-DD') );
 
 
-if( flagship ){
-	$( '.goTeacher' ).remove();
-	$('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
-		<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
-		<li><a href="javascript:;" data-href="/pss/goTeacher">教师督导</a></li>' );
-	$('.top_box .user').addClass( 'flagship' );
-}else{
-    let icon_class = +$('#type').val() < 2 ? 'direct' : 'cooperation';
-	$('.top_box .user').addClass( icon_class );
-}
+// if( flagship ){
+// 	$( '.goTeacher' ).remove();
+// 	$('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
+// 		<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
+// 		<li><a href="javascript:;" data-href="/pss/goTeacher">教师督导</a></li>' );
+// 	$('.top_box .user').addClass( 'flagship' );
+// }else{
+//     let icon_class = +$('#type').val() < 2 ? 'direct' : 'cooperation';
+// 	$('.top_box .user').addClass( icon_class );
+// }
 
 $.laydate.render({
 	elem: '#s_date',
