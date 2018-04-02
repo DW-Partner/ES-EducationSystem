@@ -31,9 +31,9 @@
 	}
 	.run_qrcode{
 		padding: 15px 85px;
-		background: url(../../images/icon_run_qrcode.png) center center no-repeat;
-		background-size: 169px 39px;
-		margin-left: 15px;
+		background: url(../../images/icon_run_qrcode.jpg) center center no-repeat;
+		background-size: 169px 35px;
+		margin-left: 12px;
 		cursor: pointer;
 		opacity: 0.85;
 		&:hover{
