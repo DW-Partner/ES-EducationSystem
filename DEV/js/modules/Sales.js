@@ -46,7 +46,7 @@ let getSalesList = ()=>{
 getSalesList();
 
 
-let deleteSales = (salesid)=>{
+let deleteSales = (salesid, dialogClose)=>{
     $.ajax({
 	    type: "post",
 	    dataType: "json",
@@ -62,6 +62,7 @@ let deleteSales = (salesid)=>{
 	             return;
 	        }
 	        $.dialogFull.Tips( "操作成功" );
+	        dialogClose();
 			getSalesList();
 	    },
 	    error: ()=>{
@@ -80,7 +81,7 @@ $.mainBox.on('click', '.del_sales', function(){
         showCallback: function($thisBox, $contentBox){
         },
         runDone: function($this, $thisBox, dialogClose) {
-			deleteSales( salesid );
+			deleteSales( salesid, dialogClose );
         }
     });
 });
