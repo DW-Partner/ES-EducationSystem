@@ -84,6 +84,11 @@ let getZoneList = (zone_id)=>{
                 options += '<option value="' + item.id +'">'+ item.name +'</option>'
             });
             $('#zoneList').html( options ).val( zone_id || '' );
+
+            if( $('#zone_zoneid').val() ){
+                $('#zoneList').val( $('#zone_zoneid').val() ).attr( 'readonly','readyonly' );
+            }
+
             $.laydate.render({
 				elem: '#birthday',
 					type: 'date'
@@ -118,10 +123,10 @@ let getTeacherDetail = ()=>{
 	             return;
 	        }
 	        const html = replaceTemplate( form_tpl, res.data );
-	        $('.pub_form ul').html( html );
-			getZoneList( res.data.zone_id );
-			$('[name="type"]').val( res.data.type );
-			$('[name="gender"]').val( res.data.gender );
+	        $('.pub_form ul').html( html );    
+		getZoneList( res.data.zone_id );
+		$('[name="type"]').val( res.data.type );
+		$('[name="gender"]').val( res.data.gender );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
