@@ -1,11 +1,8 @@
 require('./AddOrEditTeacher.css');
-
 //{"data":{"birthday":"1991-05-11","address":"平乐园","gender":"女","mobile":"1323345","zone_name":"望京","type":"助教","mtime":"2017-10-18 12:45:49","tid":1,"native_place":"上海","name":"赵赵","id_num":"4013420333","entry_day":"2017-07-20","status":"正常"},"errcode":"0","errmsg":"success"}
-
-
-
-
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
+const flagship = $( '#flagship' ).val() == 1 ? true : false;
+const isZone = $('#zone_code').val() ? true : false;
 const form_tpl = '<li>\
 					<span><i>*</i>教师姓名</span>\
 					<input type="text" class="normal" placeholder="请输入教师姓名" value="{name}" name="name" data-validate="any" data-must="1" />\
@@ -85,8 +82,8 @@ let getZoneList = (zone_id)=>{
             });
             $('#zoneList').html( options ).val( zone_id || '' );
 
-            if( $('#zone_zoneid').val() ){
-                $('#zoneList').val( $('#zone_zoneid').val() ).attr( 'readonly','readyonly' );
+            if( isZone && !flagship ){
+                $('#zoneList').val( $('#zone_zoneid').val() ).attr( 'disabled','disabled' );
             }
 
             $.laydate.render({

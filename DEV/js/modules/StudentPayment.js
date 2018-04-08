@@ -78,16 +78,16 @@ $.mainBox.on('click', '#submit', function(){
     if( !sub_data ){
       return;
     }
-  const lessons = $('[name="lessons"]').val();
-  const is_pass = ( /^-?[1-9]\d*$/ ).test( lessons );
-  if( !is_pass ){
-    $.dialogFull.Tips( '请输入正确购买课时数!' );
-    return;
-  }
-  if( +lessons <= 0 && !sub_data.notes ){
-    $.dialogFull.Tips( '购买课时数为负/零，请输入备注说明!' );
-    return;
-  }
+    const lessons = $('[name="lessons"]').val();
+    const is_pass = ( /^-?[1-9]\d*$/ ).test( lessons );
+    if( !is_pass ){
+      $.dialogFull.Tips( '请输入正确购买课时数!' );
+      return;
+    }
+    if( +lessons <= 0 && !sub_data.notes ){
+      $.dialogFull.Tips( '购买课时数为负/零，请输入备注说明!' );
+      return;
+    }
   
     let ajaxData = {
         code: $('#zone_code').val(),
