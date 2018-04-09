@@ -35,7 +35,7 @@ const tpl = {
             </li>\
             <li>\
                 <span class="wide"><i>*</i>下一阶段课程</span>\
-                <select name="next_courseid" data-validate="any">\
+                <select name="next_courseid" data-validate="any" class="next">\
                     <option value="0">无</option>\
                 </select>\
             </li>',
