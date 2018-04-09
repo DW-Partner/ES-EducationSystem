@@ -225,7 +225,6 @@ $.mainBox.on('change', '[name=class_id]', function(){
         }
     });
 }).on('click', '#submit_del', function(){
-
     $.ajax({
         type: "post",
         dataType: "json",
@@ -246,7 +245,7 @@ $.mainBox.on('change', '[name=class_id]', function(){
 
             $('[name=lesson_id]').removeAttr('disabled');
             $('#submit_del').html('提交').attr('id','submit');
-
+            getAuditRecord();
             getAuditLessonList();
         },
         error: ()=>{
