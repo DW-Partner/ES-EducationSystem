@@ -7,6 +7,9 @@
 			padding-bottom: 5px; 
 		}
 	}
+	select.next{
+		width: 270px;
+	}
 }
 .submit_course{
 	margin: 30px;
