@@ -339,10 +339,14 @@ $.mainBox.on('change', '#students', function(){
         }
 	});
 }).on('mouseenter', '.class_list .info', function(e){
+	let self = $(this);
 	if( $('#students').val() ){
+		const _status = self.data('status');
+		if( _status == 3 ){
+			self.attr( 'title', '点击安排补课事宜' );
+		}
 		return;
 	}
-	let self = $(this);
 	self.data('req', 1);
 	setTimeout(function(){
 		if( self.data('req') == 0 ){
