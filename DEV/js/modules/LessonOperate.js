@@ -90,8 +90,10 @@ let getLessonsDetail = ()=>{
 
 if( !sid ){
 	$('.pub_form ul').append('<li><span class="wide">课表自动重排</span><input type="checkbox" id="auto" class="m-checkbox" value="1"><label for="auto"></label></li>');	
+}else if( $('#status').val() == 3 ){
+	$('.pub_form .wide').eq(0).text( '补课时间' );
+	$('.pub_form .wide').eq(1).text( '补课安排' );
 }
-
 
 let getLessonAbsenceAndAudits = ()=>{
     $.ajax({
@@ -150,7 +152,6 @@ $.mainBox.on('click', '#submit_edit', ()=>{
         sid: sid || undefined,
 		data: JSON.stringify( sub_data ),
     }
-
 	$.form.submit({
 		url: '/pss/submitLessonOperate',
 		data: ajaxData,
