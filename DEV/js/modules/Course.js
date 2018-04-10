@@ -1,5 +1,4 @@
 require('./Course.css');
-
 const tpl = {
 	list:'<li>\
 			<div class="item"><p><span>{name}</span></p></div>\
@@ -12,7 +11,6 @@ const tpl = {
 			<div class="item"><p><span><a href="javascript:;" data-href="/pss/goAddOrEditCourse?courseid={id}"><i></i>编辑</a></span></p></div>\
 		</li>'
 }
-
 //课程资源列表 start 3.17
 $.jsonPage({
     listBox: 'ul.body',//列表容器
