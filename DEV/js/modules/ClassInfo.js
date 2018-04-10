@@ -18,7 +18,7 @@ const tpl = {
 	//{"lesson_id":"xxx","theme":"xxx","lesson_status":"xxx"}
 	list: '<li>\
 			<div class="info status_{lesson_status}" data-status="{lesson_status}" data-lessonid="{lesson_id}">\
-			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}&sid={sid}">\
+			<a href="javascript:;" data-{href}="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}&sid={sid}&status={lesson_status}">\
 			<h6>{theme}</h6>\
 			<p>{lesson_time}</p>\
 			<strong data-lessonid="{lesson_id}">{del}</strong></a>\
