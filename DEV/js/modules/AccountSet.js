@@ -1,13 +1,9 @@
 require('./AccountSet.css');
-
 import hex_md5 from '../kit/md5.js';
 import QRCode from '../kit/qrcode.js';
-
-
 const tpl = {
 	list: '<li><span>{name}</span><a href="JavaScript:;" class="btn" data-href="/pss/goZoneQrcode?zoneid={id}">生成登录二维码</a><a href="JavaScript:;" class="{btn} zoneAction" data-zoneid="{id}" data-isfrozen="{isfrozen}">{frozen_word}</a></li>'
 }
-
 //qrcode start 3.29
 let run_qrcode = (tips)=>{
 	$.ajax({
@@ -87,10 +83,6 @@ $.jsonPage({
 });
 //校区列表 end
 
-
-
-
-
 $.mainBox.on('click', '#submit_pass', function(){
 	const sub_data = $.form.get({
 		item: '.passwordBox [data-validate]',
@@ -134,7 +126,6 @@ $.mainBox.on('click', '#submit_pass', function(){
 	const action = isfrozen == 1 ? 'start' : 'stop';
 	const target_val = isfrozen == 1 ? 0 : 1;
 	const target_words = self.text() == '冻结校区登录' ? '解除校区登录冻结' : '冻结校区登录';
-
 	$.ajax({
 	    type: "post",
 	    dataType: "json",
