@@ -1,4 +1,5 @@
 require('./StudentPayment.css');
+import loading from '../comp/loading.js';
 
 const tpl = '<li>\
                 <div class="item"><p><span>{time}</span></p></div>\
@@ -72,6 +73,8 @@ getStudentPayRecord();
 
 
 $.mainBox.on('click', '#submit', function(){
+    let self = $(this)
+    
     const sub_data = $.form.get({
           error_text: 'placeholder',//存放错误文案的属性名
     });
@@ -97,22 +100,26 @@ $.mainBox.on('click', '#submit', function(){
         lessons: +lessons,
         notes: sub_data.notes
     }
-
+    if( loading({element: self,handClose: true}) ){
+      return;
+    }
     $.form.submit({
-      url: '/pss/studentPayment',
-      data: ajaxData,
-      success: (res) => {
-        if( res.errcode != 0 ){
+        url: '/pss/studentPayment',
+        data: ajaxData,
+        success: (res) => {
+            if( res.errcode != 0 ){
               $.dialogFull.Tips( res.errmsg );
-          return;
-        }
+              return;
+            }
+            loading({element: self,setClose: true});
             $.dialogFull.Tips( "提交成功！" );
             $.ajaxGetHtml({
               url: res.data.url
             })
-      },
-          error: function(){
-            $.dialogFull.Tips( "网络错误，请稍后重试" );
-          }
+        },
+        error: function(){
+          loading({element: self,setClose: true});
+          $.dialogFull.Tips( "网络错误，请稍后重试" );
+        }
     });
 })
