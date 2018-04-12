@@ -208,6 +208,8 @@ let getClassInfo = ()=>{
 }
 classid && getClassInfo();
 
+$('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
+
 $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	let sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
@@ -298,10 +300,8 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	}
 }).on('click', '.run_item_add', function(){
 	let item = $(tpl._item);
-
 	_before = baseId + item_i;
 	item.find('input').eq(0).attr('id',baseId + item_i++);
-
 	$('.timeList').append( item );
 	$.laydate.render({
 		elem: '#' + _before,
@@ -311,6 +311,8 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 		btns: ['confirm']
 	  // type: 'time'
 	});
+	$('.timeList .item').length >= 6 && $( this ).hide();
 }).on('click', '.run_item_del', function(){
 	$(this).parent().remove();
+	$( '.timeList .run_item_add' ).show();
 })
