@@ -151,8 +151,7 @@ let getCourseDetail = (courseid)=>{
 	})
 }
 
-
-
+$('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
 
 $.mainBox.on('click', '#submit_add', ()=>{
 	const sub_data = $.form.get({
@@ -238,7 +237,6 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	}
 }).on('click', '.run_item_add', function(){
 	let item = $(_item);
-
 	_before = baseId + item_i;
 	item.find('input').eq(0).attr('id',baseId + item_i++);
 
@@ -250,6 +248,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		max: '22:00:00',
 		btns: ['confirm']
 	});
+	$('.timeList .item').length >= 6 && $( this ).hide();
 }).on('click', '.run_item_del', function(){
 	$(this).parent().remove();
+	$( '.timeList .run_item_add' ).show();	
 })
