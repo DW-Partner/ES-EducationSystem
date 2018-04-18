@@ -27,6 +27,7 @@ let getStudentPaySum = ()=>{
             }
             $('.paysum').html( res.data.paysum ? res.data.paysum + '元' : '0元' );
             $('.remain_lessons').html( res.data.remain_lessons ? res.data.remain_lessons + '节' : '0节' );
+            $('.total_lessons').html( res.data.total_lessons ? res.data.total_lessons + '节' : '0节' )
         },
         error: ()=>{
 

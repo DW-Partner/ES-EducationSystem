@@ -25,7 +25,7 @@ const tpl = {
 			</div>\
 			<div class="arrow"></div>\
 			</li>',
-	span: '<span>{sid}:{student_name}</span>',
+	span: '<span>{student_name}</span>',//{sid}:
 };
 const classid = $('#classid').val();
 const sid = $('#sid').val();
@@ -208,12 +208,35 @@ let getLessonsMissList = (that,lessonid)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        let span = res.data.map(function(item){
-	        	return replaceTemplate( tpl.span, item );
-			});
-	        let dom = '<div class="list"><p><span>缺勤学员：</span></p><p><span>提交照片数：</span></p><p><span>提交视频数:</span></p></div>';
+
+	        let dom = '<div class="list"><p><span>提交照片数：</span></p><p><span>提交视频数：</span></p></div>';
 	        let $dom = $(dom);
-	        $dom.find('p').eq(0).append(span.join('、') || '<span>无</span>');
+
+	  //       let span = res.data.map(function(item){
+	  //       	return replaceTemplate( tpl.span, item );
+			// });
+	  //       $dom.find('p').eq(0).append(span.join('、') || '<span>无</span>');
+
+	        let status_arr = [];
+
+	        let _p = res.data.map(function(item){
+	        	const _status = item.status;
+	        	const push = status_arr.indexOf( _status ) == -1 ?  status_arr.push( _status ) : '';
+	        	return push ? `<p><span>${_status}：</span></p>` : '';
+			});
+			$dom.prepend( _p.join('') );
+
+	        let span = res.data.map(function(item){
+	        	const _status = item.status;
+	        	const index = status_arr.indexOf( _status );
+	        	$dom.find('p').eq( index ).append( replaceTemplate( tpl.span, item ) + '、' );
+			});
+			$dom.find('p').each(function(){
+				const html = $(this).html().substring(0, $(this).html().length - 1);;
+				console.log( html );
+				$(this).html( html );
+			})
+
 
 			getLessonsFileCounts( that,lessonid,$dom  );
 
@@ -244,8 +267,8 @@ let getLessonsFileCounts = (that,lessonid,$dom)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-			$dom.find('p').eq(1).append( res.data.pics );
-			$dom.find('p').eq(2).append( res.data.videos );
+			$dom.find('p').eq(-2).append( res.data.pics );
+			$dom.find('p').eq(-1).append( res.data.videos );
 
 	        that.append( $dom );
 	        that.find('.list').show();
