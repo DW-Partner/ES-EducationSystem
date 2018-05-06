@@ -1,5 +1,6 @@
 const fs = require('fs');
 const beautify_html = require('js-beautify').html;
+const _config = JSON.parse(fs.readFileSync('./config.json'));
 
 let run_beautify_html = (filePath, index)=>{
     fs.readFile(filePath, 'utf8', function (err, data) {
@@ -10,7 +11,9 @@ let run_beautify_html = (filePath, index)=>{
             if (err) {
                 return console.log(err);
             }
-            console.log('-# ' + (index+1) + '、beautify：' + filePath + ' #-');
+            // console.log('-# ' + (index+1) + '、beautify完毕：' + filePath + ' #-');
+            console.log('-#beautify完成：' + filePath + ' #-');
+
         });
     });
 }
@@ -25,7 +28,7 @@ let fn_beautify_html = (path) => {
         }
     })
 }
-fn_beautify_html( './MVP_static/' );
+fn_beautify_html( _config.build_path );
 
 //监听static文件夹
 // let fsWatcher = fs.watch('./static/', (event, filename) => {

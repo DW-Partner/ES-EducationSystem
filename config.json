@@ -1,0 +1,7 @@
+{
+  "port": "9090",
+  "dev_path": "./DEV/",
+  "listen_path": "./listen/",
+  "build_path": "./MVP_static/",
+  "static_path_name": "static"
+}
