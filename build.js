@@ -53,7 +53,7 @@ var webpackBuild=()=>{
             // process.stdout.write(new Date+':执行webpack -p完成\n');
 
             //console.log('\x1B[32m%s\x1B[39m', new Date+':执行webpack -p完成\n');
-            //beautify();
+            beautify();
         }else if(d.indexOf('maxBuffer exceeded')>-1){
             command.kill();
         }else{

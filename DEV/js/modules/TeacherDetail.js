@@ -188,6 +188,28 @@ let action = ()=>{
 }
 //授课操作 end
 
+let unBindTeacher = (that)=>{
+	$.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/unBindTeacher',
+	    data: {
+	        zoneid: zoneid,
+	        tid: tid,
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+            $.dialogFull.Tips( '操作成功！' );
+            that.addClass('btn_dis').data('stop','1');
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
 
 let getTeacherHistoryWorkInfo = ()=>{
     $.jsonPage({
@@ -228,4 +250,10 @@ $.mainBox.on('click', '#action', function(){
 	action();
 }).on('click', '#t_qrcode', function(){
 	run_qrcode(true);
+}).on('click', '#unBindTeacher', function(){
+	let self = $(this);
+	if( self.data('stop') ){
+		return;
+	}
+	unBindTeacher( self );
 })

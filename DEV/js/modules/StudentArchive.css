@@ -1,0 +1,298 @@
+.page_head{
+	span{
+		color: #AAAEB3;
+	}
+	em{
+		color: #393c40;
+		padding: 0 30px 0 5px;
+	}
+	select{
+		margin-right: 15px;
+	}
+}
+
+
+.class_list{
+	min-width: 985px;
+	padding: 0 30px;
+    margin: 30px auto;
+	&:after{
+		display:block;
+		clear:both;
+		content:"";
+		visibility:hidden;
+		height:0
+	} 
+	li{
+		width: 20%;
+		height: 140px;
+		float: left;
+		position: relative;
+		&:hover{
+			z-index: 2;
+		};
+		a{
+			color: #fff;
+		}
+		.info{
+			position: relative;
+			display: inline-block;
+			width: 134px;
+			height: 72px;
+			color: #fff;
+			text-align: center;
+			background-image: url(../../images/ico_classInfo.png);
+			background-size: 100% 100%;
+			line-height: 20px;
+			cursor: pointer;
+			z-index: 1;
+			.list{
+				width: 175px;
+				padding: 10px;
+			    position: absolute;
+			    left: 0px;
+			    top: 71px;
+			    background: #fff;
+			    cursor: default;
+			    display: none;
+			    color: #666;
+			    z-index: 1;
+			    h5{
+				    font-size: 14px;
+				    font-weight: normal;
+				    text-align: left;
+				    line-height: 28px;
+			    }
+			    p{
+			    	padding: 0;
+			    	line-height: 22px;
+			    	text-align: left;
+			    }
+			}
+			em{
+				position: absolute;
+				width: 27px;
+				height: 24px;
+				background-image: url(../../images/ico_classInfo_mark1.png);
+				background-size: 100% 100%;
+				right: 0;
+				top: 0;
+			}
+			strong{
+				width:44px;
+				height: 37px;
+			    opacity: 0.8;
+			    display: block;
+			    position: absolute;
+			    right: 1px;
+			    bottom: 1px;
+				display: none;
+				background-image: url(../../images/ico_lession_del.png);
+				background-size: 100% 100%;
+				border-radius: 42px 0px 0px 0px;
+			}
+			&:hover{
+				strong{
+					display: block;
+					&:hover{
+					    opacity: 1;
+					}
+				}
+			}
+
+
+			&.status_0{
+				background-image: url(../../images/bg_classInfo_0.png);
+				color: #666;
+				a{
+					color: #666;
+				    cursor: default;
+				}
+
+				&:hover{
+					strong{
+						display: none;
+					}
+				}
+			}
+			&.status_1{
+				background-image: url(../../images/bg_classInfo_2.png);
+			}
+			&.status_2{
+				background-image: url(../../images/bg_classInfo_2.png);
+			}
+			&.status_3{
+				background-image: url(../../images/bg_classInfo_3.png);
+			}
+
+
+		}
+		.click{
+		    box-shadow: 2px 4px 6px #999;
+		}
+		h6{
+			font-size: 14px;
+			height: 28px;
+			font-weight: 500;
+			padding-top: 8px;
+		}
+		p{
+			font-size: 14px;
+			line-height: 16px;
+			padding-top: 8px
+		}
+		.arrow{
+			display: inline-block;
+			width: 41px;
+			height: 9px;
+			background-image: url(../../images/ico_arrow.png);
+			background-size: 100% 100%;
+			vertical-align: middle;
+			position: relative;
+			top: -15px;
+
+			min-width: 41px;
+			background-size: 100% 20px;
+			height: 20px;
+			background-repeat: no-repeat;
+			width: calc(100% - 175px);
+
+		}
+		&:nth-child(10n), &:nth-child(10n-1), &:nth-child(10n-2), &:nth-child(10n-3), &:nth-child(10n-4){
+			float: right;
+		};
+		&:nth-child(10n-5){
+			.info{
+				display: block;
+			}
+			.arrow{
+				display: block;
+				transform:rotate(90deg);
+				margin: 20px 0 0 42px;
+				top: 0;
+				max-width: 56px;
+			}
+		}
+		&:nth-child(10n), &:nth-child(10n-1), &:nth-child(10n-2), &:nth-child(10n-3){
+			.arrow{
+				transform:rotate(180deg);
+			}
+		}
+		&:nth-child(10n){
+			position: relative;
+			&:after{
+				position: absolute;
+				left: 47px;
+				top: 92px;
+				display: inline-block;
+				width: 41px;
+				height: 9px;
+				content:"";
+				background-image: url(../../images/ico_arrow.png);
+				background-size: 100% 100%;
+				vertical-align: middle;
+				transform:rotate(90deg);
+
+				min-width: 41px;
+				background-size: 100% 20px;
+				height: 20px;
+				background-repeat: no-repeat;
+				width: calc(100% - 175px);
+				max-width: 56px;
+
+			}
+			.arrow{
+				display: block;
+			}
+		}
+		&:nth-child(10n-4){
+			.arrow{
+				display: none;
+			}
+		}
+		&:last-child{
+			.arrow{
+				display: none;
+			}
+			&:after{
+				display: none;
+			}
+
+		}
+		&:nth-child(10n-3), &:nth-child(10n-2), &:nth-child(10n-1),&:nth-child(10n){
+			.arrow{
+				display: inline-block;
+			}
+		}
+
+
+
+	}
+}
+
+
+
+.page{
+	position: relative;
+	top: 83px;
+	margin-top: -36px;
+	text-align: right;
+	line-height: 36px;
+	p{
+	  background: #fff;
+	  display: inline-block;
+	  box-shadow: 0px 0px 1px 4px #f6f5f5;
+	  border-radius: 4px;
+	}
+	a{
+	  display: inline-block;
+	  padding: 0 7px;
+	  margin: 0 3px;
+	  color: #CED0DA;
+	  &:hover,&.on{
+	    color: #393C40;
+	  }
+	}
+	.prev, .next{
+	  width: 0;
+	  height: 0;
+	  padding: 0 4px;
+	  border: 6px solid #fff;
+	  overflow: hidden;
+
+	}
+	.prev{
+	  margin: 0 5px 0 0;
+	  border-right: 6px solid #CED0DA;
+	  &:hover{
+	    border-right: 6px solid #393C40;
+	  }
+	}
+	.next{
+	  margin: 0 0 0 5px;
+	  border-left: 6px solid #CED0DA;
+	  &:hover{
+	    border-left: 6px solid #393C40;
+	  }
+	}
+
+}
+.page_head .btn {
+    float: right;
+}
+.report{
+	padding: 20px 30px;
+	display: flex;
+	li{
+		flex: 1;
+		img{
+			display: block;
+			width: 90%;
+			margin: 0 5%;
+			height: auto;
+			padding: 3px;
+			border: 1px solid #ddd;
+		}
+	}
+}
+
