@@ -247,7 +247,7 @@ $.mainBox.on('click', '.class_list .info', function(){
 		        		li += `<li><img src="${value}"></li>`
 		        	}
 		        }
-		        $( '.report' ).html( li ).after( `<p class="commnet">${res.data.commnet}</p>` );
+		        $( '.report' ).html( li ).after( `<p class="commnet">${res.data.comment}</p>` );
 		        
 		        self.addClass( 'click' ).siblings( '.click' ).removeClass( 'click' );
 		    },
