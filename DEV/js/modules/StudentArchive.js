@@ -241,11 +241,12 @@ $.mainBox.on('click', '.class_list .info', function(){
 
 		        let li = '';
 		        for( let key in res.data ){
-		        	if( key != 'comment' ){
-		        		replaceTemplate( tpl.span, item )
-		        		const value = res.data[key];
-		        		li += `<li><img src="${value}"></li>`
-		        	}
+		        	const value = res.data[key];
+		        	if( key.indexOf('pic') != -1 ){
+		        		li += `<li><img src="${value}"></li>`;
+		        	}else if( key.indexOf('video') != -1 ){
+		        		li += `<li><video src="${value}" controls="controls">暂不支持该类型视频播放</video></li>`;
+				}
 		        }
 		        $( '.report' ).html( li ).after( `<p class="commnet">${res.data.comment}</p>` );
 		        
