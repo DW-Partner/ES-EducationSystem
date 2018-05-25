@@ -194,7 +194,7 @@ let unBindTeacher = (that)=>{
 	    dataType: "json",
 	    url: '/pss/unBindTeacher',
 	    data: {
-	        code: $('#school_code').val() || $('#zone_code').val(),,
+	        code: $('#school_code').val() || $('#zone_code').val(),
 	        tid: tid,
 	    },
 	    success: (res)=>{
