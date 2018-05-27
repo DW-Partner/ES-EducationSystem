@@ -238,7 +238,7 @@ $.mainBox.on('click', '.class_list .info', function(){
 		            $.dialogFull.Tips( res.errmsg );
 		             return;
 		        }
-
+				$( '.comment' ).remove();
 		        let li = '';
 		        for( let key in res.data ){
 		        	const value = res.data[key];
@@ -248,9 +248,10 @@ $.mainBox.on('click', '.class_list .info', function(){
 		        		li += `<li><video src="${value}" controls="controls">暂不支持该类型视频播放</video></li>`;
 				}
 		        }
-		        $( '.report' ).html( li ).after( `<p class="commnet">${res.data.comment}</p>` );
-		        
-		        self.addClass( 'click' ).siblings( '.click' ).removeClass( 'click' );
+		        const comment = res.data.comment || '';
+		        $( '.report' ).html( li ).after( `<p class="comment">${comment}</p>` );
+		        $( '.class_list .click' ).removeClass( 'click' );
+		        self.addClass( 'click' );
 		    },
 		    error: ()=>{
 		        $.dialogFull.Tips( "网络错误，请稍后重试！" );

@@ -19,7 +19,22 @@
 		}
 	}
 }
-
-
-
-
+.selected_lessons{
+	margin-left: 15px;
+}
+.pub_list{
+	.head{
+		display: block;
+	}
+	.body{
+		max-height: 400px;
+		overflow: auto;
+		li{
+			input[type=checkbox]{
+				/*zoom:160%;*/
+				transform:scale(1.4);
+				cursor: pointer;  
+			}
+		}
+	}	
+}

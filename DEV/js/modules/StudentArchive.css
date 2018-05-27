@@ -13,6 +13,8 @@
 
 
 .class_list{
+	height: 220px;
+	overflow: auto;
 	min-width: 985px;
 	padding: 0 30px;
     margin: 30px auto;
@@ -127,9 +129,6 @@
 
 
 		}
-		.click{
-		    box-shadow: 2px 4px 6px #999;
-		}
 		h6{
 			font-size: 14px;
 			height: 28px;
@@ -224,12 +223,11 @@
 				display: inline-block;
 			}
 		}
-
-
-
+	}
+	.click{
+	    box-shadow: 2px 4px 6px #999;
 	}
 }
-
 
 
 .page{
@@ -281,21 +279,26 @@
     float: right;
 }
 .report{
-	padding: 20px 30px;
-	display: flex;
+	width: calc(100% - 40px);
+	margin: 0 30px;
+	padding: 20px 0;
+	border-top: 1px solid #ddd;
+	white-space: nowrap;
+	overflow: auto;
 	li{
-		flex: 1;
+		display: inline-block;
+		height: 160px;
 		img{
 			display: block;
-			width: 90%;
-			margin: 0 5%;
-			height: auto;
+			height: 160px;
+			width: auto;
+			margin-right: 10px;
 			padding: 3px;
 			border: 1px solid #ddd;
 		}
 	}
 }
-.commnet{
-	padding: 30px;
+.comment{
+	padding: 20px 30px;
 }
 

@@ -1,4 +1,5 @@
 require('./ZoneAddClass.css');//引入css文件
+import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
 const _item = '<div class="item">\
 					<select class="timeType">\
@@ -32,6 +33,15 @@ const _item = '<div class="item">\
 					<input type="text" class="short" placeholder="请输入上课时段" />\
 					<a href="JavaScript:;" class="btn_dis run_item_del">删除</a>\
 				</div>';
+const _li = '<li>\
+        <div class="item"><p><span data-lessonid="{lesson_id}">{lesson_id}</span></p></div>\
+        <div class="item"><p><span>{theme}</span></p></div>\
+        <div class="item"><p><span>{status}</span></p></div>\
+        <div class="item"><p><span class="line20px">{outline}</span></p></div>\
+        <div class="item"><p><span>\
+        <input type="checkbox" value="{lesson_id}" {disabled} />\
+        </span></p></div>\
+    </li>';
 
 const baseId = 'i' + parseInt( Math.random() * 1000000 ).toString();
 let item_i = 0;
@@ -128,6 +138,10 @@ let run_time = {
 	}
 }
 
+let dataMap = {};
+let dataMapSelect = {};
+let dataCourse = [];
+let selectOn = 'x';
 
 let getCourseDetail = (courseid)=>{
     $.ajax({
@@ -143,7 +157,15 @@ let getCourseDetail = (courseid)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        $('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
+	        $('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时，每个课时的推荐时长为' + res.data.standard_time + '分钟' );
+	        dataCourse = res.data.lessons;
+	        selectOn = res.data.course_id;
+			dataMap[ 'course_' + selectOn ] = {};
+			if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
+				$( '.selected_lessons' ).text( '挑选课时(' + dataMapSelect[ 'course_' + selectOn ].length + ')' );
+			}else{
+				$( '.selected_lessons' ).text( '挑选课时' );
+			}
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -151,9 +173,26 @@ let getCourseDetail = (courseid)=>{
 	})
 }
 
+let select_list = ()=>{
+	let html = '<ul class="body">';
+	dataCourse.forEach((item,index)=>{
+
+		dataMap[ 'course_' + selectOn ][ item.lesson_id ] = item;
+
+		item.disabled = item.status === '正常' ? '' : 'disabled="disabled"';
+        html += replaceTemplate( _li, item );
+	});
+	html += '</ul>';
+	return html;
+
+}
+
 $('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
 
+$('.tips').after( '<a href="JavaScript:;" class="btn selected_lessons">挑选课时</a>' );
+
 $.mainBox.on('click', '#submit_add', ()=>{
+	console.log(dataMapSelect[ 'course_' + selectOn ]);
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
 	});
@@ -196,6 +235,9 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	if( !_sub ){
      	$.dialogFull.Tips( '请选择合理上课时间段！' );
 		return;
+	}
+	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
+		sub_data.selected_lessons = dataMapSelect[ 'course_' + selectOn ];
 	}
 
     let ajaxData = {
@@ -252,4 +294,46 @@ $.mainBox.on('click', '#submit_add', ()=>{
 }).on('click', '.run_item_del', function(){
 	$(this).parent().remove();
 	$( '.timeList .run_item_add' ).show();	
+}).on('click', '.selected_lessons', function(){
+
+    $.dialogFull.Pop({
+        boxClass: '.pub_list',
+        width: 700,
+        height: 'auto',
+        title: '挑选课时',//弹框标题
+        content: select_list(),//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+        	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
+        		dataMapSelect[ 'course_' + selectOn ].forEach((lesson,index)=>{
+        			$( '[value=' + lesson.lesson_id + ']' ).attr("checked","true"); 
+        		})
+        	}
+        },
+        runDone: function($this, $thisBox, dialogClose) {
+
+			let checkedArr = [];
+			let submitArr = [];
+
+			$(".pub_list input:checkbox:checked").each(function(){ 
+				checkedArr.push( $(this).val() );
+			});
+
+			checkedArr.forEach((lesson_id,index)=>{
+				submitArr.push( dataMap[ 'course_' + selectOn ][ lesson_id ] );
+			});
+
+			console.log(submitArr);
+
+
+			dataMapSelect[ 'course_' + selectOn ] = submitArr;
+			$( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );
+
+            dialogClose();
+        }
+
+    });
+
+
+
+
 })

@@ -39,7 +39,7 @@ var startWebpack=()=>{
 //启动webpack-dev-server
 var startWebpackDev=()=>{
         console.log('\x1B[33m%s\x1b[0m','正在启动webpack-dev-server...');
-        let command=$exec('webpack-dev-server',{
+        let command=$exec('webpack-dev-server --inline',{
             encoding: 'utf8',
             timeout: 0,
             maxBuffer: 5000 * 1024, // 默认 200 * 1024
