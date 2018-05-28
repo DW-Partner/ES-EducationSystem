@@ -34,7 +34,7 @@ const _item = '<div class="item">\
 					<a href="JavaScript:;" class="btn_dis run_item_del">删除</a>\
 				</div>';
 const _li = '<li>\
-        <div class="item"><p><span data-lessonid="{lesson_id}">{lesson_id}</span></p></div>\
+        <div class="item"><p><span>{snum}</span></p></div>\
         <div class="item"><p><span>{theme}</span></p></div>\
         <div class="item"><p><span>{status}</span></p></div>\
         <div class="item"><p><span class="line20px">{outline}</span></p></div>\
@@ -174,18 +174,29 @@ let getCourseDetail = (courseid)=>{
 }
 
 let select_list = ()=>{
-	let html = '<ul class="body">';
+	
+	let html = '<div class="head"><span>课时序号</span><span>课时主题名</span><span>当前状态</span><span>教学大纲</span><span>全选 <input type="checkbox" id="checkall"></span></div><ul class="body">';
 	dataCourse.forEach((item,index)=>{
 
 		dataMap[ 'course_' + selectOn ][ item.lesson_id ] = item;
 
-		item.disabled = item.status === '正常' ? '' : 'disabled="disabled"';
+		item.disabled = item.status === '正常' ? 'class="input_item"' : 'disabled="disabled"';
         html += replaceTemplate( _li, item );
 	});
 	html += '</ul>';
 	return html;
 
 }
+
+
+let selectAll = ()=>{
+    if ($("#checkall").prop("checked")) {
+    	$(".pub_list .body input.input_item").prop("checked",true);//全选
+    } else { 
+        $(".pub_list .body input.input_item").prop("checked",false);  //取消全选     
+    }  
+} 
+
 
 $('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
 
@@ -306,34 +317,37 @@ $.mainBox.on('click', '#submit_add', ()=>{
         	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
         		dataMapSelect[ 'course_' + selectOn ].forEach((lesson,index)=>{
         			$( '[value=' + lesson.lesson_id + ']' ).attr("checked","true"); 
-        		})
+        		});
+	        	if( dataMapSelect[ 'course_' + selectOn ].length === $(".pub_list .body input.input_item").length ){
+	        		$("#checkall").prop("checked", true);
+	        	}
         	}
         },
         runDone: function($this, $thisBox, dialogClose) {
-
 			let checkedArr = [];
 			let submitArr = [];
-
-			$(".pub_list input:checkbox:checked").each(function(){ 
+			$(".pub_list .body input:checkbox:checked").each(function(){ 
 				checkedArr.push( $(this).val() );
 			});
-
 			checkedArr.forEach((lesson_id,index)=>{
 				submitArr.push( dataMap[ 'course_' + selectOn ][ lesson_id ] );
 			});
-
-			console.log(submitArr);
-
-
 			dataMapSelect[ 'course_' + selectOn ] = submitArr;
-			$( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );
+			submitArr.length && $( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );
 
             dialogClose();
         }
 
     });
+});
+$(document).on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
+	if( $(".pub_list .body input.input_item:checked").length === $(".pub_list .body input.input_item").length ){
+		$("#checkall").prop("checked", true);
+	}else{
+		$("#checkall").prop("checked", false);
+	}
+});
+$.distory = ()=>{
+	$(document).off('change', '#checkall').off('change', 'input.input_item')
+};
 
-
-
-
-})

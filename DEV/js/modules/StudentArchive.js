@@ -46,6 +46,8 @@ let getClassLessonsList = ()=>{
 
 			msg.sid = sid;
 
+			msg.lesson_time = msg.lesson_time.substr(0,16).replace(/\s/g, '<br />');
+
 	        return msg;
 	    },
 	    eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
@@ -238,8 +240,9 @@ $.mainBox.on('click', '.class_list .info', function(){
 		            $.dialogFull.Tips( res.errmsg );
 		             return;
 		        }
-				$( '.comment' ).remove();
-		        let li = '';
+				// $( '.comment' ).remove();
+		        const comment = res.data.comment || '';
+		        let li = `<li class="comment"><div class="text"><p>${comment}</p></div></li>`;
 		        for( let key in res.data ){
 		        	const value = res.data[key];
 		        	if( key.indexOf('pic') != -1 ){
@@ -248,8 +251,7 @@ $.mainBox.on('click', '.class_list .info', function(){
 		        		li += `<li><video src="${value}" controls="controls">暂不支持该类型视频播放</video></li>`;
 				}
 		        }
-		        const comment = res.data.comment || '';
-		        $( '.report' ).html( li ).after( `<p class="comment">${comment}</p>` );
+		        $( '.report' ).html( li );
 		        $( '.class_list .click' ).removeClass( 'click' );
 		        self.addClass( 'click' );
 		    },
@@ -335,4 +337,32 @@ $.mainBox.on('click', '.class_list .info', function(){
 		return;
 	}
 	$(this).data('req', 0).find( '.list' ).hide();
+}).on('click', '.report li', function(){
+	const self = $( this );
+	const is_comment = self.find( 'h6' ).length;
+	const title = is_comment ? '本期点评' : '';
+	const content = is_comment ? self.find( 'div' ).html() : self.html();
+	const img = is_comment ? false : self.find( 'img' );
+    $.dialogFull.Pop({
+        boxClass: '.lightBox',
+        width: 'auto',
+        height: 'auto',
+        title: title,//弹框标题
+        confirm: false,//是否显示“确定/取消”按钮，及只显示alert确定按钮
+        content: content,//弹框内容区
+        coverClose: true,//其否启用点击遮罩关闭弹框
+        showCallback: function($thisBox, $contentBox){
+        	if( img ){
+        		const className = img.width() / img.height() < 1 ? 'status_1' : 'status_2';
+        		$thisBox.find( 'img,video' ).addClass( className )
+        	}
+        }
+
+    });
+
+
+
+
+
+
 })

@@ -126,7 +126,9 @@
 			&.status_3{
 				background-image: url(../../images/bg_classInfo_3.png);
 			}
-
+			&.click{
+				background-image: url(../../images/bg_classInfo_1.png);
+			}
 
 		}
 		h6{
@@ -224,9 +226,9 @@
 			}
 		}
 	}
-	.click{
+/*	.click{
 	    box-shadow: 2px 4px 6px #999;
-	}
+	}*/
 }
 
 
@@ -281,24 +283,56 @@
 .report{
 	width: calc(100% - 40px);
 	margin: 0 30px;
-	padding: 20px 0;
+	padding: 20px 0 10px;
 	border-top: 1px solid #ddd;
 	white-space: nowrap;
 	overflow: auto;
 	li{
 		display: inline-block;
-		height: 160px;
-		img{
+		height: 420px;
+		img, video{
 			display: block;
-			height: 160px;
+			height: 420px;
 			width: auto;
-			margin-right: 10px;
+			margin-right: 12px;
 			padding: 3px;
-			border: 1px solid #ddd;
+			border: 1px solid #eee;
 		}
 	}
+	.comment{
+		h6{
+			font-size: 34px;
+			line-height: 40px;
+			color: #ddd;
+		}
+		width: 175px;
+		line-height: 28px;
+		overflow: hidden;
+	}
 }
-.comment{
-	padding: 20px 30px;
+.lightBox{
+	.content{
+		overflow: auto;
+
+	}
+	.text{
+		max-height: 600px;
+		overflow: auto;
+		word-break: break-all;
+     	margin-bottom: 20px;
+    	padding: 8px 10px;
+	}
+	img,video{
+		display: block;
+		margin-bottom: 20px;
+	}
+	.status_1{
+		width: auto;
+		max-height: 600px;
+	}
+	.status_2{
+		height: auto;
+		max-width: 1000px;
+	}
 }
 

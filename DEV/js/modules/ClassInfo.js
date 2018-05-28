@@ -60,6 +60,8 @@ let getClassLessonsList = (sid, title_info)=>{
 
 			msg.sid = sid;
 
+			msg.lesson_time = msg.lesson_time.substr(0,16).replace(/\s/g, '<br />');
+
 	        return msg;
 	    },
 	    eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
