@@ -300,14 +300,17 @@
 		}
 	}
 	.comment{
+		width: 175px;
+		line-height: 28px;
+		overflow: hidden;
 		h6{
 			font-size: 34px;
 			line-height: 40px;
 			color: #ddd;
 		}
-		width: 175px;
-		line-height: 28px;
-		overflow: hidden;
+		p{
+	    	white-space: normal;
+		}
 	}
 }
 .lightBox{
@@ -319,7 +322,7 @@
 		max-height: 600px;
 		overflow: auto;
 		word-break: break-all;
-     	margin-bottom: 20px;
+     	margin-bottom: 10px;
     	padding: 8px 10px;
 	}
 	img,video{
@@ -328,11 +331,11 @@
 	}
 	.status_1{
 		width: auto;
-		max-height: 600px;
+		height: 650px;
 	}
 	.status_2{
-		height: auto;
-		max-width: 1000px;
+		width: auto;
+		height: 600px;
 	}
 }
 

@@ -242,7 +242,7 @@ $.mainBox.on('click', '.class_list .info', function(){
 		        }
 				// $( '.comment' ).remove();
 		        const comment = res.data.comment || '';
-		        let li = `<li class="comment"><div class="text"><p>${comment}</p></div></li>`;
+		        let li = `<li class="comment"><h6>本期点评：</h6><div class="text"><p>${comment}</p></div></li>`;
 		        for( let key in res.data ){
 		        	const value = res.data[key];
 		        	if( key.indexOf('pic') != -1 ){
@@ -343,6 +343,7 @@ $.mainBox.on('click', '.class_list .info', function(){
 	const title = is_comment ? '本期点评' : '';
 	const content = is_comment ? self.find( 'div' ).html() : self.html();
 	const img = is_comment ? false : self.find( 'img' );
+	const maxHeight  = $(window).height() * 0.9 - 79;
     $.dialogFull.Pop({
         boxClass: '.lightBox',
         width: 'auto',
@@ -354,7 +355,11 @@ $.mainBox.on('click', '.class_list .info', function(){
         showCallback: function($thisBox, $contentBox){
         	if( img ){
         		const className = img.width() / img.height() < 1 ? 'status_1' : 'status_2';
-        		$thisBox.find( 'img,video' ).addClass( className )
+        		const _height = img.width() / img.height() < 1 ? 650 : 600;
+        		$thisBox.find( 'img,video' ).addClass( className );
+        		if( maxHeight < _height ){
+        			$thisBox.find( 'img,video' ).height( maxHeight );
+        		}
         	}
         }
 
