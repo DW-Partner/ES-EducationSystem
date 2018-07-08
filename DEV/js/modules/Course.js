@@ -7,8 +7,8 @@ const tpl = {
 			<div class="item"><p><span class="line20px">{target}</span></p></div>\
 			<div class="item flex_3"><p><span class="line20px">{outline}</span></p></div>\
 			<div class="item"><p><span>{fee_model}</span></p></div>\
-			<div class="item"><p><span><a href="javascript:;" data-href="/pss/goPlan?courseid={id}#goPlan">查看</a></span></p></div>\
-			<div class="item"><p><span><a href="javascript:;" data-href="/pss/goAddOrEditCourse?courseid={id}"><i></i>编辑</a></span></p></div>\
+			<div class="item flex_2"><p><span><a href="javascript:;" data-href="/pss/goAddOrEditCourse?courseid={id}"><i></i>查看编辑</a>\
+            <a href="javascript:;" data-href="/pss/goPlan?courseid={id}#goPlan">教研</a></span></p></div>\
 		</li>'
 }
 //课程资源列表 start 3.17

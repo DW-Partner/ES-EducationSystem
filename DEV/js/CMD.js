@@ -7,13 +7,17 @@
 	import dialogFull from './comp/dialogFull.js';//公共弹框插件
 	import form from './comp/form.js';//公共表单插件
 	import laydate from './comp/laydate/laydate.js';
-
+	import loading from './comp/loading.js';
 
 	$.laydate = laydate;
 	$.dialogFull = dialogFull;
 	$.jsonPage = jsonPage;
+	$.loading = loading;
+	
 	//公共销毁方法
-	$.distory = ()=>{};
+	$.distory = ()=>{
+		$.onEdit = false;
+	};
 	//main容器
 	$.mainBox = $('#main_box');
 
@@ -134,7 +138,9 @@
 				$.mainBox.off();
 				$.distory();
 				that.addClass('on').siblings('.on').removeClass('on');
-				//html.replace(/\=\"\/res/ig,'="http://127.0.0.1/res')
+
+				var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9090/res');
+
 				$('#main_box').html( html );
 				$.mainBox.scrollTop(0);
 			},
@@ -169,7 +175,9 @@
 			success: (html)=>{
 				$.mainBox.off();
 				$.distory();
-				//html.replace(/\=\"\/res/ig,'="http://127.0.0.1/res')
+
+				var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9090/res');
+
 				$('#main_box').html( html );
 				if( hash ){
 					$( '#left_nav [data-href="/pss/' + hash + '"]' ).parent('li').addClass('on').siblings('.on').removeClass('on');
@@ -224,14 +232,42 @@
 				return;
 			}
 			const li = $(this).parent('li');
-			navGetHtml( url, li );
+			if( $.onEdit ){
+			    $.dialogFull.Pop({
+			        boxClass: '.onEdit',
+			        width: 300,
+			        height: 200,
+			        title: '提示',//弹框标题
+			        content: '<p>您正在编辑，确认离开？</p>',//弹框内容区
+			        runDone: function($this, $thisBox, dialogClose) {
+			        	dialogClose();
+						navGetHtml( url, li );
+			        }
+			    });
+			}else{
+				navGetHtml( url, li );
+			}
 			stopDefault(e);
 		}).on('click', '#main_box a', function(e){
 			const url = $(this).data('href');
 			if( !url ){
 				return;
 			}
-			ajaxGetHtml( url );
+			if( $.onEdit ){
+			    $.dialogFull.Pop({
+			        boxClass: '.onEdit',
+			        width: 300,
+			        height: 200,
+			        title: '提示',//弹框标题
+			        content: '<p>您正在编辑，确认离开？</p>',//弹框内容区
+			        runDone: function($this, $thisBox, dialogClose) {
+			        	dialogClose();
+						ajaxGetHtml( url );
+			        }
+			    });
+			}else{
+				ajaxGetHtml( url );
+			}
 			stopDefault(e);
 		}).on('click', '#logout', logout);
 	};

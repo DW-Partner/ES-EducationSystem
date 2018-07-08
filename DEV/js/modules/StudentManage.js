@@ -7,7 +7,7 @@
 //{"sid":"xxx","ctime":"xxx","name":"xxx","class_id":""class_name","age":"xxx","gender":"xxx","address":"xxx","official":"xxx","mobile":"xxx","origin":"xxx","remaining_lesson":"xxx"}
 		list: '<li>\
 		<div class="item flex_2"><p><span>{ctime}</span></p></div>\
-		<div class="item"><p><span>{name}</span></p></div>\
+		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
 		<div class="item"><p><span>{class_name}</span></p></div>\
 		<div class="item"><p><span>{birthday}</span></p></div>\
 		<div class="item"><p><span>{gender}</span></p></div>\
@@ -57,6 +57,11 @@ let getStudentsList = ()=>{
         noData: false,//Function : function( $listBox, $pageBox ){}
         codeKeyName: 'errcode',//状态标示key名
         codeSuccess: 0,//状态标示值
+        eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
+        eachDataHandle: function(item,pageNum,pageSize){
+            item.isbinding = item.isbinding == 'yes' ? '<em class="isbinding"></em>' : '';
+            return item;
+        },
         successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
 
         },//function(msg) {  }

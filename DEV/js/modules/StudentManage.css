@@ -1,4 +1,15 @@
 .pub_list{
+	p{
+		.isbinding{
+		    overflow: hidden;
+		    width: 0;
+		    height: 0;
+		    padding: 5px;
+		    margin-right: 3px;
+		    display: inline-block;
+		    background: #c00;
+		}
+	}
 }
 .run{
 	padding: 10px 0;

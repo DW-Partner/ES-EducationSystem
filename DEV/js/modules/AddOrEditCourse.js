@@ -62,8 +62,8 @@ const tpl = {
                 </select>\
             </li>\
             <li>\
-                <span><i>*</i>教学大纲</span>\
-                <textarea placeholder="请输入教学大纲" name="outline" data-validate="any" data-must="1" />\
+                <span><i>*</i>教学目标</span>\
+                <textarea placeholder="请输入教学目标" name="outline" data-validate="any" data-must="1" />\
             </li>\
         </ul>',
     addLessonBatchForm: '<ul class="pub_form">\
@@ -84,8 +84,8 @@ const tpl = {
                 </select>\
             </li>\
             <li>\
-                <span class="wide"><i>*</i>教学大纲</span>\
-                <textarea placeholder="请输入教学大纲" name="outline" data-validate="any" data-must="1" />\
+                <span class="wide"><i>*</i>教学目标</span>\
+                <textarea placeholder="请输入教学目标" name="outline" data-validate="any" data-must="1" />\
             </li>\
         </ul>'
 }
@@ -228,6 +228,8 @@ $( '#lessons' ).DDSort({
 });
 
 let delItems = [];
+
+$.onEdit = true;
 
 $.mainBox.on('click', '#submit_course', function(){
     const sub_data = $.form.get({

@@ -26,6 +26,27 @@ const tpl = {
 			<div class="arrow"></div>\
 			</li>',
 	span: '<span>{student_name}</span>',//{sid}:
+    addClassLesson: '<ul class="pub_form">\
+			<li>\
+				<span class="wide"><i>*</i>日期和时间</span>\
+				<input type="text" class="short" id="TIME" placeholder="请输入日期和时间" name="plan_time" data-validate="any" data-must="1"/>\
+			</li>\
+			<li>\
+				<span class="wide">教师</span>\
+				<select id="tid" name="tid" data-validate="any" data-must="1" placeholder="请选择教师">\
+				</select>\
+			</li>\
+			<li>\
+				<span class="wide">课程</span>\
+				<select id="course_id" name="course_id" data-validate="any" data-must="1" placeholder="请选择课程">\
+				</select>\
+			</li>\
+			<li>\
+				<span class="wide">课时</span>\
+				<select id="lesson_id" name="lesson_id" data-validate="any" data-must="1" placeholder="请选择课时">\
+				</select>\
+			</li>\
+        </ul>',
 };
 const classid = $('#classid').val();
 const sid = $('#sid').val();
@@ -282,14 +303,141 @@ let getLessonsFileCounts = (that,lessonid,$dom)=>{
 }
 
 
+
+let getZoneTeacherList = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getZoneTeacherList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let options = "";
+			res.data.map(function(item){
+			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
+			});
+			$('[name=tid]').html(options);
+
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+let getCourseList = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getCourseList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let options = "";
+			res.data.map(function(item){
+			    options += '<option value="' + item.course_id + '">' + item.course_name + '</option>'
+			});
+			$('[name=course_id]').html(options);
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+let getLessons = ( courseid )=>{
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/getCourseDetail',
+        data: {
+            code: $('#school_code').val() || $('#zone_code').val(),
+            courseid: courseid
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            const lessons = res.data.lessons;
+            let options = "";
+            lessons.map(function(item, i){
+			    options += '<option value="' + item.lesson_id + '">' + item.theme + '</option>'
+            });
+            $('#lesson_id').html( options );
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    })
+}
+
+let submit_add = ()=>{
+
+	const sub_data = $.form.get({
+		item: '',
+        error_text: 'placeholder',//存放错误文案的属性名
+	});
+	if( !sub_data ){
+		return;
+	}
+	sub_data.course_id = +sub_data.course_id;
+	sub_data.teacher_id = +sub_data.teacher_id;
+	sub_data.lesson_id = +sub_data.lesson_id;
+
+	const start_time = $('#TIME').val();
+
+	if( start_time.indexOf('00:00') == 0 ){
+     	$.dialogFull.Tips( '请选择合理上课时间段！' );
+     	return;
+	}
+
+    let ajaxData = {
+        code: $('#zone_code').val(),
+        zoneid: $('#zone_zoneid').val(),
+		data: JSON.stringify( sub_data ),
+    }
+
+	$.form.submit({
+		url: '/pss/addClassLesson',
+		data: ajaxData,
+		success: (res) => {
+			if( res.errcode != 0 ){
+         		$.dialogFull.Tips( res.errmsg );
+				return;
+			}
+        	$.dialogFull.Tips( "提交成功！" );
+         	$.ajaxGetHtml({
+         		url: res.data.url
+         	})
+		},
+        error: function(){
+        	$.dialogFull.Tips( "网络错误，请稍后重试" );
+        }
+	});
+
+}
+
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
     const title_info = sid ? $(this).find('option:selected').text() + '的课程表' : '';
     getClassLessonsList(sid, title_info);
     if( sid ){
-    	$('.dataBox').hide();
+    	$('.dataBox, .addLessonBtn').hide();
     }else{
-    	$('.dataBox').show();
+    	$('.dataBox, .addLessonBtn').show();
     }
 }).on('click', '.status_0xx, .status_3xx', function(){
 	const lessonid = $(this).data('lessonid');
@@ -390,4 +538,47 @@ $.mainBox.on('change', '#students', function(){
 		return;
 	}
 	$(this).data('req', 0).find( '.list' ).hide();
-})
+}).on('click', '.addLessonBtn', function(){
+
+    $.dialogFull.Pop({
+        title: '添加课时',//弹框标题
+        content: tpl.addClassLesson,//弹框内容区
+        runDone: function($this, $thisBox, dialogClose) {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/pss/deleteClass',
+                data: {
+                    code: $('#zone_code').val(),
+                    zoneid: $('#zone_zoneid').val(),
+                    classid: classid
+                },
+                showCallback: function($thisBox, $contentBox){
+					getZoneTeacherList();
+					getCourseList();
+					//常规用法
+					$.laydate.render({
+						elem: '#TIME',
+						type: 'datetime',
+						btns: ['confirm']
+					});
+                },
+                success: (res)=>{
+                    if( res.errcode != 0 ){
+                        $.dialogFull.Tips( res.errmsg );
+                         return;
+                    }
+                    $.dialogFull.Tips( "操作成功" );
+                    getZoneClassesList();
+                    dialogClose();
+                },
+                error: ()=>{
+                    $.dialogFull.Tips( "网络错误，请稍后重试！" );
+                }
+            })
+        }
+    });
+
+}).on('change', '#courseid', function(){
+	getLessons( $(this).val() );
+});

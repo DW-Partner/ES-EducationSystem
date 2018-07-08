@@ -9,6 +9,8 @@ const tpl = {
         <div class="item"><p><span>{teacher_name}({name_2})</span></p></div>\
         <div class="item"><p><span>{students}</span></p></div>\
         <div class="item"><p><span class="audits" data-classid="{class_id}">{audits}</span></p></div>\
+        <div class="item"><p><span>{remain_lessons}</span></p></div>\
+        <div class="item"><p><span>{status}</span></p></div>\
         <div class="item"><p><span>\
         <a href="JavaScript:;" data-href="/pss/goClassInfo?classid={class_id}">查看</a>\
         <a href="JavaScript:;" data-href="/pss/goEditClass?classid={class_id}">更新班级</a>\
@@ -54,11 +56,12 @@ let getZoneClassesList = ()=>{
             status: 'pending'
         },//上行参数
         template: tpl.list,//列表模板
-        listKey: ['data'],//下行结构
-        pageBar: false,//是否启用分页
+        listKey: ['data','list'],//下行结构
+        pageBar: true,//是否启用分页
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         eachDataHandle: function(item,pageNum,pageSize){
             item.del = item.students == 0 && item.audits == 0 ? '' : 'none';
+            //status todo
             return item;
         },
         noData: false,//Function : function( $listBox, $pageBox ){}
