@@ -5,15 +5,18 @@
 		info: '<span>今日开课班级 {classes}个</span> <span>今日授课教师 {teachers}个</span> <span>今日正式学员 {students}人</span> <span>今日试听学员 {audits}人</span>',
 
 //{"sid":"xxx","ctime":"xxx","name":"xxx","class_id":""class_name","age":"xxx","gender":"xxx","address":"xxx","official":"xxx","mobile":"xxx","origin":"xxx","remaining_lesson":"xxx"}
+        // <div class="item"><p><span>{origin}</span></p></div>\
+        // <div class="item flex_2"><p><span>{address}</span></p></div>\
+
 		list: '<li>\
 		<div class="item flex_2"><p><span>{ctime}</span></p></div>\
 		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
-		<div class="item"><p><span>{class_name}</span></p></div>\
+		<div class="item"><p><span>\
+        {class_name_list}\
+        </span></p></div>\
 		<div class="item"><p><span>{birthday}</span></p></div>\
 		<div class="item"><p><span>{gender}</span></p></div>\
-		<div class="item flex_2"><p><span>{address}</span></p></div>\
 		<div class="item flex_2"><p><span>{mobile}</span></p></div>\
-		<div class="item"><p><span>{origin}</span></p></div>\
         <div class="item"><p><span>{remaining_lesson}</span></p></div>\
         <div class="item flex_2"><p><span>\
             <a href="JavaScript:;" data-href="/pss/goEditStudent?sid={sid}&page={_page}">编辑</a>\
@@ -60,6 +63,19 @@ let getStudentsList = ()=>{
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         eachDataHandle: function(item,pageNum,pageSize){
             item.isbinding = item.isbinding == 'yes' ? '<em class="isbinding"></em>' : '';
+
+            item.class_name_list = '';
+
+            const class_id_arr = item.class_id ? item.class_id.toString().split( ',' ) : [1];
+            class_id_arr.shift();
+
+            const class_name_arr = item.class_name ? item.class_name.split( ',' ) : [1];
+            class_name_arr.shift();
+
+            class_id_arr.forEach((_item,_index)=>{
+                item.class_name_list += `<a href="JavaScript:;"  data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
+            });
+
             return item;
         },
         successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {

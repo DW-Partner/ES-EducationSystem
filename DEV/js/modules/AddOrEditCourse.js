@@ -1,8 +1,8 @@
 require('./AddOrEditCourse.css');
-import DDsort from '../comp/DDsort.js';//模板引擎
+import DDsort from '../comp/DDsort.js';//拖动插件
 //submit_AddOrEditCourse
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
-import cvsDataHandle from '../comp/cvsDataHandle.js';//模板引擎
+import cvsDataHandle from '../comp/cvsDataHandle.js';//上传csv
 const tpl = {
     form_tpl: '<li><span class="wide"><i>*</i>分类课程</span>\
                 <input type="text" class="short" placeholder="请输入分类课程" value="{course_name}" name="course_name" data-validate="any" data-must="1" />\

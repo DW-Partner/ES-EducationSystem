@@ -1,4 +1,5 @@
 require('./Zone.css');
+import hex_md5 from '../kit/md5.js';
 
 
 var tpl = {
@@ -9,10 +10,14 @@ var tpl = {
                     <div class="item"><p><span>{address}</span></p></div>\
                     <div class="item"><p><span>{type}</span></p></div>\
                     <div class="item"><p><span>{coreContent}</span></p></div>\
-                    <div class="item"><p><span><a href="JavaScript:;" data-href="/pss/goZoneDetail?zoneid={id}">查看详情</a></span></p></div>\
+                    <div class="item"><p><span><a href="JavaScript:;" data-href="/pss/goZoneDetail?zoneid={id}">查看详情</a>\
+                    <a href="/pss/goZoneHome?code={md5code}&zoneid={md5id}" target="_blank">进入校区</a>\
+                    </span></p></div>\
                 </li>',
 
 }
+
+const md5code = hex_md5( $('#school_code').val() || $('#zone_code').val() );
 
 //校区列表 start 3.9
 $.jsonPage({
@@ -35,6 +40,7 @@ $.jsonPage({
         msg.icon_class = +msg.type < 2 ? 'direct' : 'cooperation';
         msg.icon_class = msg.flagship == 1 ? 'flagship' : msg.icon_class;
         msg.type = words[msg.type];
+        msg.md5code = md5code;
         return msg;
     },
     eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }

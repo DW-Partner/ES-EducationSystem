@@ -29,7 +29,7 @@ const tpl = {
     addClassLesson: '<ul class="pub_form">\
 			<li>\
 				<span class="wide"><i>*</i>日期和时间</span>\
-				<input type="text" class="short" id="TIME" placeholder="请输入日期和时间" name="plan_time" data-validate="any" data-must="1"/>\
+				<input type="text" class="short" id="plan_time" placeholder="请输入日期和时间" name="plan_time" data-validate="any" data-must="1"/>\
 			</li>\
 			<li>\
 				<span class="wide">教师</span>\
@@ -46,6 +46,7 @@ const tpl = {
 				<select id="lesson_id" name="lesson_id" data-validate="any" data-must="1" placeholder="请选择课时">\
 				</select>\
 			</li>\
+			<li><span class="wide">课表自动重排</span><input type="checkbox" id="auto" class="m-checkbox" value="1"><label for="auto"></label></li>\
         </ul>',
 };
 const classid = $('#classid').val();
@@ -385,9 +386,8 @@ let getLessons = ( courseid )=>{
 }
 
 let submit_add = ()=>{
-
 	const sub_data = $.form.get({
-		item: '',
+		item: ' .addClassLesson [data-validate] ',
         error_text: 'placeholder',//存放错误文案的属性名
 	});
 	if( !sub_data ){
@@ -396,14 +396,12 @@ let submit_add = ()=>{
 	sub_data.course_id = +sub_data.course_id;
 	sub_data.teacher_id = +sub_data.teacher_id;
 	sub_data.lesson_id = +sub_data.lesson_id;
-
-	const start_time = $('#TIME').val();
-
+	sub_data.auto = $('#auto:checked').val() ? true : false;
+	const start_time = $('#plan_time').val();
 	if( start_time.indexOf('00:00') == 0 ){
      	$.dialogFull.Tips( '请选择合理上课时间段！' );
      	return;
 	}
-
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
@@ -419,9 +417,7 @@ let submit_add = ()=>{
 				return;
 			}
         	$.dialogFull.Tips( "提交成功！" );
-         	$.ajaxGetHtml({
-         		url: res.data.url
-         	})
+        	getClassLessonsList();
 		},
         error: function(){
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
@@ -539,46 +535,24 @@ $.mainBox.on('change', '#students', function(){
 	}
 	$(this).data('req', 0).find( '.list' ).hide();
 }).on('click', '.addLessonBtn', function(){
-
     $.dialogFull.Pop({
+        boxClass: '.addClassLesson',
         title: '添加课时',//弹框标题
         content: tpl.addClassLesson,//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+			getZoneTeacherList();
+			getCourseList();
+			//常规用法
+			$.laydate.render({
+				elem: '#plan_time',
+				type: 'datetime',
+				btns: ['confirm']
+			});
+        },
         runDone: function($this, $thisBox, dialogClose) {
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: '/pss/deleteClass',
-                data: {
-                    code: $('#zone_code').val(),
-                    zoneid: $('#zone_zoneid').val(),
-                    classid: classid
-                },
-                showCallback: function($thisBox, $contentBox){
-					getZoneTeacherList();
-					getCourseList();
-					//常规用法
-					$.laydate.render({
-						elem: '#TIME',
-						type: 'datetime',
-						btns: ['confirm']
-					});
-                },
-                success: (res)=>{
-                    if( res.errcode != 0 ){
-                        $.dialogFull.Tips( res.errmsg );
-                         return;
-                    }
-                    $.dialogFull.Tips( "操作成功" );
-                    getZoneClassesList();
-                    dialogClose();
-                },
-                error: ()=>{
-                    $.dialogFull.Tips( "网络错误，请稍后重试！" );
-                }
-            })
+			submit_add();
         }
     });
-
-}).on('change', '#courseid', function(){
+}).on('change', '#course_id', function(){
 	getLessons( $(this).val() );
 });

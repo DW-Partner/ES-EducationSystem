@@ -19,7 +19,7 @@
 		}
 	}
 }
-.selected_lessons{
+.selected_lessons, .getZoneStudentList{
 	margin-left: 15px;
 }
 .pub_list{
@@ -34,9 +34,18 @@
 		/*zoom:160%;*/
 		transform:scale(1.4);
 		cursor: pointer;  
-	}	
+	}
+	li{
+		left: 15px !important;
+		cursor: move;
+	}
 }
 
 .pub_list .content .head{
 	display: flex;
+}
+.getZoneStudentList{
+	.checked{
+		color: #060;
+	}
 }

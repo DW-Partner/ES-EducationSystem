@@ -6,6 +6,7 @@ const tpl = {
     list: '<li>\
         <div class="item"><p><span>{class_name}</span></p></div>\
         <div class="item"><p><span>{start_time}</span></p></div>\
+        <div class="item"><p><span>{classroom}</span></p></div>\
         <div class="item"><p><span>{teacher_name}({name_2})</span></p></div>\
         <div class="item"><p><span>{students}</span></p></div>\
         <div class="item"><p><span class="audits" data-classid="{class_id}">{audits}</span></p></div>\

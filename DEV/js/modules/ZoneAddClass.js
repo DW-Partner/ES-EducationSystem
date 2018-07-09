@@ -1,5 +1,6 @@
 require('./ZoneAddClass.css');//引入css文件
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
+import DDsort from '../comp/DDsort.js';//拖动插件
 
 const _item = '<div class="item">\
 					<select class="timeType">\
@@ -201,6 +202,41 @@ let selectAll = ()=>{
 $('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
 
 $('.tips').after( '<a href="JavaScript:;" class="btn selected_lessons">挑选课时</a>' );
+$('[name="teacher_id"]').after( '<a href="JavaScript:;" class="btn getZoneStudentList">添加学员</a>' );
+
+let getZoneStudentList = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getZoneStudentList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let $div = $( '<div>' );
+	        let classArr = {};
+	        res.data.forEach((item,index)=>{
+	        	if( !classArr[ item.class_id ] ){
+		        	classArr[ item.class_id ] = true;
+		        	item.class_name = item.class_name || '其它';
+		        	$div.append( `<p><span>${item.class_name}：</span></p>` )
+	        	}
+				$div.find( 'p:last' ).append( `<span class="student" data-sid="{sid}">{student_name}</sapn>` );
+	        })
+	        $( '.dialogPopBox .content' ).html( $div.html() );
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+let studentChecked = [];
 
 $.mainBox.on('click', '#submit_add', ()=>{
 	console.log(dataMapSelect[ 'course_' + selectOn ]);
@@ -213,17 +249,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	sub_data.course_id = +sub_data.course_id;
 	sub_data.teacher_id = +sub_data.teacher_id;
 	sub_data.reserve_num = +sub_data.reserve_num;
-
-	//sub_data.lessons = [];
-
 	const start_time = $('[name=start_time]').val();
-
-	// let _times = start_time + ' ' + $('#day_times').val();
-	// for( let t=0; t<15; t++ ){
-	// 	const getTime = new Date( _times ).getTime() + (24*60*60*1000 * t);
-	// 	const getDate = changeFormat( getTime, 'YYYY-MM-DD hh:mm:ss' );
-	// 	sub_data.lessons.push( {lesson: getDate} );
-	// }
 	sub_data.time_regular = [];
 	sub_data.audit = $('#set_audit:checked').val() ? 'true' : 'false';
 	let _sub = true;
@@ -242,7 +268,6 @@ $.mainBox.on('click', '#submit_add', ()=>{
 			sub_data.time_regular.push( _item );
 		}
 	})
-
 	if( !_sub ){
      	$.dialogFull.Tips( '请选择合理上课时间段！' );
 		return;
@@ -250,14 +275,14 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
 		sub_data.selected_lessons = dataMapSelect[ 'course_' + selectOn ];
 	}
-
+	if( students.length ){
+		sub_data.students = students;
+	}
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
 		data: JSON.stringify( sub_data ),
     }
-
-
 	$.form.submit({
 		url: '/pss/addClass',
 		data: ajaxData,
@@ -322,6 +347,12 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	        		$("#checkall").prop("checked", true);
 	        	}
         	}
+        	$( '.pub_list ul' ).DDSort({
+			    target: 'li',
+			    up: function(){
+			        //numberHandle();
+			    }
+			});
         },
         runDone: function($this, $thisBox, dialogClose) {
 			let checkedArr = [];
@@ -330,7 +361,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 				checkedArr.push( $(this).val() );
 			});
 			checkedArr.forEach((lesson_id,index)=>{
-				submitArr.push( dataMap[ 'course_' + selectOn ][ lesson_id ] );
+				// submitArr.push( dataMap[ 'course_' + selectOn ][ lesson_id ] );
+				submitArr.push( {lesson_id: lesson_id} );//todp只传lesson_id
 			});
 			dataMapSelect[ 'course_' + selectOn ] = submitArr;
 			submitArr.length && $( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );
@@ -339,7 +371,33 @@ $.mainBox.on('click', '#submit_add', ()=>{
         }
 
     });
+}).on('click', '.getZoneStudentList', function(){
+    $.dialogFull.Pop({
+        boxClass: '.getZoneStudentList',
+        width: 700,
+        height: 'auto',
+        cacheId: 'getZoneStudentListCachId001', //开启必须使用唯一标示！！！
+        title: '学员列表',//弹框标题
+        content: '',//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+        	getZoneStudentList();
+        },
+        runDone: function($this, $thisBox, dialogClose) {
+            dialogClose();
+        }
+    });	
+}).on('click', '.student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	if( self.hasClass( 'checked' ) ){
+		studentChecked.splice( studentChecked.indexOf( sid ), 1 );
+		self.removeClass( 'checked' );
+	}else{
+		studentChecked.push( sid );
+		self.addClass( 'checked' );
+	}
 });
+
 $(document).on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
 	if( $(".pub_list .body input.input_item:checked").length === $(".pub_list .body input.input_item").length ){
 		$("#checkall").prop("checked", true);
