@@ -27,7 +27,8 @@ let getStudentPaySum = ()=>{
             }
             $('.paysum').html( res.data.paysum ? res.data.paysum + '元' : '0元' );
             $('.remain_lessons').html( res.data.remain_lessons ? res.data.remain_lessons + '节' : '0节' );
-            $('.total_lessons').html( res.data.total_lessons ? res.data.total_lessons + '节' : '0节' )
+            $('.total_lessons').html( res.data.total_lessons ? res.data.total_lessons + '节' : '0节' );
+            $('.expiretime').html( res.data.expiretime  );
         },
         error: ()=>{
 
@@ -72,6 +73,11 @@ let getStudentPayRecord = ()=>{
 getStudentPayRecord();
 
 
+//有效期，大于等于今天
+$.laydate.render({
+  elem: '#expiretime',
+  min: 0
+});
 
 $.mainBox.on('click', '#submit', function(){
     let self = $(this)
@@ -99,6 +105,7 @@ $.mainBox.on('click', '#submit', function(){
         sid: sid,
         money: +sub_data.money,
         lessons: +lessons,
+        expiretime: $( '#expiretime' ).val() || undefined,
         notes: sub_data.notes
     }
     if( loading({element: self,handClose: true}) ){

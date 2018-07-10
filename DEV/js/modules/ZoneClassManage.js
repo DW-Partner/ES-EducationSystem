@@ -57,7 +57,7 @@ let getZoneClassesList = ()=>{
             status: 'pending'
         },//上行参数
         template: tpl.list,//列表模板
-        listKey: ['data','list'],//下行结构
+        listKey: ['data'],//下行结构//TODO 'list'
         pageBar: true,//是否启用分页
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         eachDataHandle: function(item,pageNum,pageSize){

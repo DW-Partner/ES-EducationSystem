@@ -2,7 +2,25 @@ require('./AccountSet.css');
 import hex_md5 from '../kit/md5.js';
 import QRCode from '../kit/qrcode.js';
 const tpl = {
-	list: '<li><span>{name}</span><a href="JavaScript:;" class="btn" data-href="/pss/goZoneQrcode?zoneid={id}">生成登录二维码</a><a href="JavaScript:;" class="{btn} zoneAction" data-zoneid="{id}" data-isfrozen="{isfrozen}">{frozen_word}</a></li>'
+	list: '<li><span>{name}</span>\
+	<a href="JavaScript:;" class="btn" data-href="/pss/goZoneQrcode?zoneid={id}">生成登录二维码</a>\
+	<a href="JavaScript:;" class="{btn} zoneAction" data-zoneid="{id}" data-isfrozen="{isfrozen}">{frozen_word}</a>\
+	<a href="JavaScript:;" class="btn resetPassword" data-zoneid="{id}">设置校区登录密码</a>\
+	</li>',
+	addLessonForm: '<ul class="pub_form">\
+            <li>\
+                <span class="wide"><i>*</i>输入原密码</span>\
+					<input type="password" name="oldpass" data-validate="password" data-must="1" placeholder="输入原密码" />\
+            </li>\
+            <li>\
+                <span class="wide"><i>*</i>输入新密码</span>\
+                <input type="password" name="newpass" data-validate="password" data-must="1" placeholder="输入新密码" />\
+            </li>\
+            <li>\
+                <span class="wide"><i>*</i>确认新密码</span>\
+                <input type="password" name="newpass_check" data-validate="password" data-must="1" placeholder="输入新密码" />\
+            </li>\
+        </ul>'
 }
 //qrcode start 3.29
 let run_qrcode = (tips)=>{
@@ -41,13 +59,7 @@ let run_qrcode = (tips)=>{
 	})
 }
 //qrcode end
-
 run_qrcode();
-
-
-
-
-
 
 //校区列表 start 3.9
 $.jsonPage({
@@ -147,4 +159,54 @@ $.mainBox.on('click', '#submit_pass', function(){
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
 	    }
 	});
+}).on('click', '.resetPassword', function(){
+
+    $.dialogFull.Pop({
+        boxClass: '.resetPassword',
+        title: '设置校区登录密码',//弹框标题
+        content: tpl.addLessonForm,//弹框内容区
+        runDone: function($this, $thisBox, dialogClose) {
+        	const zoneid = $(this).data( 'zoneid' );
+			const sub_data = $.form.get({
+				item: '.resetPassword [data-validate]',
+			    error_text: 'placeholder',//存放错误文案的属性名
+			});
+			if( !sub_data ){
+				return;
+			}
+			if( sub_data.oldpass === sub_data.newpass ){
+				$.dialogFull.Tips('新密码与旧密码一致，请重新输入');
+				return;
+			}else if( sub_data.newpass != sub_data.newpass_check ){
+				$.dialogFull.Tips('两次新输入密码不一致，请重新输入！');
+				return;
+			}
+			sub_data.oldpass = hex_md5( sub_data.oldpass );
+			sub_data.newpass = hex_md5( sub_data.newpass );
+			sub_data.code = $('#school_code').val();
+			sub_data.zoneid = zoneid;
+			delete sub_data.newpass_check;
+			$.form.submit({
+				url: '/pss/updateZonePasword',
+				data: sub_data,
+				success: (res) => {
+					if( res.errcode != 0 ){
+			     		$.dialogFull.Tips( res.errmsg );
+			     		$('.resetPassword [data-validate]').val('');
+						return;
+					}
+			     	$.dialogFull.Tips('密码设置成功！');
+			     	dialogClose()
+				},
+			    error: function(){
+			    	$.dialogFull.Tips( "网络错误，请稍后重试" );
+			    }
+			});
+        }
+
+    });
+
+
+
+
 })

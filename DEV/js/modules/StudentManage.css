@@ -10,6 +10,10 @@
 		    background: #c00;
 		}
 	}
+	.warn{
+		color: #fffa24;
+		font-style: normal;
+	}
 }
 .run{
 	padding: 10px 0;

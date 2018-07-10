@@ -108,7 +108,9 @@
 			return;
 		}
 		sub_data.password = hex_md5( sub_data.password );
+            sub_data.usertype = 'zone';
 		$.form.submit({
+                  url: '/pss/passwordLoginEx',
 			data: sub_data,
 			success: (res) => {
 				if( res.errcode != 0 ){

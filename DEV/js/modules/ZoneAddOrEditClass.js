@@ -119,7 +119,7 @@ let getCourseDetail = (courseid)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        $('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
+	        //$('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时' ); //，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
 
 	    },
 	    error: ()=>{
@@ -204,6 +204,8 @@ let getClassInfo = ()=>{
 	    			}
 				});
 			}
+
+	        $('.tips').html( '*本课程剩余' + res.data.remain_lessons +'个课时' ); //，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );

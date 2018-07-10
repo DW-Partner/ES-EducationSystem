@@ -18,6 +18,7 @@
 		<div class="item"><p><span>{gender}</span></p></div>\
 		<div class="item flex_2"><p><span>{mobile}</span></p></div>\
         <div class="item"><p><span>{remaining_lesson}</span></p></div>\
+        <div class="item"><p><span>{expiretimeShow}</span></p></div>\
         <div class="item flex_2"><p><span>\
             <a href="JavaScript:;" data-href="/pss/goEditStudent?sid={sid}&page={_page}">编辑</a>\
             |\
@@ -66,15 +67,20 @@ let getStudentsList = ()=>{
 
             item.class_name_list = '';
 
-            const class_id_arr = item.class_id ? item.class_id.toString().split( ',' ) : [1];
-            class_id_arr.shift();
+            const class_id_arr = item.class_id ? item.class_id.toString().split( ',' ) : [];
+            // class_id_arr.shift();
 
-            const class_name_arr = item.class_name ? item.class_name.split( ',' ) : [1];
-            class_name_arr.shift();
+            const class_name_arr = item.class_name ? item.class_name.split( ',' ) : [];
+            // class_name_arr.shift();
 
             class_id_arr.forEach((_item,_index)=>{
                 item.class_name_list += `<a href="JavaScript:;"  data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
             });
+
+            if( item.expiretime ){
+                const times = ( new Date( item.expiretime ) ).getTime() - ( new Date() ).getTime();
+                item.expiretimeShow =  times / 30 * 24 * 3600 * 1000 < 31 ? `<em class="warn">item.expiretime</em>` : item.expiretime;                
+            }
 
             return item;
         },
