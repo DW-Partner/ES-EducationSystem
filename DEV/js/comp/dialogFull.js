@@ -41,6 +41,7 @@
                     dialogCoverId = dialogMainId.replace( 'dialogMain', 'dialogCover' );
                 $(dialogCoverId).show();
                 $(dialogMainId).show();
+                return;
             }
             //cache缓存隐藏dom end
 

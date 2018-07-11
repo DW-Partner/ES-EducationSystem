@@ -23,8 +23,42 @@
     	background: #ccc;
     	cursor: no-drop;
 	}
+	em{
+		margin-right: 15px;
+	}
 }
 
 
+
+.selected_lessons, .getZoneStudentList{
+	margin-left: 15px;
+}
+.pub_list{
+	.head{
+		display: block;
+	}
+	.body{
+		max-height: 400px;
+		overflow: auto;
+	}
+	input[type=checkbox]{
+		/*zoom:160%;*/
+		transform:scale(1.4);
+		cursor: pointer;  
+	}
+	li{
+		left: 15px !important;
+		cursor: move;
+	}
+}
+
+.pub_list .content .head{
+	display: flex;
+}
+.getZoneStudentList{
+	.checked{
+		color: #060;
+	}
+}
 
 

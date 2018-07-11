@@ -1,6 +1,7 @@
 require('./ZoneAddOrEditClass.css');//引入css文件
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
+import DDsort from '../comp/DDsort.js';//拖动插件
 
 const classid = $('#classid').val();
 
@@ -13,6 +14,7 @@ const tpl = {
 			<span class="wide"><i>*</i>分类课程</span>\
 			<em>{course_name} </em>\
 			<em class="tips"></em>\
+			<a href="JavaScript:;" class="btn selected_lessons">更改分类课程</a>\
 		</li>\
 		<li>\
 			<span class="wide"><i>*</i>预招人数</span>\
@@ -76,7 +78,147 @@ const tpl = {
 				</div>'
 }
 
+
+const _li = '<li>\
+        <div class="item"><p><span>{snum}</span></p></div>\
+        <div class="item"><p><span>{theme}</span></p></div>\
+        <div class="item"><p><span>{status}</span></p></div>\
+        <div class="item"><p><span class="line20px">{outline}</span></p></div>\
+        <div class="item"><p><span>\
+        <input type="checkbox" value="{lesson_id}" {disabled} />\
+        </span></p></div>\
+    </li>';
+
 let teacher_id;
+
+
+let getCourseList = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getCourseList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let select = '<select name="course_id" data-validate="any" data-must="1">';
+	        let course_id;
+			res.data.map(function(item,index){
+				if( index === 0 ){
+					course_id = item.course_id
+				}
+			    select += '<option value="' + item.course_id + '">' + item.course_name + '</option>'
+			});
+			select += '</select>';
+			//$('[name=course_id]').html(select);
+			console.log( select );
+			getCourseDetail( course_id, select );
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+
+
+let dataMap = {};
+let dataMapSelect = {};
+let dataCourse = [];
+let selectOn = 'x';
+
+let getCourseDetail = (courseid, select, change)=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getCourseDetail',
+	    data: {
+	        code: $('#zone_code').val(),
+	        courseid: courseid
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        // $('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时，每个课时的推荐时长为' + res.data.standard_time + '分钟' );
+	        dataCourse = res.data.lessons;
+	        selectOn = res.data.course_id;
+			dataMap[ 'course_' + selectOn ] = {};
+			if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
+				$( '.selected_lessons' ).text( '挑选课时(' + dataMapSelect[ 'course_' + selectOn ].length + ')' );
+			}else{
+				$( '.selected_lessons' ).text( '挑选课时' );
+			}
+			select_list( select || '', change )
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+let popContentHtml = '';
+let select_list = (select, change)=>{
+	if( !change ){
+		popContentHtml = select + '<div class="head"><span>课时序号</span><span>课时主题名</span><span>当前状态</span><span>教学大纲</span><span>全选 <input type="checkbox" id="checkall"></span></div><ul class="body">';
+		console.log( popContentHtml );
+		dataCourse.forEach((item,index)=>{
+
+			dataMap[ 'course_' + selectOn ][ item.lesson_id ] = item;
+
+			item.disabled = item.status === '正常' ? 'class="input_item"' : 'disabled="disabled"';
+	        popContentHtml += replaceTemplate( _li, item );
+		});
+		popContentHtml += '</ul>';
+	}else{
+		popContentHtml = '';
+		dataCourse.forEach((item,index)=>{
+
+			dataMap[ 'course_' + selectOn ][ item.lesson_id ] = item;
+
+			item.disabled = item.status === '正常' ? 'class="input_item"' : 'disabled="disabled"';
+	        popContentHtml += replaceTemplate( _li, item );
+		});
+		$( '.dialogPopBox .body' ).html( popContentHtml );
+
+
+
+    	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
+    		dataMapSelect[ 'course_' + selectOn ].forEach((lesson,index)=>{
+    			$( '[value=' + lesson.lesson_id + ']' ).attr("checked","true"); 
+    		});
+        	if( dataMapSelect[ 'course_' + selectOn ].length === $(".pub_list .body input.input_item").length ){
+        		$("#checkall").prop("checked", true);
+        	}else{
+        		$("#checkall").prop("checked", false);
+        	}
+    	}else{
+        	$("#checkall").prop("checked", false);
+        }
+
+
+	}
+
+	console.log( popContentHtml );
+
+}
+getCourseList();
+
+let selectAll = ()=>{
+    if ($("#checkall").prop("checked")) {
+    	$(".pub_list .body input.input_item").prop("checked",true);//全选
+    } else { 
+        $(".pub_list .body input.input_item").prop("checked",false);  //取消全选     
+    }  
+} 
+
+
+//getCourseList();
 
 let getZoneTeacherList = ()=>{
     $.ajax({
@@ -97,29 +239,6 @@ let getZoneTeacherList = ()=>{
 			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
 			});
 			$('[name=teacher_id]').html(options).val( teacher_id );
-
-	    },
-	    error: ()=>{
-	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
-	    }
-	})
-}
-
-let getCourseDetail = (courseid)=>{
-    $.ajax({
-	    type: "post",
-	    dataType: "json",
-	    url: '/pss/getCourseDetail',
-	    data: {
-	        code: $('#zone_code').val(),
-	        courseid: courseid
-	    },
-	    success: (res)=>{
-	        if( res.errcode != 0 ){
-	            $.dialogFull.Tips( res.errmsg );
-	             return;
-	        }
-	        //$('.tips').html( '*本课程共有' + res.data.lesson_num +'个课时' ); //，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
 
 	    },
 	    error: ()=>{
@@ -159,7 +278,7 @@ let getClassInfo = ()=>{
 
 	        teacher_id = classInfo.teacher_id;
 	        getZoneTeacherList();
-			getCourseDetail( classInfo.course_id );
+			//getCourseDetail( classInfo.course_id );
 
 			classInfo.time_regular = classInfo.time_regular && classInfo.time_regular.length ? classInfo.time_regular : [{
 				type:'day',
@@ -291,8 +410,6 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
-}).on('change', '[name=course_id]', function(){
-	getCourseDetail( $(this).val() );
 }).on('change', '.timeType', function(){
 	const type = $(this).val();
 	if( type == 'week' ){
@@ -321,4 +438,89 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 }).on('click', '.run_item_del', function(){
 	$(this).parent().remove();
 	$( '.timeList .run_item_add' ).show();
+}).on('click', '.btn_editClass', function(){
+
+
+
+    $.dialogFull.Pop({
+        boxClass: '.pub_list',
+        width: 700,
+        height: 'auto',
+        title: '更改分类课程',//弹框标题
+        content: select_list(),//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+        },
+        runDone: function($this, $thisBox, dialogClose) {
+            dialogClose();
+        }
+
+	})
+
+}).on('click', '.selected_lessons', function(){
+
+    $.dialogFull.Pop({
+        boxClass: '.pub_list',
+        width: 700,
+        height: 'auto',
+        cacheId: 'popCachId002', //开启必须使用唯一标示！！！
+        title: '挑选课时',//弹框标题
+        content: popContentHtml ,//select_list(),//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+        	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
+        		dataMapSelect[ 'course_' + selectOn ].forEach((lesson,index)=>{
+        			$( '[value=' + lesson.lesson_id + ']' ).attr("checked","true"); 
+        		});
+	        	if( dataMapSelect[ 'course_' + selectOn ].length === $(".pub_list .body input.input_item").length ){
+	        		$("#checkall").prop("checked", true);
+	        	}else{
+	        		$("#checkall").prop("checked", false);
+	        	}
+        	}else{
+	        	$("#checkall").prop("checked", false);
+	        }
+        	if( !$('[name="course_id"]').length ){
+        		return;
+        	}
+        	$( '.pub_list ul' ).DDSort({
+			    target: 'li',
+			    up: function(){
+			        //numberHandle();
+			    }
+			});
+        },
+        runDone: function($this, $thisBox, dialogClose) {
+			let checkedArr = [];
+			let submitArr = [];
+			$(".pub_list .body input:checkbox:checked").each(function(){ 
+				checkedArr.push( $(this).val() );
+			});
+			checkedArr.forEach((lesson_id,index)=>{
+				// submitArr.push( dataMap[ 'course_' + selectOn ][ lesson_id ] );
+				submitArr.push( {lesson_id: lesson_id} );//todp只传lesson_id
+			});
+			dataMapSelect[ 'course_' + selectOn ] = submitArr;
+			submitArr.length && $( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );
+
+            dialogClose();
+        }
+
+    });
 })
+
+
+
+
+$(document).on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
+	if( $(".pub_list .body input.input_item:checked").length === $(".pub_list .body input.input_item").length ){
+		$("#checkall").prop("checked", true);
+	}else{
+		$("#checkall").prop("checked", false);
+	}
+}).on('change', '[name=course_id]', function(){
+	console.log(12321);
+	getCourseDetail( $(this).val(), '', 'change' );
+});
+$.distory = ()=>{
+	$(document).off('change', '#checkall').off('change', 'input.input_item')
+};
+
