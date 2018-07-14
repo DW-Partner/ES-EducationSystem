@@ -22,7 +22,7 @@
         <div class="item flex_2"><p><span>\
             <a href="JavaScript:;" data-href="/pss/goEditStudent?sid={sid}&page={_page}">编辑</a>\
             |\
-            <a href="JavaScript:;"  data-href="/pss/goStudentArchive?sid={sid}&classid={class_id}&page={_page}">学情</a>\
+            <a href="JavaScript:;"  data-href="/pss/goStudentPrintSituation?sid={sid}&page={_page}&data={_data}">印记</a>\
             <br />\
             <a href="JavaScript:;" data-href="/pss/goSendToStudent?sid={sid}&page={_page}">发送通知</a>\
             |\
@@ -64,7 +64,6 @@ let getStudentsList = ()=>{
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         eachDataHandle: function(item,pageNum,pageSize){
             item.isbinding = item.isbinding == 'yes' ? '<em class="isbinding"></em>' : '';
-
             item.class_name_list = '';
 
             const class_id_arr = item.class_id ? item.class_id.toString().split( ',' ) : [];
@@ -81,7 +80,7 @@ let getStudentsList = ()=>{
                 const times = ( new Date( item.expiretime ) ).getTime() - ( new Date() ).getTime();
                 item.expiretimeShow =  times / 30 * 24 * 3600 * 1000 < 31 ? `<em class="warn">item.expiretime</em>` : item.expiretime;                
             }
-
+            item._data = search_data;
             return item;
         },
         successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {

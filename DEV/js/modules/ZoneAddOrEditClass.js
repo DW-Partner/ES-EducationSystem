@@ -106,7 +106,7 @@ let getCourseList = ()=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        let select = '<select name="course_id" data-validate="any" data-must="1">';
+	        let select = '<div class="dialogSelect"><select name="course_id" data-validate="any" data-must="1">';
 	        let course_id;
 			res.data.map(function(item,index){
 				if( index === 0 ){
@@ -115,8 +115,18 @@ let getCourseList = ()=>{
 			    select += '<option value="' + item.course_id + '">' + item.course_name + '</option>'
 			});
 			select += '</select>';
+
+			select += `<span>
+				<input type="radio" name="delete_old" value="false" id="delete_old_false" checked="checked" />
+				<label for="delete_old_false">原有课程剩余课时结束后生效</label>
+			</span>
+			<span>
+				<input type="radio" name="delete_old" value="true" id="delete_old_true" />
+				<label for="delete_old_true">删除原有课程剩余课时</label>
+			</span>
+			</div>`;			
+			
 			//$('[name=course_id]').html(select);
-			console.log( select );
 			getCourseDetail( course_id, select );
 	    },
 	    error: ()=>{
@@ -153,7 +163,7 @@ let getCourseDetail = (courseid, select, change)=>{
 			if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
 				$( '.selected_lessons' ).text( '挑选课时(' + dataMapSelect[ 'course_' + selectOn ].length + ')' );
 			}else{
-				$( '.selected_lessons' ).text( '挑选课时' );
+				$( '.selected_lessons' ).text( '更改分类课程' );
 			}
 			select_list( select || '', change )
 	    },
@@ -166,7 +176,6 @@ let popContentHtml = '';
 let select_list = (select, change)=>{
 	if( !change ){
 		popContentHtml = select + '<div class="head"><span>课时序号</span><span>课时主题名</span><span>当前状态</span><span>教学大纲</span><span>全选 <input type="checkbox" id="checkall"></span></div><ul class="body">';
-		console.log( popContentHtml );
 		dataCourse.forEach((item,index)=>{
 
 			dataMap[ 'course_' + selectOn ][ item.lesson_id ] = item;
@@ -204,7 +213,6 @@ let select_list = (select, change)=>{
 
 	}
 
-	console.log( popContentHtml );
 
 }
 getCourseList();
@@ -251,7 +259,8 @@ let classInfo = {};
 const baseId = 'i' + parseInt( Math.random() * 1000000 ).toString();
 let item_i = 0;
 let _before = baseId + item_i;
-
+let remain_lessons;
+let delete_old = 'false';
 let getClassInfo = ()=>{
 
     $.ajax({
@@ -323,8 +332,8 @@ let getClassInfo = ()=>{
 	    			}
 				});
 			}
-
-	        $('.tips').html( '*本课程剩余' + res.data.remain_lessons +'个课时' ); //，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
+			remain_lessons = res.data.remain_lessons || 10;
+	        $('.tips').html( '*本课程剩余' + remain_lessons +'个课时' ); //，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -372,6 +381,10 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
      	$.dialogFull.Tips( '请选择合理上课时间段！' );
 		return;
 	}
+	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
+		sub_data.selected_lessons = dataMapSelect[ 'course_' + selectOn ];
+	}
+	sub_data.delete_old = delete_old;
 	if( !sub_data.time_regular.length ){
         $.dialogFull.Tips( "请添加上课时段！" );
         return;
@@ -499,7 +512,18 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 				submitArr.push( {lesson_id: lesson_id} );//todp只传lesson_id
 			});
 			dataMapSelect[ 'course_' + selectOn ] = submitArr;
-			submitArr.length && $( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );
+
+
+			delete_old = $('[name="delete_old"]:checked').val();
+			if( delete_old === 'true' ){
+				$( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );
+			}else{
+
+				$( '.selected_lessons' ).text( '挑选课时(' + (submitArr.length + remain_lessons) + ')' );
+			}
+			
+
+// remain_lessons = 
 
             dialogClose();
         }
@@ -517,7 +541,6 @@ $(document).on('change', '#checkall', selectAll).on('change', 'input.input_item'
 		$("#checkall").prop("checked", false);
 	}
 }).on('change', '[name=course_id]', function(){
-	console.log(12321);
 	getCourseDetail( $(this).val(), '', 'change' );
 });
 $.distory = ()=>{

@@ -1,0 +1,15 @@
+.summary{
+	overflow: auto;
+	padding: 5px 20px;
+	span{
+		float: left;
+		width: 30%;
+	}
+}
+.classList{
+	padding: 20px;
+	span{
+		padding: 10px;
+		white-space: nowrap;
+	}
+}
