@@ -237,7 +237,7 @@ let getZoneStudentList = ()=>{
 }
 
 let studentChecked = [];
-
+let _dialogClose = ()=>{};
 $.mainBox.on('click', '#submit_add', ()=>{
 	console.log(dataMapSelect[ 'course_' + selectOn ]);
 	const sub_data = $.form.get({
@@ -275,8 +275,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
 		sub_data.selected_lessons = dataMapSelect[ 'course_' + selectOn ];
 	}
-	if( students.length ){
-		sub_data.students = students;
+	if( studentChecked.length ){
+		sub_data.students = studentChecked;
 	}
     let ajaxData = {
         code: $('#zone_code').val(),
@@ -383,9 +383,18 @@ $.mainBox.on('click', '#submit_add', ()=>{
         	getZoneStudentList();
         },
         runDone: function($this, $thisBox, dialogClose) {
+            _dialogClose = dialogClose;
             dialogClose();
         }
     });	
+});
+
+$(document).on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
+	if( $(".pub_list .body input.input_item:checked").length === $(".pub_list .body input.input_item").length ){
+		$("#checkall").prop("checked", true);
+	}else{
+		$("#checkall").prop("checked", false);
+	}
 }).on('click', '.student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
@@ -397,15 +406,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		self.addClass( 'checked' );
 	}
 });
-
-$(document).on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
-	if( $(".pub_list .body input.input_item:checked").length === $(".pub_list .body input.input_item").length ){
-		$("#checkall").prop("checked", true);
-	}else{
-		$("#checkall").prop("checked", false);
-	}
-});
 $.distory = ()=>{
-	$(document).off('change', '#checkall').off('change', 'input.input_item')
+	$(document).off('change', '#checkall').off('change', 'input.input_item');
+	_dialogClose(1);
 };
 

@@ -49,3 +49,11 @@
 
 	
 }
+.classItem{
+	display: none;
+}
+.getZoneStudentList{
+	.checked{
+		color: #060;
+	}
+}

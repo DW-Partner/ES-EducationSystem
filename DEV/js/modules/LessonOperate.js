@@ -126,6 +126,75 @@ let getLessonAbsenceAndAudits = ()=>{
 }
 //getLessonAbsenceAndAudits();
 
+
+
+let getZoneStudentList = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getZoneStudentList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        let $div = $( '<div>' );
+	        let classArr = {};
+	        let select = '<div class="selectBox"><select id="classSelect">';
+	        res.data.forEach((item,index)=>{
+	        	if( !classArr[ item.class_id ] ){
+		        	classArr[ item.class_id ] = true;
+		        	item.class_name = item.class_name || '其它';
+		        	select += `<option value="${item.class_id}">${item.class_name}</option>`;
+		        	$div.append( `<p class="classItem class_${item.class_id}"><span>${item.class_name}：</span></p>` )
+	        	}
+				$div.find( 'p:last' ).append( `<span class="student" data-sid="{sid}">{student_name}</sapn>` );
+	        })
+	        select += '</select></div>';
+	        $div.prepend( select );
+	        $( '.dialogPopBox .content' ).html( $div.html() );
+	        $( '.dialogPopBox .content' ).eq(0).show();
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+
+
+
+let getClassLessonStudentList = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getClassLessonStudentList',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        res.data.forEach((item)=>{
+	        	$(`[data-sid=${item.sid}]`).addClass('checked');
+	        })
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+
+
+let studentChecked = [];
+let _dialogClose = ()=>{};
 $.mainBox.on('click', '#submit_edit', ()=>{
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
@@ -172,4 +241,66 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 
 }).on('click', '#cancel', function(){
 	window.location.reload();
+}).on('click', '#student_select', function(){
+
+    $.dialogFull.Pop({
+        boxClass: '.getZoneStudentList',
+        width: 700,
+        height: 'auto',
+        cacheId: 'getZoneStudentListCachId002', //开启必须使用唯一标示！！！
+        title: '学员列表',//弹框标题
+        content: '',//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+        	getZoneStudentList();
+        },
+        runDone: function($this, $thisBox, dialogClose) {
+    	    $.ajax({
+		        type: "post",
+		        dataType: "json",
+		        url: '/pss/adjustClassLessonStudents',
+		        data: {
+		            code: $('#zone_code').val(),
+		            zoneid: $('#zone_zoneid').val(),
+			        classid: class_id,
+			        lessonid: lesson_id,
+		            data: studentChecked
+		        },
+		        success: (res)=>{
+		            if( res.errcode != 0 ){
+		                $.dialogFull.Tips( res.errmsg );
+		                 return;
+		            }
+		            $.dialogFull.Tips( "提交成功！" );
+		        },
+		        error: ()=>{
+		            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+		        }
+		    })
+        	_dialogClose = dialogClose;
+            dialogClose();
+        }
+    });	
+}).on('change', '#classSelect', function(){
+	const class_id = $( this ).val();
+	$( `.class_${class_id}` ).show().siblings().hide();
 });
+
+
+$(document).on('click', '.student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	if( self.hasClass( 'checked' ) ){
+		studentChecked.splice( studentChecked.indexOf( sid ), 1 );
+		self.removeClass( 'checked' );
+	}else{
+		studentChecked.push( sid );
+		self.addClass( 'checked' );
+	}
+});
+
+
+$.distory = ()=>{
+	$(document).off('change', '#checkall').off('change', 'input.input_item');
+    _dialogClose(1);
+
+};

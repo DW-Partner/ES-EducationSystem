@@ -343,7 +343,7 @@ let getClassInfo = ()=>{
 classid && getClassInfo();
 
 $('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
-
+let _dialogClose = ()=>{};
 $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	let sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
@@ -522,9 +522,7 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 				$( '.selected_lessons' ).text( '挑选课时(' + (submitArr.length + remain_lessons) + ')' );
 			}
 			
-
-// remain_lessons = 
-
+            _dialogClose = dialogClose;
             dialogClose();
         }
 
@@ -544,6 +542,8 @@ $(document).on('change', '#checkall', selectAll).on('change', 'input.input_item'
 	getCourseDetail( $(this).val(), '', 'change' );
 });
 $.distory = ()=>{
-	$(document).off('change', '#checkall').off('change', 'input.input_item')
+	$(document).off('change', '#checkall').off('change', 'input.input_item');
+    _dialogClose(1);
+
 };
 
