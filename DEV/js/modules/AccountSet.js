@@ -160,13 +160,12 @@ $.mainBox.on('click', '#submit_pass', function(){
 	    }
 	});
 }).on('click', '.resetPassword', function(){
-
+    const zoneid = $(this).data( 'zoneid' );
     $.dialogFull.Pop({
         boxClass: '.resetPassword',
         title: '设置校区登录密码',//弹框标题
         content: tpl.addLessonForm,//弹框内容区
         runDone: function($this, $thisBox, dialogClose) {
-        	const zoneid = $(this).data( 'zoneid' );
 			const sub_data = $.form.get({
 				item: '.resetPassword [data-validate]',
 			    error_text: 'placeholder',//存放错误文案的属性名
