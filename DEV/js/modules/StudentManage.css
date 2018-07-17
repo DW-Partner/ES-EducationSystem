@@ -15,6 +15,10 @@
 		font-style: normal;
 	}
 }
+.pub_list .body li .class_name_list a{
+	white-space: normal;
+
+}
 .run{
 	padding: 10px 0;
 	.btn_grey{

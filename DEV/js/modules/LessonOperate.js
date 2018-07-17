@@ -152,12 +152,13 @@ let getZoneStudentList = ()=>{
 		        	select += `<option value="${item.class_id}">${item.class_name}</option>`;
 		        	$div.append( `<p class="classItem class_${item.class_id}"><span>${item.class_name}：</span></p>` )
 	        	}
-				$div.find( 'p:last' ).append( `<span class="student" data-sid="{sid}">{student_name}</sapn>` );
+				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.student_id}">${item.student_name}</sapn>` );
 	        })
 	        select += '</select></div>';
 	        $div.prepend( select );
 	        $( '.dialogPopBox .content' ).html( $div.html() );
-	        $( '.dialogPopBox .content' ).eq(0).show();
+	        $( '.dialogPopBox .content p' ).eq(0).show();
+	        getClassLessonStudentList();
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -176,6 +177,8 @@ let getClassLessonStudentList = ()=>{
 	    data: {
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
+	        classid: class_id,
+	        lessonid: lesson_id
 	    },
 	    success: (res)=>{
 	        if( res.errcode != 0 ){
@@ -184,6 +187,7 @@ let getClassLessonStudentList = ()=>{
 	        }
 	        res.data.forEach((item)=>{
 	        	$(`[data-sid=${item.sid}]`).addClass('checked');
+	        	studentChecked.push( item.sid );
 	        })
 	    },
 	    error: ()=>{
@@ -254,6 +258,13 @@ $.mainBox.on('click', '#submit_edit', ()=>{
         	getZoneStudentList();
         },
         runDone: function($this, $thisBox, dialogClose) {
+        	let studentCheckedObj = studentChecked.map((item)=>{
+        		return {sid: item};
+        	});
+        	if( !studentChecked.length ){
+	            $.dialogFull.Tips( "请选择学员" );
+        		return;
+        	}
     	    $.ajax({
 		        type: "post",
 		        dataType: "json",
@@ -263,7 +274,7 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 		            zoneid: $('#zone_zoneid').val(),
 			        classid: class_id,
 			        lessonid: lesson_id,
-		            data: studentChecked
+		            data: JSON.stringify( studentCheckedObj )
 		        },
 		        success: (res)=>{
 		            if( res.errcode != 0 ){
@@ -280,13 +291,10 @@ $.mainBox.on('click', '#submit_edit', ()=>{
             dialogClose();
         }
     });	
-}).on('change', '#classSelect', function(){
-	const class_id = $( this ).val();
-	$( `.class_${class_id}` ).show().siblings().hide();
 });
 
 
-$(document).on('click', '.student', function(){
+$(document).off('click', '.student').on('click', '.student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
 	if( self.hasClass( 'checked' ) ){
@@ -296,11 +304,13 @@ $(document).on('click', '.student', function(){
 		studentChecked.push( sid );
 		self.addClass( 'checked' );
 	}
+}).off('change', '#classSelect').on('change', '#classSelect', function(){
+	const class_id = $( this ).val();
+	$( `.class_${class_id}` ).show().siblings().hide();
 });
 
 
 $.distory = ()=>{
-	$(document).off('change', '#checkall').off('change', 'input.input_item');
     _dialogClose(1);
 
 };

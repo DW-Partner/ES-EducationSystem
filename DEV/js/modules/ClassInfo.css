@@ -9,6 +9,11 @@
 	select{
 		margin-right: 15px;
 	}
+	.btn{
+		float: left;
+		top: 0;
+		margin-right: 10px;
+	}
 }
 
 

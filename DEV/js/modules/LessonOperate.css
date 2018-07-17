@@ -51,9 +51,19 @@
 }
 .classItem{
 	display: none;
+	line-height: 28px;
 }
 .getZoneStudentList{
+	span{
+		padding: 0 3px;
+		margin: 0 5px;
+		white-space: nowrap;
+		cursor: pointer;
+		display: inline-block;
+	}
 	.checked{
 		color: #060;
+		/*background: #ddd;*/
+		text-decoration: underline;
 	}
 }

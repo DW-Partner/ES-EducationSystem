@@ -11,7 +11,7 @@
 		list: '<li>\
 		<div class="item flex_2"><p><span>{ctime}</span></p></div>\
 		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
-		<div class="item"><p><span>\
+		<div class="item class_name_list"><p><span>\
         {class_name_list}\
         </span></p></div>\
 		<div class="item"><p><span>{birthday}</span></p></div>\
@@ -72,9 +72,9 @@ let getStudentsList = ()=>{
             const class_name_arr = item.class_name ? item.class_name.split( ',' ) : [];
             // class_name_arr.shift();
 
-            class_id_arr.forEach((_item,_index)=>{
-                item.class_name_list += `<a href="JavaScript:;"  data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
-            });
+            item.class_name_list = class_id_arr.map((_item,_index)=>{
+                return `<a href="JavaScript:;"  data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
+            }).join('、');
 
             if( item.expiretime ){
                 const times = ( new Date( item.expiretime ) ).getTime() - ( new Date() ).getTime();

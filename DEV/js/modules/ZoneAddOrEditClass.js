@@ -14,7 +14,7 @@ const tpl = {
 			<span class="wide"><i>*</i>分类课程</span>\
 			<em>{course_name} </em>\
 			<em class="tips"></em>\
-			<a href="JavaScript:;" class="btn selected_lessons">更改分类课程</a>\
+			<a href="JavaScript:;" class="btn selected_lessons">重新关联课程</a>\
 		</li>\
 		<li>\
 			<span class="wide"><i>*</i>预招人数</span>\
@@ -163,7 +163,7 @@ let getCourseDetail = (courseid, select, change)=>{
 			if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
 				$( '.selected_lessons' ).text( '挑选课时(' + dataMapSelect[ 'course_' + selectOn ].length + ')' );
 			}else{
-				$( '.selected_lessons' ).text( '更改分类课程' );
+				$( '.selected_lessons' ).text( '重新关联课程' );
 			}
 			select_list( select || '', change )
 	    },
@@ -333,7 +333,8 @@ let getClassInfo = ()=>{
 				});
 			}
 			remain_lessons = res.data.remain_lessons || 10;
-	        $('.tips').html( '*本课程剩余' + remain_lessons +'个课时' ); //，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
+	        // $('.tips').html( '*本课程剩余' + remain_lessons +'个课时' ); //，每个课时的推荐时长为' + res.data.standard_time + '分钟' )
+	        $('.tips').html( '*当前剩余' + remain_lessons +'个课时' );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -459,7 +460,7 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
         boxClass: '.pub_list',
         width: 700,
         height: 'auto',
-        title: '更改分类课程',//弹框标题
+        title: '重新关联课程',//弹框标题
         content: select_list(),//弹框内容区
         showCallback: function($thisBox, $contentBox){
         },

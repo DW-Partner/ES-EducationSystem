@@ -32,17 +32,17 @@ const tpl = {
 				<input type="text" class="short" id="plan_time" placeholder="请输入日期和时间" name="plan_time" data-validate="any" data-must="1"/>\
 			</li>\
 			<li>\
-				<span class="wide">教师</span>\
+				<span class="wide"><i>*</i>教师</span>\
 				<select id="tid" name="tid" data-validate="any" data-must="1" placeholder="请选择教师">\
 				</select>\
 			</li>\
 			<li>\
-				<span class="wide">课程</span>\
+				<span class="wide"><i>*</i>课程</span>\
 				<select id="course_id" name="course_id" data-validate="any" data-must="1" placeholder="请选择课程">\
 				</select>\
 			</li>\
 			<li>\
-				<span class="wide">课时</span>\
+				<span class="wide"><i>*</i>课时</span>\
 				<select id="lesson_id" name="lesson_id" data-validate="any" data-must="1" placeholder="请选择课时">\
 				</select>\
 			</li>\
@@ -144,7 +144,7 @@ let getZoneSummary = ()=>{
 			select += '</select>';
 	        const html = replaceTemplate( tpl.info, res.data );
 	        $('.dataBox').html( html );
-	        $('.run').html( select );
+	        $('.run').append( select );
 	        $('#students').val( sid || '' );
 		    const title_info = sid ? $('#students').find('option:selected').text() + '的课程表' : '';
 		    if( sid ){
@@ -351,6 +351,7 @@ let getCourseList = ()=>{
 			    options += '<option value="' + item.course_id + '">' + item.course_name + '</option>'
 			});
 			$('[name=course_id]').html(options);
+			getLessons( $('[name=course_id]').val() );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -394,9 +395,9 @@ let submit_add = ()=>{
 		return;
 	}
 	sub_data.course_id = +sub_data.course_id;
-	sub_data.teacher_id = +sub_data.teacher_id;
+	sub_data.tid = +sub_data.tid;
 	sub_data.lesson_id = +sub_data.lesson_id;
-	sub_data.auto = $('#auto:checked').val() ? true : false;
+	sub_data.auto = $('#auto:checked').val() ? 'true' : 'false';
 	const start_time = $('#plan_time').val();
 	if( start_time.indexOf('00:00') == 0 ){
      	$.dialogFull.Tips( '请选择合理上课时间段！' );
@@ -405,6 +406,7 @@ let submit_add = ()=>{
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
+        classid: classid,
 		data: JSON.stringify( sub_data ),
     }
 
@@ -416,6 +418,7 @@ let submit_add = ()=>{
          		$.dialogFull.Tips( res.errmsg );
 				return;
 			}
+			_dialogClose(1);
         	$.dialogFull.Tips( "提交成功！" );
         	getClassLessonsList();
 		},
@@ -425,7 +428,7 @@ let submit_add = ()=>{
 	});
 
 }
-
+let _dialogClose = ()=>{};
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();
     const title_info = sid ? $(this).find('option:selected').text() + '的课程表' : '';
@@ -550,9 +553,16 @@ $.mainBox.on('change', '#students', function(){
 			});
         },
         runDone: function($this, $thisBox, dialogClose) {
+			_dialogClose = dialogClose;
 			submit_add();
         }
     });
-}).on('change', '#course_id', function(){
+})
+
+$(document).on('change', '#course_id', function(){
 	getLessons( $(this).val() );
 });
+$.distory = ()=>{
+	$(document).off('change', '#course_id');
+    _dialogClose(1);
+};

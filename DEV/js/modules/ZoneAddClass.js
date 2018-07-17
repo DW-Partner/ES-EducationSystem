@@ -226,7 +226,7 @@ let getZoneStudentList = ()=>{
 		        	item.class_name = item.class_name || '其它';
 		        	$div.append( `<p><span>${item.class_name}：</span></p>` )
 	        	}
-				$div.find( 'p:last' ).append( `<span class="student" data-sid="{sid}">{student_name}</sapn>` );
+				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.student_id}">${item.student_name}</sapn>` );
 	        })
 	        $( '.dialogPopBox .content' ).html( $div.html() );
 	    },
@@ -276,7 +276,9 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		sub_data.selected_lessons = dataMapSelect[ 'course_' + selectOn ];
 	}
 	if( studentChecked.length ){
-		sub_data.students = studentChecked;
+		sub_data.students = studentChecked.map((item)=>{
+        		return {sid: item};
+        });
 	}
     let ajaxData = {
         code: $('#zone_code').val(),
@@ -389,13 +391,13 @@ $.mainBox.on('click', '#submit_add', ()=>{
     });	
 });
 
-$(document).on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
+$(document).off('change', '#checkall').on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
 	if( $(".pub_list .body input.input_item:checked").length === $(".pub_list .body input.input_item").length ){
 		$("#checkall").prop("checked", true);
 	}else{
 		$("#checkall").prop("checked", false);
 	}
-}).on('click', '.student', function(){
+}).off('click', '.student').on('click', '.student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
 	if( self.hasClass( 'checked' ) ){
@@ -407,7 +409,6 @@ $(document).on('change', '#checkall', selectAll).on('change', 'input.input_item'
 	}
 });
 $.distory = ()=>{
-	$(document).off('change', '#checkall').off('change', 'input.input_item');
 	_dialogClose(1);
 };
 
