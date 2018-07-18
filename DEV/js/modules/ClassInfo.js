@@ -161,8 +161,6 @@ let getZoneSummary = ()=>{
 }
 getZoneSummary();
 
-
-
 let getLessonAbsenceAndAudits = (that,lessonid)=>{
 	let list = that.find( '.list' );
 	if(list.length){
@@ -232,17 +230,13 @@ let getLessonsMissList = (that,lessonid)=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-
 	        let dom = '<div class="list"><p><span>提交照片数：</span></p><p><span>提交视频数：</span></p></div>';
 	        let $dom = $(dom);
-
 	  //       let span = res.data.map(function(item){
 	  //       	return replaceTemplate( tpl.span, item );
 			// });
 	  //       $dom.find('p').eq(0).append(span.join('、') || '<span>无</span>');
-
 	        let status_arr = [];
-
 	        let _p = res.data.map(function(item){
 	        	const _status = item.status;
 	        	const push = status_arr.indexOf( _status ) == -1 ?  status_arr.push( _status ) : '';
@@ -303,8 +297,6 @@ let getLessonsFileCounts = (that,lessonid,$dom)=>{
 	})	
 }
 
-
-
 let getZoneTeacherList = ()=>{
     $.ajax({
 	    type: "post",
@@ -319,12 +311,11 @@ let getZoneTeacherList = ()=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        let options = "";
+	        let options = '';
 			res.data.map(function(item){
 			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
 			});
 			$('[name=tid]').html(options);
-
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -409,7 +400,6 @@ let submit_add = ()=>{
         classid: classid,
 		data: JSON.stringify( sub_data ),
     }
-
 	$.form.submit({
 		url: '/pss/addClassLesson',
 		data: ajaxData,
@@ -426,7 +416,6 @@ let submit_add = ()=>{
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
-
 }
 let _dialogClose = ()=>{};
 $.mainBox.on('change', '#students', function(){
@@ -546,10 +535,13 @@ $.mainBox.on('change', '#students', function(){
 			getZoneTeacherList();
 			getCourseList();
 			//常规用法
-			$.laydate.render({
+			let start_time = $.laydate.render({
 				elem: '#plan_time',
 				type: 'datetime',
-				btns: ['confirm']
+				min: 1,
+				ready: function(){
+					start_time.hint('开班时间必须大于当前日期');
+				}
 			});
         },
         runDone: function($this, $thisBox, dialogClose) {

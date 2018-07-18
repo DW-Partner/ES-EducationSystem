@@ -202,7 +202,7 @@ let selectAll = ()=>{
 $('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
 
 $('.tips').after( '<a href="JavaScript:;" class="btn selected_lessons">挑选课时</a>' );
-$('[name="teacher_id"]').after( '<a href="JavaScript:;" class="btn getZoneStudentList">添加学员</a>' );
+$('[name="class_name"]').after( '<a href="JavaScript:;" class="btn getZoneStudentList">添加学员</a>' );
 
 let getZoneStudentList = ()=>{
     $.ajax({
@@ -364,7 +364,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
 			});
 			checkedArr.forEach((lesson_id,index)=>{
 				// submitArr.push( dataMap[ 'course_' + selectOn ][ lesson_id ] );
-				submitArr.push( {lesson_id: lesson_id} );//todp只传lesson_id
+				submitArr.push( {lesson_id: +lesson_id} );//todp只传lesson_id
 			});
 			dataMapSelect[ 'course_' + selectOn ] = submitArr;
 			submitArr.length && $( '.selected_lessons' ).text( '挑选课时(' + submitArr.length + ')' );

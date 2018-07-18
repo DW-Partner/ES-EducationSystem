@@ -16,14 +16,14 @@ const tpl = {
 	<a href="JavaScript:;" data-href="/pss/goStudentLessonReport?classid={class_id}&lessonid={lesson_id}&sid={sid}&page={page}&data={data}" class="btn">查看教师反馈</a>\
     </span></p></div>\
 	</li>',
-	summary: '<span>总课时数：${total_lessons}</span>\
-	<span>剩余课时数${remain_lessons}</span>\
-	<span>签到数${sign_lessons}</span>\
-	<span>未签到数${unsign_lessons}</span>\
-	<span>请假数：${leave_lessons}</span>\
-	<span>缺勤数：${absence_lessons}</span>\
-	<span>取消课时数：${cancel_lessons}</span>\
-	<span>有效期：${expiretime}</span>',
+	summary: '<span>总课时数：{total_lessons}</span>\
+	<span>剩余课时数：{remain_lessons}</span>\
+	<span>签到数：{sign_lessons}</span>\
+	<span>未签到数：{unsign_lessons}</span>\
+	<span>请假数：{leave_lessons}</span>\
+	<span>缺勤数：{absence_lessons}</span>\
+	<span>取消课时数：{cancel_lessons}</span>\
+	<span>有效期：{expiretime}</span>',
 	classList: '<span>{class_name}</span>'
 };
 
@@ -44,7 +44,7 @@ let getStudentPrintSummary = ()=>{
                 $.dialogFull.Tips( res.errmsg );
                  return;
             }
-            let summary = replaceTemplate( tpl.summary, item );
+            let summary = replaceTemplate( tpl.summary, res.data );
             $( '#summary' ).html( summary );
         },
         error: ()=>{
@@ -70,7 +70,9 @@ let getStudentClasseListInZone = ()=>{
                 $.dialogFull.Tips( res.errmsg );
                  return;
             }
-            let classList = replaceTemplate( tpl.classList, item );
+            let classList = res.data.map((item)=>{
+                return replaceTemplate( tpl.classList, item );
+            }).join('');
             $( '#classList' ).html( classList );
         },
         error: ()=>{
@@ -85,6 +87,7 @@ let getStudentPrintList = ()=>{
     let ajaxData = {
         code: $('#zone_code').val(),
         zoneid: $('#zone_zoneid').val(),
+        sid: $('#sid').val(),
         data: search_data || undefined
     }
 

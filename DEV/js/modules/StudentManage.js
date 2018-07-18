@@ -78,7 +78,7 @@ let getStudentsList = ()=>{
 
             if( item.expiretime ){
                 const times = ( new Date( item.expiretime ) ).getTime() - ( new Date() ).getTime();
-                item.expiretimeShow =  times / 30 * 24 * 3600 * 1000 < 31 ? `<em class="warn">item.expiretime</em>` : item.expiretime;                
+                item.expiretimeShow =  times / 30 * 24 * 3600 * 1000 < 31 ? `<em class="warn">${item.expiretime}</em>` : item.expiretime;                
             }
             item._data = search_data;
             return item;
