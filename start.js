@@ -54,7 +54,6 @@ var startWebpackDev=()=>{
                 // process.stdout.write(new Date+':成功刷新，\n');
                 console.log('\x1B[32m%s\x1B[39m', new Date+'：server初始化完成，端口：' + _config.port + '\n');
                 // $exec('open http://127.0.0.1:' + _config.port + '/DEMO.html' );
-                startWebpack();
             }else if(d.indexOf('maxBuffer exceeded')>-1){
                 command.kill();
                 startWebpackDev();
@@ -63,3 +62,4 @@ var startWebpackDev=()=>{
         });
 };
 startWebpackDev();
+startWebpack();

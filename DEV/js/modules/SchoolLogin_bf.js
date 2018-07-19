@@ -1,4 +1,4 @@
-	require('./SchoolLogin.css');//引入css文件
+	require('./SchoolLogin_bf.css');//引入css文件
 	import hex_md5 from '../kit/md5.js';
 	import QRCode from '../kit/qrcode.js';
 
@@ -6,8 +6,8 @@
 	const qrcode_data = $('#qecode_data').val();
     let qrcode = new QRCode($(".qrcode")[0], {
 	  text: 'your content',
-	  width: 280,
-	  height: 280,
+	  width: 256,
+	  height: 256,
 	  colorDark : '#000000',
 	  colorLight : '#ffffff',
     });
@@ -43,6 +43,10 @@
 
 	let set;
 
+	set = setInterval(function(){
+		queryScanResult( qrcode_data )
+	},2000);
+
 	let queryScanResult = (qid)=>{
 		$.ajax({
              type: "post",
@@ -56,11 +60,11 @@
              		//未扫描
              	}else if( res.errcode == 50002 ){
              		//扫描未确定
-             		$("#qrcodeLoginBox").hide();
+             		$(".qrcodeLogin").hide();
              		$(".loginStatus_success").show();
              	}else if( res.errcode == 50003 ){
              		clearInterval(set);
-             		$("#qrcodeLoginBox, .loginStatus_success").hide();
+             		$(".qrcodeLogin, .loginStatus_success").hide();
              		$(".loginStatus_error").show();
              	}else if( res.errcode == 0 ){
              		clearInterval(set);
@@ -70,22 +74,17 @@
              	}
             },
             error: function(){
-            	//$.dialogFull.Tips( "网络错误，请稍后重试" );
+            	$.dialogFull.Tips( "网络错误，请稍后重试" );
             }
          });
 	};
-	$('.page_main').on('click', '#nav h6', function(){
+	$('.content_box').on('click', '.loginType', function(){
 		let self = $(this);
-		if( self.hasClass( 'on' ) ){
-			return;
-		}
-		self.addClass( 'on' ).siblings().removeClass( 'on' );
 		const type = self.data('type');
-		const dom = '#' + type + 'Box';
-		// self.parent().slideUp();
-		$( dom ).slideDown().siblings( '[action=loginBox]' ).slideUp();
-		console.log( dom )
-		if( dom === '#qrcodeLoginBox' ){
+		const dom = type === 'passwordLogin' ? '.qrcodeLogin' : '.passwordLogin';
+		self.parent().slideUp();
+		$( dom ).slideDown();
+		if( dom === '.qrcodeLogin' ){
 			clearInterval(set);
 			set = setInterval(function(){
 				queryScanResult( qrcode_data )
@@ -101,9 +100,8 @@
 			return;
 		}
 		sub_data.password = hex_md5( sub_data.password );
-        sub_data.usertype = $( '[name=usertype]:checked' ).val();
 		$.form.submit({
-                  url: '/pss/passwordLoginEx',
+			url: '/pss/passwordLogin',
 			data: sub_data,
 			success: (res) => {
 				if( res.errcode != 0 ){
