@@ -56,11 +56,11 @@
              		//未扫描
              	}else if( res.errcode == 50002 ){
              		//扫描未确定
-             		$("#qrcodeLoginBox").hide();
+             		$(".qrcode_show").hide();
              		$(".loginStatus_success").show();
              	}else if( res.errcode == 50003 ){
              		clearInterval(set);
-             		$("#qrcodeLoginBox, .loginStatus_success").hide();
+             		$(".qrcode_show, .loginStatus_success").hide();
              		$(".loginStatus_error").show();
              	}else if( res.errcode == 0 ){
              		clearInterval(set);

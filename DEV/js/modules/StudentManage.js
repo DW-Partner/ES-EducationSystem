@@ -11,7 +11,7 @@
 		list: '<li>\
 		<div class="item flex_2"><p><span>{ctime}</span></p></div>\
 		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
-		<div class="item class_name_list"><p><span>\
+		<div class="item class_name_list"><p><span class="class_name_list_b">\
         {class_name_list}\
         </span></p></div>\
 		<div class="item"><p><span>{birthday}</span></p></div>\
@@ -28,7 +28,7 @@
             |\
             <a href="JavaScript:;" data-href="/pss/goStudentPayment?sid={sid}">缴续费</a>\
             <br />\
-            <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}&classid={class_id}" data-sid="{sid}">加入班级</a>\
+            <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a>\
             <em class="none{class_id}">|</em>\
             <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id}>退出班级</a>\
     	    <br />\
@@ -64,7 +64,6 @@ let getStudentsList = ()=>{
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         eachDataHandle: function(item,pageNum,pageSize){
             item.isbinding = item.isbinding == 'yes' ? '<em class="isbinding"></em>' : '';
-            item.class_name_list = '';
 
             const class_id_arr = item.class_id ? item.class_id.toString().split( ',' ) : [];
             // class_id_arr.shift();
@@ -73,8 +72,13 @@ let getStudentsList = ()=>{
             // class_name_arr.shift();
 
             item.class_name_list = class_id_arr.map((_item,_index)=>{
-                return `<a href="JavaScript:;"  data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
-            }).join('、');
+                return `<a href="JavaScript:;" data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
+            }).join('');
+
+            // class_id_arr.length && item.class_name_list.unshift( '<b></b>' );
+            item.class_name_list = class_id_arr.length>1 ? '<b></b>' + item.class_name_list : item.class_name_list;
+
+            item.class_id = item.class_id ? item.class_id.split( ',' )[ 0 ] : '';
 
             if( item.expiretime ){
                 const times = ( new Date( item.expiretime ) ).getTime() - ( new Date() ).getTime();
@@ -194,4 +198,13 @@ $.mainBox.on('click', '.exitFromClass', function(){
             $.dialogFull.Tips( "网络错误，请稍后重试！" );
         }
     });
+}).on('click', '.class_name_list_b b', function(){
+    let self = $(this);
+    let parent = self.parent();
+    if( parent.hasClass( 'list' ) ){
+        parent.removeClass( 'list' );
+    }else{
+        parent.addClass( 'list' );
+
+    }
 });

@@ -28,7 +28,7 @@ let getZoneClassesList = ()=>{
 	    codeSuccess: 0,//状态标示值
 	    successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
 	    	//classid
-	    	$("[value=" + classid + ']').attr("checked","checked");
+	    	// $("[value=" + classid + ']').attr("checked","checked");
 
 	    },//function(msg) {  }
 	    ajaxCodeError: function( res ){

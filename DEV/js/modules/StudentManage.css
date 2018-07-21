@@ -19,6 +19,38 @@
 	white-space: normal;
 
 }
+.class_name_list_b{
+	position: relative;
+	padding-right: 12px;
+	a{
+		display: block;
+		width: 100%;
+	}
+	b{
+		position: absolute;
+		right: 0;
+		top: 11px;
+		width: 0;
+		height: 0;
+		border: 5px solid #fff;
+		border-top: 5px solid #666;
+		cursor: pointer;
+	}
+	&.list{
+		b{
+			top: 6px;
+			border: 5px solid #fff;
+			border-bottom: 5px solid #666;			
+		}
+	}
+}
+
+.class_name_list_b a:nth-child( n+3 ){
+	display: none;
+}
+.class_name_list_b.list a:nth-child( n+3 ){
+	display: block;
+}
 .run{
 	padding: 10px 0;
 	.btn_grey{
