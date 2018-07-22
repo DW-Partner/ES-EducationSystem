@@ -1,103 +1,140 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<meta charset="UTF-8">
-	<title>校区-首页</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8">
+    <title>undefined</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="format-detection" content="telephone=no">
-</head>
+  </head>
+  <body>
 
-<body>
-
-    <div class="top_box">
-    	<img src="./images/logo.png" />
-    	<p></p>
-    	<img src="./images/logo.png" />
-        <p><span class="times" id="times"></span></p>
-        <span class="user flagship">望京<a href="JavaScript:;" id="logout">退出</a></span>
-    </div>
-
-
-	<!-- 隐藏域start school_code -->
-	<input type="hidden" id="zone_code" value="123">
-	<input type="hidden" id="zone_zoneid" value="123">
-	<!-- 隐藏域end -->
+	<div class="top_box">
+		<img src="./images/logo.png"/>
+		<p>管好资源、看清数据<span class="times" id="times"></span></p>
+		<span class="user">宇文靖云<a href="JavaScript:;">退出</a>
+		</span>
+	</div>
 
 	<div class="left_nav" id="left_nav">
 		<ul>
-            <li class="on"><a href="/pss/goZoneHome">首页</a></li>
-            <li><a href="/pss/goZoneClassManage">班级管理</a></li>
-            <li><a href="/pss/goVisitor">咨询登记</a></li>
-            <li><a href="/pss/goSelectVisitors">学员管理</a></li>
-            <li><a href="/pss/goZoneTasks">消息与任务</a></li>
-		</ul>
+	  	<li><a href="#">首页</a></li>
+	  	<li><a href="#">校区</a></li>
+	  	<li class="on"><a href="#">课程资源</a></li>
+	  	<li><a href="#">教学教研</a></li>
+	  	<li><a href="#">教职员工</a></li>
+	  	<li><a href="#">账号设置</a></li>
+	  	<li><a href="#">系统资源</a></li>
+	</ul>
 	</div>
 
 	<div class="main_box" id="main_box">
 		<div class="main">
+			<!-- <p>功能模块区域！</p> -->
+
+			<div class="calendar_box">
+				<div class="calendar_list">
+
+					<div id="title">
+						<a class="selectBtn month" href="javascript:"><</a>
+						<a class="selectBtn selectYear" href="javascript:">-</a>
+						<a class="selectBtn selectMonth">-</a>
+						<a class="selectBtn nextMonth" href="javascript:">></a>
+						<a class="selectBtn currentDay" href="javascript:">今天</a>
+					</div>
+					<div id="context">
+						<div class="week">
+							<span> 一 </span>
+							<span> 二 </span>
+							<span> 三 </span>
+							<span> 四 </span>
+							<span> 五 </span>
+							<span> 六 </span>
+							<span> 日 </span>
+						</div>
+						<div id="center">
+							<div id="centerMain">
+								<div id="selectYearDiv"></div>
+								<div id="centerCalendarMain">
+								</div>
+								<div id="selectMonthDiv"></div>
+								</div>
+						</div>
+					</div>
+				</div>
 
 
-			<!-- 隐藏域start ~code、zoneid~ -->
-			<input type="hidden" id="code" value="545454" />
-			<input type="hidden" id="zoneid" value="7856" />
-			<!-- 隐藏域end -->
+				<div class="calendar_info">
+					<ul>
+						<li>
+							<h6>K1  基础美术启航班</h6>
+							<p>
+								<span>16:30--17:30</span>
+							</p>
+							<p>
+								<span>授课教师：  Friendy</span>
+								<span>授课地点：  A3教室</span>
+							</p>
+							<p>
+								<span>主题：  素描静物
+							</p>
+						</li>
+						<li>
+							<h6>K1  基础美术启航班</h6>
+							<p>
+								<span>16:30--17:30</span>
+							</p>
+							<p>
+								<span>授课教师：  Friendy</span>
+								<span>授课地点：  A3教室</span>
+							</p>
+							<p>
+								<span>主题：  素描静物
+							</p>
+						</li>
+						<li>
+							<h6>K1  基础美术启航班</h6>
+							<p>
+								<span>16:30--17:30</span>
+							</p>
+							<p>
+								<span>授课教师：  Friendy</span>
+								<span>授课地点：  A3教室</span>
+							</p>
+							<p>
+								<span>主题：  素描静物
+							</p>
+						</li>
+						<li>
+							<h6>K1  基础美术启航班</h6>
+							<p>
+								<span>16:30--17:30</span>
+							</p>
+							<p>
+								<span>授课教师：  Friendy</span>
+								<span>授课地点：  A3教室</span>
+							</p>
+							<p>
+								<span>主题：  素描静物
+							</p>
+						</li>
+					</ul>
+				</div>
 
-			<div class="page_head">
-				<input type="date" class="run" />
 			</div>
 
-			<div class="class_show">
-				<ul class="item_box">
-					<li class="item">
-						<h6>班级1-课时2</h6>
-						<p>宇文靖</p>
-						<span class="mark">❤</span>
-					</li>
-				</ul>
-				<div class="times">
-					<span>08:00</span>
-					<span>10:00</span>
-					<span>12:00</span>
-					<span>14:00</span>
-					<span>16:00</span>
-					<span>18:00</span>
-					<span>20:00</span>
-					<span></span>
+			<div class="info_box">
+				<div class="lesson_box">
+				</div>
+				<div class="student_box">
 				</div>
 			</div>
 
-			<p class="class_info">
-				<span>今日开课班级 100个</span>
-				<span>今日授课教师 12个</span>
-				<span>今日正式学员 216人</span>
-				<span>今日试听学员 12人</span>
-			</p>
 
 
-			<div class="echartsBox" id="echartsBox_1" style="padding: 30px;">
-				<div class="selectBox">
-					<select name="" class="echartSelect_date">
-						<option value="day">天</option>
-						<option value="week">周</option>
-						<option value="month">月</option>
-					</select>
-					<select name="" class="echartSelect_type">
-                        <option value="income">流水实收</option>
-                        <option value="outcome">杂项支出</option>
-                        <option value="visit_num">咨询登记数</option>
-                        <option value="sign_num">报名数</option>
-                        <option value="reserve_num">预约发出数</option>
-                        <option value="teacher_leave_num">请假数</option>
-                        <option value="class_num">开班数</option>
-					</select>
-					<a href="javascript:;" class="btn">查询</a>
-				</div>
-				<div class="echarts" id="echart1" style="height: 427px;">
-				</div>
-			</div>
+
+
 
 		</div>
 	</div>
-</body>
+  </body>
 </html>

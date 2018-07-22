@@ -152,7 +152,7 @@ let getZoneStudentList = ()=>{
 		        	select += `<option value="${item.class_id}">${item.class_name}</option>`;
 		        	$div.append( `<p class="classItem class_${item.class_id}"><span>${item.class_name}：</span></p>` )
 	        	}
-				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.student_id}">${item.student_name}</sapn>` );
+				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.sid}">${item.student_name}</sapn>` );
 	        })
 	        select += '</select></div>';
 	        $div.prepend( select );
@@ -306,7 +306,7 @@ $(document).off('click', '.student').on('click', '.student', function(){
 	}
 }).off('change', '#classSelect').on('change', '#classSelect', function(){
 	const class_id = $( this ).val();
-	$( `.class_${class_id}` ).show().siblings().hide();
+	$( `.class_${class_id}` ).show().siblings('p').hide();
 });
 
 
