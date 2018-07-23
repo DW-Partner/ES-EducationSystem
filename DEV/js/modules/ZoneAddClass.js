@@ -204,6 +204,40 @@ $('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
 $('.tips').after( '<a href="JavaScript:;" class="btn selected_lessons">挑选课时</a>' );
 $('[name="class_name"]').after( '<a href="JavaScript:;" class="btn getZoneStudentList">添加学员</a>' );
 
+// let getZoneStudentList = ()=>{
+//     $.ajax({
+// 	    type: "post",
+// 	    dataType: "json",
+// 	    url: '/pss/getZoneStudentList',
+// 	    data: {
+// 	        code: $('#zone_code').val(),
+// 	        zoneid: $('#zone_zoneid').val(),
+// 	    },
+// 	    success: (res)=>{
+// 	        if( res.errcode != 0 ){
+// 	            $.dialogFull.Tips( res.errmsg );
+// 	             return;
+// 	        }
+// 	        let $div = $( '<div>' );
+// 	        let classArr = {};
+// 	        res.data.forEach((item,index)=>{
+// 	        	if( !classArr[ item.class_id ] ){
+// 		        	classArr[ item.class_id ] = true;
+// 		        	item.class_name = item.class_name || '其它';
+// 		        	$div.append( `<p><span>${item.class_name}：</span></p>` )
+// 	        	}
+// 				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.student_id}">${item.student_name}</sapn>` );
+// 	        })
+// 	        $( '.dialogPopBox .content' ).html( $div.html() );
+// 	    },
+// 	    error: ()=>{
+// 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+// 	    }
+// 	})
+// }
+
+
+
 let getZoneStudentList = ()=>{
     $.ajax({
 	    type: "post",
@@ -220,21 +254,27 @@ let getZoneStudentList = ()=>{
 	        }
 	        let $div = $( '<div>' );
 	        let classArr = {};
+	        let select = '<div class="selectBox"><select id="classSelect">';
 	        res.data.forEach((item,index)=>{
 	        	if( !classArr[ item.class_id ] ){
 		        	classArr[ item.class_id ] = true;
 		        	item.class_name = item.class_name || '其它';
-		        	$div.append( `<p><span>${item.class_name}：</span></p>` )
+		        	select += `<option value="${item.class_id}">${item.class_name}</option>`;
+		        	$div.append( `<p class="classItem class_${item.class_id}"></p>` );//<span>${item.class_name}：</span>
 	        	}
-				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.student_id}">${item.student_name}</sapn>` );
+				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.sid || item.student_id}">${item.student_name}</sapn>` );
 	        })
+	        select += '</select></div>';
+	        $div.prepend( select );
 	        $( '.dialogPopBox .content' ).html( $div.html() );
+	        $( '.dialogPopBox .content p' ).eq(0).show();
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
 	    }
 	})
 }
+
 
 let studentChecked = [];
 let _dialogClose = ()=>{};
@@ -276,7 +316,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		sub_data.selected_lessons = dataMapSelect[ 'course_' + selectOn ];
 	}
 	if( studentChecked.length ){
-		sub_data.students = studentChecked.map((item)=>{
+		sub_data.students = Array.from(new Set(studentChecked)).map((item)=>{
         		return {sid: +item};
         });
 	}
@@ -410,6 +450,9 @@ $(document).off('change', '#checkall').on('change', '#checkall', selectAll).on('
 		studentChecked.push( sid );
 		self.addClass( 'checked' );
 	}
+}).off('change', '#classSelect').on('change', '#classSelect', function(){
+	const class_id = $( this ).val();
+	$( `.class_${class_id}` ).show().siblings('p').hide();
 });
 $.distory = ()=>{
 	_dialogClose(1);

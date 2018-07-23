@@ -687,6 +687,7 @@ $.mainBox.on('click', '.selectBtn.month', function(){
 		        	$.dialogFull.Tips( "提交成功！" );
 				    _dialogClose_addLessonPop(1);
 				    _dialogClose_addLessonPop_getZoneStudentList(1);
+				    studentChecked_addLesson = [];
 		        	getZoneDayLessons( currentDate );
 				},
 		        error: function(){

@@ -45,6 +45,10 @@
 	display: flex;
 }
 .getZoneStudentList{
+	.classItem{
+		display: none;
+		line-height: 28px;
+	}
 	span{
 		padding: 0 3px;
 		margin: 0 5px;
