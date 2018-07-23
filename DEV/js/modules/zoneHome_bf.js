@@ -1,4 +1,4 @@
-	require('./zoneHome.css');//引入css文件
+	require('./zoneHome_bf.css');//引入css文件
 
 	var echarts = require('echarts');
 	const flagship = $( '#flagship' ).val() == 1 ? true : false;

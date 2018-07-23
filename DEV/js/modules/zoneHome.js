@@ -573,7 +573,9 @@ let getZoneStudentList = (_class)=>{
 	        $( `.${_class} .content p` ).eq(0).show();
 
 			if( _class === 'student_box_getZoneStudentList' ){
+		        studentChecked_student_box = [];
 		        student_box_list.forEach((item)=>{
+		        	studentChecked_student_box.push( item.sid );
 		        	$( `[data-sid=${item.sid}]` ).addClass( 'checked' );
 		        });
 			}
@@ -732,13 +734,13 @@ $.mainBox.on('click', '.selectBtn.month', function(){
         	getZoneStudentList( 'student_box_getZoneStudentList' );
         },
         runDone: function($this, $thisBox, dialogClose) {
-        	let studentChecked_student_box_obj = Array.from(new Set(studentChecked_student_box)).map((item)=>{
-        		return {sid: +item};
-        	});
         	if( !studentChecked_student_box.length ){
 	            $.dialogFull.Tips( "请选择学员" );
         		return;
         	}
+        	let studentChecked_student_box_obj = Array.from(new Set(studentChecked_student_box)).map((item)=>{
+        		return {sid: +item};
+        	});
     	    $.ajax({
 		        type: "post",
 		        dataType: "json",
@@ -830,7 +832,8 @@ $(document).off('click', '.student').on('click', '.student', function(){
 	            $.dialogFull.Tips( "请选择学员" );
         		return;
         	}
-        	$( '#addStudents' ).html( `选择学员(${studentChecked_addLesson.length})` );
+        	const showLength = Array.from(new Set(studentChecked_addLesson));
+        	$( '#addStudents' ).html( `选择学员(${showLength.length})` );
         	_dialogClose_addLessonPop_getZoneStudentList = dialogClose;
          	dialogClose();
         	$( '.addLesson' ).click();

@@ -31,10 +31,14 @@
                     doneBtnText:'确定',
                     runDone: function($this, $thisBox, dialogClose) {},
                     closeBtnText:'取消',
-                    runClose: function($this, $thisBox) {}
+                    runClose: function($this, $thisBox, dialogClose) {}
                 },
                 options = $.extend(options, param);
 
+            if( options.clear ){
+                $( '.icon_x.dialogFullClose:visible' ).click();
+                //this.offEvent();
+            };
             //cache缓存隐藏dom start
             if (options.cacheId && $( '[cache = ' + options.cacheId + ']' ).length) {
                 var dialogMainId = '#' + $( '[cache = ' + options.cacheId + ']' ).attr( 'id' ),
@@ -45,7 +49,7 @@
             }
             //cache缓存隐藏dom end
 
-            var main = '<div class="head"><a href="JavaScript:;" class="dialogFullClose">×</a></div><div class="content"></div>',
+            var main = '<div class="head"><a href="JavaScript:;" class="icon_x dialogFullClose">×</a></div><div class="content"></div>',
                 doneBtn = options.doneBtnText ? '<a href="JavaScript:;" class="btn-Blue dialogFullDone">' + options.doneBtnText + '</a>' : '',
                 closeBtn = options.closeBtnText ? '<a href="JavaScript:;" class="btn-Grey dialogFullClose">' + options.closeBtnText + '</a>' : '',
                 confirm = '<div class="btn-confirm">'
@@ -71,10 +75,6 @@
                 height: options.height,
                 width: options.width
             });
-            if( options.clear ){
-                $( '.dialogFullClose' ).click();
-                //this.offEvent();
-            };
             if (options.cover) {
                 var $coverDom = $('<div />').addClass('bodyCover').attr('id', dialogCoverId.substring(1));
                 $('body').append($coverDom);
@@ -97,7 +97,7 @@
             };
             $(document).on('click', dialogFullCloseDom, function() {
                 dialogClose();
-                options.runClose( $( this ), $( dialogMainId ) );
+                options.runClose( $( this ), $( dialogMainId ), dialogClose );
             });
             //底部确定/取消按钮，点击时回调函数start
             if (options.confirm) {
