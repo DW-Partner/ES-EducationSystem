@@ -525,6 +525,9 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 			
             _dialogClose = dialogClose;
             dialogClose();
+        },
+        runClose: function($this, $thisBox, dialogClose) {
+        	_dialogClose = dialogClose;
         }
 
     });

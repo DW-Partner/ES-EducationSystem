@@ -150,9 +150,9 @@ let getZoneStudentList = ()=>{
 		        	classArr[ item.class_id ] = true;
 		        	item.class_name = item.class_name || '其它';
 		        	select += `<option value="${item.class_id}">${item.class_name}</option>`;
-		        	$div.append( `<p class="classItem class_${item.class_id}"><span>${item.class_name}：</span></p>` )
+		        	$div.append( `<p class="classItem class_${item.class_id}"></p>` );//<span>${item.class_name}：</span>
 	        	}
-				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.sid}">${item.student_name}</sapn>` );
+				$div.find( 'p:last' ).append( `<span class="student" data-sid="${item.sid || item.student_id}">${item.student_name}</sapn>` );
 	        })
 	        select += '</select></div>';
 	        $div.prepend( select );
@@ -243,6 +243,37 @@ $.mainBox.on('click', '#submit_edit', ()=>{
         }
 	});
 
+
+   	let studentCheckedObj = Array.from(new Set(studentChecked)).map((item)=>{
+		return {sid: +item};
+	});
+	if( !studentChecked.length ){
+        // $.dialogFull.Tips( "请选择学员" );
+		return;
+	}
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/adjustClassLessonStudents',
+        data: {
+            code: $('#zone_code').val(),
+            zoneid: $('#zone_zoneid').val(),
+	        classid: class_id,
+	        lessonid: lesson_id,
+            data: JSON.stringify( studentCheckedObj )
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            $.dialogFull.Tips( "提交成功！" );
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
+    })
+
 }).on('click', '#cancel', function(){
 	window.location.reload();
 }).on('click', '#student_select', function(){
@@ -258,37 +289,11 @@ $.mainBox.on('click', '#submit_edit', ()=>{
         	getZoneStudentList();
         },
         runDone: function($this, $thisBox, dialogClose) {
-        	let studentCheckedObj = studentChecked.map((item)=>{
-        		return {sid: item};
-        	});
-        	if( !studentChecked.length ){
-	            $.dialogFull.Tips( "请选择学员" );
-        		return;
-        	}
-    	    $.ajax({
-		        type: "post",
-		        dataType: "json",
-		        url: '/pss/adjustClassLessonStudents',
-		        data: {
-		            code: $('#zone_code').val(),
-		            zoneid: $('#zone_zoneid').val(),
-			        classid: class_id,
-			        lessonid: lesson_id,
-		            data: JSON.stringify( studentCheckedObj )
-		        },
-		        success: (res)=>{
-		            if( res.errcode != 0 ){
-		                $.dialogFull.Tips( res.errmsg );
-		                 return;
-		            }
-		            $.dialogFull.Tips( "提交成功！" );
-		        },
-		        error: ()=>{
-		            $.dialogFull.Tips( "网络错误，请稍后重试！" );
-		        }
-		    })
         	_dialogClose = dialogClose;
             dialogClose();
+        },
+        runClose: function($this, $thisBox, dialogClose) {
+        	_dialogClose = dialogClose;
         }
     });	
 });

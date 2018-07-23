@@ -277,7 +277,7 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	}
 	if( studentChecked.length ){
 		sub_data.students = studentChecked.map((item)=>{
-        		return {sid: item};
+        		return {sid: +item};
         });
 	}
     let ajaxData = {
@@ -387,6 +387,9 @@ $.mainBox.on('click', '#submit_add', ()=>{
         runDone: function($this, $thisBox, dialogClose) {
             _dialogClose = dialogClose;
             dialogClose();
+        },
+        runClose: function($this, $thisBox, dialogClose) {
+        	_dialogClose = dialogClose;
         }
     });	
 });
