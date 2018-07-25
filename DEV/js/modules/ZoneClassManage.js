@@ -54,7 +54,7 @@ let getZoneClassesList = ()=>{
         ajaxData: {
             code: $('#zone_code').val(),
             zoneid: $('#zone_zoneid').val(),
-            status: 'pending'
+            //status: 'pending'
         },//上行参数
         template: tpl.list,//列表模板
         listKey: ['data'],//下行结构//TODO 'list'
