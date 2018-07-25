@@ -711,7 +711,6 @@ $.mainBox.on('click', '.selectBtn.month', function(){
 		$( '.info_box' ).hide();
 		$( '.lesson_box' ).html( '' );
 		$( '.student_box span' ).remove();
-		$( '.qr_box' ).html( '' );
 		return;
 	}
 	classid = info.class_id;
