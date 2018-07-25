@@ -497,6 +497,7 @@ let getClassLessonSignQrcode = ( classid, lessonid )=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
+		$( '.qr_box' ).show();
 	        $(".qr_img").html( '' );
 			let qrcode = new QRCode($(".qr_img")[0], {
 				text: 'your content',
@@ -720,7 +721,8 @@ $.mainBox.on('click', '.selectBtn.month', function(){
 	$(this).addClass( 'on' ).siblings( '.on' ).removeClass( 'on' );
 	$( '.lesson_box' ).html( replaceTemplate( tpl.info, info ) );
 	getLessonsMissList( classid, lessonid );
-	getClassLessonSignQrcode( classid, lessonid );
+	$( '.qr_box' ).hide();
+	!info.show && getClassLessonSignQrcode( classid, lessonid );
 }).on('click', '.student_box', function(){
 	onStudentCheck = 'student_box_getZoneStudentList';
 
