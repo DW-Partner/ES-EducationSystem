@@ -1,18 +1,17 @@
 .calendar_box{
-	height: 600px;
+	height: 450px;
 	overflow: hidden;
 	background: #fff;
 	.calendar_list{
-		height: 600px;
-		width: 67%;
+		height: 450px;
+		width: 65%;
 		float: left;
 	}
 	.calendar_info{
-		height: 800px;
-		width: 33%;
+		height: 450px;
+		width: 35%;
 		float: left;
 		padding: 20px 20px 0 24px;
-		height: 600px;
 		overflow: auto;
 		li{
 			padding: 8px;
