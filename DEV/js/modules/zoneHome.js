@@ -78,7 +78,7 @@ const tpl = {
 	zoneDayLessons: `<li data-info="{info}">
 			<em></em>
 			<b class="cancelLesson {show}" data-info="{info}"></b>
-			<h6>{class_name}</h6>
+			<h6>#{class_name}</h6>
 			<p>
 				<span>开始时间：{start_time}</span>
 			</p>
