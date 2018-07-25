@@ -244,10 +244,10 @@
 .info_box{
 	display: flex;
 	min-height: 200px;
-	margin-top: 20px;
 	padding: 15px;
 	background: #fff;
 	border-left: 3px solid #e42323;
+	border-top: 20px solid #f8f7f7;
 	.lesson_box{
 		flex: 3;
 		color: #747474;
