@@ -77,7 +77,7 @@ const tpl = {
 	//<span>课时长：{lesson_time}</span>
 	zoneDayLessons: `<li data-info="{info}">
 			<em></em>
-			<b class="cancelLesson" data-info="{info}"></b>
+			<b class="cancelLesson {show}" data-info="{info}"></b>
 			<h6>{class_name}</h6>
 			<p>
 				<span>开始时间：{start_time}</span>
@@ -426,6 +426,7 @@ let getZoneDayLessons = ( date )=>{
 	        }
 	        let html = '';
 	        res.data.forEach((item)=>{
+			item.show = (new Date( item.start_time || '2018-01-01 00:00:00' )).getTime() <= (new Date()).getTime() && 'none';
 	        	item.start_time = item.start_time.substring( 0, item.start_time.length-3 );
 	        	item.info = JSON.stringify( item ).replace( /\"/ig, "'" );
 		        html += replaceTemplate( tpl.zoneDayLessons, item );
