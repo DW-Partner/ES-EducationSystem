@@ -98,28 +98,28 @@ const tpl = {
 			//主题，上课，当天具体上课时间（日期不能选），教师，学员，
     addLessonForm: `<ul class="pub_form">
             <li>
-                <span><i>*</i>课时主题</span>
+                <span class="wide"><i>*</i>课时主题</span>
                 <input type="text" placeholder="请输入课时主题名" name="theme" data-validate="any" data-must="1" />
             </li>
             <li>
-                <span><i>*</i>时长</span>
+                <span class="wide"><i>*</i>时长</span>
                 <input type="text" placeholder="请输入课时时长(单位：分钟)" name="time_length" data-validate="number" data-must="1" />
             </li>
             <li>
-                <span><i>*</i>开课时间</span>
+                <span class="wide"><i>*</i>开课时间</span>
                 <input type="text" placeholder="请输入开课时间" id="stime" name="stime" data-validate="any" data-must="1" />
             </li>
             <li>
-                <span><i>*</i>教师</span>
+                <span class="wide"><i>*</i>教师</span>
                 <select name="tid" data-validate="any">
                 </select>
             </li>
             <li>
-                <span><i>*</i>学员</span>
+                <span class="wide"><i>*</i>学员</span>
                 <a href="javascript:;" class="btn" id="addStudents">选择学员</a>
             </li>
             <li>
-                <span>扣减课时数</span>
+                <span class="wide">扣减课时数</span>
                 <input type="text" placeholder="请输入扣减课时数" name="deduction_lessons" data-validate="number" data-must="1" />
             </li>
         </ul>`
