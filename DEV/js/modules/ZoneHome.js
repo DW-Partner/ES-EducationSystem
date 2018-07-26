@@ -2,6 +2,7 @@ require('./ZoneHome.css');
 
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 import QRCode from '../kit/qrcode.js';
+import changeFormat from '../kit/changeFormat.js';
 
 let $dayItem;
 let $calendarItem;
@@ -16,63 +17,6 @@ let lessonid;
 
 let onStudentCheck;
 let student_box_list;
-
-						// <a class="selectBtn month" href="javascript:"><</a>
-						// <a class="selectBtn nextMonth" href="javascript:">></a>
-						// <a class="selectBtn currentDay" href="javascript:">今天</a>
-
-// const HTML = `<div class="calendar_box">
-// 				<div class="calendar_list">
-// 					<div class="calendar_head">
-// 						<a class="selectBtn selectYear" href="javascript:">----</a>
-// 						<b>.</b>
-// 						<a class="selectBtn selectMonth">--</a>
-// 						<div class="linkBox">
-// 							<a class="msg" href="javascript:" data-href="/pss/goZoneTasks#goZoneTasks">新消息请及时处理</a>
-// 							<a class="addLesson" href="javascript:">当日加课</a>
-// 						</div>
-// 					</div>
-// 					<div id="context">
-// 						<div class="week">
-// 							<span> 一 </span>
-// 							<span> 二 </span>
-// 							<span> 三 </span>
-// 							<span> 四 </span>
-// 							<span> 五 </span>
-// 							<span> 六 </span>
-// 							<span> 日 </span>
-// 						</div>
-// 						<div id="center">
-// 							<div id="centerMain">
-// 								<div id="selectYearDiv"></div>
-// 								<div id="centerCalendarMain"></div>
-// 								<div id="selectMonthDiv"></div>
-// 							</div>
-// 						</div>
-// 					</div>
-// 				</div>
-// 				<div class="calendar_info">
-// 					<ul>
-// 					</ul>
-// 				</div>
-// 			</div>
-// 			<div class="info_box">
-// 				<div class="lesson_box">
-// 				</div>
-// 				<div class="student_box">
-// 					<p><b>未签到：</b></p>
-// 					<p><b>已签到：</b></p>
-// 					<p><b>请假：</b></p>
-// 					<p><b>缺勤：</b></p>
-// 				</div>
-// 				<div class="qr_box">
-// 					<div class="qr_img">
-// 					</div>
-// 					<p>扫码完成本节签到</p>
-// 				</div>
-// 			</div>`;
-// $.mainBox.html( HTML );
-
 const tpl = {
 	//<span>课时长：{lesson_time}</span>
 	zoneDayLessons: `<li data-info="{info}">
@@ -80,7 +24,7 @@ const tpl = {
 			<b class="cancelLesson {show}" data-info="{info}"></b>
 			<h6>{mark}{class_name}</h6>
 			<p>
-				<span>开始时间：{start_time}</span>
+				<span>开课时间：{start_time} -- {end_time}</span>
 			</p>
 			<p>
 				<span>授课教师：{teacher_name}</span>
@@ -90,7 +34,7 @@ const tpl = {
 				主题：{theme}
 			</p>
 		</li>`,
-	info: `<h6><span>{start_time}</span><span>{class_name}</span></h6>
+	info: `<h6><span>{start_time} -- {end_time}</span><span>{class_name}</span></h6>
 			<p>授课教师：  {teacher_name}</p>
 			<p>授课地点：{classroom}</p>
 			<p>主题：{theme}</p>
@@ -426,8 +370,12 @@ let getZoneDayLessons = ( date )=>{
 	        }
 	        let html = '';
 	        res.data.forEach((item)=>{
-			item.show = (new Date( item.start_time || '2018-01-01 00:00:00' )).getTime() <= (new Date()).getTime() && 'none';
-	        	item.start_time = item.start_time.substring( 0, item.start_time.length-3 );
+			item.show = (new Date( item.start_time || `${currentDate} 00:00:00` )).getTime() <= (new Date()).getTime() && 'none';
+
+	        	const end_time_getTime = (new Date( item.start_time || `${currentDate} 00:00:00` )).getTime() + (item.lesson_time * 60 * 1000);
+				item.end_time = changeFormat( end_time_getTime, 'hh:mm' );
+				item.start_time = changeFormat( (new Date( item.start_time || `${currentDate} 00:00:00` )).getTime(), 'hh:mm' );
+	        	//item.start_time = item.start_time.substring( 0, item.start_time.length-3 );
 	        	item.info = JSON.stringify( item ).replace( /\"/ig, "'" );
 	        	item.mark = item.class_name.indexOf( '#加课' ) === 0 ? '#' : '';
 	        	item.class_name = item.mark ? item.class_name.substr(3) : item.class_name;

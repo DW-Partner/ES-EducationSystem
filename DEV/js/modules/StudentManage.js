@@ -22,7 +22,7 @@
         <div class="item flex_2"><p><span>\
             <a href="JavaScript:;" data-href="/pss/goEditStudent?sid={sid}&page={_page}">编辑</a>\
             |\
-            <a href="JavaScript:;"  data-href="/pss/goStudentPrintSituation?sid={sid}&page={_page}&data={_data}">印记</a>\
+            <a href="JavaScript:;"  data-href="/pss/goStudentPrintSituation?sid={sid}&page={_page}&data={_data}">综合学情</a>\
             <br />\
             <a href="JavaScript:;" data-href="/pss/goSendToStudent?sid={sid}&page={_page}">发送通知</a>\
             |\
