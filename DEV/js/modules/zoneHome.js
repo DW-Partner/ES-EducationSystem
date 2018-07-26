@@ -78,7 +78,7 @@ const tpl = {
 	zoneDayLessons: `<li data-info="{info}">
 			<em></em>
 			<b class="cancelLesson {show}" data-info="{info}"></b>
-			<h6>#{class_name}</h6>
+			<h6>{mark}{class_name}</h6>
 			<p>
 				<span>开始时间：{start_time}</span>
 			</p>
@@ -429,6 +429,8 @@ let getZoneDayLessons = ( date )=>{
 			item.show = (new Date( item.start_time || '2018-01-01 00:00:00' )).getTime() <= (new Date()).getTime() && 'none';
 	        	item.start_time = item.start_time.substring( 0, item.start_time.length-3 );
 	        	item.info = JSON.stringify( item ).replace( /\"/ig, "'" );
+	        	item.mark = item.class_name.indexOf( '#加课' ) === 0 ? '#' : '';
+	        	item.class_name = item.mark ? item.class_name.substr(3) : item.class_name;
 		        html += replaceTemplate( tpl.zoneDayLessons, item );
 	        });
 	        $('.calendar_info ul').html( html || '<li><em></em><h6>暂无数据</h6></li>' );
@@ -466,7 +468,7 @@ let getLessonsMissList = ( classid, lessonid )=>{
 	        }
 	        res.data.forEach((item)=>{
 	        	//var item = {"sid":"xxx","student_name":"xxx","status":"1"};
-	        	const code = item.status === '未签到' ? '1' : item.status === '已签到' ? '2' : item.status === '请假' ? '3' : '4';
+	        	const code = item.status === '未签到' ? '1' : item.status === '签到' ? '2' : item.status === '请假' ? '3' : '4';
 	        	_list[ code ].push( `<span>${item.student_name}</span>` );
 	        });
 	        student_box_list = res.data;
