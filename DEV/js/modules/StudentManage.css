@@ -74,3 +74,19 @@
 	    cursor: pointer;
 	}
 }
+.exitFromClasspPop{
+	p{
+		line-height: 28px;
+		padding: 5px 0 10px;
+	}
+	.classItem{
+		line-height: 28px;
+		color: #666;
+		margin: 0 10px;
+		text-decoration: underline;
+		cursor: pointer;
+		&.on{
+			color: #c00;
+		}
+	}
+}
