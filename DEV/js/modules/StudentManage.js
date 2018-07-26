@@ -30,7 +30,7 @@
             <br />\
             <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a>\
             <em class="none{class_id}">|</em>\
-            <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id}>退出班级</a>\
+            <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id} data-classname="{class_name}">退出班级</a>\
     	    <br />\
             <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
         </span></p></div>\
@@ -39,7 +39,7 @@
 
 
 const search_data = $('#data').val() ? $('#data').val().replace(/'/g, '"') : $('#data').val();
-
+let onDelClass;
 let getStudentsList = ()=>{
     let ajaxData = {
         code: $('#zone_code').val(),
@@ -70,19 +70,17 @@ let getStudentsList = ()=>{
 
             const class_name_arr = item.class_name ? item.class_name.split( ',' ) : [];
             // class_name_arr.shift();
-
             item.class_name_list = class_id_arr.map((_item,_index)=>{
                 return `<a href="JavaScript:;" data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
             }).join('');
-
             // class_id_arr.length && item.class_name_list.unshift( '<b></b>' );
             item.class_name_list = class_id_arr.length>1 ? '<b></b>' + item.class_name_list : item.class_name_list;
 
-            item.class_id = item.class_id ? item.class_id.split( ',' )[ 0 ] : '';
+            //item.class_id = item.class_id ? item.class_id.split( ',' )[ 0 ] : '';
 
             if( item.expiretime ){
                 const times = ( new Date( item.expiretime ) ).getTime() - ( new Date() ).getTime();
-                item.expiretimeShow =  times / 30 * 24 * 3600 * 1000 < 31 ? `<em class="warn">${item.expiretime}</em>` : item.expiretime;                
+                item.expiretimeShow =  times / 24  / 3600 / 1000 < 31 ? `<em class="warn">${item.expiretime}</em>` : item.expiretime;                
             }
             item._data = search_data;
             return item;
@@ -103,39 +101,67 @@ let getStudentsList = ()=>{
 }
 getStudentsList();
 
-
-let exitFromClass = (sid,classid)=>{
-    $.ajax({
-        type: "post",
-        dataType: "json",
-        url: '/pss/exitFromClass',
-        data: {
-            code: $('#zone_code').val(),
-            zoneid: $('#zone_zoneid').val(),
-            sid: sid,
-            classid: classid,
-            page: +$('#page').val()
-        },
-        success: (res)=>{
-            if( res.errcode != 0 ){
-                $.dialogFull.Tips( res.errmsg );
-                 return;
-            }
-            $.dialogFull.Tips( "提交成功！" );
-            $.ajaxGetHtml({
-                url: res.data.url,
+let exitFromClass = ( sid, classIds, classNames )=>{
+    let self = $( this );
+    let class_name_arr = classNames.split(',');
+    let _list = classIds.split(',').map((_item,_index)=>{
+        return `<span class="classItem" data-classid="${_item}">${class_name_arr[_index]}</span>`;
+    }).join('');
+    _list = '<p>请选择要退出班级：</p>' + _list;
+    $.dialogFull.Pop({
+        boxClass: '.exitFromClasspPop',
+        width: 700,
+        height: 'auto',
+        title: '提示',//弹框标题
+        content: _list,//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+            onDelClass = false;
+            $thisBox.on('click', '.classItem', function(){
+                $(this).addClass( 'on' ).siblings('.on').removeClass( 'on' );
+                onDelClass = $(this).data( 'classid' );
             })
         },
-        error: ()=>{
-            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        runDone: function($this, $thisBox, dialogClose) {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/pss/exitFromClass',
+                data: {
+                    code: $('#zone_code').val(),
+                    zoneid: $('#zone_zoneid').val(),
+                    sid: sid,
+                    classid: onDelClass,
+                    page: +$('#page').val()
+                },
+                success: (res)=>{
+                    if( res.errcode != 0 ){
+                        $.dialogFull.Tips( res.errmsg );
+                         return;
+                    }
+                    $.dialogFull.Tips( "提交成功！" );
+                    dialogClose();
+                    $.ajaxGetHtml({
+                        url: res.data.url,
+                    })
+                },
+                error: ()=>{
+                    $.dialogFull.Tips( "网络错误，请稍后重试！" );
+                }
+            })  
+        },
+        runClose: function($this, $thisBox, dialogClose) {
         }
-    })    
+    }); 
+
+
+  
 }
 
 $.mainBox.on('click', '.exitFromClass', function(){
     const sid = $(this).data('sid');
-    const classid = $(this).data('classid');
-    exitFromClass(sid,classid);
+    const classIds = $(this).data('classid').toString();
+    const classNames = $(this).data('classname');
+    exitFromClass( sid, classIds, classNames );
 }).on('change', '.inputFile', function(){
 
     $.dialogFull.Alert( "文件上传中，请勿刷新！" );
@@ -208,3 +234,4 @@ $.mainBox.on('click', '.exitFromClass', function(){
 
     }
 });
+
