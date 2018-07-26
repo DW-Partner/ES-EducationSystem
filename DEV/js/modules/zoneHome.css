@@ -1,15 +1,16 @@
 .calendar_box{
-	height: 450px;
+	height: 470px;
 	overflow: hidden;
 	background: #fff;
+	border-bottom: 20px solid #f8f7f7;
 	.calendar_list{
 		height: 450px;
-		width: 65%;
+		width: 64%;
 		float: left;
 	}
 	.calendar_info{
 		height: 450px;
-		width: 35%;
+		width: 36%;
 		float: left;
 		padding: 20px 20px 0 24px;
 		overflow: auto;
@@ -138,7 +139,6 @@
 			padding: 0;
 			margin-top: 5px;
 			font-size: 20px;
-
 			flex: 1;
 		}
 	}
@@ -147,7 +147,7 @@
 		display: flex;
 		flex-direction: row;
 	    flex-wrap: wrap;
-	    height: 480px;
+	    height: 330px;
 	}
 	.item {
 		width: 14.285%;
@@ -156,7 +156,7 @@
 		text-align: center;
 		cursor: pointer;
 		margin: 0;
-		font-size: 20px;
+		font-size: 18px;
 		position: relative;
 		a{
 			position: absolute;
@@ -250,7 +250,6 @@
 	padding: 15px;
 	background: #fff;
 	border-left: 3px solid #e42323;
-	border-top: 20px solid #f8f7f7;
 	.lesson_box{
 		flex: 3;
 		color: #747474;
@@ -300,7 +299,7 @@
 		}
 		p{
 			line-height: 20px;
-			font-size: 14px;
+			font-size: 12px;
 			text-align: center;
 		}
 	}
@@ -324,6 +323,3 @@
 		text-decoration: underline;
 	}
 }
-
-
-
