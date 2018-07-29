@@ -3,6 +3,7 @@ require('./ZoneHome.css');
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 import QRCode from '../kit/qrcode.js';
 import changeFormat from '../kit/changeFormat.js';
+import websocket from '../comp/websocket.js';
 
 let $dayItem;
 let $calendarItem;
@@ -34,10 +35,10 @@ const tpl = {
 				主题：{theme}
 			</p>
 		</li>`,
-	info: `<h6><span>{start_time} -- {end_time}</span><span>{class_name}</span></h6>
+	info: `<h6><span>{start_time} -- {end_time}</span><span><a href="javascript:" data-href="/pss/goClassInfo?classid={class_id}">{class_name}</a></span></h6>
 			<p>授课教师：  {teacher_name}</p>
 			<p>授课地点：{classroom}</p>
-			<p>主题：{theme}</p>
+			<p>主题：<a href="javascript:" data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">{theme}</a></p>
 			<p>教学目标：{target}</p>`,
 			//主题，上课，当天具体上课时间（日期不能选），教师，学员，
     addLessonForm: `<ul class="pub_form">
@@ -377,11 +378,11 @@ let getZoneDayLessons = ( date )=>{
 				item.start_time = changeFormat( (new Date( item.start_time || `${currentDate} 00:00:00` )).getTime(), 'hh:mm' );
 	        	//item.start_time = item.start_time.substring( 0, item.start_time.length-3 );
 	        	item.info = JSON.stringify( item ).replace( /\"/ig, "'" );
-	        	item.mark = item.class_name.indexOf( '#加课' ) === 0 ? '#' : '';
-	        	item.class_name = item.mark ? item.class_name.substr(3) : item.class_name;
+	        	const mark = item.class_name.indexOf( '#加课' ) === 0 ? '#' : '';
+	        	item.class_name = mark ? item.theme : item.class_name;
 		        html += replaceTemplate( tpl.zoneDayLessons, item );
 	        });
-	        $('.calendar_info ul').html( html || '<li><em></em><h6>暂无数据</h6></li>' );
+	        $('.calendar_info ul').html( html || '<li><em></em><h6>今日无课</h6></li>' );
 	        $( '.calendar_info li' ).eq( 0 ).click();
 	    },
 	    error: ()=>{

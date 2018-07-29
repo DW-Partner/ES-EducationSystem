@@ -32,6 +32,8 @@
             <em class="none{class_id}">|</em>\
             <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id} data-classname="{class_name}">退出班级</a>\
     	    <br />\
+            <a href="JavaScript:;" class="linkClass" data-sid={sid} data-classid={class_id} data-classname="{class_name}">班级学情</a>\
+            |\
             <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
         </span></p></div>\
 		</li>',
@@ -82,7 +84,7 @@ let getStudentsList = ()=>{
                 const times = ( new Date( item.expiretime ) ).getTime() - ( new Date() ).getTime();
                 item.expiretimeShow =  times / 24  / 3600 / 1000 < 31 ? `<em class="warn">${item.expiretime}</em>` : item.expiretime;                
             }
-            item._data = search_data;
+            item._data = encodeURIComponent( $('#data').val() || '' );
             return item;
         },
         successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
@@ -151,10 +153,33 @@ let exitFromClass = ( sid, classIds, classNames )=>{
         },
         runClose: function($this, $thisBox, dialogClose) {
         }
-    }); 
+    });
+}
 
 
-  
+let linkClass = ( sid, classIds, classNames )=>{
+    let self = $( this );
+    let class_name_arr = classNames.split(',');
+    let _list = classIds.split(',').map((_item,_index)=>{
+        return `<a href="JavaScript:;" class="classItem dialogFullClose" data-href="/pss/goClassInfo?classid=${_item}">${class_name_arr[_index]}</a>`;
+    }).join('');
+    _list = '<p>请选择班级：</p>' + _list;
+    $.dialogFull.Pop({
+        boxClass: '.linkClassPop',
+        width: 700,
+        height: 'auto',
+        title: '提示',//弹框标题
+        content: _list,//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+            onDelClass = false;
+            $thisBox.on('click', '.classItem', function(){
+                const href = $(this).data('href');
+                $.ajaxGetHtml({
+                    url: href + '#goZoneClassManage'
+                });
+            })
+        }
+    });  
 }
 
 $.mainBox.on('click', '.exitFromClass', function(){
@@ -162,6 +187,11 @@ $.mainBox.on('click', '.exitFromClass', function(){
     const classIds = $(this).data('classid').toString();
     const classNames = $(this).data('classname');
     exitFromClass( sid, classIds, classNames );
+}).on('click', '.linkClass', function(){
+    const sid = $(this).data('sid');
+    const classIds = $(this).data('classid').toString();
+    const classNames = $(this).data('classname');
+    linkClass( sid, classIds, classNames );
 }).on('change', '.inputFile', function(){
 
     $.dialogFull.Alert( "文件上传中，请勿刷新！" );

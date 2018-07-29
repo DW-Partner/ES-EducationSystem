@@ -400,7 +400,8 @@ button, input[type=button], .btn, .btn_dis, .btn_grey{
   h3{
     float: left;
     color: #3A3C40;
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: normal;
   }
   .run, .btn, .btn_grey{
     float: right;

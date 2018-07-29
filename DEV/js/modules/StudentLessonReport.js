@@ -17,6 +17,11 @@ const classid = $('#classid').val();
 const sid = $('#sid').val();
 const sname = $('#sname').val();
 const lessonid = $('#lessonid').val();
+const page = $('#page').val();
+const url_data = encodeURIComponent( $('#data').val() || '' );
+
+
+$( '#backBtn, .page_head a' ).data( 'href', `/pss/goStudentPrintSituation?sid=${sid}&page=${page}&data=${url_data}` )
 
 // $( '.page_head h3' ).text( sname + '的印记' );
 

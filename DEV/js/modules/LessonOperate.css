@@ -29,6 +29,7 @@
 		border-left: 1px solid #eaeaea;
 		float: left;
 		line-height: 48px;
+	     max-width: 500px;
 	}
 	.list{
 		float: left;

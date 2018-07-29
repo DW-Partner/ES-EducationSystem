@@ -52,7 +52,7 @@
 					flex: 1;
 				}
 			}
-			&:hover, &.on{
+			&.on{
 				h6{
 					color: #e42323;
 				}
