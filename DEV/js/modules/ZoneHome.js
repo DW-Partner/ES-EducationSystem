@@ -377,9 +377,10 @@ let getZoneDayLessons = ( date )=>{
 				item.end_time = changeFormat( end_time_getTime, 'hh:mm' );
 				item.start_time = changeFormat( (new Date( item.start_time || `${currentDate} 00:00:00` )).getTime(), 'hh:mm' );
 	        	//item.start_time = item.start_time.substring( 0, item.start_time.length-3 );
-	        	item.info = JSON.stringify( item ).replace( /\"/ig, "'" );
 	        	const mark = item.class_name.indexOf( '#加课' ) === 0 ? '#' : '';
-	        	item.class_name = mark ? item.theme : item.class_name;
+	        	item.class_name = mark ? '#' + item.theme : item.class_name;
+	        	item.info = JSON.stringify( item ).replace( /\"/ig, "'" );
+
 		        html += replaceTemplate( tpl.zoneDayLessons, item );
 	        });
 	        $('.calendar_info ul').html( html || '<li><em></em><h6>今日无课</h6></li>' );
@@ -564,6 +565,18 @@ let getZoneTeacherList = ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
 	    }
 	})
+}
+
+websocket.onmessage = function (event) {
+	let data = {};
+	try{
+    	data = JSON.parse( event.data );
+	}catch(e){
+	}
+	data.ajax === 'getLessonsMissList' && getLessonsMissList( classid, lessonid );
+	// 解析json: {"msg_type":"ajax","ajax":"getLessonsMissList"},刷新对应的接口
+    // console.log( event.data );
+    //setMessageInnerHTML(event.data);
 }
 
 

@@ -13,9 +13,10 @@ const tpl = {
 	span: '<span>{student_name}</span>',//{sid}:
 };
 const classid = $('#classid').val();
+const classname = $('#classname').val();
 const sid = $('#sid').val();
 const sname = $('#sname').val();
-$( '.page_head h3' ).text( sname + '的学情' );
+$( '.page_head h3' ).text( `${sname}——${classname}的学情` );
 
 let getClassLessonsList = ()=>{
 	$.jsonPage({
@@ -217,7 +218,7 @@ let getLessonsFileCounts = (that,lessonid,$dom)=>{
 }
 
 
-$.mainBox.on('click', '.class_list .info', function(){
+$.mainBox.on('click', '.class_list .info_DEL', function(){
 	let self = $(this);
 	const _status = self.data('status');
 	if( _status == 0 ){

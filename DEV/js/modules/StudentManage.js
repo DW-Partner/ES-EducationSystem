@@ -11,8 +11,9 @@
 		list: '<li>\
 		<div class="item flex_2"><p><span>{ctime}</span></p></div>\
 		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
-		<div class="item class_name_list"><p><span class="class_name_list_b">\
-        {class_name_list}\
+		<div class="item flex_2 class_name_list"><p><span class="class_name_list_b">\
+        {class_name_list_DEL}\
+        <select id="select_{sid}">{class_name_option}</select>\
         </span></p></div>\
 		<div class="item"><p><span>{birthday}</span></p></div>\
 		<div class="item"><p><span>{gender}</span></p></div>\
@@ -30,9 +31,9 @@
             <br />\
             <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a>\
             <em class="none{class_id}">|</em>\
-            <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-classid={class_id} data-classname="{class_name}">退出班级</a>\
+            <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-page={_page}">退出班级</a>\
     	    <br />\
-            <a href="JavaScript:;" class="linkClass" data-sid={sid} data-classid={class_id} data-classname="{class_name}">班级学情</a>\
+            <a href="JavaScript:;" class="linkClass" data-sid={sid} data-page={_page}">班级学情</a>\
             |\
             <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
         </span></p></div>\
@@ -71,12 +72,20 @@ let getStudentsList = ()=>{
             // class_id_arr.shift();
 
             const class_name_arr = item.class_name ? item.class_name.split( ',' ) : [];
-            // class_name_arr.shift();
+
+
             item.class_name_list = class_id_arr.map((_item,_index)=>{
                 return `<a href="JavaScript:;" data-href="/pss/goStudentArchive?sid=${item.sid}&classid=${_item}&page=${item._page}">${class_name_arr[_index]}</a>`;
             }).join('');
-            // class_id_arr.length && item.class_name_list.unshift( '<b></b>' );
+
             item.class_name_list = class_id_arr.length>1 ? '<b></b>' + item.class_name_list : item.class_name_list;
+
+
+
+            item.class_name_option = class_id_arr.map((_item,_index)=>{
+                return `<option value="${_item}">${class_name_arr[_index]}</option>`;
+            }).join('');
+
 
             //item.class_id = item.class_id ? item.class_id.split( ',' )[ 0 ] : '';
 
@@ -103,7 +112,7 @@ let getStudentsList = ()=>{
 }
 getStudentsList();
 
-let exitFromClass = ( sid, classIds, classNames )=>{
+let exitFromClass_DEL = ( sid, classIds, classNames )=>{
     let self = $( this );
     let class_name_arr = classNames.split(',');
     let _list = classIds.split(',').map((_item,_index)=>{
@@ -157,7 +166,53 @@ let exitFromClass = ( sid, classIds, classNames )=>{
 }
 
 
-let linkClass = ( sid, classIds, classNames )=>{
+let exitFromClass = ( sid, classId, className, page )=>{
+    $.dialogFull.Pop({
+        boxClass: '.exitFromClasspPop',
+        width: 400,
+        height: 'auto',
+        title: '提示',//弹框标题
+        content: `确定退出“${className}”?`,//弹框内容区
+        showCallback: function($thisBox, $contentBox){
+            onDelClass = false;
+            $thisBox.on('click', '.classItem', function(){
+                $(this).addClass( 'on' ).siblings('.on').removeClass( 'on' );
+                onDelClass = $(this).data( 'classid' );
+            })
+        },
+        runDone: function($this, $thisBox, dialogClose) {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/pss/exitFromClass',
+                data: {
+                    code: $('#zone_code').val(),
+                    zoneid: $('#zone_zoneid').val(),
+                    sid: sid,
+                    classid: classId,
+                    page: page
+                },
+                success: (res)=>{
+                    if( res.errcode != 0 ){
+                        $.dialogFull.Tips( res.errmsg );
+                         return;
+                    }
+                    $.dialogFull.Tips( "提交成功！" );
+                    dialogClose();
+                    getStudentsList();
+                },
+                error: ()=>{
+                    $.dialogFull.Tips( "网络错误，请稍后重试！" );
+                }
+            })  
+        },
+        runClose: function($this, $thisBox, dialogClose) {
+        }
+    });
+}
+
+
+let linkClass_DEL = ( sid, classIds, classNames )=>{
     let self = $( this );
     let class_name_arr = classNames.split(',');
     let _list = classIds.split(',').map((_item,_index)=>{
@@ -182,16 +237,34 @@ let linkClass = ( sid, classIds, classNames )=>{
     });  
 }
 
-$.mainBox.on('click', '.exitFromClass', function(){
+$.mainBox.on('click', '.exitFromClass_DEL', function(){
     const sid = $(this).data('sid');
     const classIds = $(this).data('classid').toString();
     const classNames = $(this).data('classname');
     exitFromClass( sid, classIds, classNames );
-}).on('click', '.linkClass', function(){
+}).on('click', '.exitFromClass', function(){
+    let self = $( this );
+    const sid = self.data('sid');
+    const page = self.data( 'page' );
+    const class_id = $( `#select_${sid}` ).val();
+    const class_name =  $( `#select_${sid} option:checked` ).text();
+    exitFromClass( sid, class_id, class_name, page );
+}).on('click', '.linkClass_DEL', function(){
     const sid = $(this).data('sid');
     const classIds = $(this).data('classid').toString();
     const classNames = $(this).data('classname');
     linkClass( sid, classIds, classNames );
+}).on('click', '.linkClass', function(){
+    let self = $( this );
+    const sid = self.data('sid');
+    const page = self.data( 'page' );
+    const class_id = $( `#select_${sid}` ).val();
+    const class_name =  $( `#select_${sid} option:checked` ).text();
+
+    $.ajaxGetHtml({
+      url: `/pss/goStudentArchive?sid=${sid}&classid=${class_id}&classname=${class_name}&page=${page}`
+    })
+
 }).on('change', '.inputFile', function(){
 
     $.dialogFull.Alert( "文件上传中，请勿刷新！" );
