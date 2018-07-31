@@ -93,6 +93,8 @@
 				}
 			}
 			.msg{
+				color: #e42323;
+				font-size: 14px;
 				padding-left: 30px;
 				background: url(../../images/icon_msg.png) 4px center no-repeat #f5f5f5;	
 				background-size: 20px 20px;

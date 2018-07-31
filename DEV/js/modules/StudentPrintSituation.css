@@ -30,6 +30,9 @@
 	    font-size: 14px;
 	    line-height: 18px;
 	    padding: 8px;
-	    width: 220px;
+	    width: 150px;
+	}
+	#classSelect{
+		width: 280px;
 	}
 }

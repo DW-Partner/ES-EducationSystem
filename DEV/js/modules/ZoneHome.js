@@ -12,6 +12,7 @@ let $last;
 let $yearItem;
 let $next;
 let currentDate;
+let currentDate_normal;
 
 let classid;
 let lessonid;
@@ -384,6 +385,7 @@ let getZoneDayLessons = ( date )=>{
 		        html += replaceTemplate( tpl.zoneDayLessons, item );
 	        });
 	        $('.calendar_info ul').html( html || '<li><em></em><h6>今日无课</h6></li>' );
+        	currentDate_normal = !!html;
 	        $( '.calendar_info li' ).eq( 0 ).click();
 	    },
 	    error: ()=>{
@@ -567,13 +569,39 @@ let getZoneTeacherList = ()=>{
 	})
 }
 
+
+let getUndoneTaskCount = ()=>{
+    $.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: '/pss/getUndoneTaskCount',
+	    data: {
+	        code: $('#zone_code').val(),
+	        zoneid: $('#zone_zoneid').val(),
+	    },
+	    success: (res)=>{
+	        if( res.errcode != 0 ){
+	            $.dialogFull.Tips( res.errmsg );
+	             return;
+	        }
+	        $( '.msg' ).html( res.data.counts || '' )
+	    },
+	    error: ()=>{
+	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
+	    }
+	})
+}
+getUndoneTaskCount();
+
 websocket.onmessage = function (event) {
+	console.log( event );
 	let data = {};
 	try{
-    	data = JSON.parse( event.data );
+    	data = JSON.parse( event.data.replace(/'/g, '"') );
 	}catch(e){
+		console.log(e);
 	}
-	data.ajax === 'getLessonsMissList' && getLessonsMissList( classid, lessonid );
+	data.ajax === 'getLessonsMissList' && currentDate_normal && getLessonsMissList( classid, lessonid );
 	// 解析json: {"msg_type":"ajax","ajax":"getLessonsMissList"},刷新对应的接口
     // console.log( event.data );
     //setMessageInnerHTML(event.data);
@@ -686,7 +714,7 @@ $.mainBox.on('click', '.selectBtn.month', function(){
 	$( '.lesson_box' ).html( replaceTemplate( tpl.info, info ) );
 	getLessonsMissList( classid, lessonid );
 	$( '.qr_box' ).hide();
-	!info.show && getClassLessonSignQrcode( classid, lessonid );
+	info.show && getClassLessonSignQrcode( classid, lessonid );
 }).on('click', '.student_box', function(){
 	onStudentCheck = 'student_box_getZoneStudentList';
 

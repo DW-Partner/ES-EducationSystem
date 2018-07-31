@@ -48,9 +48,9 @@ let getStudentLessonReport = ()=>{
 		        let li = `<li class="comment"><h6>本期点评：</h6><div class="text"><p>${comment}</p></div></li>`;
 		        for( let key in res.data ){
 		        	const value = res.data[key];
-		        	if( key.indexOf('pic') != -1 ){
+		        	if( key.indexOf('pic') != -1 && value ){
 		        		li += `<li><img src="${value}"></li>`;
-		        	}else if( key.indexOf('video') != -1 ){
+		        	}else if( key.indexOf('video') != -1 && value ){
 		        		li += `<li><video src="${value}" controls="controls">暂不支持该类型视频播放</video></li>`;
 				}
 		        }

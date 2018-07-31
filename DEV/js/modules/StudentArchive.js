@@ -16,7 +16,7 @@ const classid = $('#classid').val();
 const classname = $('#classname').val();
 const sid = $('#sid').val();
 const sname = $('#sname').val();
-$( '.page_head h3' ).text( `${sname}——${classname}的学情` );
+$( '.page_head h3' ).text( `${classname}的${sname}课表` );
 
 let getClassLessonsList = ()=>{
 	$.jsonPage({

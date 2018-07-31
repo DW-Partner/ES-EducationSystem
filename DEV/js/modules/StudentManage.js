@@ -13,7 +13,7 @@
 		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
 		<div class="item flex_2 class_name_list"><p><span class="class_name_list_b">\
         {class_name_list_DEL}\
-        <select id="select_{sid}">{class_name_option}</select>\
+        <select id="select_{sid}" class="{select_show}">{class_name_option}</select>\
         </span></p></div>\
 		<div class="item"><p><span>{birthday}</span></p></div>\
 		<div class="item"><p><span>{gender}</span></p></div>\
@@ -33,7 +33,7 @@
             <em class="none{class_id}">|</em>\
             <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-page={_page}">退出班级</a>\
     	    <br />\
-            <a href="JavaScript:;" class="linkClass" data-sid={sid} data-page={_page}">班级学情</a>\
+            <a href="JavaScript:;" class="linkClass" data-sid={sid} data-page={_page}">学员课表</a>\
             |\
             <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
         </span></p></div>\
@@ -80,12 +80,11 @@ let getStudentsList = ()=>{
 
             item.class_name_list = class_id_arr.length>1 ? '<b></b>' + item.class_name_list : item.class_name_list;
 
-
+            item.select_show = !class_id_arr.length ? 'none' : '';
 
             item.class_name_option = class_id_arr.map((_item,_index)=>{
-                return `<option value="${_item}">${class_name_arr[_index]}</option>`;
+                return class_name_arr[_index] ? `<option value="${_item}">${class_name_arr[_index]}</option>` : '';
             }).join('');
-
 
             //item.class_id = item.class_id ? item.class_id.split( ',' )[ 0 ] : '';
 
