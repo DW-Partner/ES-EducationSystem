@@ -9,9 +9,9 @@
         // <div class="item flex_2"><p><span>{address}</span></p></div>\
 
 		list: '<li>\
-		<div class="item flex_2"><p><span>{ctime}</span></p></div>\
+		<div class="item"><p><span>{ctime}</span></p></div>\
 		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
-		<div class="item flex_2 class_name_list"><p><span class="class_name_list_b">\
+		<div class="item flex_3 class_name_list"><p><span class="class_name_list_b">\
         {class_name_list_DEL}\
         <select id="select_{sid}" class="{select_show}">{class_name_option}</select>\
         </span></p></div>\
@@ -67,7 +67,7 @@ let getStudentsList = ()=>{
         eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
         eachDataHandle: function(item,pageNum,pageSize){
             item.isbinding = item.isbinding == 'yes' ? '<em class="isbinding"></em>' : '';
-
+            item.ctime = item.ctime.split( ' ' )[0];
             const class_id_arr = item.class_id ? item.class_id.toString().split( ',' ) : [];
             // class_id_arr.shift();
 

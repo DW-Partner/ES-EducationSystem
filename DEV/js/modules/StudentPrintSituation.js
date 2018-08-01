@@ -1,7 +1,7 @@
 require('./StudentPrintSituation.css');
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
-let search_data = $('#data').val() ? $('#data').val().replace(/'/g, '"') : $('#data').val();
+let search_data = $('#data').val() ? $('#data').val().replace(/'/g, '"') : '';
 const sid = $( '#sid' ).val();
 const sname = $( '#sname' ).val();
 let select_data = JSON.parse( search_data || '{}' );
@@ -15,7 +15,7 @@ const tpl = {
     <div class="item"><p><span>{status}</span></p></div>\
     <div class="item"><p><span>{tname}</span></p></div>\
     <div class="item"><p><span>\
-	<a href="JavaScript:;" data-href="/pss/goStudentLessonReport?classid={class_id}&lessonid={lesson_id}&sid={sid}&page={_page}&data={data}">详情</a>\
+	<a href="JavaScript:;" class="goStudentLessonReport" data-classid="{class_id}" data-lessonid="{lesson_id}" data-sid="{sid}" data-page="{_page}" data-hrefdel="/pss/goStudentLessonReport?classid={class_id}&lessonid={lesson_id}&sid={sid}&page={_page}&data={data}">详情</a>\
     </span></p></div>\
 	</li>',
 	summary: '<div><h6>总课时数</h6><span>{total_lessons}</span></div>\
@@ -67,8 +67,14 @@ $( '#summary' ).after( `<div class="search_item">
         <option value="缺勤">缺勤</option>
         <option value="请假">请假</option>
     </select>
-    <A href="JavaScript:;" class="btn" id="run_search">搜索</a>
+    <a href="JavaScript:;" class="btn" id="run_search">搜索</a>
 </div>` );
+
+console.log( select_data );
+console.log( select_data.status );
+console.log( $( '#statusSelect' ).length );
+
+$( '#statusSelect' ).val( select_data.status || '' );
 
 // $.laydate.render({
 //   elem: '#dateSelect'
@@ -91,7 +97,6 @@ let start_date_fn = ( _date )=>{
       elem: '#dateSelect_start',
       done: function( value, date ){
         if( date.year ){
-            select_data = select_data || JSON.parse( search_data || '{}' );
             const month = date.month > 9 ? date.month : '0' + date.month;
             const DATE = date.date > 9 ? date.date : '0' + date.date;
             select_data.start_date = `${date.year}-${month}-${DATE}`;
@@ -111,15 +116,11 @@ let start_date_fn = ( _date )=>{
     $.laydate.render( options );
 }
 
-
-
-
 let end_date_fn = ( _date )=>{
     let options = {
       elem: '#dateSelect_end',
       done: function( value, date ){
         if( date.year ){
-            select_data = select_data || JSON.parse( search_data || '{}' );
             const month = date.month > 10 ? date.month : '0' + date.month;
             const DATE = date.date > 10 ? date.date : '0' + date.date;
             select_data.end_date = `${date.year}-${month}-${DATE}`;
@@ -141,7 +142,6 @@ let end_date_fn = ( _date )=>{
 start_date_fn();
 end_date_fn();
 
-
 let getStudentClasseListInZone = ()=>{
     $.ajax({
         type: "post",
@@ -162,7 +162,7 @@ let getStudentClasseListInZone = ()=>{
                 return replaceTemplate( tpl.classList, item );
             }).join('');
             $( '#classSelect' ).html( `<option value="">所有</option>${classList}` );
-            select_data = select_data || JSON.parse( search_data || '{}' );
+            $( '#classSelect' ).val( select_data.class_id || '' );
             getStudentPrintList( JSON.stringify( select_data ) );
         },
         error: ()=>{
@@ -217,16 +217,14 @@ let getStudentPrintList = (_search_data)=>{
 
 
 $.mainBox.on('change', '#classSelect', function(){
-    const class_id = $( this ).val();
-    select_data = select_data || JSON.parse( search_data || '{}' );
+    const class_id = +$( this ).val();
     if( class_id ){
-        select_data.classid = class_id;
+        select_data.class_id = class_id;
     }else{
-        delete select_data.classid;
+        delete select_data.class_id;
     }
 }).on('change', '#statusSelect', function(){
     const status = $( this ).val();
-    select_data = select_data || JSON.parse( search_data || '{}' );
     if( status ){
         select_data.status = status;
     }else{
@@ -234,4 +232,21 @@ $.mainBox.on('change', '#classSelect', function(){
     }
 }).on('click', '#run_search', function(){
     getStudentPrintList( JSON.stringify( select_data ) );
-});
+}).on('click', '.goStudentLessonReport', function(){
+    let self = $( this );
+    const classid = self.data( 'classid' );
+    const lessonid = self.data( 'lessonid' );
+    const sid = self.data( 'sid' );
+    const page = self.data( 'page' );
+    const data = JSON.stringify( select_data ).replace( /"/ig, "'" );
+    $.ajaxGetHtml({
+        url: '/pss/goStudentLessonReport',
+        data: {
+            classid,
+            lessonid,
+            sid,
+            page,
+            data
+        }
+    })
+})

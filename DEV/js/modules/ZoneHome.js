@@ -30,14 +30,14 @@ const tpl = {
 			</p>
 			<p>
 				<span>授课教师：{teacher_name}</span>
-				<span>授课地点：{classroom}</span>
 			</p>
 			<p>
 				主题：{theme}
 			</p>
 		</li>`,
-	info: `<h6><span>{start_time} -- {end_time}</span><span><a href="javascript:" data-href="/pss/goClassInfo?classid={class_id}">{class_name}</a></span></h6>
-			<p>授课教师：  {teacher_name}</p>
+	info: `<h6><a href="javascript:" data-href="/pss/goClassInfo?classid={class_id}">{class_name}</a></h6>
+			<p>{start_time} -- {end_time}</p>
+			<p>授课教师：{teacher_name}</p>
 			<p>授课地点：{classroom}</p>
 			<p>主题：<a href="javascript:" data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">{theme}</a></p>
 			<p>教学目标：{target}</p>`,
@@ -608,6 +608,11 @@ websocket.onmessage = function (event) {
 }
 
 
+
+$.mainBox.prepend( '<em class="slideHide" title="投屏显示"></em>' );
+
+
+
 let _dialogClose = ()=>{};
 let _dialogClose_student_box = ()=>{};
 let _dialogClose_addLessonPop = ()=>{};
@@ -615,7 +620,23 @@ let _dialogClose_addLessonPop_getZoneStudentList = ()=>{};
 let studentChecked_student_box = [];
 let studentChecked_addLesson = [];
 
-$.mainBox.on('click', '.selectBtn.month', function(){
+$.mainBox.on('click', '.slideHide', function(){
+	$('#left_nav').hide();
+	$( '#main_box' ).width('100%').css({
+		'left': 0,
+		'width': '100%'
+	});
+	$( this ).removeClass().addClass( 'slideShow' ).attr( 'title', '取消投屏显示' );
+	CalendarHandler.initialize();
+}).on('click', '.slideShow', function(){
+	$('#left_nav').show();
+	$( '#main_box' ).width('100%').css({
+		'left': '190px',
+		'width': 'calc(100% - 190px)'
+	});
+	$( this ).removeClass().addClass( 'slideHide' ).attr( 'title', '投屏显示' );
+	CalendarHandler.initialize();
+}).on('click', '.selectBtn.month', function(){
 	CalendarHandler.CalculateLastMonthDays();
 }).on('click', '.selectBtn.selectYear', function(){
 	CalendarHandler.CreateSelectYear(CalendarHandler.showYearStart);
