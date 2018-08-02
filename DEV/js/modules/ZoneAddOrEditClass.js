@@ -19,8 +19,15 @@ const tpl = {
 		<li>\
 			<span class="wide"><i>*</i>预招人数</span>\
 			<input type="text" class="short" placeholder="请输入预招人数" value="{reserve_num}" name="reserve_num" data-validate="number" data-must="1" />\
+		</li>\
+		<li>\
 			<span class="wide"><i>*</i>选择教师</span>\
 			<select name="teacher_id" data-validate="any" data-must="1">\
+			</select>\
+		</li>\
+		<li>\
+			<span class="wide">选择助教</span>\
+			<select name="assistant_id" data-validate="any">\
 			</select>\
 		</li>\
 		<li>\
@@ -28,7 +35,7 @@ const tpl = {
 			<input type="text" value="{start_time}" id="start_time" class="short" name="start_time" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
-			<span class="wide"><i>*</i>开班地点</span>\
+			<span class="wide">开班地点</span>\
 			<input type="text" id="classroom" class="short" name="classroom" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
@@ -90,6 +97,7 @@ const _li = '<li>\
     </li>';
 
 let teacher_id;
+let assistant_id;
 
 
 let getCourseList = ()=>{
@@ -247,6 +255,7 @@ let getZoneTeacherList = ()=>{
 			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
 			});
 			$('[name=teacher_id]').html(options).val( teacher_id );
+			$('[name=assistant_id]').html(`<option value="">请选择</option>${options}`).val( assistant_id );
 
 	    },
 	    error: ()=>{
@@ -286,16 +295,17 @@ let getClassInfo = ()=>{
 			}
 
 	        teacher_id = classInfo.teacher_id;
+	        assistant_id =  classInfo.assistant_id || '';
 	        getZoneTeacherList();
 			//getCourseDetail( classInfo.course_id );
 
-			classInfo.time_regular = classInfo.time_regular && classInfo.time_regular.length ? classInfo.time_regular : [{
+			classInfo.time_regular = (classInfo.time_regular && JSON.parse( classInfo.time_regular ).length && JSON.parse( classInfo.time_regular ) ) || [{
 				type:'day',
 				day:0,
 				time:''
 			}];
-
-			JSON.parse(classInfo.time_regular).map(function(item, index){
+			console.log(classInfo.time_regular)
+			classInfo.time_regular.map(function(item, index){
 				$('.timeList').append( tpl._item );
 
 				$('.timeList .item').eq( index ).find('select').eq(0).val( item.type );
@@ -354,6 +364,9 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	}
 
 	sub_data.teacher_id = +sub_data.teacher_id;
+	if( sub_data.assistant_id ){
+		sub_data.assistant_id = +sub_data.assistant_id;
+	}
 	sub_data.reserve_num = +sub_data.reserve_num;
 	sub_data.audit = $('#set_audit:checked').val() ? 'true' : 'false';
 	for(let key in sub_data){

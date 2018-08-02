@@ -62,3 +62,8 @@
 		text-decoration: underline;
 	}
 }
+.checkedList{
+	padding-bottom: 10px;
+	line-height: 28px;
+	color: #1A91C6;
+}

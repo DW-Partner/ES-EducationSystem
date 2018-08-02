@@ -3,6 +3,12 @@ import DDsort from '../comp/DDsort.js';//拖动插件
 //submit_AddOrEditCourse
 import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 import cvsDataHandle from '../comp/cvsDataHandle.js';//上传csv
+            // <li>\
+            //     <span class="wide"><i>*</i>下一阶段课程</span>\
+            //     <select name="next_courseid" data-validate="any" class="next">\
+            //         <option value="0">无</option>\
+            //     </select>\
+            // </li>
 const tpl = {
     form_tpl: '<li><span class="wide"><i>*</i>分类课程</span>\
                 <input type="text" class="short" placeholder="请输入分类课程" value="{course_name}" name="course_name" data-validate="any" data-must="1" />\
@@ -32,12 +38,6 @@ const tpl = {
             <li>\
                 <span class="wide"><i>*</i>课程总体介绍</span>\
                 <textarea class="long" placeholder="请输入课程总体介绍" name="outline" data-validate="any" data-must="1">{outline}</textarea>\
-            </li>\
-            <li>\
-                <span class="wide"><i>*</i>下一阶段课程</span>\
-                <select name="next_courseid" data-validate="any" class="next">\
-                    <option value="0">无</option>\
-                </select>\
             </li>',
     item: '<li>\
                 <div class="item"><p><span data-lessonid="{lesson_id}"></span></p></div>\
@@ -205,7 +205,7 @@ if( courseid ){
 
             $('#lessons').html( list );
             next_courseid = res.data.next_courseid;
-            getCourses();
+            //getCourses();
             numberHandle();
 
         },
@@ -217,7 +217,7 @@ if( courseid ){
     const html = replaceTemplate( tpl.form_tpl, {} );
     $('.pub_form ul').html( html );
     $('[name=lesson_num]').val(0);
-    getCourses();
+    //getCourses();
 }
 
 $( '#lessons' ).DDSort({

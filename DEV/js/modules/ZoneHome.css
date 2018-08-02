@@ -304,13 +304,15 @@
 		.qr_img{
 			width: 250px;
 			height: 250px;
-			margin: 0 auto; 		
+			margin-left: 15px; 		
 		}
 		img{
 			width: 250px;
 			height: 250px;
 		}
 		p{
+			width: 265px;
+			padding-left: 15px;
 			line-height: 24px;
 			font-size: 14px;
 			text-align: center;

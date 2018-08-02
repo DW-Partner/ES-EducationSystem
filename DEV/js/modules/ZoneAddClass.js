@@ -84,6 +84,7 @@ let getZoneTeacherList = ()=>{
 			    options += '<option value="' + item.tid + '">' + item.teacher_name + '</option>'
 			});
 			$('[name=teacher_id]').html(options);
+			$('[name=assistant_id]').html(`<option value="">请选择</option>${options}`);
 
 	    },
 	    error: ()=>{
@@ -254,7 +255,7 @@ let getZoneStudentList = ()=>{
 	        }
 	        let $div = $( '<div>' );
 	        let classArr = {};
-	        let select = '<div class="selectBox"><select id="classSelect">';
+	        let select = '<div class="selectBox"><div class="checkedList"></div><select id="classSelect">';
 	        res.data.forEach((item,index)=>{
 	        	if( !classArr[ item.class_id ] ){
 		        	classArr[ item.class_id ] = true;
@@ -288,6 +289,9 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	}
 	sub_data.course_id = +sub_data.course_id;
 	sub_data.teacher_id = +sub_data.teacher_id;
+	if( sub_data.assistant_id ){
+		sub_data.assistant_id = +sub_data.assistant_id;
+	}
 	sub_data.reserve_num = +sub_data.reserve_num;
 	const start_time = $('[name=start_time]').val();
 	sub_data.time_regular = [];
@@ -434,27 +438,36 @@ $.mainBox.on('click', '#submit_add', ()=>{
     });	
 });
 
-$(document).off('change', '#checkall').on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
+$(document).on('change', '#checkall', selectAll).on('change', 'input.input_item', function(){
 	if( $(".pub_list .body input.input_item:checked").length === $(".pub_list .body input.input_item").length ){
 		$("#checkall").prop("checked", true);
 	}else{
 		$("#checkall").prop("checked", false);
 	}
-}).off('click', '.student').on('click', '.student', function(){
+}).on('click', '.classItem .student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
 	if( self.hasClass( 'checked' ) ){
 		studentChecked.splice( studentChecked.indexOf( sid ), 1 );
-		self.removeClass( 'checked' );
+		//self.removeClass( 'checked' );
+		//$( `.checkedList [sid=${sid}]` ).remove();
 	}else{
 		studentChecked.push( sid );
-		self.addClass( 'checked' );
+		// self.addClass( 'checked' );
+		$( '.checkedList' ).append( self.clone() );
+		self.hide();
 	}
-}).off('change', '#classSelect').on('change', '#classSelect', function(){
+}).on('click', '.checkedList .student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	$( `.classItem [data-sid=${sid}]` ).show();
+	self.remove();
+}).on('change', '#classSelect', function(){
 	const class_id = $( this ).val();
 	$( `.class_${class_id}` ).show().siblings('p').hide();
 });
 $.distory = ()=>{
 	_dialogClose(1);
+	$(document).off('change', '#checkall').off('click', '.classItem .student').off('click', '.checkedList .student').off('change', '#classSelect');
 };
 

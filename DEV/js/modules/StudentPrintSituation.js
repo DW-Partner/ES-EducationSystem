@@ -8,25 +8,25 @@ let select_data = JSON.parse( search_data || '{}' );
 
 
 const tpl = {
-	list: '<li>\
-	<div class="item"><p><span>{lesson_time}</span></p></div>\
+    list: '<li>\
+    <div class="item"><p><span>{lesson_time}</span></p></div>\
     <div class="item"><p><span>{theme}</span></p></div>\
-	<div class="item"><p><span>{class_name}</span></p></div>\
+    <div class="item"><p><span>{class_name}</span></p></div>\
     <div class="item"><p><span>{status}</span></p></div>\
     <div class="item"><p><span>{tname}</span></p></div>\
     <div class="item"><p><span>\
-	<a href="JavaScript:;" class="goStudentLessonReport" data-classid="{class_id}" data-lessonid="{lesson_id}" data-sid="{sid}" data-page="{_page}" data-hrefdel="/pss/goStudentLessonReport?classid={class_id}&lessonid={lesson_id}&sid={sid}&page={_page}&data={data}">详情</a>\
+    <a href="JavaScript:;" class="goStudentLessonReport" data-classid="{class_id}" data-lessonid="{lesson_id}" data-sid="{sid}" data-page="{_page}" data-hrefdel="/pss/goStudentLessonReport?classid={class_id}&lessonid={lesson_id}&sid={sid}&page={_page}&data={data}">详情</a>\
     </span></p></div>\
-	</li>',
-	summary: '<div><h6>总课时数</h6><span>{total_lessons}</span></div>\
-	<div><h6>当前剩余课时</h6><span>{remain_lessons}</span></div>\
-	<div><h6>签到</h6><span>{sign_lessons}</span></div>\
+    </li>',
+    summary: '<div><h6>总课时数</h6><span>{total_lessons}</span></div>\
+    <div><h6>当前剩余课时</h6><span>{remain_lessons}</span></div>\
+    <div><h6>签到</h6><span>{sign_lessons}</span></div>\
     <div><h6>缺勤</h6><span>{absence_lessons}</span></div>\
     <div><h6>请假</h6><span>{leave_lessons}</span></div>\
-	<div><h6>未签到</h6><span>{unsign_lessons}</span></div>',
-	// <div><h6>取消课时</h6><span>{cancel_lessons}</span></div>',
-	// <p><h6>有效期：</h6><span>{expiretime}</span></p>',
-	classList: '<option value="{class_id}">{name}</option>'
+    <div><h6>未签到</h6><span>{unsign_lessons}</span></div>',
+    // <div><h6>取消课时</h6><span>{cancel_lessons}</span></div>',
+    // <p><h6>有效期：</h6><span>{expiretime}</span></p>',
+    classList: '<option value="{class_id}">{name}</option>'
 };
 
 let getStudentPrintSummary = ()=>{
@@ -208,7 +208,8 @@ let getStudentPrintList = (_search_data)=>{
         },
         ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
             $.dialogFull.Tips( "网络错误，请稍后重试" );
-        }
+        },
+        gotoIndex: (select_data.page && +select_data.page+1) || 1
     });
     //获取教案列表 end
 }
@@ -238,6 +239,7 @@ $.mainBox.on('change', '#classSelect', function(){
     const lessonid = self.data( 'lessonid' );
     const sid = self.data( 'sid' );
     const page = self.data( 'page' );
+    select_data.page = page;
     const data = JSON.stringify( select_data ).replace( /"/ig, "'" );
     $.ajaxGetHtml({
         url: '/pss/goStudentLessonReport',
@@ -245,7 +247,6 @@ $.mainBox.on('change', '#classSelect', function(){
             classid,
             lessonid,
             sid,
-            page,
             data
         }
     })

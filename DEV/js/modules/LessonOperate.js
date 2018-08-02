@@ -5,13 +5,15 @@ import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 const class_id = $('#classid').val();
 const lesson_id = $('#lessonid').val();
 const sid =  $('#sid').val();
+const status = $('#status').val();
 //teacher_name
 //plan_time
 const tpl = {
-	info: '<p>原定上课时间：{old_plan_time}</p>\
-			<p>原任课教师：{old_teacher_name}</p>\
-			<p>课时主题：{theme}</p>\
-			<p>课时教学大纲：{outline}</p>'
+	info: '<p><b>原定上课时间：</b>{old_plan_time}</p>\
+			<p><b>原任课教师：</b>{old_teacher_name}</p>\
+			<p><b>课时主题：</b>{theme}</p>\
+			<p><b>课时教学大纲：</b>{outline}</p>\
+			<p class="classLessonStudentList"><b>学员列表：</b></p>'
 
 	//'{"plan_time":"xxx","tid":"xxx","teacher_name":"xxx","outline":"xxx"}}'
 }
@@ -20,13 +22,6 @@ const tpl = {
 // import laydate from '../comp/laydate/laydate.js';//模板引擎
 
 // window.laydate = laydate;
-
-//常规用法
-$.laydate.render({
-	elem: '#plan_time',
-	type: 'datetime',
-	btns: ['confirm']
-});
 
 let getZoneTeacherList = ()=>{
     $.ajax({
@@ -82,7 +77,7 @@ let getLessonsDetail = ()=>{
 	        $('#plan_time').val( res.data.plan_time );
 	        $('[name=tid]').val( res.data.tid );
 
-
+			getClassLessonStudentList();
 	        
 	    },
 	    error: ()=>{
@@ -147,7 +142,7 @@ let getZoneStudentList = ()=>{
 	        }
 	        let $div = $( '<div>' );
 	        let classArr = {};
-	        let select = '<div class="selectBox"><select id="classSelect">';
+	        let select = '<div class="selectBox"><div class="checkedList"></div><select id="classSelect">';
 	        res.data.forEach((item,index)=>{
 	        	if( !classArr[ item.class_id ] ){
 		        	classArr[ item.class_id ] = true;
@@ -161,7 +156,9 @@ let getZoneStudentList = ()=>{
 	        $div.prepend( select );
 	        $( '.dialogPopBox .content' ).html( $div.html() );
 	        $( '.dialogPopBox .content p' ).eq(0).show();
-	        getClassLessonStudentList();
+	        studentChecked.forEach((item)=>{
+	        	$(`[data-sid=${item}]`).click();
+	        });
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -188,10 +185,13 @@ let getClassLessonStudentList = ()=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-	        res.data.forEach((item)=>{
-	        	$(`[data-sid=${item.sid}]`).addClass('checked');
+	        let list = res.data.map((item)=>{
 	        	studentChecked.push( item.sid );
-	        })
+	        	return `<span>${item.name}</span>`;
+	        }).join( '' );
+	        console.log( list );
+
+	        $( '.classLessonStudentList' ).append( list );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -199,10 +199,21 @@ let getClassLessonStudentList = ()=>{
 	})
 }
 
+if( status == '0' ){
+	$( '#plan_time, #tid, #auto' ).attr( 'disabled', 'disabled' ).addClass( 'disabled' );
+}else{
+	//常规用法
+	$.laydate.render({
+		elem: '#plan_time',
+		type: 'datetime',
+		btns: ['confirm']
+	});
+}
 
 let studentChecked = [];
 let _dialogClose = ()=>{};
 $.mainBox.on('click', '#submit_edit', ()=>{
+	$( '#plan_time, #tid, #auto' ).removeAttr( 'disabled' );
 	const sub_data = $.form.get({
         error_text: 'placeholder',//存放错误文案的属性名
 	});
@@ -242,6 +253,9 @@ $.mainBox.on('click', '#submit_edit', ()=>{
          	});
 		},
         error: function(){
+        	if( status == '0' ){
+				$( '#plan_time, #tid, #auto' ).attr( 'disabled', 'disabled' );
+			}
         	$.dialogFull.Tips( "网络错误，请稍后重试" );
         }
 	});
@@ -302,17 +316,25 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 });
 
 
-$(document).off('click', '.student').on('click', '.student', function(){
+$(document).on('click', '.classItem .student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
 	if( self.hasClass( 'checked' ) ){
 		studentChecked.splice( studentChecked.indexOf( sid ), 1 );
-		self.removeClass( 'checked' );
+		//self.removeClass( 'checked' );
+		//$( `.checkedList [sid=${sid}]` ).remove();
 	}else{
 		studentChecked.push( sid );
-		self.addClass( 'checked' );
+		// self.addClass( 'checked' );
+		$( '.checkedList' ).append( self.clone() );
+		self.hide();
 	}
-}).off('change', '#classSelect').on('change', '#classSelect', function(){
+}).on('click', '.checkedList .student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	$( `.classItem [data-sid=${sid}]` ).show();
+	self.remove();
+}).on('change', '#classSelect', function(){
 	const class_id = $( this ).val();
 	$( `.class_${class_id}` ).show().siblings('p').hide();
 });
@@ -320,5 +342,5 @@ $(document).off('click', '.student').on('click', '.student', function(){
 
 $.distory = ()=>{
     _dialogClose(1);
-
+	$(document).off('change', '#checkall').off('click', '.classItem .student').off('click', '.checkedList .student').off('change', '#classSelect');
 };

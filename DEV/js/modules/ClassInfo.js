@@ -77,6 +77,7 @@ let getClassLessonsList = (sid, title_info)=>{
 	        // msg.words = words[msg.lesson_status];
 			msg.class_id = classid;
 			msg.href = msg.lesson_status == 0 ? 'null' : 'href';
+			msg.href = 'href';
 
 			//msg.del = msg.lesson_status == 0 ? '' : '删除'
 

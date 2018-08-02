@@ -165,6 +165,7 @@
 				a{
 					color: #666;
 				    cursor: default;
+				    cursor: pointer;
 				}
 
 				&:hover{

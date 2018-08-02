@@ -1,23 +1,23 @@
-	require('./StudentManage.css');//引入css文件
-	import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
+    require('./StudentManage.css');//引入css文件
+    import replaceTemplate from '../kit/replaceTemplate.js';//模板引擎
 
-	const tpl = {
-		info: '<span>今日开课班级 {classes}个</span> <span>今日授课教师 {teachers}个</span> <span>今日正式学员 {students}人</span> <span>今日试听学员 {audits}人</span>',
+    const tpl = {
+        info: '<span>今日开课班级 {classes}个</span> <span>今日授课教师 {teachers}个</span> <span>今日正式学员 {students}人</span> <span>今日试听学员 {audits}人</span>',
 
 //{"sid":"xxx","ctime":"xxx","name":"xxx","class_id":""class_name","age":"xxx","gender":"xxx","address":"xxx","official":"xxx","mobile":"xxx","origin":"xxx","remaining_lesson":"xxx"}
         // <div class="item"><p><span>{origin}</span></p></div>\
         // <div class="item flex_2"><p><span>{address}</span></p></div>\
 
-		list: '<li>\
-		<div class="item"><p><span>{ctime}</span></p></div>\
-		<div class="item"><p><span>{isbinding}{name}</span></p></div>\
-		<div class="item flex_3 class_name_list"><p><span class="class_name_list_b">\
+        list: '<li>\
+        <div class="item"><p><span>{ctime}</span></p></div>\
+        <div class="item"><p><span>{isbinding}{name}</span></p></div>\
+        <div class="item flex_3 class_name_list"><p><span class="class_name_list_b">\
         {class_name_list_DEL}\
         <select id="select_{sid}" class="{select_show}">{class_name_option}</select>\
         </span></p></div>\
-		<div class="item"><p><span>{birthday}</span></p></div>\
-		<div class="item"><p><span>{gender}</span></p></div>\
-		<div class="item flex_2"><p><span>{mobile}</span></p></div>\
+        <div class="item"><p><span>{birthday}</span></p></div>\
+        <div class="item"><p><span>{gender}</span></p></div>\
+        <div class="item flex_2"><p><span>{mobile}</span></p></div>\
         <div class="item"><p><span>{remaining_lesson}</span></p></div>\
         <div class="item"><p><span>{expiretimeShow}</span></p></div>\
         <div class="item flex_2"><p><span>\
@@ -32,13 +32,13 @@
             <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a>\
             <em class="none{class_id}">|</em>\
             <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-page={_page}">退出班级</a>\
-    	    <br />\
+            <br />\
             <a href="JavaScript:;" class="linkClass" data-sid={sid} data-page={_page}">学员课表</a>\
             |\
             <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
         </span></p></div>\
-		</li>',
-	};
+        </li>',
+    };
 
 
 const search_data = $('#data').val() ? $('#data').val().replace(/'/g, '"') : $('#data').val();

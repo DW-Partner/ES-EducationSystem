@@ -863,6 +863,7 @@ $(document).off('click', '.student').on('click', '.student', function(){
 })
 
 $.distory = ()=>{
+	$(document).off('click', '.student');
     _dialogClose(1);
     _dialogClose_student_box(1);
     _dialogClose_addLessonPop(1);

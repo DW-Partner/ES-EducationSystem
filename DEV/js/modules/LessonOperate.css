@@ -29,7 +29,12 @@
 		border-left: 1px solid #eaeaea;
 		float: left;
 		line-height: 48px;
-	     max-width: 500px;
+	    max-width: 500px;
+	    b{
+	    	display: inline-block;
+	    	width: 104px;
+	    	text-align: right;
+	    }
 	}
 	.list{
 		float: left;
@@ -47,8 +52,13 @@
 			padding: 0 8px;
 		}
 	}
-
-	
+	.classLessonStudentList{
+		padding-top: 10px;
+		line-height: 28px;
+		span{
+			padding: 0 5px;
+		}
+	}
 }
 .getZoneStudentList{
 	.classItem{
@@ -67,4 +77,14 @@
 		/*background: #ddd;*/
 		text-decoration: underline;
 	}
+}
+.checkedList{
+	padding-bottom: 10px;
+	line-height: 28px;
+	color: #1A91C6;
+}
+.disabled {
+  opacity: 0.4;
+  background: #ccc;
+  cursor: no-drop;
 }

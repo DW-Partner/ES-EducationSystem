@@ -719,6 +719,11 @@ label {
     label{
       margin-top: 7px;
     }
+    .disabled {
+      opacity: 0.4;
+      background: #ccc;
+      cursor: no-drop;
+    }
   }
 }
 

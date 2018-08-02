@@ -116,6 +116,8 @@ body{
 	    margin-right: 5px;
 	    padding: 0;
 	    background-color: #45bcb8;
+		background: #ddd;
+
 	    border-radius: 100%;
 	    vertical-align: top;
 	    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1) inset, 0 1px 4px rgba(0, 0, 0, 0.1) inset, 1px -1px 2px rgba(0, 0, 0, 0.1);
@@ -139,6 +141,12 @@ body{
 	    transition: all 0.2s ease;
 	    transform: scale(1, 1);
 	    display: inline-block;
+	}
+	.radio input:checked + span.radio-on + .radio-bg{
+	    background-color: #45bcb8;
+	}
+	.radio input:checked + span.radio-on + .radio-bg + span{
+	    color: #45bcb8;
 	}
 
 
