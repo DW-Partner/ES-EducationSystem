@@ -261,7 +261,7 @@ $.mainBox.on('click', '.exitFromClass_DEL', function(){
     const class_name =  $( `#select_${sid} option:checked` ).text();
 
     $.ajaxGetHtml({
-      url: `/pss/goStudentArchive?sid=${sid}&classid=${class_id}&classname=${class_name}&page=${page}`
+      url: `/pss/goClassInfo?sid=${sid}&classid=${class_id}&classname=${class_name}&page=${page}#goZoneClassManage`
     })
 
 }).on('change', '.inputFile', function(){

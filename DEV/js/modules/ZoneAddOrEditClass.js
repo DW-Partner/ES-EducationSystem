@@ -36,7 +36,7 @@ const tpl = {
 		</li>\
 		<li>\
 			<span class="wide">开班地点</span>\
-			<input type="text" id="classroom" class="short" name="classroom" data-validate="any" data-must="1"/>\
+			<input type="text" value="{classroom}" id="classroom" class="short" name="classroom" data-validate="any"/>\
 		</li>\
 		<li>\
 			<span class="wide" style="width:110px;">设置为试听班级</span>\
@@ -366,9 +366,14 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	sub_data.teacher_id = +sub_data.teacher_id;
 	if( sub_data.assistant_id ){
 		sub_data.assistant_id = +sub_data.assistant_id;
+	}else{
+		delete sub_data.assistant_id;
 	}
 	sub_data.reserve_num = +sub_data.reserve_num;
 	sub_data.audit = $('#set_audit:checked').val() ? 'true' : 'false';
+	console.log(sub_data);
+	console.log(classInfo);
+
 	for(let key in sub_data){
 		if( sub_data[ key ] == classInfo[ key ] ){
 			delete sub_data[ key ];
@@ -404,7 +409,11 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
         return;
 	}
 
-	if( JSON.stringify( sub_data.time_regular ) == JSON.stringify( JSON.parse(classInfo.time_regular) ) ){
+	console.log( sub_data.time_regular );
+	console.log( JSON.stringify( sub_data.time_regular ) );
+	console.log( classInfo.time_regular );
+
+	if( JSON.stringify( sub_data.time_regular ) == JSON.stringify( classInfo.time_regular ) ){
 		delete sub_data.time_regular
 	}
 	if( JSON.stringify(sub_data) == '{}' ){

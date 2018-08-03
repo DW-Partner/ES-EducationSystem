@@ -319,21 +319,23 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 $(document).on('click', '.classItem .student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
-	if( self.hasClass( 'checked' ) ){
-		studentChecked.splice( studentChecked.indexOf( sid ), 1 );
-		//self.removeClass( 'checked' );
-		//$( `.checkedList [sid=${sid}]` ).remove();
-	}else{
-		studentChecked.push( sid );
-		// self.addClass( 'checked' );
+	console.log( studentChecked );
+	console.log( +sid );
+	console.log( studentChecked.indexOf( +sid ) == -1 );
+	if( studentChecked.indexOf( +sid ) == -1 ){
 		$( '.checkedList' ).append( self.clone() );
-		self.hide();
+		studentChecked.push( +sid );
+	}else if( !$( `.checkedList [data-sid=${sid}]` ).length ){
+		$( '.checkedList' ).append( self.clone() );
 	}
+	// self.hide();
+	$( `.classItem [data-sid=${sid}]` ).hide();
 }).on('click', '.checkedList .student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
 	$( `.classItem [data-sid=${sid}]` ).show();
 	self.remove();
+	studentChecked.splice( studentChecked.indexOf( +sid ), 1 );
 }).on('change', '#classSelect', function(){
 	const class_id = $( this ).val();
 	$( `.class_${class_id}` ).show().siblings('p').hide();

@@ -67,3 +67,6 @@
 	line-height: 28px;
 	color: #1A91C6;
 }
+.selectBox select{
+	width: 250px;
+}

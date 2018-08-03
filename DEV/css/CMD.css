@@ -605,6 +605,10 @@ label {
       .line20px{
         line-height: 20px;    
       }
+      &.noData{
+        display: block;
+        text-align: center;
+      }
     }
 
   }

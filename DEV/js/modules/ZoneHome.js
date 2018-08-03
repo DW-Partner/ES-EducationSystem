@@ -82,32 +82,8 @@ var CalendarHandler = {
 		$calendarItem = this.CreateCalendar(0, 0, 0, true);
 		$("#centerCalendarMain").append($calendarItem);
 
-		$("#context").css("height", $("#CalendarMain").height() - 65 + "px");
-		$("#center").css("height", $("#context").height() - 30 + "px");
-		$("#selectYearDiv").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-		$("#selectMonthDiv").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-		$("#centerCalendarMain").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-
-		$calendarItem.css("height", $("#context").height() - 30 + "px"); //.css("visibility","hidden");
-		$("#centerCalendarMain").css("height", "0px").css("width", "0px").css("margin-left", $("#context").width() / 2 + "px").css("margin-top", ($("#context").height() - 30) / 2 + "px");
-		$("#centerCalendarMain").animate({
-			width: $("#context").width() + "px",
-			height: ($("#context").height() - 30) * 2 + "px",
-			marginLeft: "0px",
-			marginTop: "0px"
-		}, 300, function() {
-			//$calendarItem.css("visibility", "visible");
-		});
-		$(".dayItem").css("width", $("#context").width() + "px");
 		var itemPaddintTop = $(".dayItem").height() / 6;
-		//$(".item").css({
-			//"width": $(".week").width() / 7 + "px",
-			//"line-height": itemPaddintTop + "px",
-			// "height": itemPaddintTop + "px"
-		//});
-		//$(".currentItem>a").css("margin-left", ($(".item").width() - 25) / 2 + "px").css("margin-top", ($(".item").height() - 25) / 2 + "px");
-		//$(".week>h3").css("width", $(".week").width() / 7 + "px");
-		//this.RunningTime();
+
 	},
 	CreateSelectYear: function(showYearStart) {
 		CalendarHandler.showYearStart=showYearStart;
@@ -117,7 +93,7 @@ var CalendarHandler = {
 		for (var i = showYearStart; i < showYearStart+12; i++) {
 			yearindex++;
 			if(i==showYearStart){
-				$last=$("<div>往前</div>");
+				$last=$("<span>往前</span>");
 				$("#selectYearDiv").append($last);
 				$last.click(function(){
 					CalendarHandler.CreateSelectYear(CalendarHandler.showYearStart-10);
@@ -125,7 +101,7 @@ var CalendarHandler = {
 				continue;
 			}
 			if(i==showYearStart+11){
-				$next=$("<div>往后</div>");
+				$next=$("<span>往后</span>");
 				$("#selectYearDiv").append($next);
 				$next.click(function(){
 					CalendarHandler.CreateSelectYear(CalendarHandler.showYearStart+10);
@@ -134,11 +110,11 @@ var CalendarHandler = {
 			}
 			
 			if (i == this.currentYear) {
-				$yearItem=$("<div class=\"currentYearSd\" id=\"" + yearindex + "\">" + i + "</div>")
+				$yearItem=$("<span class=\"currentYearSd\" id=\"" + yearindex + "\">" + i + "</span>")
 			
 			}
 			else{
-				 $yearItem=$("<div id=\"" + yearindex + "\">" + i + "</div>");
+				 $yearItem=$("<span id=\"" + yearindex + "\">" + i + "</span>");
 			}
 			$("#selectYearDiv").append($yearItem);
 			$yearItem.click(function(){
@@ -153,14 +129,14 @@ var CalendarHandler = {
 				CalendarHandler.isRunning = false;
 			    });
 				$("#centerMain").animate({
-				marginLeft: -$("#center").width() + "px"
+				marginLeft: "-100%"
 			}, 500);
 			});
 			if (yearindex == 1 || yearindex == 5 || yearindex == 9) $("#selectYearDiv").find("#" + yearindex).css("border-left-color", "#fff");
 			if (yearindex == 4 || yearindex == 8 || yearindex == 12) $("#selectYearDiv").find("#" + yearindex).css("border-right-color", "#fff");
 			
 		}
-		$("#selectYearDiv>div").css("width", ($("#center").width() - 4) / 4 + "px").css("line-height", ($("#center").height() - 4) / 3 + "px");
+		$("#selectYearDiv span").css("line-height", ($("#center").height() - 4) / 3 + "px");
 		$("#centerMain").animate({
 			marginLeft: "0px"
 		}, 300);
@@ -169,8 +145,8 @@ var CalendarHandler = {
 		$(".currentDay").show();
 		$("#selectMonthDiv").children().remove();
 		for (var i = 1; i < 13; i++) {
-			if (i == this.currentMonth) $monthItem=$("<div class=\"currentMontSd\" id=\"" + i + "\">" + i + "月</div>");
-			else  $monthItem=$("<div id=\"" + i + "\">" + i + "月</div>");
+			if (i == this.currentMonth) $monthItem=$("<span class=\"currentMontSd\" id=\"" + i + "\">" + i + "月</span>");
+			else  $monthItem=$("<span id=\"" + i + "\">" + i + "月</span>");
 			$("#selectMonthDiv").append($monthItem);
 			$monthItem.click(function(){
 				$calendarItem=CalendarHandler.CreateCalendar(CalendarHandler.currentYear,Number($(this).attr("id")),1);
@@ -184,15 +160,15 @@ var CalendarHandler = {
 				CalendarHandler.isRunning = false;
 			    });
 				$("#centerMain").animate({
-				marginLeft: -$("#center").width() + "px"
+				marginLeft: "-100%"
 			}, 500);
 			});
 			if (i == 1 || i == 5 || i == 9) $("#selectMonthDiv").find("#" + i).css("border-left-color", "#fff");
 			if (i == 4 || i == 8 || i == 12) $("#selectMonthDiv").find("#" + i).css("border-right-color", "#fff");
 		}
-		$("#selectMonthDiv>div").css("width", ($("#center").width() - 4) / 4 + "px").css("line-height", ($("#center").height() - 4) / 3 + "px");
+		$("#selectMonthDiv span").css("line-height", ($("#center").height() - 4) / 3 + "px");
 		$("#centerMain").animate({
-			marginLeft: -$("#center").width() * 2 + "px"
+			marginLeft: "-200%"
 		}, 300);
 	},
 	IsRuiYear: function(aDate) {
@@ -254,7 +230,7 @@ var CalendarHandler = {
 		if (nowWeek != 0) {
 			//生成上月剩下的日期
 			for (var i = (lastMonthDaysNub - (nowWeek - 1)); i < lastMonthDaysNub; i++) {
-				$dayItem.append( `<div class="item lastItem"><a>${i + 1}</a></div>` );
+				$dayItem.append( `<span class="item lastItem"><a href="JavaScript:;">${i + 1}</a></span>` );
 
 			}
 		}
@@ -262,13 +238,13 @@ var CalendarHandler = {
 		for (var i = 0; i < nowDaysNub; i++) {
 			const thatDay = i + 1 < 10 ? '0' + (i + 1) : i + 1;
 			if( currentDate == `${nowYear}-${nowMonth}-${thatDay}` ){
-				$dayItem.append(`<div class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a>${i + 1}</a></div>`);	
+				$dayItem.append(`<span class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a href="JavaScript:;">${i + 1}</a></span>`);	
 			}else if (i == (nowDay - 1) && mark){
-				$dayItem.append(`<div class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a>${i + 1}</a></div>`);
+				$dayItem.append(`<span class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a href="JavaScript:;">${i + 1}</a></span>`);
 				getZoneDayLessons( `${nowYear}-${nowMonth}-${thatDay}` );
 				currentDate = `${nowYear}-${nowMonth}-${thatDay}`;
 			}else{
-				$dayItem.append(`<div class="item targetItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a>${i + 1}</a></div>`);//toDO EDIT
+				$dayItem.append(`<span class="item targetItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a href="JavaScript:;">${i + 1}</a></span>`);//toDO EDIT
 			}
 			// $dayItem.append("<div class=\"item\"><a>" + (i + 1) + "</a></div>");
 		}
@@ -277,7 +253,7 @@ var CalendarHandler = {
 		//如果小于42，往下个月推算
 		if (hasCreateDaysNub < 42) {
 			for (var i = 0; i <= (42 - hasCreateDaysNub); i++) {
-				$dayItem.append( `<div class="item lastItem"><a>${i + 1}</a></div>` );
+				$dayItem.append( `<span class="item lastItem"><a>${i + 1}</a></span>` );
 			}
 		}
 		return $dayItem;
@@ -627,7 +603,7 @@ $.mainBox.on('click', '.slideHide', function(){
 		'width': '100%'
 	});
 	$( this ).removeClass().addClass( 'slideShow' ).attr( 'title', '取消投屏显示' );
-	CalendarHandler.initialize();
+	// CalendarHandler.initialize();
 }).on('click', '.slideShow', function(){
 	$('#left_nav').show();
 	$( '#main_box' ).width('100%').css({
@@ -635,7 +611,7 @@ $.mainBox.on('click', '.slideHide', function(){
 		'width': 'calc(100% - 190px)'
 	});
 	$( this ).removeClass().addClass( 'slideHide' ).attr( 'title', '投屏显示' );
-	CalendarHandler.initialize();
+	// CalendarHandler.initialize();
 }).on('click', '.selectBtn.month', function(){
 	CalendarHandler.CalculateLastMonthDays();
 }).on('click', '.selectBtn.selectYear', function(){

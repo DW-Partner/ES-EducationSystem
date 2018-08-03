@@ -16,6 +16,10 @@
 		color: #ffb15b;
 		font-style: normal;
 	}
+	select{
+		border: none;
+		background: #eee url("../../images/ico_select_arrow.png") no-repeat scroll 90% center;
+	}
 }
 .pub_list .body li .class_name_list a{
 	white-space: normal;
