@@ -113,6 +113,10 @@
                             }
                             return;
                         }
+                        if(pageLength==1){
+                            $( options.pageBox ).html( '' );
+                            return;
+                        }
                         if( pageLength <= 5 ){
                             prevHtml = prevVar;
                             nextHtml = nextVar;

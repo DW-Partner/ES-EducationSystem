@@ -66,7 +66,7 @@ const tpl = {
             </li>
             <li>
                 <span class="wide">扣减课时数</span>
-                <input type="text" placeholder="请输入扣减课时数" name="deduction_lessons" data-validate="number" data-must="1" />
+                <input type="text" placeholder="请输入扣减课时数" name="deduction_lessons" data-validate="number"/>
             </li>
         </ul>`
 }
@@ -504,12 +504,20 @@ let getZoneStudentList = (_class)=>{
 	        $( `.${_class} .content` ).html( $div.html() );
 	        $( `.${_class} .content p` ).eq(0).show();
 
+
 			if( _class === 'student_box_getZoneStudentList' ){
+				$( `.student_box_getZoneStudentList .selectBox` ).prepend( '<div class="student_box_checkedList"></div>' );
+
 		        studentChecked_student_box = [];
 		        student_box_list.forEach((item)=>{
-		        	studentChecked_student_box.push( item.sid );
-		        	$( `[data-sid=${item.sid}]` ).addClass( 'checked' );
+		        	// studentChecked_student_box.push( item.sid );
+		        	// $( `[data-sid=${item.sid}]` ).addClass( 'checked' );
+		        	$( `.student_box_getZoneStudentList [data-sid=${item.sid}]` ).click();
 		        });
+			}else{
+				console.log(34)
+				$( `.addLessonPop_getZoneStudentList .selectBox` ).prepend( '<div class="addLessonPop_checkedList"></div>' );
+
 			}
 	    },
 	    error: ()=>{
@@ -788,26 +796,52 @@ $(document).off('click', '.student').on('click', '.student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
 	if( onStudentCheck == 'student_box_getZoneStudentList' ){
-		if( self.hasClass( 'checked' ) ){
-			studentChecked_student_box.splice( studentChecked_student_box.indexOf( sid ), 1 );
-			self.removeClass( 'checked' );
-		}else{
-			studentChecked_student_box.push( sid );
-			self.addClass( 'checked' );
+		// if( self.hasClass( 'checked' ) ){
+		// 	studentChecked_student_box.splice( studentChecked_student_box.indexOf( sid ), 1 );
+		// 	self.removeClass( 'checked' );
+		// }else{
+		// 	studentChecked_student_box.push( sid );
+		// 	self.addClass( 'checked' );
+		// }
+		if( studentChecked_student_box.indexOf( +sid ) == -1 ){
+			$( '.student_box_checkedList' ).append( self.clone() );
+			studentChecked_student_box.push( +sid );
+		}else if( !$( `.student_box_checkedList [data-sid=${sid}]` ).length ){
+			$( '.student_box_checkedList' ).append( self.clone() );
 		}
+		$( `.student_box_getZoneStudentList .classItem [data-sid=${sid}]` ).hide();
 	}else{
-		if( self.hasClass( 'checked' ) ){
-			studentChecked_addLesson.splice( studentChecked_addLesson.indexOf( sid ), 1 );
-			self.removeClass( 'checked' );
-		}else{
-			studentChecked_addLesson.push( sid );
-			self.addClass( 'checked' );
+		// if( self.hasClass( 'checked' ) ){
+		// 	studentChecked_addLesson.splice( studentChecked_addLesson.indexOf( sid ), 1 );
+		// 	self.removeClass( 'checked' );
+		// }else{
+		// 	studentChecked_addLesson.push( sid );
+		// 	self.addClass( 'checked' );
+		// }
+		if( studentChecked_addLesson.indexOf( +sid ) == -1 ){
+			$( '.addLessonPop_checkedList' ).append( self.clone() );
+			studentChecked_addLesson.push( +sid );
+		}else if( !$( `.addLessonPop_checkedList [data-sid=${sid}]` ).length ){
+			$( '.addLessonPop_checkedList' ).append( self.clone() );
 		}
+		$( `.addLessonPop_getZoneStudentList .classItem [data-sid=${sid}]` ).hide();
 	}
-}).off('change', '#classSelect').on('change', '#classSelect', function(){
+}).on('click', '.student_box_checkedList .student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	studentChecked_student_box.splice( studentChecked_student_box.indexOf( sid ), 1 );
+	$( `.student_box_getZoneStudentList .classItem [data-sid=${sid}]` ).show();
+	self.remove();
+}).on('click', '.addLessonPop_checkedList .student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	studentChecked_addLesson.splice( studentChecked_addLesson.indexOf( sid ), 1 );
+	$( `.addLessonPop_getZoneStudentList .classItem [data-sid=${sid}]` ).show();
+	self.remove();
+}).on('change', '#classSelect', function(){
 	const class_id = $( this ).val();
 	$( `.class_${class_id}` ).show().siblings('p').hide();
-}).off('click', '#addStudents').on('click', '#addStudents', function(){
+}).on('click', '#addStudents', function(){
 
     $.dialogFull.Pop({
         boxClass: '.addLessonPop_getZoneStudentList',
@@ -839,7 +873,7 @@ $(document).off('click', '.student').on('click', '.student', function(){
 })
 
 $.distory = ()=>{
-	$(document).off('click', '.student');
+	$(document).off('click', '.student').off('click', '#addStudents').off('change', '#classSelect').off('click', '.student_box_checkedList .student').off('click', '.addLessonPop_checkedList .student');
     _dialogClose(1);
     _dialogClose_student_box(1);
     _dialogClose_addLessonPop(1);

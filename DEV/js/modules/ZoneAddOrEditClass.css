@@ -27,11 +27,21 @@
 		margin-right: 15px;
 	}
 }
-
-
-
 .selected_lessons, .getZoneStudentList{
 	margin-left: 15px;
+	line-height: 36px;
+	color: #3580d9;
+	&:hover{
+		color: #356ED9;
+	};
+}
+.run_item_add{
+	line-height: 36px;
+	color: #3580d9;
+	font-size: 26px;
+	&:hover{
+		color: #356ED9;
+	};
 }
 .pub_list{
 	.head{

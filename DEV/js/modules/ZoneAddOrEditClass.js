@@ -14,7 +14,7 @@ const tpl = {
 			<span class="wide"><i>*</i>分类课程</span>\
 			<em>{course_name} </em>\
 			<em class="tips"></em>\
-			<a href="JavaScript:;" class="btn selected_lessons">重新关联课程</a>\
+			<a href="JavaScript:;" class="selected_lessons">重新关联课程</a>\
 		</li>\
 		<li>\
 			<span class="wide"><i>*</i>预招人数</span>\
@@ -326,7 +326,7 @@ let getClassInfo = ()=>{
 				});
 				if( index === 0 ){
 					$('.timeList .item').eq( 0 ).find('a').remove();
-					$('.timeList .item').eq( 0 ).append('<a href="JavaScript:;" class="btn run_item_add">添加</a>');
+					$('.timeList .item').eq( 0 ).append('<a href="JavaScript:;" class="run_item_add">+</a>');
 				}
 			})
 			if( classInfo.isStarted == 'true' ){

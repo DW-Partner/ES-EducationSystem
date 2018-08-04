@@ -389,3 +389,14 @@
 	left: -6px;
 	transform:rotate(225deg);
 }
+
+
+
+.student_box_checkedList, .addLessonPop_checkedList{
+	padding-bottom: 10px;
+	line-height: 28px;
+	color: #1A91C6;
+}
+.student_box_getZoneStudentList .selectBox select, .addLessonPop_getZoneStudentList .selectBox select{
+	width: 250px;
+}

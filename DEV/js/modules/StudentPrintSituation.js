@@ -201,6 +201,7 @@ let getStudentPrintList = (_search_data)=>{
             return item;
         },
         successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
+            delete select_data.page;
 
         },//function(msg) {  }
         ajaxCodeError: function( res ){

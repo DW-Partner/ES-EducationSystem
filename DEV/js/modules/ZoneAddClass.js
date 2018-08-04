@@ -202,8 +202,8 @@ let selectAll = ()=>{
 
 $('.timeList .item').length >= 6 && $( '.timeList .run_item_add' ).hide();
 
-$('.tips').after( '<a href="JavaScript:;" class="btn selected_lessons">挑选课时</a>' );
-$('[name="class_name"]').after( '<a href="JavaScript:;" class="btn getZoneStudentList">添加学员</a>' );
+$('.tips').after( '<a href="JavaScript:;" class="selected_lessons">挑选课时</a>' );
+$('[name="class_name"]').after( '<a href="JavaScript:;" class="getZoneStudentList">添加学员</a>' );
 
 // let getZoneStudentList = ()=>{
 //     $.ajax({
@@ -447,9 +447,6 @@ $(document).on('change', '#checkall', selectAll).on('change', 'input.input_item'
 }).on('click', '.classItem .student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
-	console.log( studentChecked );
-	console.log( +sid );
-	console.log( studentChecked.indexOf( +sid ) == -1 );
 	if( studentChecked.indexOf( +sid ) == -1 ){
 		$( '.checkedList' ).append( self.clone() );
 		studentChecked.push( +sid );
@@ -461,6 +458,7 @@ $(document).on('change', '#checkall', selectAll).on('change', 'input.input_item'
 }).on('click', '.checkedList .student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
+	studentChecked.splice( studentChecked.indexOf( sid ), 1 );
 	$( `.classItem [data-sid=${sid}]` ).show();
 	self.remove();
 }).on('change', '#classSelect', function(){
