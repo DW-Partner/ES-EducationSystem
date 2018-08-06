@@ -418,6 +418,9 @@ let submit_add = ()=>{
         }
 	});
 }
+
+	sid && $('.dataBox, .addLessonBtn').hide();
+
 let _dialogClose = ()=>{};
 $.mainBox.on('change', '#students', function(){
 	const sid = $(this).val();

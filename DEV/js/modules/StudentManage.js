@@ -33,8 +33,8 @@
             <em class="none{class_id}">|</em>\
             <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-page={_page}">退出班级</a>\
             <br />\
-            <a href="JavaScript:;" class="linkClass" data-sid={sid} data-page={_page}">学员课表</a>\
-            |\
+            <a href="JavaScript:;" class="none{class_id} linkClass" data-sid={sid} data-page={_page}">学员课表</a>\
+            <em class="none{class_id}">|</em>\
             <a href="JavaScript:;" data-href="/pss/goStudentQrcode?sid={sid}&page={_page}">生成二维码</a><br />\
         </span></p></div>\
         </li>',
