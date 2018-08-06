@@ -284,7 +284,7 @@
 	background: #fff;
 	border-left: 3px solid #e42323;
 	.lesson_box{
-		flex: 3;
+		flex: 25;
 		color: #747474;
 		h6{
 			font-size: 14px;
@@ -307,7 +307,7 @@
 		}
 	}
 	.student_box{
-		flex: 5;
+		flex: 42;
 		min-height: 150px;
 		border-left: 3px solid #e2e2e2;
 		p{
@@ -329,7 +329,7 @@
 		}
 	}
 	.qr_box{
-		width: 36%;
+		flex: 33;
 		display: none;
 		.qr_img{
 			width: 250px;

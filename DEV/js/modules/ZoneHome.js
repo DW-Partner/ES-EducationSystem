@@ -35,11 +35,11 @@ const tpl = {
 				主题：{theme}
 			</p>
 		</li>`,
-	info: `<h6><a href="javascript:" data-href="/pss/goClassInfo?classid={class_id}">{class_name}</a></h6>
+	info: `<h6><a href="javascript:" data-href="/pss/goClassInfo?classid={class_id}#goZoneClassManage">{class_name}</a></h6>
 			<p>{start_time} -- {end_time}</p>
 			<p>授课教师：{teacher_name}</p>
 			<p>授课地点：{classroom}</p>
-			<p>主题：<a href="javascript:" data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}">{theme}</a></p>
+			<p>主题：<a href="javascript:" data-href="/pss/goLessonOperate?classid={class_id}&lessonid={lesson_id}#goZoneClassManage">{theme}</a></p>
 			<p>教学目标：{target}</p>`,
 			//主题，上课，当天具体上课时间（日期不能选），教师，学员，
     addLessonForm: `<ul class="pub_form">
@@ -66,7 +66,7 @@ const tpl = {
             </li>
             <li>
                 <span class="wide">扣减课时数</span>
-                <input type="text" placeholder="请输入扣减课时数" name="deduction_lessons" data-validate="number" data-must="1" />
+                <input type="text" placeholder="请输入扣减课时数" name="deduction_lessons" data-validate="number"/>
             </li>
         </ul>`
 }
@@ -82,33 +82,8 @@ var CalendarHandler = {
 		$calendarItem = this.CreateCalendar(0, 0, 0, true);
 		$("#centerCalendarMain").append($calendarItem);
 
-		// $("#context").css("height", $("#CalendarMain").height() - 65 + "px");
-		// $("#center").css("height", $("#context").height() - 30 + "px");
-		
-		$("#selectYearDiv").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-		$("#selectMonthDiv").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-		$("#centerCalendarMain").css("height", $("#context").height() - 30 + "px").css("width", $("#context").width() + "px");
-
-		$calendarItem.css("height", $("#context").height() - 30 + "px"); //.css("visibility","hidden");
-		$("#centerCalendarMain").css("height", "0px").css("width", "0px").css("margin-left", $("#context").width() / 2 + "px").css("margin-top", ($("#context").height() - 30) / 2 + "px");
-		$("#centerCalendarMain").animate({
-			width: $("#context").width() + "px",
-			height: ($("#context").height() - 30) * 2 + "px",
-			marginLeft: "0px",
-			marginTop: "0px"
-		}, 300, function() {
-			//$calendarItem.css("visibility", "visible");
-		});
-		$(".dayItem").css("width", $("#context").width() + "px");
 		var itemPaddintTop = $(".dayItem").height() / 6;
-		//$(".item").css({
-			//"width": $(".week").width() / 7 + "px",
-			//"line-height": itemPaddintTop + "px",
-			// "height": itemPaddintTop + "px"
-		//});
-		//$(".currentItem>a").css("margin-left", ($(".item").width() - 25) / 2 + "px").css("margin-top", ($(".item").height() - 25) / 2 + "px");
-		//$(".week>h3").css("width", $(".week").width() / 7 + "px");
-		//this.RunningTime();
+
 	},
 	CreateSelectYear: function(showYearStart) {
 		CalendarHandler.showYearStart=showYearStart;
@@ -118,7 +93,7 @@ var CalendarHandler = {
 		for (var i = showYearStart; i < showYearStart+12; i++) {
 			yearindex++;
 			if(i==showYearStart){
-				$last=$("<div>往前</div>");
+				$last=$("<span>往前</span>");
 				$("#selectYearDiv").append($last);
 				$last.click(function(){
 					CalendarHandler.CreateSelectYear(CalendarHandler.showYearStart-10);
@@ -126,7 +101,7 @@ var CalendarHandler = {
 				continue;
 			}
 			if(i==showYearStart+11){
-				$next=$("<div>往后</div>");
+				$next=$("<span>往后</span>");
 				$("#selectYearDiv").append($next);
 				$next.click(function(){
 					CalendarHandler.CreateSelectYear(CalendarHandler.showYearStart+10);
@@ -135,11 +110,11 @@ var CalendarHandler = {
 			}
 			
 			if (i == this.currentYear) {
-				$yearItem=$("<div class=\"currentYearSd\" id=\"" + yearindex + "\">" + i + "</div>")
+				$yearItem=$("<span class=\"currentYearSd\" id=\"" + yearindex + "\">" + i + "</span>")
 			
 			}
 			else{
-				 $yearItem=$("<div id=\"" + yearindex + "\">" + i + "</div>");
+				 $yearItem=$("<span id=\"" + yearindex + "\">" + i + "</span>");
 			}
 			$("#selectYearDiv").append($yearItem);
 			$yearItem.click(function(){
@@ -154,14 +129,14 @@ var CalendarHandler = {
 				CalendarHandler.isRunning = false;
 			    });
 				$("#centerMain").animate({
-				marginLeft: -$("#center").width() + "px"
+				marginLeft: "-100%"
 			}, 500);
 			});
 			if (yearindex == 1 || yearindex == 5 || yearindex == 9) $("#selectYearDiv").find("#" + yearindex).css("border-left-color", "#fff");
 			if (yearindex == 4 || yearindex == 8 || yearindex == 12) $("#selectYearDiv").find("#" + yearindex).css("border-right-color", "#fff");
 			
 		}
-		$("#selectYearDiv>div").css("width", ($("#center").width() - 4) / 4 + "px").css("line-height", ($("#center").height() - 4) / 3 + "px");
+		$("#selectYearDiv span").css("line-height", ($("#center").height() - 4) / 3 + "px");
 		$("#centerMain").animate({
 			marginLeft: "0px"
 		}, 300);
@@ -170,8 +145,8 @@ var CalendarHandler = {
 		$(".currentDay").show();
 		$("#selectMonthDiv").children().remove();
 		for (var i = 1; i < 13; i++) {
-			if (i == this.currentMonth) $monthItem=$("<div class=\"currentMontSd\" id=\"" + i + "\">" + i + "月</div>");
-			else  $monthItem=$("<div id=\"" + i + "\">" + i + "月</div>");
+			if (i == this.currentMonth) $monthItem=$("<span class=\"currentMontSd\" id=\"" + i + "\">" + i + "月</span>");
+			else  $monthItem=$("<span id=\"" + i + "\">" + i + "月</span>");
 			$("#selectMonthDiv").append($monthItem);
 			$monthItem.click(function(){
 				$calendarItem=CalendarHandler.CreateCalendar(CalendarHandler.currentYear,Number($(this).attr("id")),1);
@@ -185,15 +160,15 @@ var CalendarHandler = {
 				CalendarHandler.isRunning = false;
 			    });
 				$("#centerMain").animate({
-				marginLeft: -$("#center").width() + "px"
+				marginLeft: "-100%"
 			}, 500);
 			});
 			if (i == 1 || i == 5 || i == 9) $("#selectMonthDiv").find("#" + i).css("border-left-color", "#fff");
 			if (i == 4 || i == 8 || i == 12) $("#selectMonthDiv").find("#" + i).css("border-right-color", "#fff");
 		}
-		$("#selectMonthDiv>div").css("width", ($("#center").width() - 4) / 4 + "px").css("line-height", ($("#center").height() - 4) / 3 + "px");
+		$("#selectMonthDiv span").css("line-height", ($("#center").height() - 4) / 3 + "px");
 		$("#centerMain").animate({
-			marginLeft: -$("#center").width() * 2 + "px"
+			marginLeft: "-200%"
 		}, 300);
 	},
 	IsRuiYear: function(aDate) {
@@ -255,7 +230,7 @@ var CalendarHandler = {
 		if (nowWeek != 0) {
 			//生成上月剩下的日期
 			for (var i = (lastMonthDaysNub - (nowWeek - 1)); i < lastMonthDaysNub; i++) {
-				$dayItem.append( `<div class="item lastItem"><a>${i + 1}</a></div>` );
+				$dayItem.append( `<span class="item lastItem"><a href="JavaScript:;">${i + 1}</a></span>` );
 
 			}
 		}
@@ -263,13 +238,13 @@ var CalendarHandler = {
 		for (var i = 0; i < nowDaysNub; i++) {
 			const thatDay = i + 1 < 10 ? '0' + (i + 1) : i + 1;
 			if( currentDate == `${nowYear}-${nowMonth}-${thatDay}` ){
-				$dayItem.append(`<div class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a>${i + 1}</a></div>`);	
+				$dayItem.append(`<span class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a href="JavaScript:;">${i + 1}</a></span>`);	
 			}else if (i == (nowDay - 1) && mark){
-				$dayItem.append(`<div class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a>${i + 1}</a></div>`);
+				$dayItem.append(`<span class="item targetItem currentItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a href="JavaScript:;">${i + 1}</a></span>`);
 				getZoneDayLessons( `${nowYear}-${nowMonth}-${thatDay}` );
 				currentDate = `${nowYear}-${nowMonth}-${thatDay}`;
 			}else{
-				$dayItem.append(`<div class="item targetItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a>${i + 1}</a></div>`);//toDO EDIT
+				$dayItem.append(`<span class="item targetItem" data-date="${nowYear}-${nowMonth}-${thatDay}"><a href="JavaScript:;">${i + 1}</a></span>`);//toDO EDIT
 			}
 			// $dayItem.append("<div class=\"item\"><a>" + (i + 1) + "</a></div>");
 		}
@@ -278,7 +253,7 @@ var CalendarHandler = {
 		//如果小于42，往下个月推算
 		if (hasCreateDaysNub < 42) {
 			for (var i = 0; i <= (42 - hasCreateDaysNub); i++) {
-				$dayItem.append( `<div class="item lastItem"><a>${i + 1}</a></div>` );
+				$dayItem.append( `<span class="item lastItem"><a>${i + 1}</a></span>` );
 			}
 		}
 		return $dayItem;
@@ -429,6 +404,7 @@ let getLessonsMissList = ( classid, lessonid )=>{
 	        $('.student_box p').eq(0).append( _list['1'].join('') );
 	        $('.student_box p').eq(1).append( _list['2'].join('') );
 	        $('.student_box p').eq(2).append( _list['3'].join('') );
+	        $('.student_box p').eq(3).append( _list['4'].join('') );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
@@ -529,12 +505,19 @@ let getZoneStudentList = (_class)=>{
 	        $( `.${_class} .content` ).html( $div.html() );
 	        $( `.${_class} .content p` ).eq(0).show();
 
+
 			if( _class === 'student_box_getZoneStudentList' ){
+				$( `.student_box_getZoneStudentList .selectBox` ).prepend( '<div class="student_box_checkedList"></div>' );
+
 		        studentChecked_student_box = [];
 		        student_box_list.forEach((item)=>{
-		        	studentChecked_student_box.push( item.sid );
-		        	$( `[data-sid=${item.sid}]` ).addClass( 'checked' );
+		        	// studentChecked_student_box.push( item.sid );
+		        	// $( `[data-sid=${item.sid}]` ).addClass( 'checked' );
+		        	$( `.student_box_getZoneStudentList [data-sid=${item.sid}]` ).click();
 		        });
+			}else{
+				$( `.addLessonPop_getZoneStudentList .selectBox` ).prepend( '<div class="addLessonPop_checkedList"></div>' );
+
 			}
 	    },
 	    error: ()=>{
@@ -628,7 +611,7 @@ $.mainBox.on('click', '.slideHide', function(){
 		'width': '100%'
 	});
 	$( this ).removeClass().addClass( 'slideShow' ).attr( 'title', '取消投屏显示' );
-	CalendarHandler.initialize();
+	// CalendarHandler.initialize();
 }).on('click', '.slideShow', function(){
 	$('#left_nav').show();
 	$( '#main_box' ).width('100%').css({
@@ -636,7 +619,7 @@ $.mainBox.on('click', '.slideHide', function(){
 		'width': 'calc(100% - 190px)'
 	});
 	$( this ).removeClass().addClass( 'slideHide' ).attr( 'title', '投屏显示' );
-	CalendarHandler.initialize();
+	// CalendarHandler.initialize();
 }).on('click', '.selectBtn.month', function(){
 	CalendarHandler.CalculateLastMonthDays();
 }).on('click', '.selectBtn.selectYear', function(){
@@ -813,26 +796,52 @@ $(document).off('click', '.student').on('click', '.student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
 	if( onStudentCheck == 'student_box_getZoneStudentList' ){
-		if( self.hasClass( 'checked' ) ){
-			studentChecked_student_box.splice( studentChecked_student_box.indexOf( sid ), 1 );
-			self.removeClass( 'checked' );
-		}else{
-			studentChecked_student_box.push( sid );
-			self.addClass( 'checked' );
+		// if( self.hasClass( 'checked' ) ){
+		// 	studentChecked_student_box.splice( studentChecked_student_box.indexOf( sid ), 1 );
+		// 	self.removeClass( 'checked' );
+		// }else{
+		// 	studentChecked_student_box.push( sid );
+		// 	self.addClass( 'checked' );
+		// }
+		if( studentChecked_student_box.indexOf( +sid ) == -1 ){
+			$( '.student_box_checkedList' ).append( self.clone() );
+			studentChecked_student_box.push( +sid );
+		}else if( !$( `.student_box_checkedList [data-sid=${sid}]` ).length ){
+			$( '.student_box_checkedList' ).append( self.clone() );
 		}
+		$( `.student_box_getZoneStudentList .classItem [data-sid=${sid}]` ).hide();
 	}else{
-		if( self.hasClass( 'checked' ) ){
-			studentChecked_addLesson.splice( studentChecked_addLesson.indexOf( sid ), 1 );
-			self.removeClass( 'checked' );
-		}else{
-			studentChecked_addLesson.push( sid );
-			self.addClass( 'checked' );
+		// if( self.hasClass( 'checked' ) ){
+		// 	studentChecked_addLesson.splice( studentChecked_addLesson.indexOf( sid ), 1 );
+		// 	self.removeClass( 'checked' );
+		// }else{
+		// 	studentChecked_addLesson.push( sid );
+		// 	self.addClass( 'checked' );
+		// }
+		if( studentChecked_addLesson.indexOf( +sid ) == -1 ){
+			$( '.addLessonPop_checkedList' ).append( self.clone() );
+			studentChecked_addLesson.push( +sid );
+		}else if( !$( `.addLessonPop_checkedList [data-sid=${sid}]` ).length ){
+			$( '.addLessonPop_checkedList' ).append( self.clone() );
 		}
+		$( `.addLessonPop_getZoneStudentList .classItem [data-sid=${sid}]` ).hide();
 	}
-}).off('change', '#classSelect').on('change', '#classSelect', function(){
+}).on('click', '.student_box_checkedList .student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	studentChecked_student_box.splice( studentChecked_student_box.indexOf( sid ), 1 );
+	$( `.student_box_getZoneStudentList .classItem [data-sid=${sid}]` ).show();
+	self.remove();
+}).on('click', '.addLessonPop_checkedList .student', function(){
+	let self = $( this );
+	const sid = self.data( 'sid' );
+	studentChecked_addLesson.splice( studentChecked_addLesson.indexOf( sid ), 1 );
+	$( `.addLessonPop_getZoneStudentList .classItem [data-sid=${sid}]` ).show();
+	self.remove();
+}).on('change', '#classSelect', function(){
 	const class_id = $( this ).val();
 	$( `.class_${class_id}` ).show().siblings('p').hide();
-}).off('click', '#addStudents').on('click', '#addStudents', function(){
+}).on('click', '#addStudents', function(){
 
     $.dialogFull.Pop({
         boxClass: '.addLessonPop_getZoneStudentList',
@@ -864,8 +873,8 @@ $(document).off('click', '.student').on('click', '.student', function(){
 })
 
 $.distory = ()=>{
-	$(document).off('click', '.student');
 	$( '.slideShow' ).click();
+	$(document).off('click', '.student').off('click', '#addStudents').off('change', '#classSelect').off('click', '.student_box_checkedList .student').off('click', '.addLessonPop_checkedList .student');
     _dialogClose(1);
     _dialogClose_student_box(1);
     _dialogClose_addLessonPop(1);
