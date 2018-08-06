@@ -404,6 +404,7 @@ let getLessonsMissList = ( classid, lessonid )=>{
 	        $('.student_box p').eq(0).append( _list['1'].join('') );
 	        $('.student_box p').eq(1).append( _list['2'].join('') );
 	        $('.student_box p').eq(2).append( _list['3'].join('') );
+	        $('.student_box p').eq(3).append( _list['4'].join('') );
 	    },
 	    error: ()=>{
 	        $.dialogFull.Tips( "网络错误，请稍后重试！" );
