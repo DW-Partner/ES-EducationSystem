@@ -291,6 +291,8 @@ $.mainBox.on('click', '#submit_add', ()=>{
 	sub_data.teacher_id = +sub_data.teacher_id;
 	if( sub_data.assistant_id ){
 		sub_data.assistant_id = +sub_data.assistant_id;
+	}else{
+		delete sub_data.assistant_id;
 	}
 	sub_data.reserve_num = +sub_data.reserve_num;
 	const start_time = $('[name=start_time]').val();

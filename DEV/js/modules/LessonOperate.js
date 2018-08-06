@@ -86,6 +86,10 @@ let getLessonsDetail = ()=>{
 	})
 }
 
+if( sid ){
+	$('.pub_form ul li').eq( 2 ).remove();
+}
+
 if( !sid ){
 	$('.pub_form ul').append('<li><span class="wide">课表自动重排</span><input type="checkbox" id="auto" class="m-checkbox" value="1"><label for="auto"></label></li>');	
 }else if( $('#status').val() == 3 ){
@@ -189,7 +193,6 @@ let getClassLessonStudentList = ()=>{
 	        	studentChecked.push( item.sid );
 	        	return `<span>${item.name}</span>`;
 	        }).join( '' );
-	        console.log( list );
 
 	        $( '.classLessonStudentList' ).append( list );
 	    },
@@ -319,9 +322,6 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 $(document).on('click', '.classItem .student', function(){
 	let self = $( this );
 	const sid = self.data( 'sid' );
-	console.log( studentChecked );
-	console.log( +sid );
-	console.log( studentChecked.indexOf( +sid ) == -1 );
 	if( studentChecked.indexOf( +sid ) == -1 ){
 		$( '.checkedList' ).append( self.clone() );
 		studentChecked.push( +sid );

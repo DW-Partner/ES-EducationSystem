@@ -35,7 +35,7 @@ const tpl = {
 			<input type="text" value="{start_time}" id="start_time" class="short" name="start_time" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
-			<span class="wide">开班地点</span>\
+			<span class="wide">教师位置</span>\
 			<input type="text" value="{classroom}" id="classroom" class="short" name="classroom" data-validate="any"/>\
 		</li>\
 		<li>\
@@ -402,6 +402,7 @@ $.mainBox.on('click', '#submit_addOrEdit', ()=>{
 	}
 	if( dataMapSelect[ 'course_' + selectOn ] && dataMapSelect[ 'course_' + selectOn ].length ){
 		sub_data.selected_lessons = dataMapSelect[ 'course_' + selectOn ];
+		sub_data.course_id = selectOn;
 	}
 	sub_data.delete_old = delete_old;
 	if( !sub_data.time_regular.length ){
