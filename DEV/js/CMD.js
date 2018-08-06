@@ -33,7 +33,6 @@
 		}
 	}
 
-
 	//公共表单插件
 	$.form = {
 		get: (opts)=>{
@@ -135,11 +134,11 @@
 				// 	window.location.href = 'xxxx';
 				// 	return;
 				// }
-				$.mainBox.off();
 				$.distory();
+				$.mainBox.off();
 				that.addClass('on').siblings('.on').removeClass('on');
 
-				var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
+				//var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
 
 				$('#main_box').html( html );
 				$.mainBox.scrollTop(0);
@@ -173,15 +172,14 @@
 			url: _data.url,
 			data: _data.data || base_data,
 			success: (html)=>{
-				$.mainBox.off();
 				$.distory();
+				$.mainBox.off();
 
-				var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
+				//var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
 
 				$('#main_box').html( html );
 				if( hash ){
 					$( '#left_nav [data-href="/pss/' + hash + '"]' ).parent('li').addClass('on').siblings('.on').removeClass('on');
-
 				}
 				_data.callback && _data.callback();
 				$.mainBox.scrollTop(0);
