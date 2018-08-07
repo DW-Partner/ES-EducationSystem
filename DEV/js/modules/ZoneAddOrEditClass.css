@@ -27,7 +27,7 @@
 		margin-right: 15px;
 	}
 }
-.selected_lessons, .getZoneStudentList{
+.selected_lessons .checkedList span, .getZoneStudentList .checkedList span{
 	margin-left: 15px;
 	line-height: 36px;
 	color: #3580d9;

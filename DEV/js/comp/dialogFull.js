@@ -31,7 +31,8 @@
                     doneBtnText:'确定',
                     runDone: function($this, $thisBox, dialogClose) {},
                     closeBtnText:'取消',
-                    runClose: function($this, $thisBox, dialogClose) {}
+                    runClose: function($this, $thisBox, dialogClose) {},
+                    runDoneLoading: false
                 },
                 options = $.extend(options, param);
 
@@ -100,12 +101,37 @@
                 options.runClose( $( this ), $( dialogMainId ), dialogClose );
             });
             //底部确定/取消按钮，点击时回调函数start
+            // if (options.confirm) {
+            //     $(document).on('click', dialogFullDoneDom, function() {
+            //         options.runDone($(this), $( dialogMainId ), dialogClose);
+            //     });
+            // }
+            //底部确定/取消按钮，点击时回调函数end
+
+
+
+            var dialogLoading = false;
+            var dialogLoadingHandle = function( _status, btn, btn_text, btn_class ){
+                if( !_status || _status == -1 ){
+                    dialogLoading = false;
+                    btn.removeClass( 'btn_loading' ).html( options.doneBtnText );
+                    return;
+                }
+                dialogLoading = true;
+                btn.addClass( btn_class || 'btn_loading' ).html( btn_text || '提交中...' );
+            }
+            //底部确定/取消按钮，点击时回调函数start
             if (options.confirm) {
                 $(document).on('click', dialogFullDoneDom, function() {
-                    options.runDone($(this), $( dialogMainId ), dialogClose);
+                    if( options.runDoneLoading && dialogLoading ){
+                        return;
+                    }
+                    options.runDone($(this), $( dialogMainId ), dialogClose, dialogLoadingHandle);
                 });
             }
             //底部确定/取消按钮，点击时回调函数end
+
+
 
             //点击遮罩关闭弹框 start
             if (options.coverClose) {

@@ -35,7 +35,7 @@ const tpl = {
 			<input type="text" value="{start_time}" id="start_time" class="short" name="start_time" data-validate="any" data-must="1"/>\
 		</li>\
 		<li>\
-			<span class="wide">教师位置</span>\
+			<span class="wide">教室位置</span>\
 			<input type="text" value="{classroom}" id="classroom" class="short" name="classroom" data-validate="any"/>\
 		</li>\
 		<li>\

@@ -424,19 +424,16 @@ $.mainBox.on('click', '#submit_add', ()=>{
         boxClass: '.getZoneStudentList',
         width: 700,
         height: 'auto',
+        confirm: 'alert',
         cacheId: 'getZoneStudentListCachId001', //开启必须使用唯一标示！！！
         title: '学员列表',//弹框标题
         content: '',//弹框内容区
         showCallback: function($thisBox, $contentBox){
         	getZoneStudentList();
         },
-        runDone: function($this, $thisBox, dialogClose) {
-            _dialogClose = dialogClose;
-            dialogClose();
-        },
         runClose: function($this, $thisBox, dialogClose) {
-        	_dialogClose = dialogClose;
-        }
+            _dialogClose = dialogClose;
+        },
     });	
 });
 

@@ -13,12 +13,14 @@ const tpl = {
 		<div class="data data3"><span>学员总数</span><p>{his_student_num}</p></div>\
 		<div class="data data4"><span>咨询登记数</span><p>{visitor_num}</p></div>',
     classList: '<li>\
-            <div class="item"><p><span>{class_name}</span></p></div>\
-            <div class="item"><p><span>{course_name}</span></p></div>\
-            <div class="item"><p><span>{start_time}</span></p></div>\
-            <div class="item"><p><span>{teacher_name}</span></p></div>\
-            <div class="item"><p><span>{student_num}</span></p></div>\
-        </li>',
+        <div class="item"><p><span>{class_name}</span></p></div>\
+        <div class="item"><p><span>{start_time}</span></p></div>\
+        <div class="item"><p><span>{classroom}</span></p></div>\
+        <div class="item"><p><span>{teacher_name}({name_2})</span></p></div>\
+        <div class="item"><p><span>{students}</span></p></div>\
+        <div class="item"><p><span class="audits" data-classid="{class_id}">{audits}</span></p></div>\
+        <div class="item"><p><span>{remain_lessons}</span></p></div>\
+        <div class="item"><p><span>{status}</span></p></div>',
 }
 //<div class="item"><p><span>{current_lesson}</span></p></div>\
 
@@ -77,28 +79,35 @@ getZoneExtInfo();
 
 
 //班级列表 start 3.16
-$.jsonPage({
-    listBox: 'ul.body',//列表容器
-    ajaxUrl: 'getZoneClasses',
-    ajaxType: 'post',
-    ajaxData: {
-        code: $('#school_code').val(),
-        zoneid: $('#zoneid').val()
-    },//上行参数
-    template: tpl.classList,//列表模板
-    listKey: ['data'],//下行结构
-    pageBar: false,//是否启用分页
-    noData: false,//Function : function( $listBox, $pageBox ){}
-    codeKeyName: 'errcode',//状态标示key名
-    codeSuccess: 0,//状态标示值
-    successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
+    $.jsonPage({
+        listBox: 'ul.body',//列表容器
+        ajaxUrl: '/pss/getZoneClassesList',
+        ajaxType: 'post',
+        ajaxData: {
+	        code: $('#school_code').val(),
+	        zoneid: $('#zoneid').val()
+            //status: 'pending'
+        },//上行参数
+        template: tpl.classList,//列表模板
+        listKey: ['data','list'],//下行结构//TODO 'list'
+        pageBar: true,//是否启用分页
+        eachTemplateHandle: false,//Function : function(msg,pageNum,pageSize){ return msg }
+        eachDataHandle: function(item,pageNum,pageSize){
+            item.del = item.students == 0 && item.audits == 0 ? '' : 'none';
+            //status todo
+            return item;
+        },
+        noData: false,//Function : function( $listBox, $pageBox ){}
+        codeKeyName: 'errcode',//状态标示key名
+        codeSuccess: 0,//状态标示值
+        successRunAfter: function(data, pageNum, pageSize, $listBox, $pageBox) {
 
-    },//function(msg) {  }
-    ajaxCodeError: function( res ){
-        $.dialogFull.Tips( res.errmsg );
-    },
-    ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
-        $.dialogFull.Tips( "网络错误，请稍后重试" );
-    }
-});
+        },//function(msg) {  }
+        ajaxCodeError: function( res ){
+            $.dialogFull.Tips( res.errmsg );
+        },
+        ajaxError: function(XMLHttpRequest, textStatus, errorThrown, text) {
+            $.dialogFull.Tips( "网络错误，请稍后重试" );
+        }
+    });
 //班级列表 end

@@ -138,7 +138,7 @@
 				$.mainBox.off();
 				that.addClass('on').siblings('.on').removeClass('on');
 
-				//var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
+				var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
 
 				$('#main_box').html( html );
 				$.mainBox.scrollTop(0);
@@ -175,7 +175,7 @@
 				$.distory();
 				$.mainBox.off();
 
-				//var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
+				var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
 
 				$('#main_box').html( html );
 				if( hash ){

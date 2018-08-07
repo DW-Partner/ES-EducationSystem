@@ -18,7 +18,13 @@
 	}
 	select{
 		border: none;
-		background: #eee url("../../images/ico_select_arrow.png") no-repeat scroll 90% center;
+		background: #fff url("../../images/ico_select_arrow.png") no-repeat scroll 90% center;
+		text-align-last: center;
+	}
+	li:hover{
+		select{
+			background: #fefef5 url("../../images/ico_select_arrow.png") no-repeat scroll 90% center;
+		}
 	}
 }
 .pub_list .body li .class_name_list a{

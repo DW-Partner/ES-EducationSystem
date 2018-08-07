@@ -5,6 +5,7 @@ import QRCode from '../kit/qrcode.js';
 import changeFormat from '../kit/changeFormat.js';
 import websocket from '../comp/websocket.js';
 
+const flagship = $( '#flagship' ).val() == 1 ? true : false;
 let $dayItem;
 let $calendarItem;
 let $monthItem;
@@ -69,6 +70,18 @@ const tpl = {
                 <input type="text" placeholder="请输入扣减课时数" name="deduction_lessons" data-validate="number"/>
             </li>
         </ul>`
+}
+
+
+if( flagship ){
+	$( '.goTeacher' ).remove();
+	$('#left_nav ul').append( '<li><a href="javascript:;" data-href="/pss/goCourse">课程体系</a></li>\
+		<li><a href="javascript:;" data-href="/pss/goPlan">·教学教研</a></li>\
+		<li><a href="javascript:;" data-href="/pss/goTeacher">教师督导</a></li>' );
+	$('.top_box .user').addClass( 'flagship' );
+}else{
+    let icon_class = +$('#type').val() < 2 ? 'direct' : 'cooperation';
+	$('.top_box .user').addClass( icon_class );
 }
 
 
@@ -649,7 +662,7 @@ $.mainBox.on('click', '.slideHide', function(){
 				btns: ['confirm']
 			});
         },
-        runDone: function($this, $thisBox, dialogClose) {
+        runDone: function($this, $thisBox, dialogClose, dialogLoadingHandle) {
             _dialogClose_addLessonPop = dialogClose;
             //studentChecked_addLesson
 			const sub_data = $.form.get({
@@ -665,6 +678,7 @@ $.mainBox.on('click', '.slideHide', function(){
         	let studentChecked_addLesson_obj = Array.from(new Set(studentChecked_addLesson)).map((item)=>{
         		return {sid: +item};
         	});
+        	dialogLoadingHandle( true, $this );
 			sub_data.students = studentChecked_addLesson_obj;
 			sub_data.date = currentDate;
 			sub_data.tid = +sub_data.tid;
@@ -681,20 +695,24 @@ $.mainBox.on('click', '.slideHide', function(){
 				success: (res) => {
 					if( res.errcode != 0 ){
 		         		$.dialogFull.Tips( res.errmsg );
+		        		dialogLoadingHandle( false, $this );
 						return;
 					}
 		        	$.dialogFull.Tips( "提交成功！" );
+		        	dialogLoadingHandle( false, $this );
 				    _dialogClose_addLessonPop(1);
 				    _dialogClose_addLessonPop_getZoneStudentList(1);
 				    studentChecked_addLesson = [];
 		        	getZoneDayLessons( currentDate );
 				},
 		        error: function(){
+		        	dialogLoadingHandle( false, $this );
 		        	$.dialogFull.Tips( "网络错误，请稍后重试" );
 		        }
 			});
 
         },
+        runDoneLoading: true,
         runClose: function($this, $thisBox, dialogClose) {
             _dialogClose_addLessonPop = dialogClose;
         }
@@ -730,6 +748,7 @@ $.mainBox.on('click', '.slideHide', function(){
         cacheId: 'student_box_getZoneStudentList', //开启必须使用唯一标示！！！
         title: '学员列表',//弹框标题
         content: '',//弹框内容区
+        confirm: 'alert',
         showCallback: function($thisBox, $contentBox){
         	getZoneStudentList( 'student_box_getZoneStudentList' );
         },
@@ -864,6 +883,7 @@ $(document).off('click', '.student').on('click', '.student', function(){
          	dialogClose();
         	$( '.addLesson' ).click();
         },
+        closeBtnText: false,
         runClose: function($this, $thisBox, dialogClose) {
         	_dialogClose_addLessonPop_getZoneStudentList = dialogClose;
         	$( '.addLesson' ).click();

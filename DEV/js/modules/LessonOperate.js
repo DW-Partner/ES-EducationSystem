@@ -305,12 +305,9 @@ $.mainBox.on('click', '#submit_edit', ()=>{
         cacheId: 'getZoneStudentListCachId002', //开启必须使用唯一标示！！！
         title: '学员列表',//弹框标题
         content: '',//弹框内容区
+        confirm: 'alert',
         showCallback: function($thisBox, $contentBox){
         	getZoneStudentList();
-        },
-        runDone: function($this, $thisBox, dialogClose) {
-        	_dialogClose = dialogClose;
-            dialogClose();
         },
         runClose: function($this, $thisBox, dialogClose) {
         	_dialogClose = dialogClose;

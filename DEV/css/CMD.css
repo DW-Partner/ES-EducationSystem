@@ -1093,11 +1093,16 @@ input[type="number"]{
     margin:0 5px;
     animation: fadeShow .3s;
 }
-.dialogPopBox .btn-Grey{
+.dialogPopBox .btn-Grey, .dialogPopBox .btn_loading{
     line-height: 34px;
     border: 1px solid #ced0da; 
     background: #f4f6f9;
     color: #393C40;
+}
+.dialogPopBox .btn_loading{
+    background: #ddd;
+    color: #999;
+    cursor: no-drop;
 }
 .bodyCover{
     position: fixed;
