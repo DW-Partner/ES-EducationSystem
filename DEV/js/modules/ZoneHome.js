@@ -66,8 +66,19 @@ const tpl = {
                 <a href="javascript:;" class="btn" id="addStudents">选择学员</a>
             </li>
             <li>
-                <span class="wide">扣减课时数</span>
-                <input type="text" placeholder="请输入扣减课时数" name="deduction_lessons" data-validate="number"/>
+                <span class="wide"><i>*</i>扣减课时数</span>
+                <select name="deduction_lessons" data-validate="any">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
             </li>
         </ul>`
 }
@@ -385,7 +396,7 @@ let getZoneDayLessons = ( date )=>{
 
 CalendarHandler.initialize();
 
-let getLessonsMissList = ( classid, lessonid )=>{
+let getLessonsMissList = ( classid, lessonid, makeupflag )=>{
     $.ajax({
 	    type: "post",
 	    dataType: "json",
@@ -394,7 +405,8 @@ let getLessonsMissList = ( classid, lessonid )=>{
 	        code: $('#zone_code').val(),
 	        zoneid: $('#zone_zoneid').val(),
 	        classid: classid,
-	        lessonid: lessonid
+	        lessonid: lessonid,
+	        makeupflag: makeupflag
 	    },
 	    success: (res)=>{
 	        if( res.errcode != 0 ){
@@ -732,10 +744,11 @@ $.mainBox.on('click', '.slideHide', function(){
 	}
 	classid = info.class_id;
 	lessonid = info.lesson_id;
+	const makeupflag = info.class_name.indexOf( '-加课' ) > -1 ? 1 : 0;
 	$( '.info_box' ).show();
 	$(this).addClass( 'on' ).siblings( '.on' ).removeClass( 'on' );
 	$( '.lesson_box' ).html( replaceTemplate( tpl.info, info ) );
-	getLessonsMissList( classid, lessonid );
+	getLessonsMissList( classid, lessonid, makeupflag );
 	$( '.qr_box' ).hide();
 	info.show && getClassLessonSignQrcode( classid, lessonid );
 }).on('click', '.student_box_DEL', function(){

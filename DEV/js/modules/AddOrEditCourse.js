@@ -441,3 +441,7 @@ $.mainBox.on('click', '#submit_course', function(){
     const val = $(this).val();
     $('[name="next_courseid"]').append('<option value="-1">' + ('循环使用本课程' || val) + '</option>')
 })
+
+$.distory = ()=>{
+    $.onEdit = false;
+};

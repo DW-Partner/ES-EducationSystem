@@ -134,7 +134,8 @@
 				// 	window.location.href = 'xxxx';
 				// 	return;
 				// }
-				$.distory();
+				$.distory && $.distory();
+				$.distory = null;
 				$.mainBox.off();
 				that.addClass('on').siblings('.on').removeClass('on');
 
@@ -172,7 +173,8 @@
 			url: _data.url,
 			data: _data.data || base_data,
 			success: (html)=>{
-				$.distory();
+				$.distory && $.distory();
+				$.distory = null;
 				$.mainBox.off();
 
 				var html = html.replace(/\=\"\/res/ig,'="http://127.0.0.1:9091/res');
@@ -204,7 +206,8 @@
                 	$.dialogFull.Tips( res.errmsg );
 					return;
 				}
-				$.distory();
+				$.distory && $.distory();
+				$.distory = null;
             	$.dialogFull.Tips( "操作成功" );
             	setTimeout(()=>{
 					window.location.href = '/pss/goSchoolLogin';//res.data.url;
