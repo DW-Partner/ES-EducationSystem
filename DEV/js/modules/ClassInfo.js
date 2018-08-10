@@ -138,7 +138,7 @@ let getZoneSummary = ()=>{
 	            $.dialogFull.Tips( res.errmsg );
 	             return;
 	        }
-			let select = '学员列表：<select id="students"><option value="">所有</option>';
+			let select = '进入学员课表：<select id="students"><option value="">所有</option>';
 			res.data.students.map(function(item){
 			    select += '<option value="' + item.sid + '">' + item.name + '</option>'
 			});
