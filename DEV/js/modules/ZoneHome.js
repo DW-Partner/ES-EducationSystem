@@ -14,7 +14,7 @@ let $yearItem;
 let $next;
 let currentDate;
 let currentDate_normal;
-
+let makeupflag;
 let classid;
 let lessonid;
 
@@ -610,7 +610,7 @@ websocket.onmessage = function (event) {
 	}catch(e){
 		console.log(e);
 	}
-	data.ajax === 'getLessonsMissList' && currentDate_normal && getLessonsMissList( classid, lessonid );
+	data.ajax === 'getLessonsMissList' && currentDate_normal && getLessonsMissList( classid, lessonid, makeupflag );
 	// 解析json: {"msg_type":"ajax","ajax":"getLessonsMissList"},刷新对应的接口
     // console.log( event.data );
     //setMessageInnerHTML(event.data);
@@ -744,7 +744,7 @@ $.mainBox.on('click', '.slideHide', function(){
 	}
 	classid = info.class_id;
 	lessonid = info.lesson_id;
-	const makeupflag = info.class_name.indexOf( '-加课' ) > -1 ? 1 : 0;
+	makeupflag = info.class_name.indexOf( '-补课' ) > -1 ? 1 : 0;
 	$( '.info_box' ).show();
 	$(this).addClass( 'on' ).siblings( '.on' ).removeClass( 'on' );
 	$( '.lesson_box' ).html( replaceTemplate( tpl.info, info ) );
