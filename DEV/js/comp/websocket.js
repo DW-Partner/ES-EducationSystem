@@ -6,7 +6,7 @@
     		console.log("输入校区id"); 
     	}else {
             try{
-                websocket = new WebSocket("ws://pss.idrpeng.com/wsZoneConn?zoneid=" + zoneid);
+                websocket = new WebSocket("ws://app.peishengsu.com/wsZoneConn?zoneid=" + zoneid);
             }catch(e){
                 console.log( e );
             }
