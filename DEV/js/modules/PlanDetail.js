@@ -31,7 +31,7 @@ let getPlanDetail = ()=>{
 	    dataType: "json",
 	    url: '/pss/getPlanDetail',
 	    data: {
-	        code: $('#school_code').val(),
+	        code: $('#school_code').val() || $('#zone_code').val(),
 	        courseid: $('#courseid').val(),
 	        lessonid: $('#lessonid').val(),
 	        planid: $('#planid').val(),
