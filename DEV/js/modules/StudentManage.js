@@ -32,6 +32,9 @@
             <a href="JavaScript:;" data-href="/pss/goJoinToClass?sid={sid}&page={_page}" data-sid="{sid}">加入班级</a>\
             <em class="none{class_id}">|</em>\
             <a href="JavaScript:;" class="none{class_id} exitFromClass" data-sid={sid} data-page={_page}">退出班级</a>\
+            \
+            <a href="JavaScript:;" class="{isGraduate} runGraduate" data-sid={sid} data-page={_page}">毕业</a>\
+            \
             <br />\
             <a href="JavaScript:;" class="none{class_id} linkClass" data-sid={sid} data-page={_page}">学员课表</a>\
             <em class="none{class_id}">|</em>\
@@ -68,6 +71,10 @@ let getStudentsList = ()=>{
         eachDataHandle: function(item,pageNum,pageSize){
             item.isbinding = item.isbinding == 'yes' ? '<em class="isbinding"></em>' : '';
             item.ctime = item.ctime.split( ' ' )[0];
+
+
+            item.isGraduate = item.class_id ? 'none' : '';
+
             const class_id_arr = item.class_id ? item.class_id.toString().split( ',' ) : [];
             // class_id_arr.shift();
 
@@ -262,6 +269,37 @@ $.mainBox.on('click', '.exitFromClass_DEL', function(){
 
     $.ajaxGetHtml({
       url: `/pss/goClassInfo?sid=${sid}&classid=${class_id}&classname=${class_name}&page=${page}#goZoneClassManage`
+    })
+
+}).on('click', '.runGraduate', function(){
+    let self = $( this );
+    const sid = self.data('sid');
+    const page = self.data( 'page' );
+
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/pss/toBeGraduate',
+        data: {
+            code: $('#zone_code').val(),
+            zoneid: $('#zone_zoneid').val(),
+            sid: sid,
+            page: page
+        },
+        success: (res)=>{
+            if( res.errcode != 0 ){
+                $.dialogFull.Tips( res.errmsg );
+                 return;
+            }
+            $.dialogFull.Tips( "操作成功！" );
+            $.ajaxGetHtml({
+                url: res.data.url
+              //url: `/pss/goClassInfo?sid=${sid}&classid=${class_id}&classname=${class_name}&page=${page}#goZoneClassManage`
+            })
+        },
+        error: ()=>{
+            $.dialogFull.Tips( "网络错误，请稍后重试！" );
+        }
     })
 
 }).on('change', '.inputFile', function(){

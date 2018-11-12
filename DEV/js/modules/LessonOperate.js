@@ -13,6 +13,7 @@ const tpl = {
 			<p><b>原任课教师：</b>{old_teacher_name}</p>\
 			<p><b>课时主题：</b>{theme}</p>\
 			<p><b>课时教学大纲：</b>{outline}</p>\
+			<p><b style="width:140px;">每节课扣减课时数：</b>{deduction_lessons}</p>\
 			<p class="classLessonStudentList"><b>学员列表：</b></p>'
 
 	//'{"plan_time":"xxx","tid":"xxx","teacher_name":"xxx","outline":"xxx"}}'
@@ -74,8 +75,12 @@ let getLessonsDetail = ()=>{
 	        }
 	        const html = replaceTemplate( tpl.info, res.data );
 	        $('.info').html( html );
+	        if( sid ){
+				$('.info p').eq( 4 ).remove();
+			}
 	        $('#plan_time').val( res.data.plan_time );
 	        $('[name=tid]').val( res.data.tid );
+	        $('[name=deduction_lessons]').val( res.data.deduction_lessons );
 
 			getClassLessonStudentList();
 	        
@@ -87,6 +92,7 @@ let getLessonsDetail = ()=>{
 }
 
 if( sid ){
+	$('.pub_form ul li').eq( 3 ).remove();
 	$('.pub_form ul li').eq( 2 ).remove();
 }
 
@@ -213,6 +219,7 @@ if( status == '0' ){
 	});
 }
 
+
 let studentChecked = [];
 let _dialogClose = ()=>{};
 $.mainBox.on('click', '#submit_edit', ()=>{
@@ -230,6 +237,7 @@ $.mainBox.on('click', '#submit_edit', ()=>{
 	}
 
 	sub_data.tid = +sub_data.tid;
+	sub_data.deduction_lessons = +sub_data.deduction_lessons || 1;
 	if( $('#auto').length ){
 		sub_data.auto = $('#auto:checked').val() ? true : false;
 	}

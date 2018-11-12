@@ -5,7 +5,11 @@ const tpl = '<li>\
                 <div class="item"><p><span>{time}</span></p></div>\
                 <div class="item"><p><span>{money}</span></p></div>\
                 <div class="item"><p><span>{lessons}</span></p></div>\
+                <div class="item"><p><span>{off_lessons}</span></p></div>\
                 <div class="item flex_3"><p><span>{notes}</span></p></div>\
+                <div class="item"><p><span>\
+                 <a href="JavaScript:;" class="delStudentPayRecord" data-time="{time}" data-money="{money}" data-lessons="{lessons}">删除</a>\
+                 </span></p></div>\
             </li>';
 const sid = $('#sid').val();
 
@@ -91,13 +95,30 @@ $.mainBox.on('click', '#submit', function(){
     const lessons = $('[name="lessons"]').val();
     const is_pass = ( /^-?[1-9]\d*$/ ).test( lessons );
     if( !is_pass ){
-      $.dialogFull.Tips( '请输入正确购买课时数!' );
+      $.dialogFull.Tips( '请输入购买课时数!' );
       return;
     }
     if( +lessons <= 0 && !sub_data.notes ){
       $.dialogFull.Tips( '购买课时数为负/零，请输入备注说明!' );
       return;
     }
+
+
+
+    const off_lessons = $('[name="off_lessons"]').val() || '0';
+    const is_pass_off = ( /^\d*$/ ).test( off_lessons );
+    if( !is_pass_off ){
+      $.dialogFull.Tips( '请输入正确核销课时数!(大于等于0)' );
+      return;
+    }
+    if( +off_lessons > +lessons ){
+      $.dialogFull.Tips( '核销课时数不得大于购买课时数!' );
+      return;
+    }
+
+
+
+
   
     let ajaxData = {
         code: $('#zone_code').val(),
@@ -105,6 +126,7 @@ $.mainBox.on('click', '#submit', function(){
         sid: sid,
         money: +sub_data.money,
         lessons: +lessons,
+        off_lessons: +off_lessons,
         expiretime: $( '#expiretime' ).val() || undefined,
         notes: sub_data.notes
     }
@@ -130,4 +152,45 @@ $.mainBox.on('click', '#submit', function(){
           $.dialogFull.Tips( "网络错误，请稍后重试" );
         }
     });
+}).on('click', '.delStudentPayRecord', function(){
+    const money = $(this).data('money');
+    const time = $(this).data('time');
+    const lessons = $(this).data('lessons');
+    $.dialogFull.Pop({
+        boxClass: '.delStudentPayRecordPop',
+        width: 400,
+        height: 'auto',
+        title: '提示',//弹框标题
+        content: '确定删除该条记录？',//弹框内容区
+        runDone: function($this, $thisBox, dialogClose) {
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/pss/delStudentPayRecord',
+                data: {
+                    code: $('#zone_code').val(),
+                    zoneid: $('#zone_zoneid').val(),
+                    sid: sid,
+                    money: money,
+                    time: time,
+                    lessons: lessons
+                },
+                success: (res)=>{
+                    if( res.errcode != 0 ){
+                        $.dialogFull.Tips( res.errmsg );
+                         return;
+                    }
+                    $.dialogFull.Tips( "操作成功！" );
+                    getStudentPayRecord();
+                    dialogClose();
+                },
+                error: ()=>{
+                    $.dialogFull.Tips( "网络错误，请稍后重试！" );
+                }
+            })  
+        },
+        runClose: function($this, $thisBox, dialogClose) {
+        }
+    });
+
 })

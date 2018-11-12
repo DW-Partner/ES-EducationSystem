@@ -295,6 +295,9 @@ $.mainBox.on('click', '#submit_add', ()=>{
 		delete sub_data.assistant_id;
 	}
 	sub_data.reserve_num = +sub_data.reserve_num;
+
+	sub_data.deduction_lessons = +sub_data.deduction_lessons || 1;
+
 	const start_time = $('[name=start_time]').val();
 	sub_data.time_regular = [];
 	sub_data.audit = $('#set_audit:checked').val() ? 'true' : 'false';
